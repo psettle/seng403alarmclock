@@ -5,17 +5,11 @@
 For controlling the GUI, use GuiController, it is a singleton class with these public methods
 
       class GuiController {
-      
         GetController()           - To access the singleton
-        
         SetTime(DateTime time)    - To set the time on the GUI
-        
         AddAlarm(Alarm alarm)     - To add a new alarm
-        
         TriggerAlarm(Alarm alarm) - To set the alarm off
-        
-        RemoveAlarm(Alarm alarm)  - To remove the alarm from the gui
-        
+        RemoveAlarm(Alarm alarm)  - To remove the alarm from the gui  
       }
       
 For responsing to the gui, you should implement GuiListener, and register it with GuiEventCaller like this
