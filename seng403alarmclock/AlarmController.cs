@@ -1,4 +1,5 @@
-﻿using System;
+﻿using seng403alarmclock.GUI;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -39,9 +40,11 @@ namespace seng403alarmclock
             }
             DateTime alarmTime = new DateTime(DateTime.Now.Year, DateTime.Now.Month, day, hour, minute, 0, DateTimeKind.Local);
             Alarm newAlarm = new Alarm(alarmTime);
-            Console.WriteLine(newAlarm.GetAlarmTime());
+            GuiController.GetController().AddAlarm(newAlarm);
+            //Console.WriteLine(newAlarm.GetAlarmTime());
             alarmList.Add(newAlarm);
         }
+
 
     }
 }
