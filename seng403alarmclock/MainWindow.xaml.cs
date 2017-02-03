@@ -34,7 +34,8 @@ namespace seng403alarmclock
             
 
             GuiController a = GuiController.GetController();
-
+            AlarmController ac = new AlarmController();
+            GuiEventCaller.GetCaller().AddListener(ac);
             a.SetTime(DateTime.Now);
 
             Alarm alarm = new Alarm();

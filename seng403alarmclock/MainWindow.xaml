@@ -27,6 +27,7 @@
         <TextBox x:Name="hours" BorderThickness="0" Grid.Column="1" HorizontalAlignment="Left" Height="14" Margin="7,288,0,0" TextWrapping="Wrap" Text="HH" VerticalAlignment="Top" Width="24"/>
         <TextBox x:Name="minutes" BorderThickness="0" Grid.Column="1" HorizontalAlignment="Left" Height="14" Margin="41,288,0,0" TextWrapping="Wrap" Text="MM" VerticalAlignment="Top" Width="38"/>
         <TextBox x:Name="colon" BorderThickness="0" Grid.Column="1" HorizontalAlignment="Left" Height="14" Margin="31,288,0,0" TextWrapping="Wrap" Text=":" VerticalAlignment="Top" Width="5"/>
+        <Label x:Name="label" Content="(24hr)" HorizontalAlignment="Left" Height="32" Margin="345,283,0,0" VerticalAlignment="Top" Width="43"/>
 
 
     </Grid>

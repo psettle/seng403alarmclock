@@ -6,14 +6,22 @@ namespace seng403alarmclock {
     /// </summary>
     public class Alarm {
 
+        private DateTime alarmTime { get; set; }
 
-        public Alarm() {
+        public Alarm()
+        {
 
+        }
+
+        public Alarm(DateTime alarmTime) {
+            this.alarmTime = alarmTime;
         }
 
         public DateTime GetAlarmTime() {
             //TODO: return a reasonable time
-            return DateTime.Now;
+            return alarmTime;
         }
+
+        
     }
 }
