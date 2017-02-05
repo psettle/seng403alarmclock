@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Timers;
 using System.Threading;
 
-namespace eng403alarmclock
+namespace seng403alarmclock
 {
     class Audio
     {

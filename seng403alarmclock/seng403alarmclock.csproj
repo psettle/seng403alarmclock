@@ -61,6 +61,8 @@
     </Page>
     <Compile Include="Alarm.cs" />
     <Compile Include="AlarmController.cs" />
+    <Compile Include="Audio.cs" />
+    <Compile Include="AudioController.cs" />
     <Compile Include="GUI\AlarmNotSetException.cs" />
     <Compile Include="GUI\AlarmRow.cs" />
     <Compile Include="App.xaml.cs">
