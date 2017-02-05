@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Timers;
 using System.Threading;
 
-namespace seng403alarmclock
+namespace eng403alarmclock
 {
     class Audio
     {
@@ -16,7 +16,23 @@ namespace seng403alarmclock
         {
             // code that will make reference to future audio files
             // for now the id will reference different beep frequencies
-            beepFrequency = Convert.ToInt32(ID);
+            switch (ID)
+            {
+                case "0":
+                    beepFrequency = 1;
+                    break;
+                case "1":
+                    beepFrequency = 5;
+                    break;
+                case "2":
+                    beepFrequency = 10;
+                    break;
+                default:
+                    beepFrequency = 1;
+                    break;
+
+            }
+            
         }
 
         public void playSound()

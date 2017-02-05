@@ -5,20 +5,23 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
 
-namespace seng403alarmclock
+namespace eng403alarmclock
 {
     public class AudioController
     {
-        /*static void Main(String[] args)
-        {
+        ~AudioController() {
 
-            //example of use:
+            endAllAlarms();
+        }
+
+        static void Main(String[] args)
+        {
             AudioController a = new AudioController();
-            a.beginAlarmNoise(2);
+            a.beginAlarmNoise(3);
             Thread.Sleep(10000);
-            a.endAlarmNoise(2);
+            a.endAlarmNoise(3);
             return;
-        }*/
+        }
 
         private Audio[] audios = new Audio[3];
         private Thread[] threads = new Thread[3];
@@ -38,12 +41,37 @@ namespace seng403alarmclock
 
         public void beginAlarmNoise(int alarmID)
         {
-            threads[alarmID].Start();
+
+            Console.Write("ass");
+            if(alarmID >= 0 && alarmID <= 2)
+            {
+                threads[alarmID].Start();
+            }
+            else
+            {
+                // currently do nothing 
+            }
+            
         }
         public void endAlarmNoise(int alarmID)
         {
-            audios[alarmID].endSound();
-            threads[alarmID].Abort();
+            if (alarmID >= 0 && alarmID <= 2)
+            {
+                audios[alarmID].endSound();
+                threads[alarmID].Abort();
+            }
+            else
+            {
+                // currently do nothing 
+            }
+        }
+        public void endAllAlarms()
+        {
+            for (int i = 0; i < audios.Length; i++)
+            {
+                audios[i].endSound();
+                threads[i].Abort();
+            }
         }
     }
 }
