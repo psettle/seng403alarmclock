@@ -30,20 +30,10 @@ namespace seng403alarmclock
             //note: this should probably be moved to another class, can't be arsed right now
             this.AddAlarm.Click += AddAlarmClick;
 
-            //TEST CODE BELOW THIS LINE
-            
-
-            GuiController a = GuiController.GetController();
             AlarmController ac = new AlarmController();
-            GuiEventCaller.GetCaller().AddListener(ac);
-            a.SetTime(DateTime.Now);
-
-            Alarm alarm = new Alarm();
+            GuiEventCaller.GetCaller().AddListener(ac);  
             
-            a.AddAlarm(alarm);
-            a.TriggerAlarm(alarm);
-            //a.RemoveAlarm(alarm);
-           
+            //TEST CODE BELOW THIS LINE
         }
 
         /// <summary>
