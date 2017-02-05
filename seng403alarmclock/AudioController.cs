@@ -5,32 +5,46 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
 
-namespace eng403alarmclock
+namespace seng403alarmclock
 {
     public class AudioController
     {
-        ~AudioController() {
+        /// <summary>
+        /// The private instance for the singleton
+        /// </summary>
+        private static AudioController instance = new AudioController();
 
-            endAllAlarms();
+        /// <summary>
+        /// Gets the singleton instance
+        /// </summary>
+        /// <returns>
+        /// The singleton instance
+        /// </returns>
+        public static AudioController GetController() {
+            return instance;
         }
-
-        static void Main(String[] args)
+       
+        /*static void Main(String[] args)
         {
             AudioController a = new AudioController();
             a.beginAlarmNoise(3);
             Thread.Sleep(10000);
             a.endAlarmNoise(3);
             return;
-        }
+        }*/
 
         private Audio[] audios = new Audio[3];
         private Thread[] threads = new Thread[3];
 
-        public AudioController()
+        /// <summary>
+        /// Initializes the audio driver
+        /// </summary>
+        private AudioController()
         {
             initializeAudio();
         }
-        public void initializeAudio()
+
+        private void initializeAudio()
         {
             for (int i = 0; i < 3; i++)
             {
@@ -69,8 +83,9 @@ namespace eng403alarmclock
         {
             for (int i = 0; i < audios.Length; i++)
             {
-                audios[i].endSound();
-                threads[i].Abort();
+                this.endAlarmNoise(i);
+                //audios[i].endSound();
+                //threads[i].Abort();
             }
         }
     }

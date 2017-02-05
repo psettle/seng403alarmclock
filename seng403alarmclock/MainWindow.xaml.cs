@@ -30,8 +30,6 @@ namespace seng403alarmclock
             //note: this should probably be moved to another class, can't be arsed right now
             this.AddAlarm.Click += AddAlarmClick;
 
-            AlarmController ac = new AlarmController();
-            GuiEventCaller.GetCaller().AddListener(ac);
 
             //TEST CODE BELOW THIS LINE      
         }
@@ -58,8 +56,7 @@ namespace seng403alarmclock
                 }
 
                 GuiEventCaller.GetCaller().NotifyAlarmRequested(hours, minutes);
-            } catch (FormatException ex) {
-                throw ex;
+            } catch (FormatException ex) {            
                 //no handling enabled right now
             }
         }
