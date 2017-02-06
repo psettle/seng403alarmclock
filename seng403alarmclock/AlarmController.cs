@@ -13,6 +13,7 @@ namespace seng403alarmclock
 
         private List<Alarm> alarmList = new List<Alarm>();
         private AudioController audioController = AudioController.GetController();
+        private GuiController guiController = GuiController.GetController();
 
         #endregion
 
@@ -44,6 +45,7 @@ namespace seng403alarmclock
         {
             int ringtoneIndex = 0;
             audioController.beginAlarmNoise(ringtoneIndex);
+            guiController.TriggerAlarm(alarm);
         }
 
         /// <summary>
