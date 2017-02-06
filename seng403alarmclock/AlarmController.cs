@@ -32,7 +32,8 @@ namespace seng403alarmclock
         public void AlarmRequested(int hour, int minute)
         {
             int day;
-            if (hour >= DateTime.Now.Hour) {
+            DateTime d = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, hour, minute,0,DateTimeKind.Local);
+            if (d > DateTime.Now) {
                 day = DateTime.Now.Day;
             } else {
                 //Console.WriteLine("Tomorrow");
