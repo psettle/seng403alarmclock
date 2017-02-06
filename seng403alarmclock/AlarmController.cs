@@ -9,7 +9,12 @@ namespace seng403alarmclock
 {
     class AlarmController : GUI.GuiEventListener
     {
+        #region fields and properties
+
         private List<Alarm> alarmList = new List<Alarm>();
+        private AudioController audioController = AudioController.GetController();
+
+        #endregion
 
         public void AlarmCanceled(Alarm alarm)
         {
@@ -19,6 +24,26 @@ namespace seng403alarmclock
         public void AlarmDismissed(Alarm alarm)
         {
             throw new NotImplementedException();
+        }
+        
+        /// <summary>
+        /// cycles through list of alarms to see which is ready to go off, then calls TriggerAlarm on each of them
+        /// </summary>
+        public void CheckAlarms()
+        {
+            foreach (Alarm a in alarmList) 
+                if (a.GetAlarmTime().CompareTo(DateTime.Now) >= 0 )         //possible bug: might need to be <= 0 
+                    TriggerAlarm(a);
+        }
+
+        /// <summary>
+        /// requests that the audio controller begin ringing with the ringtone at said index
+        /// </summary>
+        /// <param name="alarm"></param>
+        private void TriggerAlarm(Alarm alarm)
+        {
+            int ringtoneIndex = 0;
+            audioController.beginAlarmNoise(ringtoneIndex);
         }
 
         /// <summary>
@@ -45,7 +70,5 @@ namespace seng403alarmclock
             //Console.WriteLine(newAlarm.GetAlarmTime());
             alarmList.Add(newAlarm);
         }
-
-
     }
 }
