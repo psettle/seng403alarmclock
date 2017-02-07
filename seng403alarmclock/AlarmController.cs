@@ -7,13 +7,14 @@ using System.Threading.Tasks;
 
 namespace seng403alarmclock
 {
-    class AlarmController : GUI.GuiEventListener
+    class AlarmController : GUI.GuiEventListener, TimeListener
     {
         #region fields and properties
 
         private List<Alarm> alarmList = new List<Alarm>();
         private AudioController audioController = AudioController.GetController();
         private GuiController guiController = GuiController.GetController();
+        private TimeFetcher timeFetcher = new TimeFetcher();
 
         #endregion
 
@@ -30,10 +31,12 @@ namespace seng403alarmclock
         /// <summary>
         /// cycles through list of alarms to see which is ready to go off, then calls TriggerAlarm on each of them
         /// </summary>
-        public void CheckAlarms()
+        private void CheckAlarms()
         {
+            DateTime now = this.timeFetcher.getCurrentTime();
+
             foreach (Alarm a in alarmList) 
-                if (a.GetAlarmTime().CompareTo(DateTime.Now) >= 0 )         //possible bug: might need to be <= 0 
+                if (a.GetAlarmTime().CompareTo(now) <= 0 )         //possible bug: might need to be <= 0 
                     TriggerAlarm(a);
         }
 
@@ -44,7 +47,7 @@ namespace seng403alarmclock
         private void TriggerAlarm(Alarm alarm)
         {
             int ringtoneIndex = 0;
-            audioController.beginAlarmNoise(ringtoneIndex);
+            //audioController.beginAlarmNoise(ringtoneIndex);
             guiController.TriggerAlarm(alarm);
         }
 
@@ -58,19 +61,25 @@ namespace seng403alarmclock
         /// <param name="minute">The minute the alarm should go off</param>
         public void AlarmRequested(int hour, int minute)
         {
+            DateTime now = this.timeFetcher.getCurrentTime();
+
             int day;
-            DateTime d = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, hour, minute,0,DateTimeKind.Local);
-            if (d > DateTime.Now) {
-                day = DateTime.Now.Day;
+            DateTime d = new DateTime(now.Year, now.Month, now.Day, hour, minute,0,DateTimeKind.Local);
+            if (d > now) {
+                day = now.Day;
             } else {
                 //Console.WriteLine("Tomorrow");
-                day = (DateTime.Now.AddDays(1)).Day;
+                day = (now.AddDays(1)).Day;
             }
-            DateTime alarmTime = new DateTime(DateTime.Now.Year, DateTime.Now.Month, day, hour, minute, 0, DateTimeKind.Local);
+            DateTime alarmTime = new DateTime(now.Year, now.Month, day, hour, minute, 0, DateTimeKind.Local);
             Alarm newAlarm = new Alarm(alarmTime);
             GuiController.GetController().AddAlarm(newAlarm);
             //Console.WriteLine(newAlarm.GetAlarmTime());
             alarmList.Add(newAlarm);
+        }
+
+        public void TimePulse(DateTime currentTime) {
+            this.CheckAlarms();
         }
     }
 }
