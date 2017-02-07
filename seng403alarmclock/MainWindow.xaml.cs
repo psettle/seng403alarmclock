@@ -29,9 +29,28 @@ namespace seng403alarmclock
             GuiController.SetMainWindow(this);
             //note: this should probably be moved to another class, can't be arsed right now
             this.AddAlarm.Click += AddAlarmClick;
-
+            this.hours.GotKeyboardFocus += Hours_GotKeyboardFocus;
+            this.minutes.GotKeyboardFocus += Minutes_GotKeyboardFocus;
 
             //TEST CODE BELOW THIS LINE      
+        }
+
+        /// <summary>
+        /// Called when the user selects the textbox, clears the old content
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Minutes_GotKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e) {
+            this.minutes.Text = "";
+        }
+
+        /// <summary>
+        /// Called when the user selects the textbox, clears the old content
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Hours_GotKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e) {
+            this.hours.Text = "";
         }
 
         /// <summary>
