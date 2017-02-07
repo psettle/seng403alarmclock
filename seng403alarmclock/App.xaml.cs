@@ -23,6 +23,8 @@ namespace seng403alarmclock
             base.OnStartup(e);
             AlarmController ac = new AlarmController();
             GuiEventCaller.GetCaller().AddListener(ac);
+            TimeController tc = new TimeController();
+            TimePulseGenerator.fetch().add(tc);
         }
 
         /// <summary>

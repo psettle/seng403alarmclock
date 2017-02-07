@@ -1,9 +1,10 @@
 using System;
+using System.Collections.Generic;
 using System.Windows.Threading;
 
 
 
-namespace Clock {
+namespace seng403alarmclock {
 	public class TimeFetcher {
 	
 		public DateTime getCurrentTime() {
@@ -30,7 +31,7 @@ namespace Clock {
 			timer.Interval = new TimeSpan(0,0,0,0,100);
 			timer.Start();
 
-		};
+		}
 
 		private void Timer_Tick(object sender, EventArgs e) {
 			DateTime currentTime = time.getCurrentTime();
@@ -41,26 +42,13 @@ namespace Clock {
 
 		private static TimePulseGenerator instance = new TimePulseGenerator();
 
-		public TimePulseGenerator fetch() {
+		public static TimePulseGenerator fetch() {
 			return instance;
 		}
 	}
 
-		public static void Main() {
-			TimeFetcher t = new TimeFetcher();
-			while (true) {
-				DateTime currentTime = t.getCurrentTime();
-				Console.WriteLine(currentTime.ToString("G"));
-			}
-			
-		}
-	}
-
-	interface TimeListener{
-		public void TimePulse(DateTime currentTime);
-
-		
-
+	public interface TimeListener{
+		void TimePulse(DateTime currentTime);
 	}
 
 
