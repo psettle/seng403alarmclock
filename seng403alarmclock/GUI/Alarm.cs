@@ -13,19 +13,32 @@ namespace seng403alarmclock.GUI {
         private DateTime alarmTime { get; set; }
         private String alarmName { get; set; }
 
+        private Boolean isRinging;
+        public Boolean IsRinging
+        {
+            get
+            {
+                return this.isRinging;
+            }
+            set
+            {
+                this.isRinging = value;
+            }
+        }
         /// <summary>
         public Alarm()
         /// Create an alarm 5 minutes from now
         /// </summary>
         {
+            isRinging = false;
             alarmTime = DateTime.Now.AddMinutes(5);
             alarmName = "Created:" + DateTime.Now.ToString();
         }
 
         public Alarm(DateTime alarmTime) {
+            isRinging = false;
             this.alarmTime = alarmTime;
             alarmName = "Created:" + DateTime.Now.ToString();
-
         }
 
         public DateTime GetAlarmTime() {
