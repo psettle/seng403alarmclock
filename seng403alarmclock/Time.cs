@@ -1,13 +1,70 @@
 using System;
-using System.Threading;
+using System.Windows.Threading;
 
-public class TimeFetcher {
-	public static void Main() {
-		TimeSpan interval = new TimeSpan(0, 0, 0, 0, 100); //pulse rate = 100 miliseconds		
-		while(true) {
-			DateTime time = DateTime.Now; 				//fetch the system time
-			Console.WriteLine(time.ToString("G")); 		//write time
-			Thread.Sleep(interval); 					//pulse ten times a second
+
+
+namespace Clock {
+	public class TimeFetcher {
+	
+		public DateTime getCurrentTime() {
+			DateTime currentTime = DateTime.Now;
+			return currentTime;
+		}
+	
+	}
+
+
+
+	public class TimePulseGenerator {
+		private TimeFetcher time = new TimeFetcher();
+		private DispatcherTimer timer = new DispatcherTimer();
+		private List<TimeListener> Listeners = new List<TimeListener>();
+
+		public void add(TimeListener listener) {
+			Listeners.Add(listener);
+		}
+
+		private TimePulseGenerator(){
+
+			timer.Tick += Timer_Tick;
+			timer.Interval = new TimeSpan(0,0,0,0,100);
+			timer.Start();
+
+		};
+
+		private void Timer_Tick(object sender, EventArgs e) {
+			DateTime currentTime = time.getCurrentTime();
+			foreach(TimeListener listener in Listeners) {
+				listener.TimePulse(currentTime);
+			}
+		}
+
+		private static TimePulseGenerator instance = new TimePulseGenerator();
+
+		public TimePulseGenerator fetch() {
+			return instance;
 		}
 	}
+
+		public static void Main() {
+			TimeFetcher t = new TimeFetcher();
+			while (true) {
+				DateTime currentTime = t.getCurrentTime();
+				Console.WriteLine(currentTime.ToString("G"));
+			}
+			
+		}
+	}
+
+	interface TimeListener{
+		public void TimePulse(DateTime currentTime);
+
+		
+
+	}
+
+
 }
+
+
+
