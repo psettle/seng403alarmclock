@@ -47,7 +47,7 @@ namespace seng403alarmclock
         private void TriggerAlarm(Alarm alarm)
         {
             int ringtoneIndex = 0;
-            //audioController.beginAlarmNoise(ringtoneIndex);
+            audioController.beginAlarmNoise(ringtoneIndex);
             guiController.TriggerAlarm(alarm);
         }
 
