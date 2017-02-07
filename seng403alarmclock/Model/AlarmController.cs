@@ -17,14 +17,32 @@ namespace seng403alarmclock.Model
 
         public void AlarmCanceled(Alarm alarm)
         {
-            throw new NotImplementedException();
+            ///throw new NotImplementedException();
+            alarmList.Remove(alarm);
+            guiController.RemoveAlarm(alarm);
         }
 
         public void AlarmDismissed(Alarm alarm)
         {
-            throw new NotImplementedException();
-        }
+            int ringtoneIndex = 0;
+             audioController.endAlarmNoise(0);
+            alarmList.Remove(alarm);
+            guiController.RemoveAlarm(alarm);
+
+            DateTime newTime = alarm.GetAlarmTime();
+          //  Console.WriteLine(alarm.GetAlarmTime());
+            newTime = newTime.AddDays(1);
+         //   Console.WriteLine(newTime);
+
+            Alarm newAlarm = new Alarm(newTime);
+            GuiController.GetController().AddAlarm(newAlarm);
+            //Console.WriteLine(newAlarm.GetAlarmTime());
+            alarmList.Add(newAlarm);
+
         
+            
+        }
+
         /// <summary>
         /// cycles through list of alarms to see which is ready to go off, then calls TriggerAlarm on each of them
         /// </summary>
@@ -46,6 +64,7 @@ namespace seng403alarmclock.Model
             int ringtoneIndex = 0;
             audioController.beginAlarmNoise(ringtoneIndex);
             guiController.TriggerAlarm(alarm);
+        
         }
 
         /// <summary>

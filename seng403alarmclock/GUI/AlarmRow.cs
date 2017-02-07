@@ -142,6 +142,7 @@ namespace seng403alarmclock.GUI {
             return this.storedAlarm;
         }
 
+
         /// <summary>
         /// Set the mode of the row to "Cancel", so it will generate cancel events
         /// </summary>

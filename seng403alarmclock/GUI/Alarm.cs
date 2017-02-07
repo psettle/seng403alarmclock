@@ -14,9 +14,9 @@ namespace seng403alarmclock.GUI {
         private String alarmName { get; set; }
 
         /// <summary>
+        public Alarm()
         /// Create an alarm 5 minutes from now
         /// </summary>
-        public Alarm()
         {
             alarmTime = DateTime.Now.AddMinutes(5);
             alarmName = "Created:" + DateTime.Now.ToString();
