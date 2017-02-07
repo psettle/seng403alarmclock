@@ -1,11 +1,7 @@
 ﻿using System;
 using seng403alarmclock.GUI;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace seng403alarmclock {
+namespace seng403alarmclock.Model {
     /// <summary>
     /// Basic controller for passes the time of day to the gui
     /// </summary>

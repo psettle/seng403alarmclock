@@ -7,6 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using seng403alarmclock;
+using seng403alarmclock.Model;
 
 namespace seng403alarmclock
 {

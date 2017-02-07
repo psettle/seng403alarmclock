@@ -1,5 +1,4 @@
-﻿using seng403alarmclock.GUI;
-using System;
+﻿using System;
 using System.Windows;
 using System.Windows.Controls;
 

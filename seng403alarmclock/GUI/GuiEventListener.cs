@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace seng403alarmclock.GUI {
+﻿namespace seng403alarmclock.GUI {
     /// <summary>
     /// This is the public interface for listening to the gui,
     /// new features may be added later (AlarmRequested will definately change)

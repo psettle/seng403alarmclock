@@ -55,16 +55,16 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Time.cs" />
-    <Compile Include="TimeController.cs" />
+    <Compile Include="Model\Time.cs" />
+    <Compile Include="Model\TimeController.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Compile Include="Alarm.cs" />
-    <Compile Include="AlarmController.cs" />
-    <Compile Include="Audio.cs" />
-    <Compile Include="AudioController.cs" />
+    <Compile Include="GUI\Alarm.cs" />
+    <Compile Include="Model\AlarmController.cs" />
+    <Compile Include="Model\Audio.cs" />
+    <Compile Include="Model\AudioController.cs" />
     <Compile Include="GUI\AlarmNotSetException.cs" />
     <Compile Include="GUI\AlarmRow.cs" />
     <Compile Include="App.xaml.cs">

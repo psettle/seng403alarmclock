@@ -2,9 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Windows.Threading;
 
-
-
-namespace seng403alarmclock {
+namespace seng403alarmclock.Model {
 	public class TimeFetcher {
 	
 		public DateTime getCurrentTime() {

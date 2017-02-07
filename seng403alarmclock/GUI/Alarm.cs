@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace seng403alarmclock {
+namespace seng403alarmclock.GUI {
     /// <summary>
     /// Internal representation of an alarm, add to it as necessairy
     /// 
