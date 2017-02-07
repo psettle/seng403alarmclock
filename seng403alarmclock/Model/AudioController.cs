@@ -51,8 +51,6 @@ namespace seng403alarmclock.Model
 
         public void beginAlarmNoise(int alarmID)
         {
-
-            Console.Write("ass");
             if(alarmID >= 0 && alarmID <= 2)
             {
                 threads[alarmID].Start();
@@ -80,8 +78,6 @@ namespace seng403alarmclock.Model
             for (int i = 0; i < audios.Length; i++)
             {
                 this.endAlarmNoise(i);
-                //audios[i].endSound();
-                //threads[i].Abort();
             }
         }
     }

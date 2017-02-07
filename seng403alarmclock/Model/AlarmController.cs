@@ -28,11 +28,13 @@ namespace seng403alarmclock.Model
              audioController.endAlarmNoise(0);
             alarmList.Remove(alarm);
             guiController.RemoveAlarm(alarm);
+            return;
+
+            //Don't need repeating alarms yet - Patrick
 
             DateTime newTime = alarm.GetAlarmTime();
-          //  Console.WriteLine(alarm.GetAlarmTime());
+          
             newTime = newTime.AddDays(1);
-         //   Console.WriteLine(newTime);
 
             Alarm newAlarm = new Alarm(newTime);
             GuiController.GetController().AddAlarm(newAlarm);
@@ -62,7 +64,7 @@ namespace seng403alarmclock.Model
         private void TriggerAlarm(Alarm alarm)
         {
             int ringtoneIndex = 0;
-            audioController.beginAlarmNoise(ringtoneIndex);
+            //audioController.beginAlarmNoise(ringtoneIndex);
             guiController.TriggerAlarm(alarm);
         
         }
