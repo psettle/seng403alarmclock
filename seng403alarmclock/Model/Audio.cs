@@ -5,7 +5,9 @@ namespace seng403alarmclock.Model
 {
     class Audio
     {
-        bool play = true;
+        private Thread thread;// = new Thread(new ThreadStart(playSound));
+        int alarmCount = 0;
+        bool play = false;
         int beepFrequency;
         public Audio(String AudioLocation, String ID)
         {
@@ -30,8 +32,30 @@ namespace seng403alarmclock.Model
             
         }
 
+        public void start()
+        {
+            if (alarmCount == 0)
+            {
+                thread = new Thread(new ThreadStart(playSound));
+                thread.Start();
+            }
+            incrementAlarmCount();
+            
+        }
+
+        public void end()
+        {
+            if (alarmCount == 1)
+            {
+                endSound();
+                thread.Abort();
+            }
+            decrementAlarmCount();
+        }
+
         public void playSound()
         {
+            play = true;
             while (play)
             {
                 Console.Beep();
@@ -41,6 +65,16 @@ namespace seng403alarmclock.Model
         public void endSound()
         {
             play = false;
+        }
+
+        public void incrementAlarmCount()
+        {
+            alarmCount++;
+        }
+
+        public void decrementAlarmCount()
+        {
+            alarmCount--;
         }
     }
 }

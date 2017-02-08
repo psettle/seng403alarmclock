@@ -30,7 +30,7 @@ namespace seng403alarmclock.Model
         }*/
 
         private Audio[] audios = new Audio[3];
-        private Thread[] threads = new Thread[3];
+        //private Thread[] threads = new Thread[3];
 
         /// <summary>
         /// Initializes the audio driver
@@ -45,15 +45,17 @@ namespace seng403alarmclock.Model
             for (int i = 0; i < 3; i++)
             {
                 audios[i] = new Audio("location", i.ToString());
-                threads[i] = new Thread(new ThreadStart(audios[i].playSound));
+                //threads[i] = new Thread(new ThreadStart(audios[i].playSound));
             }
         }
 
         public void beginAlarmNoise(int alarmID)
         {
-            if(alarmID >= 0 && alarmID <= 2)
+            if (alarmID >= 0 && alarmID <= 2)
             {
-                threads[alarmID].Start();
+                //audios[alarmID].incrementAlarmCount();
+                audios[alarmID].start();
+                //threads[alarmID].Start();
             }
             else
             {
@@ -65,8 +67,8 @@ namespace seng403alarmclock.Model
         {
             if (alarmID >= 0 && alarmID <= 2)
             {
-                audios[alarmID].endSound();
-                threads[alarmID].Abort();
+                audios[alarmID].end();
+                //threads[alarmID].Abort();
             }
             else
             {
