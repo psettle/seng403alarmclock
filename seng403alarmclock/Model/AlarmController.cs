@@ -52,9 +52,11 @@ namespace seng403alarmclock.Model
         {
             DateTime now = this.timeFetcher.getCurrentTime();
 
-            foreach (Alarm a in alarmList) 
-                if (a.GetAlarmTime().CompareTo(now) <= 0 )         //possible bug: might need to be <= 0 
+            foreach (Alarm a in alarmList)
+                if ( (a.GetAlarmTime().CompareTo(now) <= 0) && (!a.IsRinging) ) //possible bug: might need to be <= 0 
                     TriggerAlarm(a);
+                        
+                
         }
 
         /// <summary>
@@ -63,8 +65,10 @@ namespace seng403alarmclock.Model
         /// <param name="alarm"></param>
         private void TriggerAlarm(Alarm alarm)
         {
+            alarm.IsRinging = true;
             int ringtoneIndex = 0;
-            //audioController.beginAlarmNoise(ringtoneIndex);
+
+            audioController.beginAlarmNoise(ringtoneIndex);
             guiController.TriggerAlarm(alarm);
         
         }
