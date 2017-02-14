@@ -28,56 +28,8 @@ namespace seng403alarmclock
             InitializeComponent();
             GuiController.SetMainWindow(this);
             //note: this should probably be moved to another class, can't be arsed right now
-            this.AddAlarm.Click += AddAlarmClick;
-            this.hours.GotKeyboardFocus += Hours_GotKeyboardFocus;
-            this.minutes.GotKeyboardFocus += Minutes_GotKeyboardFocus;
-
+            this.AddAlarmButton.Click += AddAlarmButton_Click;
             //TEST CODE BELOW THIS LINE      
-        }
-
-        /// <summary>
-        /// Called when the user selects the textbox, clears the old content
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void Minutes_GotKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e) {
-            this.minutes.Text = "";
-        }
-
-        /// <summary>
-        /// Called when the user selects the textbox, clears the old content
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void Hours_GotKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e) {
-            this.hours.Text = "";
-        }
-
-        /// <summary>
-        /// Called when the add alarm button is clicked
-        /// </summary>
-        /// <param name="sender">?</param>
-        /// <param name="e">?</param>
-        private void AddAlarmClick(object sender, RoutedEventArgs e) {
-            string hoursStr = this.hours.Text;
-            string minutesStr = this.minutes.Text;
-
-            try {
-                int hours = int.Parse(hoursStr);
-                int minutes = int.Parse(minutesStr);
-
-                if(hours < 0 || hours > 23) {
-                    return;
-                }
-
-                if(minutes < 0 || minutes > 59) {
-                    return;
-                }
-
-                GuiEventCaller.GetCaller().NotifyAlarmRequested(hours, minutes);
-            } catch (FormatException ex) {            
-                //no handling enabled right now
-            }
         }
 
         /// <summary>
@@ -118,6 +70,12 @@ namespace seng403alarmclock
         /// </param>
         public void RemoveAlarmRow(AlarmRow row) {
             row.RemoveFromGUI();
+        }
+
+        private void AddAlarmButton_Click(object sender, RoutedEventArgs e) {
+            Controls controlWindow = new Controls(this.Left, this.Top, this.Height / 3, this.Width / 1.5);
+            controlWindow.ShowDialog();
+            controlWindow.Close();
         }
     }
 }

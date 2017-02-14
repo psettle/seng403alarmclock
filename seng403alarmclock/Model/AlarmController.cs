@@ -107,5 +107,21 @@ namespace seng403alarmclock.Model
         public void AlarmRequested(Alarm alarm, int hour, int minute, bool repeat, string audioFile, bool weekly, List<DayOfWeek> days) {
             throw new NotImplementedException();
         }
+
+        public void AlarmRequested(int hour, int minute, bool repeat, string audioFile, bool weekly, List<DayOfWeek> days) {
+            throw new NotImplementedException();
+        }
+
+        public void SnoozeRequested(Alarm alarm) {
+            throw new NotImplementedException();
+        }
+
+        public void SnoozePeriodChangeRequested(int minutes) {
+            throw new NotImplementedException();
+        }
+
+        public void ManualTimeRequested(int hours, int minutes) {
+            throw new NotImplementedException();
+        }
     }
 }
