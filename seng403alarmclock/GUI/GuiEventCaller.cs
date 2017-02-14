@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace seng403alarmclock.GUI {
     /// <summary>
@@ -7,7 +8,7 @@ namespace seng403alarmclock.GUI {
     /// Implemented as a singleton, so to add a listener go:
     /// GuiEventCaller.getCaller().AddListener(new GuiEventListener() {});
     /// </summary>
-    class GuiEventCaller {
+    class GuiEventCaller { 
         /// <summary>
         /// The singleton variable
         /// </summary>
@@ -82,6 +83,52 @@ namespace seng403alarmclock.GUI {
         public void NotifyAlarmRequested(int hour, int minute) {
             foreach(GuiEventListener listener in listeners) {
                 listener.AlarmRequested(hour, minute);
+            }
+        }
+
+        /// <summary>
+        /// Notify all listeners that an alarm was requested
+        /// </summary>
+        /// <param name="hour">The hour the user wants an alarm at (24h)</param>
+        /// <param name="minute">The minute the user wants an alarm at</param>
+        /// <param name="repeat">True if the user wants the alarm to repeat</param>
+        /// <param name="audioFile">The filename for the audio sound to play when the alarm goes off</param>
+        /// <param name="weekly">True if the user wants the alarm to use a weekly scheduling period</param>
+        /// <param name="days">Which days of the week the alarm should go off on, only used for weekly scheduling</param>
+        public void NotifyAlarmRequested(int hour, int minute, bool repeat, string audioFile, bool weekly, List<DayOfWeek> days) {
+            foreach (GuiEventListener listener in listeners) {
+                listener.AlarmRequested(hour, minute, repeat, audioFile, weekly, days);
+            }
+        }
+
+        /// <summary>
+        /// Notify all listeners that a snooze was requested
+        /// </summary>
+        /// <param name="alarm"></param>
+        public void NotifySnoozeRequested(Alarm alarm) {
+            foreach (GuiEventListener listener in listeners) {
+                listener.SnoozeRequested(alarm);
+            }
+        }
+
+        /// <summary>
+        /// Notify all listeners that a snooze time period change was requested
+        /// </summary>
+        /// <param name="minutes">The minutes to change the snooze to</param>
+        public void NotifySnoozePeriodChangeRequested(int minutes) {
+            foreach (GuiEventListener listener in listeners) {
+                listener.SnoozePeriodChangeRequested(minutes);
+            }
+        }
+
+        /// <summary>
+        /// Notify all listeners that a manual time request was created
+        /// </summary>
+        /// <param name="hours">The hour the user wants to change the time to (24h)</param>
+        /// <param name="minutes">>The minute the user wants to change the time to</param>
+        public void NotifyManualTimeRequested(int hours, int minutes) {
+            foreach (GuiEventListener listener in listeners) {
+                listener.ManualTimeRequested(hours, minutes);
             }
         }
     }

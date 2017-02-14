@@ -158,5 +158,12 @@ namespace seng403alarmclock.GUI {
             this.mode = ModeType.Dismiss;
             this.AlterText("Dismiss");
         }
+
+        /// <summary>
+        /// Recheck the alarm attributes to change the GUI appropriately
+        /// </summary>
+        public void Update() {
+
+        }
     }
 }

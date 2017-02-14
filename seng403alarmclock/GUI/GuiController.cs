@@ -86,8 +86,23 @@ namespace seng403alarmclock.GUI {
         /// <exception cref="AlarmNotSetException">
         /// If the provided alarm was never used to create a row, this exception will be thrown
         /// </exception>
+        [Obsolete("Use UpdateAlarm after setting its status to ringing")]
         public void TriggerAlarm(Alarm alarm) {
             this.GetAlarmRow(alarm).SetDismiss();
+        }
+
+        /// <summary>
+        /// Causes the GUI to recheck an alarm object for a state change and change appropriately
+        /// 
+        /// The alarm must already have been added with AddAlarm
+        /// </summary>
+        /// <param name="alarm">The alarm object to check</param>
+        /// <exception cref="AlarmNotSetException">
+        /// If the provided alarm was never used to create a row, this exception will be thrown
+        /// </exception>
+        public void UpdateAlarm(Alarm alarm) {
+            AlarmRow row = this.GetAlarmRow(alarm);
+            row.Update();
         }
 
         /// <summary>
@@ -105,7 +120,26 @@ namespace seng403alarmclock.GUI {
             activeAlarms.Remove(alarm);
         }
 
-       
+        /// <summary>
+        /// Sets the list of files that can be used for alarm tones
+        /// </summary>
+        /// <param name="names">
+        /// A table where filename is used as the index, and a user friendly name is used as the value, for example:
+        /// "alarm.wav" => "Default Tone",
+        /// "siren.wav" => "Banshee Call",
+        /// 
+        /// </param>
+        public void SetAudioFileNames(Dictionary<string, string> names) {
+
+        }
+
+        /// <summary>
+        /// Sets the default value for the snooze display field
+        /// </summary>
+        /// <param name="minutes">How many minutes the current snooze timer is</param>
+        public void SetSnoozeDisplayTime(int minutes) {
+
+        }
 
 
 

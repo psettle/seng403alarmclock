@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace seng403alarmclock.GUI {
     /// <summary>
@@ -46,6 +47,31 @@ namespace seng403alarmclock.GUI {
             return alarmTime;
         }
 
-        
+        /// <summary>
+        /// Indicates if the alarm repeats or not
+        /// </summary>
+        public bool IsRepeating { get; set; } = false;
+
+        /// <summary>
+        /// Indicates if the alarm is currently snoozing or not
+        /// </summary>
+        public bool IsSnoozing { get; set; } = false;
+
+        /// <summary>
+        /// Indicates if the alarm is running a weekly cycle, instead of a daily cycle
+        /// </summary>
+        public bool IsWeekly { get; set; } = false;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns>If this.IsWeekly, returns a list of days the alarm goes off on, otherwise returns null</returns>
+        public List<DayOfWeek> GetWeekdays() {
+            return null;
+        }
+
+
+
+
     }
 }

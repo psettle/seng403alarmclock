@@ -103,5 +103,9 @@ namespace seng403alarmclock.Model
         public void TimePulse(DateTime currentTime) {
             this.CheckAlarms();
         }
+
+        public void AlarmRequested(Alarm alarm, int hour, int minute, bool repeat, string audioFile, bool weekly, List<DayOfWeek> days) {
+            throw new NotImplementedException();
+        }
     }
 }
