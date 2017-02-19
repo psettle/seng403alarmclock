@@ -5,18 +5,19 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:seng403alarmclock"
         mc:Ignorable="d"
-        Title="Controls" Height="158.621" Width="234.562">
+        Title="Controls" Height="174" Width="234.562">
     <Viewbox>
         <Grid>
-            <Button x:Name="AddAlarm" Content="Add" BorderThickness="1" BorderBrush="DarkGray" Background="White" HorizontalAlignment="Left" Height="23" Margin="110,5,0,0" VerticalAlignment="Top" Width="35"/>
-            <TextBox x:Name="hours" BorderThickness="0" HorizontalAlignment="Left" Height="14" Margin="7,10,0,0" TextWrapping="Wrap" Text="HH" VerticalAlignment="Top" Width="24"/>
-            <TextBox x:Name="minutes" BorderThickness="0" HorizontalAlignment="Left" Height="14" Margin="41,10,0,0" TextWrapping="Wrap" Text="MM" VerticalAlignment="Top" Width="38"/>
-            <TextBlock x:Name="colon" HorizontalAlignment="Left" Height="14" Margin="31,10,0,0" TextWrapping="Wrap" Text=":" VerticalAlignment="Top" Width="5"/>
-            <Label x:Name="label" Content="(24hr)" HorizontalAlignment="Left" Height="32" Margin="66,4,0,0" VerticalAlignment="Top" Width="43"/>
-            <Button x:Name="hrUp" Content="/\" HorizontalAlignment="Left" VerticalAlignment="Top" Width="22" Click="IncreaseHoursClick" Margin="7,-15,0,0"/>
-            <Button x:Name="minUp" Content="/\" HorizontalAlignment="Left" VerticalAlignment="Top" Width="22" Click="IncreaseMinutesClick" Margin="44,-15,0,0"/>
-            <Button x:Name="minDown" Content="\/" HorizontalAlignment="Left" VerticalAlignment="Top" Width="22" Click="DecreaseMinutesClick" Margin="44,29,0,-13"/>
-            <Button x:Name="hrDown" Content="\/" HorizontalAlignment="Left" VerticalAlignment="Top" Width="22" Click="DecreaseHoursClick" Margin="7,29,0,-13"/>
+            <Button x:Name="AddAlarm" Grid.Row ="1" Content="Add" BorderThickness="1" BorderBrush="DarkGray" Background="White" HorizontalAlignment="Left" Height="23" Margin="110,5,0,0" VerticalAlignment="Top" Width="35"/>
+            <TextBox x:Name="hours" Grid.Row ="1" BorderThickness="0" HorizontalAlignment="Left" Height="14" Margin="7,10,0,0" TextWrapping="Wrap" Text="HH" VerticalAlignment="Top" Width="24"/>
+            <TextBox x:Name="minutes" Grid.Row ="1" BorderThickness="0" HorizontalAlignment="Left" Height="14" Margin="41,10,0,0" TextWrapping="Wrap" Text="MM" VerticalAlignment="Top" Width="38"/>
+            <TextBlock x:Name="colon" Grid.Row ="1" HorizontalAlignment="Left" Height="14" Margin="31,10,0,0" TextWrapping="Wrap" Text=":" VerticalAlignment="Top" Width="5"/>
+            <Label x:Name="label" Grid.Row ="1" Content="(24hr)" HorizontalAlignment="Left" Height="32" Margin="66,4,0,0" VerticalAlignment="Top" Width="43"/>
+            <Button x:Name="hrUp"  Grid.Row ="0"  Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" FontFamily="Segoe UI Symbol" Content="&#xE014;" HorizontalAlignment="Left" VerticalAlignment="Top" Width="22" Click="IncreaseHoursClick" Margin="7,-8,0,0"/>
+            <Button x:Name="minUp" Grid.Row ="0" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" FontFamily="Segoe UI Symbol" Content="&#xE014;" HorizontalAlignment="Left" VerticalAlignment="Top" Width="22" Click="IncreaseMinutesClick" Margin="43,-8,0,0"/>
+            <Button x:Name="minDown" Grid.Row ="2" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" FontFamily="Segoe UI Symbol" Content="&#xE015;" HorizontalAlignment="Left" VerticalAlignment="Top" Width="22" Click="DecreaseMinutesClick" Margin="43,23,0,-7"/>
+            <Button x:Name="hrDown" Grid.Row ="2" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" FontFamily="Segoe UI Symbol" Content="&#xE015;" HorizontalAlignment="Left" VerticalAlignment="Top" Width="22" Click="DecreaseHoursClick" Margin="7,23,0,-7"/>
+            <Label x:Name="label1" Content="Label" HorizontalAlignment="Left" Margin="7,41,0,0" VerticalAlignment="Top" Width="99" Height="4" Visibility="Hidden"/>
         </Grid>
     </Viewbox>
 </Window>
