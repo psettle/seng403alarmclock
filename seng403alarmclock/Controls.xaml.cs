@@ -40,7 +40,7 @@ namespace seng403alarmclock {
 
         private void IncreaseMinutesClick(object sender, RoutedEventArgs e)
         {
-            if (this.minutes.Text == "MM")
+            if (this.minutes.Text == "MM" || this.minutes.Text == "")
             {
                 this.minutes.Text = "0";
                 this.hours.Text = "0";
@@ -61,7 +61,7 @@ namespace seng403alarmclock {
 
         private void IncreaseHoursClick(object sender, RoutedEventArgs e)
         {
-            if (this.minutes.Text == "MM")
+            if (this.minutes.Text == "MM" || this.hours.Text == "")
             {
                 this.minutes.Text = "0";
                 this.hours.Text = "0";
@@ -81,7 +81,7 @@ namespace seng403alarmclock {
 
         private void DecreaseMinutesClick(object sender, RoutedEventArgs e)
         {
-            if (this.minutes.Text == "MM")
+            if (this.minutes.Text == "MM" || this.minutes.Text == "")
             {
                 this.minutes.Text = "0";
                 this.hours.Text = "0";
@@ -101,7 +101,7 @@ namespace seng403alarmclock {
 
         private void DecreaseHoursClick(object sender, RoutedEventArgs e)
         {
-            if (this.minutes.Text == "MM")
+            if (this.minutes.Text == "MM" || this.hours.Text == "")
             {
                 this.minutes.Text = "0";
                 this.hours.Text = "0";
