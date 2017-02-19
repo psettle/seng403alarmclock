@@ -101,6 +101,8 @@ namespace seng403alarmclock.GUI {
             }
         }
 
+        #region snooze
+
         /// <summary>
         /// Notify all listeners that a snooze was requested
         /// </summary>
@@ -120,6 +122,8 @@ namespace seng403alarmclock.GUI {
                 listener.SnoozePeriodChangeRequested(minutes);
             }
         }
+
+        #endregion
 
         /// <summary>
         /// Notify all listeners that a manual time request was created

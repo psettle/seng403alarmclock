@@ -77,5 +77,11 @@ namespace seng403alarmclock
             controlWindow.ShowDialog();
             controlWindow.Close();
         }
+
+        private void Snooze_Button_Click(object sender, RoutedEventArgs e)
+        {
+            GuiEventCaller.GetCaller().NotifySnoozeRequested(new Alarm() );         
+            // I think we should skip snoozing indivitual alarms. Users want X minutes of quiet time imo -Nathan
+        }
     }
 }

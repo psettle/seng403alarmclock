@@ -53,11 +53,6 @@ namespace seng403alarmclock.GUI {
         public bool IsRepeating { get; set; } = false;
 
         /// <summary>
-        /// Indicates if the alarm is currently snoozing or not
-        /// </summary>
-        public bool IsSnoozing { get; set; } = false;
-
-        /// <summary>
         /// Indicates if the alarm is running a weekly cycle, instead of a daily cycle
         /// </summary>
         public bool IsWeekly { get; set; } = false;
