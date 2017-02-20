@@ -41,6 +41,7 @@ namespace seng403alarmclock.GUI {
         public void AddListener(GuiEventListener listener) {
             listeners.Add(listener);
         }
+
         /// <summary>
         /// Removes a listener from the event caller
         /// </summary>

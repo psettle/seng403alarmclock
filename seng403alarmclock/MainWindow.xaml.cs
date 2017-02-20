@@ -28,11 +28,21 @@ namespace seng403alarmclock
             InitializeComponent();
             GuiController.SetMainWindow(this);
             //note: this should probably be moved to another class, can't be arsed right now
+            this.Snooze_Button_setHidden();
+
             this.AddAlarmButton.Click += AddAlarmButton_Click;
             this.Snooze_Button.Click += Snooze_Button_Click;
-            this.Snooze_Button_setHidden();
+            this.Options_Button.Click += Options_Button_Click;
             //TEST CODE BELOW THIS LINE      
         }
+
+        private void Options_Button_Click(object sender, RoutedEventArgs e)
+        {
+            OptionsWindow optionsWindow = new OptionsWindow(this.Left, this.Top, this.Height / 3, this.Width / 1.5);
+            optionsWindow.ShowDialog();
+            optionsWindow.Close();
+        }
+
 
         /// <summary>
         /// Sets the text for the time display directly
@@ -95,5 +105,6 @@ namespace seng403alarmclock
         {
             this.Snooze_Button.Visibility = Visibility.Hidden;
         }
+                
     }
 }

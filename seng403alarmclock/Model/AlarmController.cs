@@ -7,20 +7,20 @@ namespace seng403alarmclock.Model
     class AlarmController : GUI.GuiEventListener, TimeListener
     {
         #region fields and Properties
+        
+        //locals
+        private List<Alarm>     alarmList;
+        private AudioController audioController; 
+        private GuiController   guiController;   
+        private TimeFetcher     timeFetcher;
+        private DateTime        snoozeUntilTime;
 
-        private List<Alarm> alarmList = new List<Alarm>();
-        private AudioController audioController = AudioController.GetController();
-        private GuiController guiController = GuiController.GetController();
-        private TimeFetcher timeFetcher = new TimeFetcher();
+        //statics
+        private static int      snoozePeriod_minutes    = 1;
+        private static int      maxSnoozePeriod_minutes = 40;
 
-        private DateTime snoozeUntilTime;
-        private static int snoozePeriod_minutes             = 1;
-        private static int maxSnoozePeriod_minutes    = 40;
-
-        /// <summary>
-        /// Indicates the end of the snooze period
-        /// </summary>
-        public DateTime SnoozeUntilTime
+        //Properties
+        public DateTime         SnoozeUntilTime
         {
             get
             {
@@ -37,16 +37,20 @@ namespace seng403alarmclock.Model
         /// </summary>
         public AlarmController()
         {
-            this.snoozeUntilTime = DateTime.Now;
+            this.alarmList          = new List<Alarm>();
+            this.audioController    = AudioController.GetController();
+            this.guiController      = GuiController.GetController();
+            this.timeFetcher        = new TimeFetcher();
+
+            this.snoozeUntilTime = this.timeFetcher.getCurrentTime();
         }
 
         #endregion
-        
+
         #region dismiss/cancel alarms
 
         public void AlarmCanceled(Alarm alarm)
         {
-            ///throw new NotImplementedException();
             alarmList.Remove(alarm);
             guiController.RemoveAlarm(alarm);
         }
@@ -55,8 +59,10 @@ namespace seng403alarmclock.Model
         {
             int ringtoneIndex = 0;
             audioController.endAlarmNoise(ringtoneIndex);
-            alarmList.Remove(alarm);
-            guiController.RemoveAlarm(alarm);
+
+            AlarmCanceled(alarm);               //code reuse -N
+            //alarmList.Remove(alarm);
+            //guiController.RemoveAlarm(alarm);
 
             bool allIsQuiet = true;
             foreach (Alarm a in alarmList)
@@ -86,16 +92,14 @@ namespace seng403alarmclock.Model
 
         public void TimePulse(DateTime currentTime)
         {
-            this.CheckAlarms();
+            this.CheckAlarms(currentTime);
         }
 
         /// <summary>
         /// cycles through list of alarms to see which is ready to go off, then calls TriggerAlarm on each of them
         /// </summary>
-        private void CheckAlarms()
+        private void CheckAlarms(DateTime now)
         {
-            DateTime now = this.timeFetcher.getCurrentTime();
-
             if (CheckIfSnoozeOver(now))
                foreach (Alarm a in alarmList)
                     if ( CheckIfAlarmIsDue(a, now) && (!a.IsRinging) )
@@ -114,15 +118,10 @@ namespace seng403alarmclock.Model
             audioController.beginAlarmNoise(ringtoneIndex);
             alarm.IsRinging = true;
             guiController.TriggerAlarm(alarm);
+            //guiController.UpdateAlarm(alarm);
             guiController.Snooze_Btn_setVisible();
         }
-
-        private bool CheckIfAlarmIsDue(Alarm alarm, DateTime now)
-        {
-            return (alarm.GetAlarmTime().CompareTo(now) <= 0);
-        }
-
-
+        
         #endregion
 
         #region Alarm Requests
@@ -168,7 +167,9 @@ namespace seng403alarmclock.Model
         #endregion
 
         #region snooze
-
+        /// <summary>
+        /// wrapper for version not requiring alarm argument
+        /// </summary>
         public void SnoozeRequested(Alarm a) {
             this.SnoozeRequested();
         }
@@ -177,25 +178,20 @@ namespace seng403alarmclock.Model
         /// snooze alarms from being able to ring for snoozePeriod_minutes
         /// </summary>
         public void SnoozeRequested() {
-            if ( CheckIfSnoozeOver(DateTime.Now) )
+            DateTime now = this.timeFetcher.getCurrentTime();
+            if ( CheckIfSnoozeOver(now) )
             {
-                updateSnoozeUntilTime();
-                audioController.endAllAlarms();
+                updateSnoozeUntilTime(now);
                 guiController.Snooze_Btn_setHidden();
 
-                foreach (Alarm a in this.alarmList)
+                foreach (Alarm a in alarmList)
                 {
                     a.IsRinging = false;
+                    audioController.endAllAlarms();
                 }
-
             }
         }
-
-        private void updateSnoozeUntilTime()
-        {
-            this.snoozeUntilTime = DateTime.Now.AddMinutes(AlarmController.snoozePeriod_minutes);
-        }
-
+        
         /// <summary>
         /// sets snoozePeriod_minutes. if period > maxSnoozePeriod_minutes, sets it to maxSnoozePeriod_minutes instead. 
         /// </summary>
@@ -207,6 +203,21 @@ namespace seng403alarmclock.Model
                 AlarmController.snoozePeriod_minutes = maxSnoozePeriod_minutes;
         }
         
+        #endregion
+
+        #region helper functions
+        //these are mostly to make the above functions more readable
+
+        private bool CheckIfAlarmIsDue(Alarm alarm, DateTime now)
+        {
+            return (alarm.GetAlarmTime().CompareTo(now) <= 0);
+        }
+
+        private void updateSnoozeUntilTime(DateTime now)
+        {
+            this.snoozeUntilTime = new DateTime(now.Year, now.Month, now.Day, now.Hour, (now.Minute + AlarmController.snoozePeriod_minutes), 0);
+        }
+
         private bool CheckIfSnoozeOver(DateTime currentTime)
         {
             return (this.snoozeUntilTime.CompareTo(currentTime) <= 0);
@@ -219,8 +230,12 @@ namespace seng403alarmclock.Model
 
         #endregion
 
-       public void ManualTimeRequested(int hours, int minutes) {
+
+        public void ManualTimeRequested(int hours, int minutes) {
             throw new NotImplementedException();
         }
+
     }
 }
+
+

@@ -1,0 +1,16 @@
+﻿<Window x:Class="seng403alarmclock.GUI.OptionsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:seng403alarmclock.GUI"
+        mc:Ignorable="d"
+        Title="OptionsWindow" Height="300" Width="300">
+    <Grid>
+        <Button x:Name="SetSnoozePeriod_Button" Content="set Snooze Period" HorizontalAlignment="Left" Margin="49,55,0,0" VerticalAlignment="Top" Width="120"/>
+        <Label x:Name="Snooze_Period_minutes_Label" Content="1" HorizontalAlignment="Left" Margin="213,52,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="snooze_Plus" Content="+" Margin="234,55,44,0" VerticalAlignment="Top"/>
+        <Button x:Name="snooze_Minus" Content="-" HorizontalAlignment="Left" Margin="198,55,0,0" VerticalAlignment="Top" Width="15"/>
+
+    </Grid>
+</Window>
