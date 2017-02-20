@@ -26,7 +26,7 @@
             </ScrollViewer>
 
             <Button x:Name="AddAlarmButton" Content="Add Alarm" HorizontalAlignment="Left" Margin="29,300,0,0" VerticalAlignment="Top" Width="75" Grid.Column="1"/>
-            <Button x:Name="Snooze_Button" Content="Snooze" HorizontalAlignment="Left" Margin="78,239,0,0" VerticalAlignment="Top" Width="144" Height="48" Click="Snooze_Button_Click" BorderBrush="#FFDDDDDD"/>
+            <Button x:Name="Snooze_Button" Content="Snooze" HorizontalAlignment="Left" Margin="78,239,0,0" VerticalAlignment="Top" Width="144" Height="48" BorderBrush="#FFDDDDDD"/>
 
 
         </Grid>

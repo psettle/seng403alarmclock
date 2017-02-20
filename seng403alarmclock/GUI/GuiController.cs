@@ -89,6 +89,17 @@ namespace seng403alarmclock.GUI {
         [Obsolete("Use UpdateAlarm after setting its status to ringing")]
         public void TriggerAlarm(Alarm alarm) {
             this.GetAlarmRow(alarm).SetDismiss();
+            
+        }
+
+        public void Snooze_Btn_setVisible()
+        {
+            mainWindow.Snooze_Button_setVisible();
+        }
+
+        public void Snooze_Btn_setHidden()
+        {
+            mainWindow.Snooze_Button_setHidden();
         }
 
         /// <summary>

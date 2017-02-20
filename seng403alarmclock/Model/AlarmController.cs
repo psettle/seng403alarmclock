@@ -57,6 +57,14 @@ namespace seng403alarmclock.Model
             audioController.endAlarmNoise(ringtoneIndex);
             alarmList.Remove(alarm);
             guiController.RemoveAlarm(alarm);
+
+            bool allIsQuiet = true;
+            foreach (Alarm a in alarmList)
+                if (a.IsRinging)
+                    allIsQuiet = false;
+            if (allIsQuiet)
+                guiController.Snooze_Btn_setHidden();
+
             return;
 
             //Don't need repeating alarms yet - Patrick
@@ -88,12 +96,12 @@ namespace seng403alarmclock.Model
         {
             DateTime now = this.timeFetcher.getCurrentTime();
 
-            if (CheckIfSnoozeOver())
+            if (CheckIfSnoozeOver(now))
                foreach (Alarm a in alarmList)
-                    if ( CheckIfAlarmIsDue(a) && (!a.IsRinging) )
+                    if ( CheckIfAlarmIsDue(a, now) && (!a.IsRinging) )
                         TriggerAlarm(a);
             else
-              UpdateGUI_SnoozeRemaining_minutes();
+              UpdateGUI_SnoozeRemaining_minutes(now);
         }
         
         /// <summary>
@@ -106,11 +114,12 @@ namespace seng403alarmclock.Model
             audioController.beginAlarmNoise(ringtoneIndex);
             alarm.IsRinging = true;
             guiController.TriggerAlarm(alarm);
+            guiController.Snooze_Btn_setVisible();
         }
 
-        private bool CheckIfAlarmIsDue(Alarm alarm)
+        private bool CheckIfAlarmIsDue(Alarm alarm, DateTime now)
         {
-            return (alarm.GetAlarmTime().CompareTo(DateTime.Now) <= 0);
+            return (alarm.GetAlarmTime().CompareTo(now) <= 0);
         }
 
 
@@ -168,19 +177,20 @@ namespace seng403alarmclock.Model
         /// snooze alarms from being able to ring for snoozePeriod_minutes
         /// </summary>
         public void SnoozeRequested() {
-            if ( CheckIfSnoozeOver() )
+            if ( CheckIfSnoozeOver(DateTime.Now) )
             {
-                foreach (Alarm a in this.alarmList)
-                    a.IsRinging = false;
-                int ringtoneIndex = 0;                              //use foreach to identify correct alarmtone?
-                audioController.endAlarmNoise(ringtoneIndex);
                 updateSnoozeUntilTime();
+                audioController.endAllAlarms();
+                guiController.Snooze_Btn_setHidden();
+
+                foreach (Alarm a in this.alarmList)
+                {
+                    a.IsRinging = false;
+                }
+
             }
         }
 
-        /// <summary>
-        /// helper function: adds snoozePeriod_minutes to snoozeUntilTime
-        /// </summary>
         private void updateSnoozeUntilTime()
         {
             this.snoozeUntilTime = DateTime.Now.AddMinutes(AlarmController.snoozePeriod_minutes);
@@ -197,14 +207,14 @@ namespace seng403alarmclock.Model
                 AlarmController.snoozePeriod_minutes = maxSnoozePeriod_minutes;
         }
         
-        private bool CheckIfSnoozeOver()
+        private bool CheckIfSnoozeOver(DateTime currentTime)
         {
-            return (this.snoozeUntilTime.CompareTo(DateTime.Now) <= 0);
+            return (this.snoozeUntilTime.CompareTo(currentTime) <= 0);
         }
 
-        private void UpdateGUI_SnoozeRemaining_minutes()
+        private void UpdateGUI_SnoozeRemaining_minutes(DateTime now)
         {
-            this.guiController.SetSnoozeDisplayTime(this.snoozeUntilTime.Subtract(DateTime.Now).Minutes);
+            this.guiController.SetSnoozeDisplayTime(this.snoozeUntilTime.Subtract(now).Minutes);
         }
 
         #endregion

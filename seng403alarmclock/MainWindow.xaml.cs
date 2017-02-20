@@ -29,6 +29,8 @@ namespace seng403alarmclock
             GuiController.SetMainWindow(this);
             //note: this should probably be moved to another class, can't be arsed right now
             this.AddAlarmButton.Click += AddAlarmButton_Click;
+            this.Snooze_Button.Click += Snooze_Button_Click;
+            this.Snooze_Button_setHidden();
             //TEST CODE BELOW THIS LINE      
         }
 
@@ -82,6 +84,16 @@ namespace seng403alarmclock
         {
             GuiEventCaller.GetCaller().NotifySnoozeRequested(new Alarm() );         
             // I think we should skip snoozing indivitual alarms. Users want X minutes of quiet time imo -Nathan
+        }
+
+        public void Snooze_Button_setVisible()
+        {
+            this.Snooze_Button.Visibility = Visibility.Visible;
+        }
+
+        public void Snooze_Button_setHidden()
+        {
+            this.Snooze_Button.Visibility = Visibility.Hidden;
         }
     }
 }
