@@ -1,4 +1,5 @@
-﻿using System;
+﻿using seng403alarmclock.Model;
+using System;
 using System.Collections.Generic;
 
 namespace seng403alarmclock.GUI {
@@ -11,10 +12,24 @@ namespace seng403alarmclock.GUI {
     /// </summary>
     public class Alarm {
 
+        private static TimeFetcher fetcher = new TimeFetcher();
+
         private DateTime alarmTime { get; set; }
         private String alarmName { get; set; }
 
         public Boolean IsRinging { get; set; }
+
+        /// <summary>
+        /// Indicates if the alarm repeats or not
+        /// </summary>
+        public bool IsRepeating { get; set; } = false;
+
+        /// <summary>
+        /// Indicates if the alarm is running a weekly cycle, instead of a daily cycle
+        /// </summary>
+        public bool IsWeekly { get; set; } = false;
+
+
         /// <summary>
         public Alarm()
         /// Create an alarm 5 minutes from now
@@ -26,13 +41,44 @@ namespace seng403alarmclock.GUI {
             alarmTime = DateTime.Now.AddMinutes(5);
             alarmName = "Created:" + DateTime.Now.ToString();
         }
+ 
+        public Alarm(int hour, int minute, bool repeat, string audioFile, bool weekly, List<DayOfWeek> days) {
+            if(weekly) {
+                WeeklyCtor(hour, minute, repeat); 
+            } else {
+                NonWeeklyCtor(hour, minute, repeat);
+            }
+        }
 
-        public Alarm(DateTime alarmTime) {
-            IsRinging = false;
+        /// <summary>
+        /// Contructor for an alarm that is weekly
+        /// </summary>
+        /// <param name="hour"></param>
+        /// <param name="minute"></param>
+        /// <param name="repeat"></param>
+        private void WeeklyCtor(int hour, int minute, bool repeat) {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Constructor for an alarm that is not weekly
+        /// </summary>
+        /// <param name="hour"></param>
+        /// <param name="minute"></param>
+        private void NonWeeklyCtor(int hour, int minute, bool repeats) {
+            IsRepeating = repeats;
             IsWeekly = false;
-            IsRepeating = false;
-            this.alarmTime = alarmTime;
-            alarmName = "Created:" + DateTime.Now.ToString();
+
+            DateTime now = fetcher.getCurrentTime();
+
+            int day;
+            DateTime d = new DateTime(now.Year, now.Month, now.Day, hour, minute, 0, DateTimeKind.Local);
+            if (d > now) {
+                day = now.Day;
+            } else {  
+                day = (now.AddDays(1)).Day;
+            }
+            alarmTime = new DateTime(now.Year, now.Month, day, hour, minute, 0, DateTimeKind.Local);
         }
 
         public DateTime GetAlarmTime() {
@@ -40,15 +86,22 @@ namespace seng403alarmclock.GUI {
             return alarmTime;
         }
 
-        /// <summary>
-        /// Indicates if the alarm repeats or not
-        /// </summary>
-        public bool IsRepeating { get; set; } = false;
 
         /// <summary>
-        /// Indicates if the alarm is running a weekly cycle, instead of a daily cycle
+        /// Instructs the alarm to calculate its next arrival time
         /// </summary>
-        public bool IsWeekly { get; set; } = false;
+        /// <exception cref="NoMoreAlarmsException">
+        /// Thrown if there are no more times this alarm should go off
+        /// </exception>
+        public void CalculateNextAlarmTime() {
+            if(!IsWeekly && !IsRepeating) {
+                throw new NoMoreAlarmsException();
+            } else if(IsRepeating && !IsWeekly) {
+                alarmTime = alarmTime.AddDays(1);
+            }
+        }
+
+       
 
         /// <summary>
         /// 
