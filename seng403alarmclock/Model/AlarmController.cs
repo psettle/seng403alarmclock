@@ -117,7 +117,7 @@ namespace seng403alarmclock.Model
             int ringtoneIndex = 0;
             audioController.beginAlarmNoise(ringtoneIndex);
             alarm.IsRinging = true;
-            guiController.TriggerAlarm(alarm);
+            guiController.UpdateAlarm(alarm);
             //guiController.UpdateAlarm(alarm);
             guiController.Snooze_Btn_setVisible();
         }
@@ -156,11 +156,11 @@ namespace seng403alarmclock.Model
             alarmList.Add(newAlarm);
         }
 
-        public void AlarmRequested(Alarm alarm, int hour, int minute, bool repeat, string audioFile, bool weekly, List<DayOfWeek> days) {
-            throw new NotImplementedException();
-        }
-
         public void AlarmRequested(int hour, int minute, bool repeat, string audioFile, bool weekly, List<DayOfWeek> days) {
+            if(!repeat && !weekly) {
+                this.AlarmRequested(hour, minute);
+                return;
+            }
             throw new NotImplementedException();
         }
 

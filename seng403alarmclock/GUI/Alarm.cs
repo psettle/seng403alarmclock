@@ -14,30 +14,23 @@ namespace seng403alarmclock.GUI {
         private DateTime alarmTime { get; set; }
         private String alarmName { get; set; }
 
-        private Boolean isRinging;
-        public Boolean IsRinging
-        {
-            get
-            {
-                return this.isRinging;
-            }
-            set
-            {
-                this.isRinging = value;
-            }
-        }
+        public Boolean IsRinging { get; set; }
         /// <summary>
         public Alarm()
         /// Create an alarm 5 minutes from now
         /// </summary>
         {
-            isRinging = false;
+            IsRinging = false;
+            IsWeekly = false;
+            IsRepeating = false;
             alarmTime = DateTime.Now.AddMinutes(5);
             alarmName = "Created:" + DateTime.Now.ToString();
         }
 
         public Alarm(DateTime alarmTime) {
-            isRinging = false;
+            IsRinging = false;
+            IsWeekly = false;
+            IsRepeating = false;
             this.alarmTime = alarmTime;
             alarmName = "Created:" + DateTime.Now.ToString();
         }
@@ -62,7 +55,7 @@ namespace seng403alarmclock.GUI {
         /// </summary>
         /// <returns>If this.IsWeekly, returns a list of days the alarm goes off on, otherwise returns null</returns>
         public List<DayOfWeek> GetWeekdays() {
-            return null;
+            return new List<DayOfWeek>() {DayOfWeek.Monday };
         }
 
 

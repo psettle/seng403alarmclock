@@ -77,21 +77,6 @@ namespace seng403alarmclock.GUI {
             mainWindow.AddAlarmRow(row);
         }
 
-        /// <summary>
-        /// Triggers a row of the gui to set the alarm off
-        /// </summary>
-        /// <param name="alarm">
-        /// The alarm the row was built from
-        /// </param>
-        /// <exception cref="AlarmNotSetException">
-        /// If the provided alarm was never used to create a row, this exception will be thrown
-        /// </exception>
-        [Obsolete("Use UpdateAlarm after setting its status to ringing")]
-        public void TriggerAlarm(Alarm alarm) {
-            this.GetAlarmRow(alarm).SetDismiss();
-            
-        }
-
         public void Snooze_Btn_setVisible()
         {
             mainWindow.Snooze_Button_setVisible();

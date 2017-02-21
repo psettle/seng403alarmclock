@@ -20,12 +20,34 @@ namespace seng403alarmclock {
     public partial class Controls : Window {
         private static double borderOffset = 20;
 
-        public Controls(double LeftOffset, double TopOffset, double height, double width) {
+        private bool pm = false;
+
+        /// <summary>
+        /// This is a list of day status codes for the weekly alarms
+        /// </summary>
+        private Dictionary<DayOfWeek, bool> dayStatusCodes = new Dictionary<DayOfWeek, bool> {
+            { DayOfWeek.Sunday, false },
+            { DayOfWeek.Monday, false },
+            { DayOfWeek.Tuesday, false },
+            { DayOfWeek.Wednesday, false },
+            { DayOfWeek.Thursday, false },
+            { DayOfWeek.Friday, false },
+            { DayOfWeek.Saturday, false },
+        };
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="LeftOffset"></param>
+        /// <param name="TopOffset"></param>
+        /// <param name="mainWindowHeight">The height of the window that creates this one</param>
+        public Controls(double LeftOffset, double TopOffset, double mainWindowHeight) {
             InitializeComponent();
             this.Left = LeftOffset + borderOffset;
             this.Top = TopOffset + borderOffset;
-            this.Width = width;
-            this.Height = height;
+            this.Width = mainWindowHeight / 2; //the 2:3 ratio looks nice
+            this.Height = mainWindowHeight / 3;
+            this.ResizeMode = ResizeMode.CanMinimize;
 
             this.AddAlarm.Click += AddAlarmClick;
             //this.hrDown.Click += DecreaseHoursClick;
@@ -36,6 +58,96 @@ namespace seng403alarmclock {
             this.hours.GotKeyboardFocus += Hours_GotKeyboardFocus;
             this.minutes.GotKeyboardFocus += Minutes_GotKeyboardFocus;
 
+            this.AMPM.Click += AMPM_Click;
+
+            this.Weekly.Click += Weekly_Click;
+
+            //add the handler for each weekday
+            this.Sunday.Click += Weekday_Click;
+            this.Monday.Click += Weekday_Click;
+            this.Tuesday.Click += Weekday_Click;
+            this.Wednesday.Click += Weekday_Click;
+            this.Thursday.Click += Weekday_Click;
+            this.Friday.Click += Weekday_Click;
+            this.Saturday.Click += Weekday_Click;
+
+        }
+
+        /// <summary>
+        /// The click handler for when a weekday button is clicked
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Weekday_Click(object sender, RoutedEventArgs e) {
+            //get the button that was clicked
+            Button clicked = (Button)sender;
+
+            //figure out what day was clicked
+            DayOfWeek key;
+            switch(clicked.Name) {
+                case "Sunday":
+                    key = DayOfWeek.Sunday;
+                    break;
+                case "Monday":
+                    key = DayOfWeek.Monday;
+                    break;
+                case "Tuesday":
+                    key = DayOfWeek.Tuesday;
+                    break;
+                case "Wednesday":
+                    key = DayOfWeek.Wednesday;
+                    break;
+                case "Thursday":
+                    key = DayOfWeek.Thursday;
+                    break;
+                case "Friday":
+                    key = DayOfWeek.Friday;
+                    break;
+                case "Saturday":
+                    key = DayOfWeek.Saturday;
+                    break;
+                default:
+                    throw new Exception("Invalid day code");
+            }
+            //flip the day's status
+            dayStatusCodes[key] = !dayStatusCodes[key];
+            //set the color as required
+            if(dayStatusCodes[key]) {
+                clicked.Background = Brushes.Turquoise;
+            } else {
+                clicked.Background = Brushes.White;
+            }
+        }
+
+        /// <summary>
+        /// Called when the user clicks on the weekly checkbox
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Weekly_Click(object sender, RoutedEventArgs e) {
+            if(this.Weekly.IsChecked.Value) {
+                this.WeekGrid.Visibility = Visibility.Visible;
+            } else {
+                this.WeekGrid.Visibility = Visibility.Hidden;
+            }
+        }
+
+        /// <summary>
+        /// Called when the user clicks on the AM/PM button
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void AMPM_Click(object sender, RoutedEventArgs e) {
+            this.flipAMPM();
+        }
+
+        private void flipAMPM() {
+            pm = !pm;
+            if (pm) {
+                this.AMPM.Content = "PM";
+            } else {
+                this.AMPM.Content = "AM";
+            }
         }
 
         private void IncreaseMinutesClick(object sender, RoutedEventArgs e)
@@ -68,9 +180,10 @@ namespace seng403alarmclock {
             }
             int hours = int.Parse(this.hours.Text);
             int newTime;
-            if (hours >= 23)
+            if (hours >= 11)
             {
                 newTime = 0;
+                this.flipAMPM();
             }
             else
             {
@@ -110,7 +223,8 @@ namespace seng403alarmclock {
             int newTime;
             if (hours <= 0)
             {
-                newTime = 23;
+                newTime = 11;
+                this.flipAMPM();
             }
             else
             {
@@ -143,9 +257,9 @@ namespace seng403alarmclock {
         /// <param name="sender">?</param>
         /// <param name="e">?</param>
         private void AddAlarmClick(object sender, RoutedEventArgs e) {
-            string hoursStr = this.hours.Text;
-            string minutesStr = this.minutes.Text;
 
+
+            /*Why is this here?  
             if (hoursStr == "")
             {
                 this.hours.Text = "0";
@@ -154,24 +268,48 @@ namespace seng403alarmclock {
             {
                 this.minutes.Text = "0";
             }
+            */
 
+            string hoursStr = this.hours.Text;
+            string minutesStr = this.minutes.Text;
+
+            int hours;
+            int minutes;
             try {
-                int hours = int.Parse(hoursStr);
-                int minutes = int.Parse(minutesStr);
-
-                if (hours < 0 || hours > 23) {
-                    return;
-                }
-
-                if (minutes < 0 || minutes > 59) {
-                    return;
-                }
-
-                GuiEventCaller.GetCaller().NotifyAlarmRequested(hours, minutes);
-                this.Close();
-            } catch (FormatException ex) {
-                //no handling enabled right now
+                hours = int.Parse(hoursStr);
+                minutes = int.Parse(minutesStr); 
+            } catch (FormatException) {
+                return;
             }
+
+            if (hours < 0 || hours > 11) {
+                return;
+            }
+
+            if (minutes < 0 || minutes > 59) {
+                return;
+            }
+
+            if (this.pm) {
+                hours += 12;
+            }
+
+            //parse out which days of the week this alarm occurs on
+            List<DayOfWeek> alarmDays;
+            if (Weekly.IsChecked.Value) {
+                alarmDays = new List<DayOfWeek>();
+                foreach(KeyValuePair<DayOfWeek, bool> entry in dayStatusCodes) {
+                    if(entry.Value) {
+                        alarmDays.Add(entry.Key);
+                    }
+                }   
+            } else {
+                alarmDays = null;
+            }
+
+            //call the modified version...
+            GuiEventCaller.GetCaller().NotifyAlarmRequested(hours, minutes, Repeats.IsChecked.Value, "", Weekly.IsChecked.Value, alarmDays);
+            this.Close();
         }
     }
 }

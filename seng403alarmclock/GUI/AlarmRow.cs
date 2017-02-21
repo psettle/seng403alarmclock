@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace seng403alarmclock.GUI {
     /// <summary>
@@ -11,16 +13,6 @@ namespace seng403alarmclock.GUI {
         /// The height of a row for the alarm
         /// </summary>
         private readonly static int rowHeight = 18;
-
-        /// <summary>
-        /// The width of the textbox for the time
-        /// </summary>
-        private readonly static int textWidth = 68;
-
-        /// <summary>
-        /// The width of the button for the row
-        /// </summary>
-        private readonly static int buttonWidth = 45;
 
         /// <summary>
         /// The margin on the button for the row
@@ -38,9 +30,14 @@ namespace seng403alarmclock.GUI {
         private Alarm storedAlarm = null;
 
         /// <summary>
-        /// The grid layout that holds contents of the row
+        /// The border that holds contents of the row
         /// </summary>
-        private Grid element = null;
+        private Border element = null;
+
+        /// <summary>
+        /// The main grid that holds the structure of the row
+        /// </summary>
+        private Grid mainGrid = null;
 
         /// <summary>
         /// The stackpanel that holds all rows, this is only let while the row is rendered
@@ -57,6 +54,8 @@ namespace seng403alarmclock.GUI {
         /// </summary>
         private ModeType mode = ModeType.Cancel;
 
+        #region Setup
+
         /// <summary>
         /// Creates the xaml structure for the row, but does not attach it to the gui
         /// </summary>
@@ -67,29 +66,170 @@ namespace seng403alarmclock.GUI {
             //assign the alarm
             this.storedAlarm = alarm;
 
+            this.build();
+        }
+
+        /// <summary>
+        /// Creates and attaches this object to reflect the current alarm's state
+        /// </summary>
+        private void build() {
+            int rowCount = 2;
+
+            if (storedAlarm.IsWeekly) {
+                rowCount++;
+            }
+
+            element = new Border();
+            element.BorderThickness = new Thickness(1, 1, 1, 1);
+            element.BorderBrush = Brushes.DarkGray;
+
+
             //create the base grid
-            element = new Grid();
-            element.Height = rowHeight;
+            mainGrid = new Grid();
+            element.Child = mainGrid;
+            mainGrid.Height = rowHeight * rowCount;
+            //add rows to the base grid
+            for (int i = 0; i < rowCount; i++) {
+                RowDefinition row = new RowDefinition();
+                row.Height = new GridLength(1, GridUnitType.Star);
+                mainGrid.RowDefinitions.Add(row);
+            }
+
+            //add the rows
+            this.CreateTopRow();
+
+            //we need to add the weekly row if the alarm is a weekly one, and a repeat row if the alarm repeats
+            //this indexes that these things go at depends on each value
+            if (storedAlarm.IsWeekly) {
+                this.CreateWeekRow(1);
+                this.CreateRepeatRow(2);
+            } else {
+                this.CreateRepeatRow(1);
+            }
+        }
+
+        /// <summary>
+        /// Creates the WPF elements for displaying the top row
+        /// </summary>
+        private void CreateTopRow() {
+            //create the top row grid, set it to row 0 and add it to the main grid
+            Grid topRowGrid = new Grid();
+            Grid.SetRow(topRowGrid, 0);
+            mainGrid.Children.Add(topRowGrid);
+            //add columns to the base grid
+            for (int i = 0; i < 2; i++) {
+                ColumnDefinition col = new ColumnDefinition();
+                col.Width = new GridLength(1, GridUnitType.Star);
+                topRowGrid.ColumnDefinitions.Add(col);
+            }
+
 
             //create and attach the textbox
             TextBlock textBox = new TextBlock();
-            textBox.HorizontalAlignment = HorizontalAlignment.Left;
-            textBox.TextWrapping = TextWrapping.Wrap;
+            Grid.SetColumn(textBox, 0);
+            textBox.TextAlignment = TextAlignment.Center;
             textBox.Text = storedAlarm.GetAlarmTime().ToShortTimeString();
-            textBox.Width = textWidth;
-            element.Children.Add(textBox);
+            topRowGrid.Children.Add(textBox);
 
             //create and attach the button
             button = new Button();
+            Grid.SetColumn(button, 1);
             button.Click += ButtonClick; //!this assigns the event handler
-            button.HorizontalAlignment = HorizontalAlignment.Left;
-            button.Margin = buttonMargin;
-            button.VerticalAlignment = VerticalAlignment.Top;
-            button.Width = buttonWidth;
-            element.Children.Add(button);
-            //set the button to cancel mode (as a default)
-            this.SetCancel();
+            button.BorderThickness = new Thickness(1, 1, 1, 1);
+            button.BorderBrush = Brushes.DarkGray;
+            topRowGrid.Children.Add(button);
+            //set the button to the correct mode (as a default)
+            if(storedAlarm.IsRinging) {
+                this.SetDismiss();
+            } else {
+                this.SetCancel();
+            }
         }
+
+        /// <summary>
+        /// Adds the elements for the middle row
+        /// </summary>
+        /// <param name="level">
+        /// The index of the row to put this row in
+        /// </param>
+        private void CreateWeekRow(int level) {
+            //create the middle grid, assign it to row 1 and add it to the grid
+            Grid weekRowGrid = new Grid();
+            Grid.SetRow(weekRowGrid, level);
+            mainGrid.Children.Add(weekRowGrid);
+            //add columns to the week grid
+            for (int i = 0; i < 7; i++) {
+                ColumnDefinition col = new ColumnDefinition();
+                col.Width = new GridLength(1, GridUnitType.Star);
+                weekRowGrid.ColumnDefinitions.Add(col);
+            }
+
+           
+            //create a lookup table of DayOfWeek => DisplayName
+            Dictionary<DayOfWeek, string> daysOfWeekToDisplayValues = new Dictionary<DayOfWeek, string>();
+            daysOfWeekToDisplayValues.Add(DayOfWeek.Sunday, "U");
+            daysOfWeekToDisplayValues.Add(DayOfWeek.Monday, "M");
+            daysOfWeekToDisplayValues.Add(DayOfWeek.Tuesday, "T");
+            daysOfWeekToDisplayValues.Add(DayOfWeek.Wednesday, "W");
+            daysOfWeekToDisplayValues.Add(DayOfWeek.Thursday, "R");
+            daysOfWeekToDisplayValues.Add(DayOfWeek.Friday, "F");
+            daysOfWeekToDisplayValues.Add(DayOfWeek.Saturday, "S");
+
+            //get the days of the week this alarm triggers on
+            List<DayOfWeek> runsOn = this.storedAlarm.GetWeekdays();
+
+            //iterate over the display values, create a textblock and colour it if it is in the runsOn list 
+            int dayTextBlockColumnNumber = 0;
+            foreach (KeyValuePair<DayOfWeek, string> entry in daysOfWeekToDisplayValues) {
+                TextBlock dayOfWeek = new TextBlock();
+                dayOfWeek.Text = entry.Value;
+                dayOfWeek.TextAlignment = TextAlignment.Center;
+                Grid.SetColumn(dayOfWeek, dayTextBlockColumnNumber);
+                weekRowGrid.Children.Add(dayOfWeek);
+
+                if(runsOn.Contains(entry.Key)) {
+                    dayOfWeek.Background = Brushes.Turquoise;
+                } else {
+                    dayOfWeek.Background = Brushes.White;
+                }
+
+
+                dayTextBlockColumnNumber++;
+            }
+        }
+
+        /// <summary>
+        /// Creates the elements for the bottom row, only used for repeating alarms
+        /// </summary>
+        /// <param name="level">
+        /// The index of the row to put this row at
+        /// </param>
+        private void CreateRepeatRow(int level) {
+            //create the middle grid, assign it to row 1 and add it to the grid
+            Grid repeatRowGrid = new Grid();
+            Grid.SetRow(repeatRowGrid, level);
+            mainGrid.Children.Add(repeatRowGrid);
+            //add column to the repeat grid
+           
+            ColumnDefinition col = new ColumnDefinition();
+            col.Width = new GridLength(1, GridUnitType.Star);
+            repeatRowGrid.ColumnDefinitions.Add(col);
+
+            TextBlock repeat = new TextBlock();
+            Grid.SetColumn(repeat, level);
+            repeatRowGrid.Children.Add(repeat);
+
+            repeat.TextAlignment = TextAlignment.Center;
+            if (!this.storedAlarm.IsRepeating) {
+                repeat.Text = "Does not repeat";
+            } else if(this.storedAlarm.IsWeekly) {
+                repeat.Text = "Repeats weekly";
+            } else {
+                repeat.Text = "Repeats daily";
+            }   
+        }
+
+        #endregion
 
         /// <summary>
         /// Event triggered by the button on a row
@@ -163,7 +303,13 @@ namespace seng403alarmclock.GUI {
         /// Recheck the alarm attributes to change the GUI appropriately
         /// </summary>
         public void Update() {
-
+            if(this.storedAlarm.IsRinging) {
+                this.SetDismiss();
+            } else {
+                this.SetCancel();
+            }
         }
     }
 }
+
+
