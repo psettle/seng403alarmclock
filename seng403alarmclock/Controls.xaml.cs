@@ -18,12 +18,18 @@ namespace seng403alarmclock {
     /// Interaction logic for Controls.xaml
     /// </summary>
     public partial class Controls : Window {
+        /// <summary>
+        /// The offset from the creating windows top and left side
+        /// </summary>
         private static double borderOffset = 20;
 
+        /// <summary>
+        /// Indicates if the currently entered time is PM, the current time is AM if this is false
+        /// </summary>
         private bool pm = false;
 
         /// <summary>
-        /// This is a list of day status codes for the weekly alarms
+        /// This is a list of day status codes for the weekly alarms, true means the weekly alarm goes off on the specified day
         /// </summary>
         private Dictionary<DayOfWeek, bool> dayStatusCodes = new Dictionary<DayOfWeek, bool> {
             { DayOfWeek.Sunday, false },
@@ -36,7 +42,7 @@ namespace seng403alarmclock {
         };
 
         /// <summary>
-        /// 
+        /// Builds the window, moves it into position and assigns click listeners
         /// </summary>
         /// <param name="LeftOffset"></param>
         /// <param name="TopOffset"></param>
@@ -279,14 +285,17 @@ namespace seng403alarmclock {
                 hours = int.Parse(hoursStr);
                 minutes = int.Parse(minutesStr); 
             } catch (FormatException) {
+                MessageBox.Show("The number of hours or minutes that was input is not a number.");
                 return;
             }
 
             if (hours < 0 || hours > 11) {
+                MessageBox.Show(this, "The number of hours input is not between 0 and 11");
                 return;
             }
 
             if (minutes < 0 || minutes > 59) {
+                MessageBox.Show(this, "The number of minutes input is not between 0 and 59");
                 return;
             }
 
@@ -303,6 +312,12 @@ namespace seng403alarmclock {
                         alarmDays.Add(entry.Key);
                     }
                 }   
+
+                if(alarmDays.Count == 0) {
+                    //if there are no days the alarm cannot go off :/
+                    MessageBox.Show(this, "No days were selected for the alarm to go off on.");
+                    return;
+                }
             } else {
                 alarmDays = null;
             }

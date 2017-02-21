@@ -188,7 +188,7 @@ namespace seng403alarmclock.GUI {
                 weekRowGrid.Children.Add(dayOfWeek);
 
                 if(runsOn.Contains(entry.Key)) {
-                    dayOfWeek.Background = Brushes.Turquoise;
+                    dayOfWeek.Background = Brushes.LightGray;
                 } else {
                     dayOfWeek.Background = Brushes.White;
                 }
