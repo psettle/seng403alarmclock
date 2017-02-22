@@ -56,10 +56,7 @@ namespace seng403alarmclock {
             this.ResizeMode = ResizeMode.CanMinimize;
 
             this.AddAlarm.Click += AddAlarmClick;
-            //this.hrDown.Click += DecreaseHoursClick;
-            //this.minDown.Click += DecreaseMinutesClick;
-            //this.hrUp.Click += IncreaseHoursClick;
-            //this.minUp.Click += IncreaseMinutesClick;
+     
 
             this.hours.GotKeyboardFocus += Hours_GotKeyboardFocus;
             this.minutes.GotKeyboardFocus += Minutes_GotKeyboardFocus;
@@ -160,8 +157,8 @@ namespace seng403alarmclock {
         {
             if (this.minutes.Text == "MM" || this.minutes.Text == "")
             {
-                this.minutes.Text = "0";
-                this.hours.Text = "0";
+                this.minutes.Text = "00";
+                this.hours.Text = "01";
             }
             int minutes = int.Parse(this.minutes.Text);
             int newTime;
@@ -173,37 +170,17 @@ namespace seng403alarmclock {
             {
                 newTime = minutes + 1;
             }
-            this.minutes.Text = newTime.ToString();
+            if (newTime < 10) { this.minutes.Text = "0" + newTime.ToString(); }
+            else { this.minutes.Text = newTime.ToString(); }
 
-        }
-
-        private void IncreaseHoursClick(object sender, RoutedEventArgs e)
-        {
-            if (this.minutes.Text == "MM" || this.hours.Text == "")
-            {
-                this.minutes.Text = "0";
-                this.hours.Text = "0";
-            }
-            int hours = int.Parse(this.hours.Text);
-            int newTime;
-            if (hours >= 11)
-            {
-                newTime = 0;
-                this.flipAMPM();
-            }
-            else
-            {
-                newTime = hours + 1;
-            }
-            this.hours.Text = newTime.ToString();
         }
 
         private void DecreaseMinutesClick(object sender, RoutedEventArgs e)
         {
             if (this.minutes.Text == "MM" || this.minutes.Text == "")
             {
-                this.minutes.Text = "0";
-                this.hours.Text = "0";
+                this.minutes.Text = "00";
+                this.hours.Text = "01";
             }
             int minutes = int.Parse(this.minutes.Text);
             int newTime;
@@ -215,28 +192,52 @@ namespace seng403alarmclock {
             {
                 newTime = minutes - 1;
             }
-            this.minutes.Text = newTime.ToString();
+            if (newTime < 10) { this.minutes.Text = "0" + newTime.ToString(); }
+            else { this.minutes.Text = newTime.ToString(); }
+        }
+
+        private void IncreaseHoursClick(object sender, RoutedEventArgs e)
+        {
+            if (this.minutes.Text == "MM" || this.hours.Text == "")
+            {
+                this.minutes.Text = "00";
+                this.hours.Text = "01";
+            }
+            int hours = int.Parse(this.hours.Text);
+            int newTime;
+            if (hours >= 12)
+            {
+                newTime = 1;
+                this.flipAMPM();
+            }
+            else
+            {
+                newTime = hours + 1;
+            }
+            if (newTime < 10) { this.hours.Text = "0" + newTime.ToString(); }
+            else { this.hours.Text = newTime.ToString(); }
         }
 
         private void DecreaseHoursClick(object sender, RoutedEventArgs e)
         {
             if (this.minutes.Text == "MM" || this.hours.Text == "")
             {
-                this.minutes.Text = "0";
-                this.hours.Text = "0";
+                this.minutes.Text = "00";
+                this.hours.Text = "01";
             }
             int hours = int.Parse(this.hours.Text);
             int newTime;
-            if (hours <= 0)
+            if (hours <= 1)
             {
-                newTime = 11;
+                newTime = 12;
                 this.flipAMPM();
             }
             else
             {
                 newTime = hours - 1;
             }
-            this.hours.Text = newTime.ToString();
+            if (newTime < 10) { this.hours.Text = "0" + newTime.ToString(); }
+            else { this.hours.Text = newTime.ToString(); }
         }
 
         /// <summary>
@@ -289,8 +290,8 @@ namespace seng403alarmclock {
                 return;
             }
 
-            if (hours < 0 || hours > 11) {
-                MessageBox.Show(this, "The number of hours input is not between 0 and 11");
+            if (hours < 0 || hours > 12) {
+                MessageBox.Show(this, "The number of hours input is not between 0 and 12");
                 return;
             }
 
@@ -299,8 +300,10 @@ namespace seng403alarmclock {
                 return;
             }
 
-            if (this.pm) {
+            if (this.pm && hours != 12) {
                 hours += 12;
+            } else if (!this.pm && hours == 12) {
+                hours = 0;
             }
 
             //parse out which days of the week this alarm occurs on
