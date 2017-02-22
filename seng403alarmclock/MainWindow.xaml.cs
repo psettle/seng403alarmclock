@@ -38,7 +38,7 @@ namespace seng403alarmclock
 
         private void Options_Button_Click(object sender, RoutedEventArgs e)
         {
-            OptionsWindow optionsWindow = new OptionsWindow(this.Left, this.Top, this.Height / 3, this.Width / 1.5);
+            OptionsWindow optionsWindow = new OptionsWindow(this.Left, this.Top, this.Height, this.Width, 0.8);
             optionsWindow.ShowDialog();
             optionsWindow.Close();
         }

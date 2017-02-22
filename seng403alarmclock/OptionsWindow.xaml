@@ -5,12 +5,29 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:seng403alarmclock.GUI"
         mc:Ignorable="d"
-        Title="OptionsWindow" Height="300" Width="300">
-    <Grid>
-        <Button x:Name="SetSnoozePeriod_Button" Content="set Snooze Period" HorizontalAlignment="Left" Margin="49,55,0,0" VerticalAlignment="Top" Width="120"/>
-        <Label x:Name="Snooze_Period_minutes_Label" Content="1" HorizontalAlignment="Left" Margin="213,52,0,0" VerticalAlignment="Top"/>
-        <Button x:Name="snooze_Plus" Content="+" Margin="234,55,44,0" VerticalAlignment="Top"/>
-        <Button x:Name="snooze_Minus" Content="-" HorizontalAlignment="Left" Margin="198,55,0,0" VerticalAlignment="Top" Width="15"/>
+        Title="Options" Height="300" Width="300" ResizeMode="NoResize">
+    <StackPanel Margin="10,10,14,12">
+        <Grid Height="43" VerticalAlignment="Top">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="145*"/>
+                <ColumnDefinition Width="35*"/>
+                <ColumnDefinition Width="36*"/>
+                <ColumnDefinition Width="52*"/>
+            </Grid.ColumnDefinitions>
+            <Label x:Name="Snooze_Period_minutes_Label" Content="1" Margin="13,0,51,8" FontWeight="Bold" Background="{x:Null}" RenderTransformOrigin="1.217,0.442" Grid.Column="2" VerticalAlignment="Bottom" Height="26" Grid.ColumnSpan="2">
+                <Label.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="-0.172"/>
+                        <TranslateTransform X="-0.006" Y="-0.061"/>
+                    </TransformGroup>
+                </Label.RenderTransform>
+            </Label>
+            <Button x:Name="snooze_Plus" Content="+" BorderBrush="{x:Null}" BorderThickness="3" FontWeight="Bold" Margin="0,0,24,10" Grid.Column="3" VerticalAlignment="Bottom" Height="24" Background="#FFCBC8C8"/>
+            <Button x:Name="snooze_Minus" Content="-" Margin="10,0,0,10" BorderBrush="{x:Null}" BorderThickness="3" FontWeight="Bold" Grid.Column="1" VerticalAlignment="Bottom" Height="24" Background="#FFCBC8C8"/>
+            <Label x:Name="snooze_duration_label" Content="snooze duration" Margin="10,10,32,8" VerticalAlignment="Center" HorizontalContentAlignment="Center" Height="25" Background="{x:Null}"/>
 
-    </Grid>
+        </Grid>
+    </StackPanel>
 </Window>

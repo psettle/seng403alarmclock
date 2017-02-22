@@ -20,48 +20,51 @@ namespace seng403alarmclock.GUI
     /// </summary>
     public partial class OptionsWindow : Window
     {
-        private static double borderOffset = 20;
-        private int snooze_period_minutes = 1;
+        private static double relativeSize_ofOptionsWindow;
+        private static double borderOffset_width;
+        private static double borderOffset_height;
+
+        private static int snooze_period_minutes = 1;
         
-        public OptionsWindow(double LeftOffset, double TopOffset, double height, double width)
+        public OptionsWindow(double leftOffset, double topOffset, double heightOfMain, double widthOfMain,  double relativeSize)
         {
             InitializeComponent();
-            this.Left   = LeftOffset + borderOffset;
-            this.Top    = TopOffset + borderOffset;
-            this.Width  = width;
-            this.Height = height;
+            relativeSize_ofOptionsWindow = relativeSize;
 
-            this.snooze_period_minutes = 1;
+            borderOffset_width = widthOfMain - (widthOfMain * relativeSize_ofOptionsWindow);
+            borderOffset_width *= 0.5;
 
-            this.Snooze_Period_minutes_Label.Content = this.snooze_period_minutes.ToString();
+            borderOffset_height = heightOfMain - (heightOfMain * relativeSize_ofOptionsWindow);
+            borderOffset_height *= 0.5;
 
-
-            SetSnoozePeriod_Button.Visibility          = Visibility.Visible;
+            this.Left   = leftOffset + borderOffset_width;
+            this.Top    = topOffset + borderOffset_height;
+            this.Width  = widthOfMain * relativeSize_ofOptionsWindow;
+            this.Height = heightOfMain * relativeSize_ofOptionsWindow;
+            
+            this.Snooze_Period_minutes_Label.Content = snooze_period_minutes.ToString();
+            
             this.snooze_Minus.Visibility                    = Visibility.Visible;
             this.snooze_Plus.Visibility                     = Visibility.Visible;
             this.Snooze_Period_minutes_Label.Visibility     = Visibility.Visible;
                 
-            this.SetSnoozePeriod_Button.Click   += SetSnoozePeriod_Button_Click;
             this.snooze_Minus.Click             += Snooze_Minus_Click;
             this.snooze_Plus.Click              += Snooze_Plus_Click;
         }
 
         private void Snooze_Plus_Click(object sender, RoutedEventArgs e)
         {
-            this.snooze_period_minutes++;
-            this.Snooze_Period_minutes_Label.Content = this.snooze_period_minutes.ToString();
-        }
+            if(snooze_period_minutes < 59)
+                snooze_period_minutes++;
+            Snooze_Period_minutes_Label.Content = snooze_period_minutes.ToString();
+            GuiEventCaller.GetCaller().NotifySnoozePeriodChangeRequested(snooze_period_minutes);        }
 
         private void Snooze_Minus_Click(object sender, RoutedEventArgs e)
         {
-            this.snooze_period_minutes--;
-            this.Snooze_Period_minutes_Label.Content = this.snooze_period_minutes.ToString();
-
-        }
-
-        private void SetSnoozePeriod_Button_Click(object sender, RoutedEventArgs e)
-        {
-            GuiEventCaller.GetCaller().NotifySnoozePeriodChangeRequested(this.snooze_period_minutes);
-        }
+            if(snooze_period_minutes > 0)
+                snooze_period_minutes--;
+            Snooze_Period_minutes_Label.Content = snooze_period_minutes.ToString();
+            GuiEventCaller.GetCaller().NotifySnoozePeriodChangeRequested(snooze_period_minutes);
+        }       
     }
 }
