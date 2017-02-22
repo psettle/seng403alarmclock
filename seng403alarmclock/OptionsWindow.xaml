@@ -6,28 +6,36 @@
         xmlns:local="clr-namespace:seng403alarmclock.GUI"
         mc:Ignorable="d"
         Title="Options" Height="300" Width="300" ResizeMode="NoResize">
-    <StackPanel Margin="10,10,14,12">
-        <Grid Height="43" VerticalAlignment="Top">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="145*"/>
-                <ColumnDefinition Width="35*"/>
-                <ColumnDefinition Width="36*"/>
-                <ColumnDefinition Width="52*"/>
-            </Grid.ColumnDefinitions>
-            <Label x:Name="Snooze_Period_minutes_Label" Content="1" Margin="13,0,51,8" FontWeight="Bold" Background="{x:Null}" RenderTransformOrigin="1.217,0.442" Grid.Column="2" VerticalAlignment="Bottom" Height="26" Grid.ColumnSpan="2">
-                <Label.RenderTransform>
-                    <TransformGroup>
-                        <ScaleTransform/>
-                        <SkewTransform/>
-                        <RotateTransform Angle="-0.172"/>
-                        <TranslateTransform X="-0.006" Y="-0.061"/>
-                    </TransformGroup>
-                </Label.RenderTransform>
-            </Label>
-            <Button x:Name="snooze_Plus" Content="+" BorderBrush="{x:Null}" BorderThickness="3" FontWeight="Bold" Margin="0,0,24,10" Grid.Column="3" VerticalAlignment="Bottom" Height="24" Background="#FFCBC8C8"/>
-            <Button x:Name="snooze_Minus" Content="-" Margin="10,0,0,10" BorderBrush="{x:Null}" BorderThickness="3" FontWeight="Bold" Grid.Column="1" VerticalAlignment="Bottom" Height="24" Background="#FFCBC8C8"/>
-            <Label x:Name="snooze_duration_label" Content="snooze duration" Margin="10,10,32,8" VerticalAlignment="Center" HorizontalContentAlignment="Center" Height="25" Background="{x:Null}"/>
+    <Viewbox Margin="0,0,4,3">
+        <StackPanel Height="698" Width="749">
+            <Grid Height="105" VerticalAlignment="Top" Margin="0,0,5,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="20*"/>
+                    <RowDefinition Height="66*"/>
+                    <RowDefinition Height="19*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="453*"/>
+                    <ColumnDefinition Width="68*"/>
+                    <ColumnDefinition Width="60*"/>
+                    <ColumnDefinition Width="66*"/>
+                    <ColumnDefinition Width="97*"/>
+                </Grid.ColumnDefinitions>
+                <Label x:Name="Snooze_Period_minutes_Label" Content="1" Margin="15,6,15,0" FontWeight="Bold" Background="{x:Null}" RenderTransformOrigin="1.217,0.442" Grid.Column="2" FontSize="36" Grid.Row="1">
+                    <Label.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform/>
+                            <RotateTransform Angle="-0.172"/>
+                            <TranslateTransform X="-0.006" Y="-0.061"/>
+                        </TransformGroup>
+                    </Label.RenderTransform>
+                </Label>
+                <Button x:Name="snooze_Plus" Content="+" BorderBrush="{x:Null}" BorderThickness="3" FontWeight="Bold" Grid.Column="3" Background="#FFCBC8C8" FontSize="36" Grid.Row="1"/>
+                <Button x:Name="snooze_Minus" Content="-" BorderBrush="{x:Null}" BorderThickness="3" FontWeight="Bold" Grid.Column="1" Background="#FFCBC8C8" FontSize="36" Grid.Row="1"/>
+                <Label x:Name="snooze_duration_label" Content="snooze duration" Margin="18,0,0,8" HorizontalContentAlignment="Center" Background="{x:Null}" FontSize="36" VerticalAlignment="Bottom" Height="58" Grid.Row="1" HorizontalAlignment="Left" Width="320"/>
 
-        </Grid>
-    </StackPanel>
+            </Grid>
+        </StackPanel>
+    </Viewbox>
 </Window>
