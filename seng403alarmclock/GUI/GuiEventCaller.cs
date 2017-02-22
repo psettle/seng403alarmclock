@@ -77,17 +77,6 @@ namespace seng403alarmclock.GUI {
         }
 
         /// <summary>
-        /// Notify all listeners of an alarm requested event
-        /// </summary>
-        /// <param name="hour">The hour the alarm is requested at</param>
-        /// <param name="minute">The minute the alarm is requested at</param>
-        public void NotifyAlarmRequested(int hour, int minute) {
-            foreach(GuiEventListener listener in listeners) {
-                listener.AlarmRequested(hour, minute);
-            }
-        }
-
-        /// <summary>
         /// Notify all listeners that an alarm was requested
         /// </summary>
         /// <param name="hour">The hour the user wants an alarm at (24h)</param>

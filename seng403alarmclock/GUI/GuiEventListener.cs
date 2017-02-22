@@ -25,14 +25,6 @@ namespace seng403alarmclock.GUI {
         void AlarmDismissed(Alarm alarm);
 
         /// <summary>
-        /// Called if the user requests the placement of an alarm
-        /// </summary>
-        /// <param name="hour">The hour the user wants an alarm at</param>
-        /// <param name="minute">The minute the user wants an alarm at</param>
-        [Obsolete("This version will be removed once the GUI is changed to v2 below")]
-        void AlarmRequested(int hour, int minute);
-
-        /// <summary>
         /// Called if the user requests the placement or change of an alarm
         /// </summary>
         /// <param name="hour">The hour the user wants an alarm at (24h)</param>

@@ -59,10 +59,18 @@ namespace seng403alarmclock.Model
         {
             int ringtoneIndex = 0;
             audioController.endAlarmNoise(ringtoneIndex);
+            //the alarm is  no longer ringing
+            alarm.IsRinging = false;
+            try {
+                //try to move the alarm to its next scheduled time
+                //catch the exception if this was the last time, then remove it
+                alarm.CalculateNextAlarmTime();
+                //graphically update the GUI since the alarm state has changed
+                guiController.UpdateAlarm(alarm);
+            } catch(NoMoreAlarmsException) {
+                AlarmCanceled(alarm);//code reuse -N
+            }
 
-            AlarmCanceled(alarm);               //code reuse -N
-            //alarmList.Remove(alarm);
-            //guiController.RemoveAlarm(alarm);
 
             bool allIsQuiet = true;
             foreach (Alarm a in alarmList)
@@ -70,20 +78,6 @@ namespace seng403alarmclock.Model
                     allIsQuiet = false;
             if (allIsQuiet)
                 guiController.Snooze_Btn_setHidden();
-
-            return;
-
-            //Don't need repeating alarms yet - Patrick
-
-            DateTime newTime = alarm.GetAlarmTime();
-          
-            newTime = newTime.AddDays(1);
-
-            Alarm newAlarm = new Alarm(newTime);
-            GuiController.GetController().AddAlarm(newAlarm);
-            //Console.WriteLine(newAlarm.GetAlarmTime());
-            alarmList.Add(newAlarm);
-            
         }
 
         #endregion
@@ -117,7 +111,7 @@ namespace seng403alarmclock.Model
             int ringtoneIndex = 0;
             audioController.beginAlarmNoise(ringtoneIndex);
             alarm.IsRinging = true;
-            guiController.TriggerAlarm(alarm);
+            guiController.UpdateAlarm(alarm);
             //guiController.UpdateAlarm(alarm);
             guiController.Snooze_Btn_setVisible();
         }
@@ -126,42 +120,10 @@ namespace seng403alarmclock.Model
 
         #region Alarm Requests
 
-        /// <summary>
-        /// When the user creates a new alarm, determine if the alarm is for today or tomorrow.
-        /// Add the alarm to a list of alarms
-        /// 
-        /// ****NOTE: Should use 24H entry of Alarm for now
-        /// </summary>
-        /// <param name="hour">The hour the alarm should go off</param>
-        /// <param name="minute">The minute the alarm should go off</param>
-        public void AlarmRequested(int hour, int minute)
-        {
-            DateTime now = this.timeFetcher.getCurrentTime();
-
-            int day;
-            DateTime d = new DateTime(now.Year, now.Month, now.Day, hour, minute, 0, DateTimeKind.Local);
-            if (d > now)
-            {
-                day = now.Day;
-            }
-            else
-            {
-                //Console.WriteLine("Tomorrow");
-                day = (now.AddDays(1)).Day;
-            }
-            DateTime alarmTime = new DateTime(now.Year, now.Month, day, hour, minute, 0, DateTimeKind.Local);
-            Alarm newAlarm = new Alarm(alarmTime);
-            GuiController.GetController().AddAlarm(newAlarm);
-            //Console.WriteLine(newAlarm.GetAlarmTime());
-            alarmList.Add(newAlarm);
-        }
-
-        public void AlarmRequested(Alarm alarm, int hour, int minute, bool repeat, string audioFile, bool weekly, List<DayOfWeek> days) {
-            throw new NotImplementedException();
-        }
-
         public void AlarmRequested(int hour, int minute, bool repeat, string audioFile, bool weekly, List<DayOfWeek> days) {
-            throw new NotImplementedException();
+            Alarm newAlarm = new Alarm(hour, minute, repeat, audioFile, weekly, days);
+            GuiController.GetController().AddAlarm(newAlarm);
+            alarmList.Add(newAlarm);
         }
 
         #endregion
