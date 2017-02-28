@@ -14,6 +14,7 @@ namespace seng403alarmclock.Model
         {
             player = new SoundPlayer();
             player.SoundLocation = @"AudioFiles\" + audioID + ".wav";
+
         }
 
         public void start()
