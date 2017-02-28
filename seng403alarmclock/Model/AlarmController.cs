@@ -5,9 +5,7 @@ using System.Collections.Generic;
 namespace seng403alarmclock.Model
 {
     class AlarmController : GUI.GuiEventListener, TimeListener
-    {
-
-        Audio audio;
+    { 
         #region fields and Properties
 
         //locals
@@ -59,12 +57,6 @@ namespace seng403alarmclock.Model
 
         public void AlarmDismissed(Alarm alarm)
         {
-            //int ringtoneIndex = 0;
-            //audioController.endAlarmNoise(ringtoneIndex);
-            audio.end();
-
-
-
             //the alarm is  no longer ringing
             alarm.IsRinging = false;
             try
@@ -119,8 +111,6 @@ namespace seng403alarmclock.Model
         {
             //int ringtoneIndex = 0;
             //audioController.beginAlarmNoise(ringtoneIndex);
-            audio = audioController.createAudioObject("TheAssumingSong");
-            audio.start();
             alarm.IsRinging = true;
             guiController.UpdateAlarm(alarm);
             //guiController.UpdateAlarm(alarm);

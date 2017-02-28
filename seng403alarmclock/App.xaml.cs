@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using seng403alarmclock;
 using seng403alarmclock.Model;
+using System.IO;
 
 namespace seng403alarmclock
 {
@@ -28,7 +29,25 @@ namespace seng403alarmclock
             TimePulseGenerator.fetch().add(tc);
             TimePulseGenerator.fetch().add(ac);
 
-            GuiController.GetController().SetAudioFileNames(new Dictionary<string, string>() { { "hello", "bye" } });
+            setAudioFileNames();
+        }
+
+        /// <summary>
+        /// Sets the default audio names by crawling the audio resource folder and passing it the names to the GUI
+        /// </summary>
+        private void setAudioFileNames() {
+            Dictionary<string, string> table = new Dictionary<string, string>();
+
+            DirectoryInfo audioFolder = new DirectoryInfo("../../AudioFiles");
+
+            FileInfo[] fileInfos = audioFolder.GetFiles();
+
+            foreach(FileInfo fileInfo in fileInfos) {
+                table.Add(fileInfo.Name, Path.GetFileNameWithoutExtension(fileInfo.Name));
+            }
+
+            GuiController.GetController().SetAudioFileNames(table);
+
         }
 
         /// <summary>

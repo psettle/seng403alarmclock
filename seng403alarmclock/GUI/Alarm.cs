@@ -20,6 +20,11 @@ namespace seng403alarmclock.GUI {
         private static TimeFetcher fetcher = new TimeFetcher();
 
         /// <summary>
+        /// For creating audio instances
+        /// </summary>
+        private static AudioController audioController = AudioController.GetController();
+
+        /// <summary>
         /// The days this alarm goes off on, 
         /// </summary>
         private List<DayOfWeek> days = null;
@@ -37,17 +42,34 @@ namespace seng403alarmclock.GUI {
         /// <summary>
         /// Indicates if this alarm is going off
         /// </summary>
-        public bool IsRinging { get; set; }
+        public bool IsRinging {
+            get { return _IsRinging; }
+            set {
+                _IsRinging = value;
+                if (_IsRinging && audio != null) {
+                    audio.start();
+                } else if (audio != null) {
+                    audio.end();
+                }
+            }
+        }
 
+        private bool _IsRinging;
         /// <summary>
         /// Indicates if the alarm repeats or not
         /// </summary>
-        public bool IsRepeating { get; set; }
+        public bool IsRepeating { get; set;
+        }
 
         /// <summary>
         /// Indicates if the alarm is running a weekly cycle, instead of a daily cycle
         /// </summary>
         public bool IsWeekly { get; set; }
+
+        /// <summary>
+        /// The audio to play when this alarm goes off
+        /// </summary>
+        private Audio audio = null;
 
         #endregion
 
@@ -74,6 +96,8 @@ namespace seng403alarmclock.GUI {
         /// <param name="weekly">Indicates if this alarm runs on a weekly cycle (false is a daily cycle)</param>
         /// <param name="days">If weekly, indicates which days of the week the alarm goes off on</param>
         public Alarm(int hour, int minute, bool repeat, string audioFile, bool weekly, List<DayOfWeek> days) {
+            audio = audioController.createAudioObject(audioFile);
+
             IsRepeating = repeat;
             IsWeekly = weekly;
 

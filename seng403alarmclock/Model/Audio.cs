@@ -13,13 +13,11 @@ namespace seng403alarmclock.Model
         public Audio(String audioID)
         {
             player = new SoundPlayer();
-            //string path = @"AudioFiles";
-            //string path = @"C:\Folder1\Folder2\Folder3\Folder4";
-            //string newPath = Path.GetFullPath(Path.Combine("", @"..\..\"));
+         
             string directory = System.IO.Directory.GetParent(System.IO.Directory.GetParent(Environment.CurrentDirectory).ToString()).ToString();
-            directory = directory + @"\AudioFiles\" + audioID + ".wav";
+            directory = directory + @"\AudioFiles\" + audioID;
             player.SoundLocation = directory;
-            //player.SoundLocation = @"AudioFiles\" + audioID + ".wav";
+          
 
             
         }
