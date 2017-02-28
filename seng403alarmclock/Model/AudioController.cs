@@ -16,70 +16,66 @@ namespace seng403alarmclock.Model
         /// <returns>
         /// The singleton instance
         /// </returns>
-        public static AudioController GetController() {
+        public static AudioController GetController()
+        {
             return instance;
         }
-       
-        /*static void Main(String[] args)
-        {
-            AudioController a = new AudioController();
-            a.beginAlarmNoise(3);
-            Thread.Sleep(10000);
-            a.endAlarmNoise(3);
-            return;
-        }*/
-
-        private Audio[] audios = new Audio[3];
-        //private Thread[] threads = new Thread[3];
 
         /// <summary>
         /// Initializes the audio driver
         /// </summary>
+        /// 
+
+        private Audio[] audioObjects = new Audio[0];
+
+
         private AudioController()
         {
-            initializeAudio();
-        }
 
-        private void initializeAudio()
-        {
-            for (int i = 0; i < 3; i++)
-            {
-                audios[i] = new Audio("location", i.ToString());
-                //threads[i] = new Thread(new ThreadStart(audios[i].playSound));
-            }
         }
-
-        public void beginAlarmNoise(int alarmID)
+        public Audio createAudioObject(String audioID)
         {
-            if (alarmID >= 0 && alarmID <= 2)
+            Audio a = new Audio(audioID);
+            addAudioObjectToList(a);
+            return a;
+        }
+        private void addAudioObjectToList(Audio a)
+        {
+            if (audioObjects.Length == 0)
             {
-                //audios[alarmID].incrementAlarmCount();
-                audios[alarmID].start();
-                //threads[alarmID].Start();
+                audioObjects = new Audio[1];
+                audioObjects[0] = a;
             }
             else
             {
-                // currently do nothing 
+                Audio[] temp = new Audio[audioObjects.Length + 1];
+                for (int i = 0; i < audioObjects.Length; i++)
+                {
+                    temp[i] = audioObjects[i];
+                }
+                temp[audioObjects.Length] = a;
+                audioObjects = temp;
             }
-            
+        }
+        public Audio[] returnList()
+        {
+            return audioObjects;
+        }
+        /*
+        public void beginAlarmNoise(int alarmID)
+        {
+           
         }
         public void endAlarmNoise(int alarmID)
         {
-            if (alarmID >= 0 && alarmID <= 2)
-            {
-                audios[alarmID].end();
-                //threads[alarmID].Abort();
-            }
-            else
-            {
-                // currently do nothing 
-            }
+
         }
+        */
         public void endAllAlarms()
         {
-            for (int i = 0; i < audios.Length; i++)
+            for (int i = 0; i < audioObjects.Length; i++)
             {
-                this.endAlarmNoise(i);
+                audioObjects[i].end();
             }
         }
     }
