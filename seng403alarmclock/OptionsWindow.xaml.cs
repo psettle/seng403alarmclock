@@ -65,6 +65,10 @@ namespace seng403alarmclock.GUI
                 snooze_period_minutes--;
             Snooze_Period_minutes_Label.Content = snooze_period_minutes.ToString();
             GuiEventCaller.GetCaller().NotifySnoozePeriodChangeRequested(snooze_period_minutes);
-        }       
+        } 
+        
+        public static void SetSnoozePeriodMinutes(int minutes) {
+            snooze_period_minutes = minutes;
+        }      
     }
 }

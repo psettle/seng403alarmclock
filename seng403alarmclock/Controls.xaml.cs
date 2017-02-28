@@ -19,6 +19,16 @@ namespace seng403alarmclock {
     /// </summary>
     public partial class Controls : Window {
         /// <summary>
+        /// The currently set audio files to display
+        /// </summary>
+        public static Dictionary<string, string> audioDictionary = new Dictionary<string, string>();
+
+        /// <summary>
+        /// A dynamic set of the combo box items to use for looking up audio indexes
+        /// </summary>
+        private Dictionary<ComboBoxItem, string> audioComboBoxItems = new Dictionary<ComboBoxItem, string>();
+
+        /// <summary>
         /// The offset from the creating windows top and left side
         /// </summary>
         private static double borderOffset = 20;
@@ -74,6 +84,29 @@ namespace seng403alarmclock {
             this.Friday.Click += Weekday_Click;
             this.Saturday.Click += Weekday_Click;
 
+            AddAudioFilesNamesToGUI();
+
+        }
+
+        /// <summary>
+        /// Creates the list entries for the audio file names
+        /// </summary>
+        private void AddAudioFilesNamesToGUI() {
+            bool firstTimeTrip = false;
+
+            foreach(KeyValuePair<string, string> entry in audioDictionary) {
+                ComboBoxItem item = new ComboBoxItem();
+                item.Content = entry.Value;
+                AudioFileNames.Items.Add(item);
+                //add the lookup entry to the audio combo box table
+                audioComboBoxItems.Add(item, entry.Key);
+
+                //set the default to the first item in the list
+                if (!firstTimeTrip) {
+                    AudioFileNames.SelectedValue = item;
+                    firstTimeTrip = true;
+                }
+            }
         }
 
         /// <summary>
@@ -324,10 +357,38 @@ namespace seng403alarmclock {
             } else {
                 alarmDays = null;
             }
-
+            string audioFile = "";
+            try {
+                audioFile = getSelectedAudioFile();
+            } catch (IndexOutOfRangeException) {
+                MessageBox.Show(this, "No alarm tone was set.");
+                return;
+            }
+           
+ 
             //call the modified version...
-            GuiEventCaller.GetCaller().NotifyAlarmRequested(hours, minutes, Repeats.IsChecked.Value, "", Weekly.IsChecked.Value, alarmDays);
+            GuiEventCaller.GetCaller().NotifyAlarmRequested(hours, minutes, Repeats.IsChecked.Value, audioFile, Weekly.IsChecked.Value, alarmDays);
             this.Close();
+        }
+
+        /// <summary>
+        /// Trys to get the audio file name to use as the alarm tone
+        /// </summary>
+        /// <returns>
+        /// The selected audio file name
+        /// </returns>
+        /// <exception cref="IndexOutOfRangeException">
+        /// If no audio file was selected
+        /// </exception>
+        private string getSelectedAudioFile() {
+            ComboBoxItem selected = (ComboBoxItem)AudioFileNames.SelectedItem;
+            string fileName = "";
+            if(audioComboBoxItems.TryGetValue(selected, out fileName)) {
+                return fileName; //the keys are the file names associated with the combobox items
+            } else {
+                throw new IndexOutOfRangeException("No tone selected");
+            }
+            
         }
     }
 }

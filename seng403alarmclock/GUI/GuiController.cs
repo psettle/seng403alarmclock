@@ -126,7 +126,8 @@ namespace seng403alarmclock.GUI {
         /// 
         /// </param>
         public void SetAudioFileNames(Dictionary<string, string> names) {
-
+            //deep copy the dictionary object into the controls array
+            Controls.audioDictionary = new Dictionary<string, string>(names);
         }
 
         /// <summary>
@@ -134,7 +135,7 @@ namespace seng403alarmclock.GUI {
         /// </summary>
         /// <param name="minutes">How many minutes the current snooze timer is</param>
         public void SetSnoozeDisplayTime(int minutes) {
-
+            OptionsWindow.SetSnoozePeriodMinutes(minutes);
         }
 
 

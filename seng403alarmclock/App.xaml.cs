@@ -27,6 +27,8 @@ namespace seng403alarmclock
             TimeController tc = new TimeController();
             TimePulseGenerator.fetch().add(tc);
             TimePulseGenerator.fetch().add(ac);
+
+            GuiController.GetController().SetAudioFileNames(new Dictionary<string, string>() { { "hello", "bye" } });
         }
 
         /// <summary>
