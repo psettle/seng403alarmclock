@@ -47,6 +47,7 @@ namespace seng403alarmclock
             timer.Interval = new TimeSpan(0, 0, 1);
             timer.Start();
             this.Analog_setHidden();
+            this.DateDisplay_Analog.Visibility = Visibility.Hidden;
             App.SetupMainWindow();
             //TEST CODE BELOW THIS LINE      
         }
@@ -81,10 +82,12 @@ namespace seng403alarmclock
                 this.TimeDisplay.Visibility = Visibility.Visible;
                 this.DateDisplay.Visibility = Visibility.Visible;
                 this.Analog_setHidden();
+                this.DateDisplay_Analog.Visibility = Visibility.Hidden;
             }
            else
             {
                 this.Analog_setVisible();
+                this.DateDisplay_Analog.Visibility = Visibility.Visible;
                 this.DateDisplay.Visibility = Visibility.Hidden;
                 this.TimeDisplay.Visibility = Visibility.Hidden;
             }
@@ -111,6 +114,7 @@ namespace seng403alarmclock
         /// </param>
         public void SetDateText(string text) {
             this.DateDisplay.Text = text;
+            this.DateDisplay_Analog.Text = text;
         }
 
         /// <summary>

@@ -70,9 +70,10 @@
             <Button x:Name="Options_Button" Content="Options" VerticalAlignment="Top" HorizontalAlignment="Left" Width="70"/>
             <Button x:Name="Analog_Button" Content="Analog/Digital" VerticalAlignment="Top" HorizontalAlignment="Left" Width="89" Margin="145,0,0,0"/>
 
-            <Image x:Name="MinuteHand" HorizontalAlignment="Left" Height="184" Margin="18,50,0,0" VerticalAlignment="Top" Width="181" Source="clockhand.png"/>
-            <Image x:Name="ClockBack" HorizontalAlignment="Left" Height="184" Margin="18,50,0,0" VerticalAlignment="Top" Width="181" Source="ClockBackground.gif"/>
-            <Image x:Name="HourHand" HorizontalAlignment="Left" Height="144" Margin="37,69,0,0" VerticalAlignment="Top" Width="141" Source="clockhand.png"/>
+            <Image x:Name="MinuteHand" HorizontalAlignment="Left" Height="146" Margin="10,72,0,0" VerticalAlignment="Top" Width="145" Source="clockhand.png"/>
+            <Image x:Name="ClockBack" HorizontalAlignment="Left" Height="162" Margin="10,72,0,0" VerticalAlignment="Top" Width="148" Source="ClockBackground.gif"/>
+            <Image x:Name="HourHand" HorizontalAlignment="Left" Height="110" Margin="28,91,0,0" VerticalAlignment="Top" Width="114" Source="clockhand.png"/>
+            <TextBlock x:Name="DateDisplay_Analog" Margin="10,34,9.667,253" TextWrapping="Wrap" Text="Monday, January 3rd" VerticalAlignment="Center" FontSize="25" Foreground="DarkGray" Grid.Column="0"/>
 
 
         </Grid>
