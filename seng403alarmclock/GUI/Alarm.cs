@@ -10,6 +10,7 @@ namespace seng403alarmclock.GUI {
     /// 
     /// alarmName is a unique name for the alarm (the time it was created) so that we can id alarms later and remove them
     /// </summary>
+    [Serializable]
     public class Alarm {
 
         #region Attributes

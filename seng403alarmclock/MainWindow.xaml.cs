@@ -33,6 +33,8 @@ namespace seng403alarmclock
             this.AddAlarmButton.Click += AddAlarmButton_Click;
             this.Snooze_Button.Click += Snooze_Button_Click;
             this.Options_Button.Click += Options_Button_Click;
+
+            App.SetupMainWindow();
             //TEST CODE BELOW THIS LINE      
         }
 

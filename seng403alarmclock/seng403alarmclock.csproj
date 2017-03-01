@@ -86,6 +86,7 @@
     <Compile Include="Controls.xaml.cs">
       <DependentUpon>Controls.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Data\DataDriver.cs" />
     <Compile Include="GUI\NoMoreAlarmsException.cs" />
     <Compile Include="GUI\TimeSelector.cs" />
     <Compile Include="OptionsWindow.xaml.cs">

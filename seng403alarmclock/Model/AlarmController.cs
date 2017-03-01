@@ -1,4 +1,5 @@
-﻿using seng403alarmclock.GUI;
+﻿using seng403alarmclock.Data;
+using seng403alarmclock.GUI;
 using System;
 using System.Collections.Generic;
 
@@ -41,7 +42,6 @@ namespace seng403alarmclock.Model
             this.audioController = AudioController.GetController();
             this.guiController = GuiController.GetController();
             this.timeFetcher = new TimeFetcher();
-
             this.snoozeUntilTime = this.timeFetcher.getCurrentTime();
         }
 
@@ -209,6 +209,32 @@ namespace seng403alarmclock.Model
         }
 
         #endregion
+
+        /// <summary>
+        /// REQUIRE:
+        ///     main Window EXISTS
+        /// </summary>
+        public void SetupMainWindow() {
+            //attempt to load the alarm list from data and push them onto the GUI
+            try {
+                alarmList = (List<Alarm>)DataDriver.Instance.GetVariable("AlarmList");
+                foreach(Alarm alarm in alarmList) {
+                    guiController.AddAlarm(alarm);
+                }
+            } catch (IndexOutOfRangeException) {
+                //variable didn't exist in the array, the default one is empty and will work
+            }
+           
+        }
+
+        public void Teardown() {
+            //before we save, lets turn all the alarm ringing off
+            foreach(Alarm alarm in alarmList) {
+                alarm.IsRinging = false;
+            }
+            //save the alarm list to the data driver
+            DataDriver.Instance.SetVariable("AlarmList", alarmList);
+        }
     }
 }
 

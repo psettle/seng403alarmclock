@@ -9,6 +9,9 @@ using System.Windows;
 using seng403alarmclock;
 using seng403alarmclock.Model;
 using System.IO;
+using seng403alarmclock.Data;
+using System.Xml.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace seng403alarmclock
 {
@@ -17,19 +20,21 @@ namespace seng403alarmclock
     /// </summary>
     public partial class App : Application
     {
+
+        private static AlarmController ac = new AlarmController();
         /// <summary>
         /// Called when the application starts
         /// </summary>
         /// <param name="e"></param>
         protected override void OnStartup (StartupEventArgs e) {
             base.OnStartup(e);
-            AlarmController ac = new AlarmController();
             GuiEventCaller.GetCaller().AddListener(ac);
             TimeController tc = new TimeController();
             TimePulseGenerator.fetch().add(tc);
             TimePulseGenerator.fetch().add(ac);
 
             setAudioFileNames();
+
         }
 
         /// <summary>
@@ -57,10 +62,13 @@ namespace seng403alarmclock
         protected override void OnExit(ExitEventArgs e) {
             base.OnExit(e);
             AudioController.GetController().endAllAlarms();
+
+            ac.Teardown();
+            DataDriver.Instance.shutdown();
         }
 
-        public static void SetupTimeSelector(Window targetWindow) {
-
+        public static void SetupMainWindow() {
+            ac.SetupMainWindow();
         }
     }
 }

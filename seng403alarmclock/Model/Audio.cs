@@ -6,6 +6,7 @@ using System.Reflection;
 
 namespace seng403alarmclock.Model
 {
+    [Serializable]
     public class Audio
     {
         public SoundPlayer player;

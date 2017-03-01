@@ -34,11 +34,6 @@ namespace seng403alarmclock {
         /// </summary>
         private static double borderOffset = 20;
 
-        /// <summary>
-        /// Indicates if the currently entered time is PM, the current time is AM if this is false
-        /// </summary>
-        private bool pm = false;
-
         private TimeSelector timeSelector = null;
 
         /// <summary>
