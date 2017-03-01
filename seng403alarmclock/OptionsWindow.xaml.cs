@@ -50,6 +50,8 @@ namespace seng403alarmclock.GUI
                 
             this.snooze_Minus.Click             += Snooze_Minus_Click;
             this.snooze_Plus.Click              += Snooze_Plus_Click;
+
+            GuiEventCaller.GetCaller().NotifySnoozePeriodChangeRequested(snooze_period_minutes);
         }
 
         private void Snooze_Plus_Click(object sender, RoutedEventArgs e)
@@ -69,6 +71,7 @@ namespace seng403alarmclock.GUI
         
         public static void SetSnoozePeriodMinutes(int minutes) {
             snooze_period_minutes = minutes;
-        }      
+            GuiEventCaller.GetCaller().NotifySnoozePeriodChangeRequested(snooze_period_minutes);
+        }
     }
 }
