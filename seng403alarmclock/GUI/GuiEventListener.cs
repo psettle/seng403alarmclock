@@ -53,5 +53,13 @@ namespace seng403alarmclock.GUI {
         /// <param name="hours">The hour the user wants to change the time to (24h)</param>
         /// <param name="minutes">>The minute the user wants to change the time to</param>
         void ManualTimeRequested(int hours, int minutes);
+
+        /// <summary>
+        /// Called if the user wants to change the date on the clock manually
+        /// </summary>
+        /// <param name="year"></param>
+        /// <param name="month"></param>
+        /// <param name="day"></param>
+        void ManualDateRequested(int year, int month, int day);
     }
 }

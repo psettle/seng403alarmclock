@@ -198,12 +198,17 @@ namespace seng403alarmclock.Model
 
         #endregion
 
+        #region ManualTimeChange
 
-        public void ManualTimeRequested(int hours, int minutes)
-        {
-            throw new NotImplementedException();
+        public void ManualTimeRequested(int hours, int minutes) {
+            timeFetcher.SetNewTime(hours, minutes);
         }
 
+        public void ManualDateRequested(int year, int month, int day) {
+            timeFetcher.SetNewDate(year, month, day);
+        }
+
+        #endregion
     }
 }
 

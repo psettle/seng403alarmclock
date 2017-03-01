@@ -18,10 +18,10 @@
             <TextBox x:Name="minutes" Grid.Row ="0" BorderThickness="0" HorizontalAlignment="Left" Height="14" Margin="41,10,0,0" TextWrapping="Wrap" Text="MM" VerticalAlignment="Top" Width="38"/>
             <TextBlock x:Name="colon" Grid.Row ="0" HorizontalAlignment="Left" Height="14" Margin="31,10,0,0" TextWrapping="Wrap" Text=":" VerticalAlignment="Top" Width="5"/>
             <Button x:Name="AMPM" Grid.Row ="0" Content="AM" HorizontalAlignment="Left" Height="32" Margin="66,2,0,0" VerticalAlignment="Top" Width="43" BorderThickness="0" Background="White"/>
-            <RepeatButton x:Name="hrUp"  Grid.Row ="0" FontFamily="Segoe UI Symbol" Content="&#xE014;" HorizontalAlignment="Left" VerticalAlignment="Top" Width="22" Click="IncreaseHoursClick" Margin="7,-7,0,0" Background="{x:Null}" BorderBrush="{x:Null}"/>
-            <RepeatButton x:Name="minUp" Grid.Row ="0" FontFamily="Segoe UI Symbol" Content="&#xE014;" HorizontalAlignment="Left" VerticalAlignment="Top" Width="22" Click="IncreaseMinutesClick" Margin="43,-7,0,0" Background="{x:Null}" BorderBrush="{x:Null}"/>
-            <RepeatButton x:Name="minDown" Grid.Row ="0" FontFamily="Segoe UI Symbol" Content="&#xE015;" HorizontalAlignment="Left" VerticalAlignment="Top" Width="22" Click="DecreaseMinutesClick" Margin="43,23,0,-7" Background="{x:Null}" BorderBrush="{x:Null}"/>
-            <RepeatButton x:Name="hrDown" Grid.Row ="0" FontFamily="Segoe UI Symbol" Content="&#xE015;" HorizontalAlignment="Left" VerticalAlignment="Top" Width="22" Click="DecreaseHoursClick" Margin="7,23,0,-7" Background="{x:Null}" BorderBrush="{x:Null}"/>
+            <RepeatButton x:Name="hrUp"  Grid.Row ="0" FontFamily="Segoe UI Symbol" Content="&#xE014;" HorizontalAlignment="Left" VerticalAlignment="Top" Width="22" Margin="7,-7,0,0" Background="{x:Null}" BorderBrush="{x:Null}"/>
+            <RepeatButton x:Name="minUp" Grid.Row ="0" FontFamily="Segoe UI Symbol" Content="&#xE014;" HorizontalAlignment="Left" VerticalAlignment="Top" Width="22" Margin="43,-7,0,0" Background="{x:Null}" BorderBrush="{x:Null}"/>
+            <RepeatButton x:Name="minDown" Grid.Row ="0" FontFamily="Segoe UI Symbol" Content="&#xE015;" HorizontalAlignment="Left" VerticalAlignment="Top" Width="22" Margin="43,23,0,-7" Background="{x:Null}" BorderBrush="{x:Null}"/>
+            <RepeatButton x:Name="hrDown" Grid.Row ="0" FontFamily="Segoe UI Symbol" Content="&#xE015;" HorizontalAlignment="Left" VerticalAlignment="Top" Width="22" Margin="7,23,0,-7" Background="{x:Null}" BorderBrush="{x:Null}"/>
             <Label x:Name="label1" Content="Label" HorizontalAlignment="Left" Margin="7,41,0,0" VerticalAlignment="Top" Width="99" Height="4" Visibility="Hidden"/>
 
             <Grid Grid.Row="1">

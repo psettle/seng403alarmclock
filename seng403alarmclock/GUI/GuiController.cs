@@ -16,6 +16,8 @@ namespace seng403alarmclock.GUI {
         /// </summary>
         private static MainWindow mainWindow = null;
 
+        private DateTime now; //the most recent time we have been given
+
         /// <summary>
         /// The singleton object
         /// </summary>
@@ -25,6 +27,7 @@ namespace seng403alarmclock.GUI {
         /// The list of currenlty rendered alarm rows
         /// </summary>
         private Dictionary<Alarm, AlarmRow> activeAlarms = new Dictionary<Alarm, AlarmRow>();
+       
 
         /// <summary>
         /// Used to access the singleton object
@@ -46,6 +49,10 @@ namespace seng403alarmclock.GUI {
             mainWindow = window;
         }
 
+        public void SetupOptionsWindow(OptionsWindow window) {
+            window.SetTime(now.Hour, now.Minute);
+        }
+
         /// <summary>
         /// Private ctor
         /// </summary>
@@ -59,7 +66,8 @@ namespace seng403alarmclock.GUI {
         /// </param>
         public void SetTime(DateTime time) {
             mainWindow.SetTimeText(time.ToLongTimeString());
-            mainWindow.SetDateText(time.Date.ToLongDateString());         
+            mainWindow.SetDateText(time.Date.ToLongDateString());
+            now = time;     
         }
 
         /// <summary>

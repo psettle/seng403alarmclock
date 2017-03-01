@@ -28,7 +28,7 @@ namespace seng403alarmclock.Model
             {
                 player.Play();
             }
-            catch (FileNotFoundException e)
+            catch (FileNotFoundException)
             {
 
             }
@@ -41,7 +41,7 @@ namespace seng403alarmclock.Model
             {
                 player.Stop();
             }
-            catch (FileNotFoundException e)
+            catch (FileNotFoundException)
             {
             }
 

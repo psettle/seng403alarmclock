@@ -58,5 +58,9 @@ namespace seng403alarmclock
             base.OnExit(e);
             AudioController.GetController().endAllAlarms();
         }
+
+        public static void SetupTimeSelector(Window targetWindow) {
+
+        }
     }
 }

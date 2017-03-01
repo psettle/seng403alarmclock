@@ -1,4 +1,5 @@
 ﻿using seng403alarmclock.GUI;
+using seng403alarmclock.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -18,14 +20,54 @@ namespace seng403alarmclock.GUI
     /// <summary>
     /// Interaction logic for OptionsWindow.xaml
     /// </summary>
-    public partial class OptionsWindow : Window
-    {
+    public partial class OptionsWindow : Window, TimeSelectorWindow, TimeSelectorListener {
         private static double relativeSize_ofOptionsWindow;
         private static double borderOffset_width;
         private static double borderOffset_height;
 
         private static int snooze_period_minutes = 1;
-        
+
+        /// <summary>
+        /// The class that controls the time selecting widget on this window
+        /// </summary>
+        private TimeSelector timeSelector;
+
+        #region TimeSelectorWindowInterfaceMembers
+
+        Button TimeSelectorWindow.AMPM {
+            get { return AMPM; }
+            set { AMPM = value; }
+        }
+
+        TextBox TimeSelectorWindow.hours {
+            get { return hours; }
+            set { hours = value; }
+        }
+
+        TextBox TimeSelectorWindow.minutes {
+            get { return minutes; }
+            set { minutes = value; }
+        }
+
+        RepeatButton TimeSelectorWindow.hrUp {
+            get { return hrUp; }
+            set { hrUp = value; }
+        }
+        RepeatButton TimeSelectorWindow.minUp {
+            get { return minUp; }
+            set { minUp = value; }
+        }
+        RepeatButton TimeSelectorWindow.minDown {
+            get { return minDown; }
+            set { minDown = value; }
+        }
+        RepeatButton TimeSelectorWindow.hrDown {
+            get { return hrDown; }
+            set { hrDown = value; }
+        }
+
+        #endregion
+
         public OptionsWindow(double leftOffset, double topOffset, double heightOfMain, double widthOfMain,  double relativeSize)
         {
             InitializeComponent();
@@ -50,8 +92,15 @@ namespace seng403alarmclock.GUI
                 
             this.snooze_Minus.Click             += Snooze_Minus_Click;
             this.snooze_Plus.Click              += Snooze_Plus_Click;
+
+            this.timeSelector = new TimeSelector(this);
+            timeSelector.Add(this);
+
+
+            DatePicker.SelectedDateChanged += DatePicker_SelectedDateChanged;  
         }
 
+       
         private void Snooze_Plus_Click(object sender, RoutedEventArgs e)
         {
             if(snooze_period_minutes < 59)
@@ -69,6 +118,48 @@ namespace seng403alarmclock.GUI
         
         public static void SetSnoozePeriodMinutes(int minutes) {
             snooze_period_minutes = minutes;
-        }      
+        }
+
+        /// <summary>
+        /// Called whenever the user changes the time on the time display
+        /// </summary>
+        /// <param name="newHours"></param>
+        /// <param name="newMinutes"></param>
+        public void TimeChanged(int newHours, int newMinutes) {
+            GuiEventCaller.GetCaller().NotifyManualTimeRequested(newHours, newMinutes);
+        }
+
+        /// <summary>
+        /// Called if the user changes the selected date
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void DatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e) {
+            string newDate = this.DatePicker.Text;
+
+            //this string should be in the format yyyy-mm-dd
+
+            string[] yearMonthDay = newDate.Split('-');
+
+            int year, month, day;
+
+            try {
+                year = int.Parse(yearMonthDay[0]);
+                month = int.Parse(yearMonthDay[1]);
+                day = int.Parse(yearMonthDay[2]);
+            } catch (FormatException) {
+                return; //the date was picked wrong in the case of both exceptions, don't pass the new data onwards
+            } catch (IndexOutOfRangeException) {
+                return;
+            }
+            
+
+            GuiEventCaller.GetCaller().NotifyManualDateRequested(year, month, day);
+        }
+
+
+        public void SetTime(int hour, int minute) {
+            timeSelector.SetTime(hour, minute);
+        }
     }
 }

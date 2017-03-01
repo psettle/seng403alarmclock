@@ -87,6 +87,7 @@
       <DependentUpon>Controls.xaml</DependentUpon>
     </Compile>
     <Compile Include="GUI\NoMoreAlarmsException.cs" />
+    <Compile Include="GUI\TimeSelector.cs" />
     <Compile Include="OptionsWindow.xaml.cs">
       <DependentUpon>OptionsWindow.xaml</DependentUpon>
     </Compile>

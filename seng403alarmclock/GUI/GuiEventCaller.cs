@@ -125,5 +125,17 @@ namespace seng403alarmclock.GUI {
                 listener.ManualTimeRequested(hours, minutes);
             }
         }
+
+        /// <summary>
+        /// Notify all listeners that a manual time request was created
+        /// </summary>
+        /// <param name="year"></param>
+        /// <param name="month"></param>
+        /// <param name="day"></param>
+        public void NotifyManualDateRequested(int year, int month, int day) {
+            foreach (GuiEventListener listener in listeners) {
+                listener.ManualDateRequested(year, month, day);
+            }
+        }
     }
 }
