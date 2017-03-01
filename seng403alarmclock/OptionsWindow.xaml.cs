@@ -93,11 +93,14 @@ namespace seng403alarmclock.GUI
             this.snooze_Minus.Click             += Snooze_Minus_Click;
             this.snooze_Plus.Click              += Snooze_Plus_Click;
 
+
             this.timeSelector = new TimeSelector(this);
             timeSelector.Add(this);
 
 
             DatePicker.SelectedDateChanged += DatePicker_SelectedDateChanged;  
+
+            GuiEventCaller.GetCaller().NotifySnoozePeriodChangeRequested(snooze_period_minutes);
         }
 
        
@@ -118,6 +121,7 @@ namespace seng403alarmclock.GUI
         
         public static void SetSnoozePeriodMinutes(int minutes) {
             snooze_period_minutes = minutes;
+            GuiEventCaller.GetCaller().NotifySnoozePeriodChangeRequested(snooze_period_minutes);
         }
 
         /// <summary>
