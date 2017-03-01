@@ -14,13 +14,19 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 using seng403alarmclock.GUI;
+using System.Windows.Threading;
 
 namespace seng403alarmclock
 {
+    
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window {
+        DispatcherTimer timer;
+        private double HourDeg = 0;
+        private double MinDeg = 0;
+
         /// <summary>
         /// Initializes the main controller and assigns it to the GUI controller
         /// </summary>
@@ -33,9 +39,28 @@ namespace seng403alarmclock
             this.AddAlarmButton.Click += AddAlarmButton_Click;
             this.Snooze_Button.Click += Snooze_Button_Click;
             this.Options_Button.Click += Options_Button_Click;
+            this.Analog_Button.Click += Analog_Button_Click;
 
+            timer = new DispatcherTimer();
+            timer.Tick += new EventHandler(Timer_Tick);
+            timer.Interval = new TimeSpan(0, 0, 1);
+            timer.Start();
+            this.Analog_setHidden();
             App.SetupMainWindow();
             //TEST CODE BELOW THIS LINE      
+        }
+
+        private void Timer_Tick(object sender, EventArgs e)
+        {
+        
+            HourDeg = 0.5 * ((60 * (DateTime.Now.Hour % 12)) + DateTime.Now.Minute);
+            RotateTransform hourTransform = new RotateTransform(HourDeg, HourHand.Width / 2, HourHand.Height / 2);
+            //StickImg.RenderTransformOrigin = new System.Windows.Point(0, 0);
+            HourHand.RenderTransform = hourTransform;
+
+            MinDeg = 6 * DateTime.Now.Minute;
+            RotateTransform minTransform = new RotateTransform(MinDeg, MinuteHand.Width / 2, MinuteHand.Height / 2);
+            MinuteHand.RenderTransform = minTransform;
         }
 
         private void Options_Button_Click(object sender, RoutedEventArgs e)
@@ -47,6 +72,22 @@ namespace seng403alarmclock
             optionsWindow.Close();
           
  
+        }
+        private void Analog_Button_Click(object sender, RoutedEventArgs e)
+        {
+           if (this.TimeDisplay.Visibility != Visibility.Visible) {
+                this.TimeDisplay.Visibility = Visibility.Visible;
+                this.DateDisplay.Visibility = Visibility.Visible;
+                this.Analog_setHidden();
+            }
+           else
+            {
+                this.Analog_setVisible();
+                this.DateDisplay.Visibility = Visibility.Hidden;
+                this.TimeDisplay.Visibility = Visibility.Hidden;
+            }
+
+
         }
 
 
@@ -111,6 +152,21 @@ namespace seng403alarmclock
         {
             this.Snooze_Button.Visibility = Visibility.Hidden;
         }
-                
+
+        public void Analog_setVisible()
+        {
+            this.HourHand.Visibility = Visibility.Visible;
+            this.MinuteHand.Visibility = Visibility.Visible;
+            this.ClockBack.Visibility = Visibility.Visible;
+
+        }
+
+        public void Analog_setHidden()
+        {
+            this.HourHand.Visibility = Visibility.Hidden;
+            this.MinuteHand.Visibility = Visibility.Hidden;
+            this.ClockBack.Visibility = Visibility.Hidden;
+        }
+
     }
 }
