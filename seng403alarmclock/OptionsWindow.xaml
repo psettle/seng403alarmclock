@@ -83,14 +83,15 @@
                     <RowDefinition Height="19*"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="1*"/>
-                    <ColumnDefinition Width="1*"/>
-                    <ColumnDefinition Width="1*"/>
-                    <ColumnDefinition Width="1*"/>
-                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="402*"/>
+                    <ColumnDefinition Width="133*"/>
+                    <ColumnDefinition Width="37*"/>
+                    <ColumnDefinition Width="133*"/>
+                    <ColumnDefinition Width="39*"/>
                 </Grid.ColumnDefinitions>
-                <Button x:Name="analog" Content="Analog Display" Click="button_Click" Grid.Row="1" Grid.Column="1"/>
-                <Button x:Name="digital" Content="Digital Display" Click="button_Click" Grid.Row="1" Grid.Column="3"/>
+                <Button x:Name="analog" Content="Analog" Grid.Row="1" Grid.Column="1" FontSize="30"/>
+                <Button x:Name="digital" Content="Digital" Grid.Row="1" Grid.Column="3" FontSize="30"/>
+                <Label x:Name="label" Content="Display Mode" HorizontalAlignment="Left" Margin="46,2,0,0" Grid.Row="1" Grid.Column="0" VerticalAlignment="Top" FontSize="36" />
             </Grid>
 
         </StackPanel>

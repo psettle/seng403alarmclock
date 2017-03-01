@@ -43,7 +43,7 @@ namespace seng403alarmclock
 
             timer = new DispatcherTimer();
             timer.Tick += new EventHandler(Timer_Tick);
-            timer.Interval = new TimeSpan(0, 0, 1);
+            timer.Interval = new TimeSpan(0, 0, 0, 0, 100);
             timer.Start();
             this.Analog_setHidden();
             App.SetupMainWindow();

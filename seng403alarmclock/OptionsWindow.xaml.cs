@@ -101,9 +101,20 @@ namespace seng403alarmclock.GUI
             DatePicker.SelectedDateChanged += DatePicker_SelectedDateChanged;  
 
             GuiEventCaller.GetCaller().NotifySnoozePeriodChangeRequested(snooze_period_minutes);
+
+
+            this.analog.Click += Analog_Click;
+            this.digital.Click += Digital_Click;
         }
 
-       
+        private void Digital_Click(object sender, RoutedEventArgs e) {
+            GuiController.GetController().SetDisplayMode(false);
+        }
+
+        private void Analog_Click(object sender, RoutedEventArgs e) {
+            GuiController.GetController().SetDisplayMode(true);
+        }
+
         private void Snooze_Plus_Click(object sender, RoutedEventArgs e)
         {
             if(snooze_period_minutes < 59)
