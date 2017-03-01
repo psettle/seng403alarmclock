@@ -166,5 +166,14 @@ namespace seng403alarmclock.GUI {
                 throw new AlarmNotSetException("The requested alarm did not exist");
             }   
         }
+
+        public void SetDisplayMode(bool analog) {
+            if(analog) {
+                mainWindow.SetAnalog();
+            } else {
+                mainWindow.SetDigital();
+            }
+           
+        }
     }
 }

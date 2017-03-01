@@ -40,14 +40,12 @@ namespace seng403alarmclock
             this.AddAlarmButton.Click += AddAlarmButton_Click;
             this.Snooze_Button.Click += Snooze_Button_Click;
             this.Options_Button.Click += Options_Button_Click;
-            this.Analog_Button.Click += Analog_Button_Click;
 
             timer = new DispatcherTimer();
             timer.Tick += new EventHandler(Timer_Tick);
-            timer.Interval = new TimeSpan(0, 0, 1);
+            timer.Interval = new TimeSpan(0, 0, 0, 0, 100);
             timer.Start();
             this.Analog_setHidden();
-            this.DateDisplay_Analog.Visibility = Visibility.Hidden;
             App.SetupMainWindow();
             //TEST CODE BELOW THIS LINE      
         }
@@ -76,26 +74,18 @@ namespace seng403alarmclock
           
  
         }
-        private void Analog_Button_Click(object sender, RoutedEventArgs e)
-        {
-           if (this.TimeDisplay.Visibility != Visibility.Visible) {
-                this.TimeDisplay.Visibility = Visibility.Visible;
-                this.DateDisplay.Visibility = Visibility.Visible;
-                this.Analog_setHidden();
-                this.DateDisplay_Analog.Visibility = Visibility.Hidden;
-            }
-           else
-            {
-                this.Analog_setVisible();
-                this.DateDisplay_Analog.Visibility = Visibility.Visible;
-                this.DateDisplay.Visibility = Visibility.Hidden;
-                this.TimeDisplay.Visibility = Visibility.Hidden;
-            }
 
-
+        public void SetAnalog() {
+            this.Analog_setVisible();
+            this.DateDisplay.Visibility = Visibility.Hidden;
+            this.TimeDisplay.Visibility = Visibility.Hidden;   
         }
 
-
+        public void SetDigital() {
+            this.TimeDisplay.Visibility = Visibility.Visible;
+            this.DateDisplay.Visibility = Visibility.Visible;
+            this.Analog_setHidden();  
+        }
         /// <summary>
         /// Sets the text for the time display directly
         /// </summary>
@@ -114,7 +104,6 @@ namespace seng403alarmclock
         /// </param>
         public void SetDateText(string text) {
             this.DateDisplay.Text = text;
-            this.DateDisplay_Analog.Text = text;
         }
 
         /// <summary>
@@ -174,5 +163,6 @@ namespace seng403alarmclock
             this.ClockBack.Visibility = Visibility.Hidden;
         }
 
+        
     }
 }
