@@ -76,6 +76,23 @@
 
                 <Label Content="Customize Time" HorizontalAlignment="Left" Margin="41,4,0,0" VerticalAlignment="Top" FontSize="36" Grid.Row="1"/>
             </Grid>
+            <Grid Height="105" VerticalAlignment="Top" Margin="0,0,5,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="20*"/>
+                    <RowDefinition Height="66*"/>
+                    <RowDefinition Height="19*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <Button x:Name="analog" Content="Analog Display" Click="button_Click" Grid.Row="1" Grid.Column="1"/>
+                <Button x:Name="digital" Content="Digital Display" Click="button_Click" Grid.Row="1" Grid.Column="3"/>
+            </Grid>
+
         </StackPanel>
     </Viewbox>
 </Window>
