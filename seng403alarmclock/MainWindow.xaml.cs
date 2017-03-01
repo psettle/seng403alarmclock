@@ -54,11 +54,12 @@ namespace seng403alarmclock
         {
 
             // needs cleaning 
-            HourDeg = 6 * currentTime.Minute;
+           
+            HourDeg = 0.5 * ((60 * (currentTime.Hour % 12)) + currentTime.Minute);
             RotateTransform hourTransform = new RotateTransform(HourDeg, HourHand.Width / 2, HourHand.Height / 2);
             HourHand.RenderTransform = hourTransform;
 
-            MinDeg = 0.5 * ((60 * (currentTime.Hour % 12)) + currentTime.Minute);
+            MinDeg = 6 * currentTime.Minute;
             RotateTransform minTransform = new RotateTransform(MinDeg, MinuteHand.Width / 2, MinuteHand.Height / 2);
             MinuteHand.RenderTransform = minTransform;
         }
