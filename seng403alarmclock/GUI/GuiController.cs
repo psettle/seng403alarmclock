@@ -67,6 +67,7 @@ namespace seng403alarmclock.GUI {
         public void SetTime(DateTime time) {
             mainWindow.SetTimeText(time.ToLongTimeString());
             mainWindow.SetDateText(time.Date.ToLongDateString());
+            mainWindow.currentTime = time;
             now = time;     
         }
 

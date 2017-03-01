@@ -26,6 +26,7 @@ namespace seng403alarmclock
         DispatcherTimer timer;
         private double HourDeg = 0;
         private double MinDeg = 0;
+        public DateTime currentTime;
 
         /// <summary>
         /// Initializes the main controller and assigns it to the GUI controller
@@ -52,13 +53,13 @@ namespace seng403alarmclock
 
         private void Timer_Tick(object sender, EventArgs e)
         {
-        
-            HourDeg = 0.5 * ((60 * (DateTime.Now.Hour % 12)) + DateTime.Now.Minute);
+
+            // needs cleaning 
+            HourDeg = 6 * currentTime.Minute;
             RotateTransform hourTransform = new RotateTransform(HourDeg, HourHand.Width / 2, HourHand.Height / 2);
-            //StickImg.RenderTransformOrigin = new System.Windows.Point(0, 0);
             HourHand.RenderTransform = hourTransform;
 
-            MinDeg = 6 * DateTime.Now.Minute;
+            MinDeg = 0.5 * ((60 * (currentTime.Hour % 12)) + currentTime.Minute);
             RotateTransform minTransform = new RotateTransform(MinDeg, MinuteHand.Width / 2, MinuteHand.Height / 2);
             MinuteHand.RenderTransform = minTransform;
         }
