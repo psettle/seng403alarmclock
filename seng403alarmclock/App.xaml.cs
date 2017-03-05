@@ -20,13 +20,27 @@ namespace seng403alarmclock
     /// </summary>
     public partial class App : Application
     {
+        /// <summary>
+        /// If the last time this program started, this value was true, the program will automatically start when the 
+        /// computer is restarted
+        /// </summary>
+        private static readonly bool launchOnStartup = false;
+
 
         private static AlarmController ac = new AlarmController();
         /// <summary>
         /// Called when the application starts
         /// </summary>
         /// <param name="e"></param>
-        protected override void OnStartup (StartupEventArgs e) {
+        protected override void OnStartup (StartupEventArgs e) { 
+            if(launchOnStartup) {
+                CreateStartupShortcut();
+            } else {
+                DeleteStartupShortcut();
+            }
+            
+            SetCWD();
+
             base.OnStartup(e);
             GuiEventCaller.GetCaller().AddListener(ac);
             TimeController tc = new TimeController();
@@ -35,6 +49,18 @@ namespace seng403alarmclock
 
             setAudioFileNames();
 
+        }
+
+        /// <summary>
+        /// Sets the current working directory to the directory the .exe is in
+        /// </summary>
+        private void SetCWD() {
+            string fullPath = System.Reflection.Assembly.GetExecutingAssembly().Location;
+
+            //cut the file name out:
+            string dir = Path.GetDirectoryName(fullPath);
+
+            Directory.SetCurrentDirectory(dir);
         }
 
         /// <summary>
@@ -69,6 +95,30 @@ namespace seng403alarmclock
 
         public static void SetupMainWindow() {
             ac.SetupMainWindow();
+        }
+
+        /// <summary>
+        /// Creates a startup shortcut in the startup folder of a windows machine
+        /// 
+        /// Thanks to: http://stackoverflow.com/questions/4897655/create-shortcut-on-desktop-c-sharp
+        /// </summary>
+        private void CreateStartupShortcut() {
+            string startupFolder = Environment.GetFolderPath(Environment.SpecialFolder.Startup);
+
+            StreamWriter writer = new StreamWriter(startupFolder + "\\seng403AlarmClock.url");
+
+            string programName = System.Reflection.Assembly.GetExecutingAssembly().Location;
+
+            writer.WriteLine("[InternetShortcut]");
+            writer.WriteLine("URL=file:///" + programName);
+            writer.WriteLine("IconIndex=0");
+            string icon = programName.Replace('\\', '/');
+            writer.WriteLine("IconFile=" + icon);
+            writer.Flush();
+        }
+
+        private void DeleteStartupShortcut() {
+            File.Delete(Environment.GetFolderPath(Environment.SpecialFolder.Startup) + "\\seng403AlarmClock.url");  
         }
     }
 }
