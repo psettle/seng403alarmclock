@@ -61,5 +61,11 @@ namespace seng403alarmclock.GUI {
         /// <param name="month"></param>
         /// <param name="day"></param>
         void ManualDateRequested(int year, int month, int day);
+
+        ///<summary>
+        ///Called if the user wants to edit an alarm
+        ///</summary>
+        ///
+        void AlarmEdited(Alarm alarm);
     }
 }

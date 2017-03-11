@@ -48,12 +48,11 @@ namespace seng403alarmclock.GUI {
         /// The button on the row (this reference is kept so the text can be altered)
         /// </summary>
         private Button button = null;
-
+        private Button editBtn = null;
         /// <summary>
         /// Which mode the row is in, control the types of event generated
         /// </summary>
         private ModeType mode = ModeType.Cancel;
-
         #region Setup
 
         /// <summary>
@@ -97,7 +96,7 @@ namespace seng403alarmclock.GUI {
 
             //add the rows
             this.CreateTopRow();
-
+           
             //we need to add the weekly row if the alarm is a weekly one, and a repeat row if the alarm repeats
             //this indexes that these things go at depends on each value
             if (storedAlarm.IsWeekly) {
@@ -123,6 +122,10 @@ namespace seng403alarmclock.GUI {
                 topRowGrid.ColumnDefinitions.Add(col);
             }
 
+            //set the thrid col to only take up as much room as button width
+            ColumnDefinition col1 = new ColumnDefinition();
+            col1.Width = new GridLength(1, GridUnitType.Auto);
+            topRowGrid.ColumnDefinitions.Add(col1);
 
             //create and attach the textbox
             TextBlock textBox = new TextBlock();
@@ -132,18 +135,30 @@ namespace seng403alarmclock.GUI {
             topRowGrid.Children.Add(textBox);
 
             //create and attach the button
+            editBtn= new Button();
+            Grid.SetColumn(editBtn, 2);
+            editBtn.FontFamily = new FontFamily("Segoe UI Symbol");
+            //editBtn.Width = 20;
+            editBtn.Content = '\uE104';
             button = new Button();
             Grid.SetColumn(button, 1);
             button.Click += ButtonClick; //!this assigns the event handler
+            editBtn.Click += EditBtnClick;
             button.BorderThickness = new Thickness(1, 1, 1, 1);
             button.BorderBrush = Brushes.DarkGray;
             topRowGrid.Children.Add(button);
+            topRowGrid.Children.Add(editBtn);
             //set the button to the correct mode (as a default)
             if(storedAlarm.IsRinging) {
                 this.SetDismiss();
             } else {
                 this.SetCancel();
             }
+        }
+
+        private void EditBtnClick(object sender, RoutedEventArgs e)
+        {
+           //do nothing
         }
 
         /// <summary>
@@ -229,7 +244,9 @@ namespace seng403alarmclock.GUI {
             }   
         }
 
-        #endregion
+        #endregion        private ModeType mode = ModeType.Cancel;
+
+
 
         /// <summary>
         /// Event triggered by the button on a row

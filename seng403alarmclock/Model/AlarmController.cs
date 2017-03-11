@@ -235,6 +235,11 @@ namespace seng403alarmclock.Model
             //save the alarm list to the data driver
             DataDriver.Instance.SetVariable("AlarmList", alarmList);
         }
+
+        public void AlarmEdited(Alarm alarm)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
 
