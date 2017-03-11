@@ -236,10 +236,14 @@ namespace seng403alarmclock.Model
             DataDriver.Instance.SetVariable("AlarmList", alarmList);
         }
 
-        public void AlarmEdited(Alarm alarm)
+        public void AlarmEdited(Alarm alarm, int hour, int minute, bool repeat, string audioFile, bool weekly, List<DayOfWeek> days)
         {
-            throw new NotImplementedException();
+            //open the new alarm window
+            GuiEventCaller.GetCaller().NotifyAlarmEditRequest(alarm, hour, minute, repeat, audioFile, weekly, days);
+
+
         }
+
     }
 }
 

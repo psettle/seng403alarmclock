@@ -156,10 +156,7 @@ namespace seng403alarmclock.GUI {
             }
         }
 
-        private void EditBtnClick(object sender, RoutedEventArgs e)
-        {
-           //do nothing
-        }
+        
 
         /// <summary>
         /// Adds the elements for the middle row
@@ -264,6 +261,12 @@ namespace seng403alarmclock.GUI {
                 default:
                     throw new NotImplementedException("Invalid ModeType");
             } 
+        }
+
+        private void EditBtnClick(object sender, RoutedEventArgs e)
+        {
+            EditAlarmWindow eaw = new EditAlarmWindow(0, 0, 300, this.storedAlarm);
+            eaw.Show();
         }
 
         /// <summary>

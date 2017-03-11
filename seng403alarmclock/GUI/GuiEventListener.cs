@@ -66,6 +66,6 @@ namespace seng403alarmclock.GUI {
         ///Called if the user wants to edit an alarm
         ///</summary>
         ///
-        void AlarmEdited(Alarm alarm);
+        void AlarmEdited(Alarm alarm, int hour, int minute, bool repeat, string audioFile, bool weekly, List<DayOfWeek> days);
     }
 }

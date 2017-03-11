@@ -144,6 +144,7 @@ namespace seng403alarmclock.GUI {
         public void SetAudioFileNames(Dictionary<string, string> names) {
             //deep copy the dictionary object into the controls array
             Controls.audioDictionary = new Dictionary<string, string>(names);
+            EditAlarmWindow.audioDictionary = new Dictionary<string, string>(names);
         }
 
         /// <summary>
