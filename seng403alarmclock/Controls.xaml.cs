@@ -101,7 +101,7 @@ namespace seng403alarmclock {
 
             this.AddAlarm.Click += AddAlarmClick;
 
-            this.Weekly.Click += Weekly_Click;
+            this.Repeats.Click += Repeats_Click;
 
             //add the handler for each weekday
             this.Sunday.Click += Weekday_Click;
@@ -190,8 +190,8 @@ namespace seng403alarmclock {
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void Weekly_Click(object sender, RoutedEventArgs e) {
-            if(this.Weekly.IsChecked.Value) {
+        private void Repeats_Click(object sender, RoutedEventArgs e) {
+            if(this.Repeats.IsChecked.Value) {
                 this.WeekGrid.Visibility = Visibility.Visible;
             } else {
                 this.WeekGrid.Visibility = Visibility.Hidden;
@@ -226,7 +226,7 @@ namespace seng403alarmclock {
 
             //parse out which days of the week this alarm occurs on
             List<DayOfWeek> alarmDays;
-            if (Weekly.IsChecked.Value) {
+            if (Repeats.IsChecked.Value) {
                 alarmDays = new List<DayOfWeek>();
                 foreach(KeyValuePair<DayOfWeek, bool> entry in dayStatusCodes) {
                     if(entry.Value) {
@@ -252,7 +252,7 @@ namespace seng403alarmclock {
            
  
             //call the modified version...
-            GuiEventCaller.GetCaller().NotifyAlarmRequested(hours, minutes, Repeats.IsChecked.Value, audioFile, Weekly.IsChecked.Value, alarmDays);
+            GuiEventCaller.GetCaller().NotifyAlarmRequested(hours, minutes, Repeats.IsChecked.Value, audioFile, Repeats.IsChecked.Value, alarmDays);
             Close();
         }
 
