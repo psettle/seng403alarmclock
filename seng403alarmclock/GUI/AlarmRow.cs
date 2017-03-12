@@ -138,6 +138,8 @@ namespace seng403alarmclock.GUI {
 
             //create and attach the button
             editBtn= new Button();
+            editBtn.Background = null;
+            editBtn.BorderBrush = null;
             Grid.SetColumn(editBtn, 2);
             editBtn.FontFamily = new FontFamily("Segoe UI Symbol");
             //editBtn.Width = 20;

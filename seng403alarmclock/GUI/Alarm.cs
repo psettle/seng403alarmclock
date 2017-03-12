@@ -61,8 +61,7 @@ namespace seng403alarmclock.GUI {
         /// <summary>
         /// Indicates if the alarm repeats or not
         /// </summary>
-        public bool IsRepeating { get; set;
-        }
+        public bool IsRepeating { get; set;}
 
         /// <summary>
         /// Indicates if the alarm is running a weekly cycle, instead of a daily cycle

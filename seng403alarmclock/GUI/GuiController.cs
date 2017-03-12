@@ -139,8 +139,7 @@ namespace seng403alarmclock.GUI {
             {
                 AddAlarm(a);
             }
-//RemoveAlarm(alarm);
-  //          AddAlarm(alarm);
+
             Console.WriteLine("here");
             //do somethng here
 

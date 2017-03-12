@@ -127,11 +127,64 @@ namespace seng403alarmclock
             this.Saturday.Click += Weekday_Click;
 
             this.timeSelector = new TimeSelector(this);
+            SetUpGUI();
+            
 
-            this.hours.Text = alarm.GetHour().ToString();
-            this.minutes.Text = alarm.GetMinute().ToString();
             AddAudioFilesNamesToGUI();
 
+        }
+
+        private void SetUpGUI()
+        {
+            //get the alarm info
+            List<DayOfWeek> days = alarm.GetWeekdays();
+            bool isRepeating = alarm.IsRepeating;
+            bool isWeekly = alarm.IsWeekly;
+
+            //set the gui elements
+            timeSelector.SetTime(alarm.GetHour(), alarm.GetMinute());
+            if (isRepeating)
+                this.Repeats.IsChecked = true;
+            if (isWeekly)
+            {
+                this.Weekly.IsChecked = true;
+                this.WeekGrid.Visibility = Visibility.Visible;
+
+                foreach (DayOfWeek day in days)
+                {
+                    switch (day)
+                    {
+                        case DayOfWeek.Sunday:
+                            Sunday.Background = Brushes.Turquoise;
+                            break;
+                        case DayOfWeek.Monday:
+                            Monday.Background = Brushes.Turquoise;
+                            break;
+                        case DayOfWeek.Tuesday:
+                            Tuesday.Background = Brushes.Turquoise;
+                            break;
+                        case DayOfWeek.Wednesday:
+                            Wednesday.Background = Brushes.Turquoise;
+                            break;
+                        case DayOfWeek.Thursday:
+                            Thursday.Background = Brushes.Turquoise;
+                            break;
+                        case DayOfWeek.Friday:
+                            Friday.Background = Brushes.Turquoise;
+                            break;
+                        case DayOfWeek.Saturday:
+                            Saturday.Background = Brushes.Turquoise;
+                            break;
+                        default:
+                            break;
+
+
+                    }
+                    dayStatusCodes[day] = !dayStatusCodes[day];
+
+                }
+               
+            }
         }
 
         /// <summary>
