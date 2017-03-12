@@ -99,8 +99,6 @@ namespace seng403alarmclock {
             this.Height = mainWindowHeight / 3;
             this.ResizeMode = ResizeMode.CanMinimize;
 
-            this.AddAlarm.Click += AddAlarmClick;
-
             this.Repeats.Click += Repeats_Click;
 
             //add the handler for each weekday
