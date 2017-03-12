@@ -238,8 +238,9 @@ namespace seng403alarmclock.Model
 
         public void AlarmEdited(Alarm alarm, int hour, int minute, bool repeat, string audioFile, bool weekly, List<DayOfWeek> days)
         {
-            //open the new alarm window
-            GuiEventCaller.GetCaller().NotifyAlarmEditRequest(alarm, hour, minute, repeat, audioFile, weekly, days);
+            alarm.EditAlarm(hour, minute, repeat, audioFile, weekly, days);
+            //reflect the changes in the gui
+            GuiController.GetController().EditAlarm(alarm);
 
 
         }

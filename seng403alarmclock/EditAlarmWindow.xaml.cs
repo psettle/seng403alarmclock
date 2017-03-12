@@ -290,7 +290,7 @@ namespace seng403alarmclock
 
 
             //call the modified version...
-            GuiEventCaller.GetCaller().NotifyAlarmRequested(hours, minutes, Repeats.IsChecked.Value, audioFile, Weekly.IsChecked.Value, alarmDays);
+            GuiEventCaller.GetCaller().NotifyAlarmEditRequest(alarm,hours, minutes, Repeats.IsChecked.Value, audioFile, Weekly.IsChecked.Value, alarmDays);
             Close();
         }
 

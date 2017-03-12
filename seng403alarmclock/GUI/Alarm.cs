@@ -254,6 +254,20 @@ namespace seng403alarmclock.GUI {
 
         #endregion
 
+        public void EditAlarm(int hour, int minute, bool repeat, string audioFile, bool weekly, List<DayOfWeek> days)
+        {
+            audio = audioController.createAudioObject(audioFile);
 
+            IsRepeating = repeat;
+            IsWeekly = weekly;
+
+            if (weekly)
+            {
+                WeeklyCtor(hour, minute, days);
+            }
+            else {
+                NonWeeklyCtor(hour, minute);
+            }
+        }
     }
 }

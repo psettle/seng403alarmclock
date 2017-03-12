@@ -53,6 +53,7 @@ namespace seng403alarmclock.GUI {
         /// Which mode the row is in, control the types of event generated
         /// </summary>
         private ModeType mode = ModeType.Cancel;
+        private TextBlock alarmText;
         #region Setup
 
         /// <summary>
@@ -128,11 +129,11 @@ namespace seng403alarmclock.GUI {
             topRowGrid.ColumnDefinitions.Add(col1);
 
             //create and attach the textbox
-            TextBlock textBox = new TextBlock();
-            Grid.SetColumn(textBox, 0);
-            textBox.TextAlignment = TextAlignment.Center;
-            textBox.Text = storedAlarm.GetAlarmTime().ToShortTimeString();
-            topRowGrid.Children.Add(textBox);
+            alarmText = new TextBlock();
+            Grid.SetColumn(alarmText, 0);
+            alarmText.TextAlignment = TextAlignment.Center;
+            alarmText.Text = storedAlarm.GetAlarmTime().ToShortTimeString();
+            topRowGrid.Children.Add(alarmText);
 
             //create and attach the button
             editBtn= new Button();
@@ -328,6 +329,14 @@ namespace seng403alarmclock.GUI {
             } else {
                 this.SetCancel();
             }
+        }
+
+        public void UpdateAlarm()
+        {
+            // this.build();
+            //RemoveFromGUI();
+            //AddToGUI();
+            alarmText.Text = storedAlarm.GetAlarmTime().ToShortTimeString();
         }
     }
 }

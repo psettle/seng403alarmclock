@@ -128,7 +128,13 @@ namespace seng403alarmclock.GUI {
         public void EditAlarm(Alarm alarm)
         {
             AlarmRow row = this.GetAlarmRow(alarm);
+            //AlarmRow nRow = new AlarmRow(alarm);
+            row.UpdateAlarm();
+//RemoveAlarm(alarm);
+  //          AddAlarm(alarm);
+            Console.WriteLine("here");
             //do somethng here
+
 
         }
 
