@@ -67,13 +67,13 @@
             </ScrollViewer>
 
             <Button x:Name="AddAlarmButton" Content="Add Alarm" HorizontalAlignment="Left" Margin="70,0,0,300" VerticalAlignment="Bottom" Width="75"/>
-            <Button x:Name="Snooze_Button" Content="Snooze" HorizontalAlignment="Left" Margin="78,239,0,0" VerticalAlignment="Top" Width="144" Height="48" BorderBrush="#FFDDDDDD"/>
+            <Button x:Name="Snooze_Button" Content="Snooze" HorizontalAlignment="Left" Margin="77,262,0,0" VerticalAlignment="Top" Width="80" Height="48" BorderBrush="#FFDDDDDD"/>
             <Button x:Name="Options_Button" Content="Options" VerticalAlignment="Top" HorizontalAlignment="Left" Width="70"/>
 
             <Image x:Name="MinuteHand" HorizontalAlignment="Left" Height="184" Margin="68,70,0,0" VerticalAlignment="Top" Width="181" Source="clockhand.png"/>
             <Image x:Name="ClockBack" HorizontalAlignment="Left" Height="184" Margin="68,70,0,0" VerticalAlignment="Top" Width="181" Source="ClockBackground.gif"/>
             <Image x:Name="HourHand" HorizontalAlignment="Left" Height="144" Margin="88,89,0,0" VerticalAlignment="Top" Width="141" Source="clockhand.png"/>
-            <TextBlock x:Name="AMPM_Analog" HorizontalAlignment="Left" Margin="144,186,0,0" TextWrapping="Wrap" Text="AM" VerticalAlignment="Top" FontSize="18" Foreground="DarkGray"/>
+            <TextBlock x:Name="AMPM_Analog" HorizontalAlignment="Left" Margin="144,186,0,0" TextWrapping="Wrap" Text="AM" VerticalAlignment="Top" FontSize="18" Foreground="DarkG"/>
 
 
         </Grid>
