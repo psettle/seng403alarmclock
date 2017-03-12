@@ -23,11 +23,7 @@ namespace seng403alarmclock
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window {
-        DispatcherTimer timer;
-        private double HourDeg = 0;
-        private double MinDeg = 0;
-        public DateTime currentTime;
-
+       
         /// <summary>
         /// Initializes the main controller and assigns it to the GUI controller
         /// </summary>
@@ -40,30 +36,14 @@ namespace seng403alarmclock
             this.AddAlarmButton.Click += AddAlarmButton_Click;
             this.Snooze_Button.Click += Snooze_Button_Click;
             this.Options_Button.Click += Options_Button_Click;
-
-            timer = new DispatcherTimer();
-            timer.Tick += new EventHandler(Timer_Tick);
-            timer.Interval = new TimeSpan(0, 0, 0, 0, 100);
-            timer.Start();
+       
             this.Analog_setHidden();
-            //this.DateDisplay_Analog.Visibility = Visibility.Hidden;
+            this.DateDisplay_Analog.Visibility = Visibility.Hidden;
             App.SetupMainWindow();
             //TEST CODE BELOW THIS LINE      
         }
 
-        private void Timer_Tick(object sender, EventArgs e)
-        {
-
-            // needs cleaning 
-           
-            HourDeg = 0.5 * ((60 * (currentTime.Hour % 12)) + currentTime.Minute);
-            RotateTransform hourTransform = new RotateTransform(HourDeg, HourHand.Width / 2, HourHand.Height / 2);
-            HourHand.RenderTransform = hourTransform;
-
-            MinDeg = 6 * currentTime.Minute;
-            RotateTransform minTransform = new RotateTransform(MinDeg, MinuteHand.Width / 2, MinuteHand.Height / 2);
-            MinuteHand.RenderTransform = minTransform;
-        }
+       
 
         private void Options_Button_Click(object sender, RoutedEventArgs e)
         {
@@ -97,7 +77,7 @@ namespace seng403alarmclock
         /// <param name="text">
         /// The text to put onto the GUI
         /// </param>
-        public void SetTimeText(string text) {
+        private void SetTimeText(string text) {
             this.TimeDisplay.Text = text;
         }
 
@@ -107,8 +87,39 @@ namespace seng403alarmclock
         /// <param name="text">
         /// The text to put onto the GUI
         /// </param>
-        public void SetDateText(string text) {
+        private void SetDateText(string text) {
             this.DateDisplay.Text = text;
+            this.DateDisplay_Analog.Text = text;
+        }
+
+        /// <summary>
+        /// Set the time display on the clock
+        /// </summary>
+        /// <param name="time"></param>
+        public void SetTime(DateTime time) {
+            SetAnalogTime(time);
+            SetDateText(time.Date.ToLongDateString());
+            SetTimeText(time.ToLongTimeString());
+        }
+
+        /// <summary>
+        /// Sets the display time on the analog clock
+        /// </summary>
+        /// <param name="time">The current time</param>
+        public void SetAnalogTime(DateTime time) {
+            double HourDeg = 0.5 * ((60 * (time.Hour % 12)) + time.Minute);
+            RotateTransform hourTransform = new RotateTransform(HourDeg, HourHand.Width / 2, HourHand.Height / 2);
+            HourHand.RenderTransform = hourTransform;
+
+            double MinDeg = 6 * time.Minute;
+            RotateTransform minTransform = new RotateTransform(MinDeg, MinuteHand.Width / 2, MinuteHand.Height / 2);
+            MinuteHand.RenderTransform = minTransform;
+
+            if(time.Hour >= 12) {
+                this.AMPM_Analog.Text = "PM";
+            } else {
+                this.AMPM_Analog.Text = "AM";
+            }
         }
 
         /// <summary>
@@ -158,6 +169,8 @@ namespace seng403alarmclock
             this.HourHand.Visibility = Visibility.Visible;
             this.MinuteHand.Visibility = Visibility.Visible;
             this.ClockBack.Visibility = Visibility.Visible;
+            this.DateDisplay_Analog.Visibility = Visibility.Visible;
+            this.AMPM_Analog.Visibility = Visibility.Visible;
 
         }
 
@@ -166,6 +179,8 @@ namespace seng403alarmclock
             this.HourHand.Visibility = Visibility.Hidden;
             this.MinuteHand.Visibility = Visibility.Hidden;
             this.ClockBack.Visibility = Visibility.Hidden;
+            this.DateDisplay_Analog.Visibility = Visibility.Hidden;
+            this.AMPM_Analog.Visibility = Visibility.Hidden;
         }
 
         

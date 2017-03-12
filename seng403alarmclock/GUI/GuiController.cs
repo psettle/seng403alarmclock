@@ -65,9 +65,8 @@ namespace seng403alarmclock.GUI {
         /// The time to display on the GUI
         /// </param>
         public void SetTime(DateTime time) {
-            mainWindow.SetTimeText(time.ToLongTimeString());
-            mainWindow.SetDateText(time.Date.ToLongDateString());
-            mainWindow.currentTime = time;
+            mainWindow.SetTime(time);
+          
             now = time;     
         }
 
