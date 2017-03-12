@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -53,6 +54,7 @@ namespace seng403alarmclock.GUI {
         /// Which mode the row is in, control the types of event generated
         /// </summary>
         private ModeType mode = ModeType.Cancel;
+        private TextBlock alarmText;
         #region Setup
 
         /// <summary>
@@ -128,14 +130,16 @@ namespace seng403alarmclock.GUI {
             topRowGrid.ColumnDefinitions.Add(col1);
 
             //create and attach the textbox
-            TextBlock textBox = new TextBlock();
-            Grid.SetColumn(textBox, 0);
-            textBox.TextAlignment = TextAlignment.Center;
-            textBox.Text = storedAlarm.GetAlarmTime().ToShortTimeString();
-            topRowGrid.Children.Add(textBox);
+            alarmText = new TextBlock();
+            Grid.SetColumn(alarmText, 0);
+            alarmText.TextAlignment = TextAlignment.Center;
+            alarmText.Text = storedAlarm.GetAlarmTime().ToShortTimeString();
+            topRowGrid.Children.Add(alarmText);
 
             //create and attach the button
             editBtn= new Button();
+            editBtn.Background = null;
+            editBtn.BorderBrush = null;
             Grid.SetColumn(editBtn, 2);
             editBtn.FontFamily = new FontFamily("Segoe UI Symbol");
             //editBtn.Width = 20;
@@ -243,7 +247,7 @@ namespace seng403alarmclock.GUI {
 
         #endregion        private ModeType mode = ModeType.Cancel;
 
-
+       
 
         /// <summary>
         /// Event triggered by the button on a row
@@ -262,10 +266,10 @@ namespace seng403alarmclock.GUI {
                     throw new NotImplementedException("Invalid ModeType");
             } 
         }
-
+       
         private void EditBtnClick(object sender, RoutedEventArgs e)
         {
-            EditAlarmWindow eaw = new EditAlarmWindow(0, 0, 300, this.storedAlarm);
+            EditAlarmWindow eaw = new EditAlarmWindow(200, 200, 500, this.storedAlarm);
             eaw.Show();
         }
 
@@ -328,6 +332,14 @@ namespace seng403alarmclock.GUI {
             } else {
                 this.SetCancel();
             }
+        }
+
+        public void UpdateAlarm()
+        {
+            // this.build();
+            //RemoveFromGUI();
+            //AddToGUI();
+            alarmText.Text = storedAlarm.GetAlarmTime().ToShortTimeString();
         }
     }
 }
