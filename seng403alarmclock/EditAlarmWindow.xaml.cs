@@ -39,6 +39,7 @@ namespace seng403alarmclock
         private TimeSelector timeSelector = null;
 
         private Alarm alarm = null;
+        private string audioFile;
 
         /// <summary>
         /// This is a list of day status codes for the weekly alarms, true means the weekly alarm goes off on the specified day
@@ -140,6 +141,7 @@ namespace seng403alarmclock
             List<DayOfWeek> days = alarm.GetWeekdays();
             bool isRepeating = alarm.IsRepeating;
             bool isWeekly = alarm.IsWeekly;
+            this.audioFile = alarm.GetAudioFile();
 
             //set the gui elements
             timeSelector.SetTime(alarm.GetHour(), alarm.GetMinute());
@@ -192,8 +194,6 @@ namespace seng403alarmclock
         /// </summary>
         private void AddAudioFilesNamesToGUI()
         {
-            bool firstTimeTrip = false;
-
             foreach (KeyValuePair<string, string> entry in audioDictionary)
             {
                 ComboBoxItem item = new ComboBoxItem();
@@ -201,14 +201,16 @@ namespace seng403alarmclock
                 AudioFileNames.Items.Add(item);
                 //add the lookup entry to the audio combo box table
                 audioComboBoxItems.Add(item, entry.Key);
+                Console.WriteLine(entry.Key + "    " + audioFile);
+                if (entry.Key == audioFile)
+                    AudioFileNames.SelectedValue = item;
 
                 //set the default to the first item in the list
-                if (!firstTimeTrip)
-                {
-                    AudioFileNames.SelectedValue = item;
-                    firstTimeTrip = true;
-                }
+
+
             }
+         
+            
         }
 
         /// <summary>

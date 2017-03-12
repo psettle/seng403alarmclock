@@ -72,6 +72,7 @@ namespace seng403alarmclock.GUI {
         /// The audio to play when this alarm goes off
         /// </summary>
         private Audio audio = null;
+        private string audioFile;
 
         #endregion
 
@@ -100,6 +101,7 @@ namespace seng403alarmclock.GUI {
         public Alarm(int hour, int minute, bool repeat, string audioFile, bool weekly, List<DayOfWeek> days) {
             this.hour = hour;
             this.minute = minute;
+            this.audioFile = audioFile;
             audio = audioController.createAudioObject(audioFile);
 
             IsRepeating = repeat;
@@ -268,12 +270,17 @@ namespace seng403alarmclock.GUI {
             return this.minute;
         }
 
+        public string GetAudioFile()
+        {
+            return this.audioFile;
+        }
         #endregion
 
         public void EditAlarm(int hour, int minute, bool repeat, string audioFile, bool weekly, List<DayOfWeek> days)
         {
             this.hour = hour;
             this.minute = minute;
+            this.audioFile = audioFile;
             audio = audioController.createAudioObject(audioFile);
 
             IsRepeating = repeat;
