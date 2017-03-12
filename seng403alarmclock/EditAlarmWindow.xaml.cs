@@ -128,6 +128,8 @@ namespace seng403alarmclock
 
             this.timeSelector = new TimeSelector(this);
 
+            this.hours.Text = alarm.GetHour().ToString();
+            this.minutes.Text = alarm.GetMinute().ToString();
             AddAudioFilesNamesToGUI();
 
         }

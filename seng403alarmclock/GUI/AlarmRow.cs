@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -244,7 +245,7 @@ namespace seng403alarmclock.GUI {
 
         #endregion        private ModeType mode = ModeType.Cancel;
 
-
+       
 
         /// <summary>
         /// Event triggered by the button on a row
@@ -263,10 +264,10 @@ namespace seng403alarmclock.GUI {
                     throw new NotImplementedException("Invalid ModeType");
             } 
         }
-
+       
         private void EditBtnClick(object sender, RoutedEventArgs e)
         {
-            EditAlarmWindow eaw = new EditAlarmWindow(0, 0, 300, this.storedAlarm);
+            EditAlarmWindow eaw = new EditAlarmWindow(200, 200, 500, this.storedAlarm);
             eaw.Show();
         }
 

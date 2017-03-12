@@ -240,7 +240,7 @@ namespace seng403alarmclock.Model
         {
             alarm.EditAlarm(hour, minute, repeat, audioFile, weekly, days);
             //reflect the changes in the gui
-            GuiController.GetController().EditAlarm(alarm);
+            GuiController.GetController().EditAlarm(alarm, alarmList);
 
 
         }

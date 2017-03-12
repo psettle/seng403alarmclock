@@ -34,6 +34,8 @@ namespace seng403alarmclock.GUI {
         /// The time that this alarm is supposed to go off
         /// </summary>
         private DateTime alarmTime { get; set; }
+        private int hour;
+        private int minute;
 
         /// <summary>
         /// A name for this alarm, currently unused
@@ -97,6 +99,8 @@ namespace seng403alarmclock.GUI {
         /// <param name="weekly">Indicates if this alarm runs on a weekly cycle (false is a daily cycle)</param>
         /// <param name="days">If weekly, indicates which days of the week the alarm goes off on</param>
         public Alarm(int hour, int minute, bool repeat, string audioFile, bool weekly, List<DayOfWeek> days) {
+            this.hour = hour;
+            this.minute = minute;
             audio = audioController.createAudioObject(audioFile);
 
             IsRepeating = repeat;
@@ -252,10 +256,25 @@ namespace seng403alarmclock.GUI {
             return days;
         }
 
+        public int GetHour()
+        {
+            Console.WriteLine(hour);
+
+            return this.hour;
+        }
+
+        public int GetMinute()
+        {
+            Console.WriteLine(minute);
+            return this.minute;
+        }
+
         #endregion
 
         public void EditAlarm(int hour, int minute, bool repeat, string audioFile, bool weekly, List<DayOfWeek> days)
         {
+            this.hour = hour;
+            this.minute = minute;
             audio = audioController.createAudioObject(audioFile);
 
             IsRepeating = repeat;

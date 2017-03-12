@@ -125,11 +125,20 @@ namespace seng403alarmclock.GUI {
             activeAlarms.Remove(alarm);
         }
 
-        public void EditAlarm(Alarm alarm)
+        public void EditAlarm(Alarm alarm, List<Alarm> alarmList)
         {
             AlarmRow row = this.GetAlarmRow(alarm);
             //AlarmRow nRow = new AlarmRow(alarm);
             row.UpdateAlarm();
+            foreach (Alarm a in alarmList)
+            {
+                RemoveAlarm(a);
+            }
+
+            foreach (Alarm a in alarmList)
+            {
+                AddAlarm(a);
+            }
 //RemoveAlarm(alarm);
   //          AddAlarm(alarm);
             Console.WriteLine("here");
