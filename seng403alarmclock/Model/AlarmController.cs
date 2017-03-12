@@ -98,7 +98,10 @@ namespace seng403alarmclock.Model
             if (CheckIfSnoozeOver(now))
                 foreach (Alarm a in alarmList)
                     if (CheckIfAlarmIsDue(a, now) && (!a.IsRinging))
+                    {
+                        guiController.mainWindow.ShowDialog();
                         TriggerAlarm(a);
+                    }
                     else
                         UpdateGUI_SnoozeRemaining_minutes(now);
         }
