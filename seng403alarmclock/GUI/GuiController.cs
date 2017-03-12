@@ -14,7 +14,7 @@ namespace seng403alarmclock.GUI {
         /// <summary>
         /// A reference to the main window of the application
         /// </summary>
-        public MainWindow mainWindow = null;
+        public static MainWindow mainWindow = null;
 
         private DateTime now; //the most recent time we have been given
 
@@ -47,6 +47,11 @@ namespace seng403alarmclock.GUI {
         /// </param>
         public static void SetMainWindow(MainWindow window) {
             mainWindow = window;
+        }
+
+        public void SetMainWindowtoVisible()
+        {
+            mainWindow.ShowDialog();
         }
 
         public void SetupOptionsWindow(OptionsWindow window) {

@@ -99,7 +99,7 @@ namespace seng403alarmclock.Model
                 foreach (Alarm a in alarmList)
                     if (CheckIfAlarmIsDue(a, now) && (!a.IsRinging))
                     {
-                        guiController.mainWindow.ShowDialog();
+                        guiController.SetMainWindowtoVisible();
                         TriggerAlarm(a);
                     }
                     else
