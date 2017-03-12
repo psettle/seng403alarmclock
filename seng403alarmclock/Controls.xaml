@@ -37,9 +37,6 @@
                     <CheckBox Grid.Row="0" FlowDirection="RightToLeft" Name="Repeats">
                         <TextBlock FlowDirection="LeftToRight" Text="Repeat" />
                     </CheckBox>
-                    <CheckBox Grid.Row="1" FlowDirection="RightToLeft" Name="Weekly" >
-                        <TextBlock FlowDirection="LeftToRight" Text="Weekly" />
-                    </CheckBox>
                 </Grid>
                 <Grid Name ="WeekGrid" Visibility="Hidden" Grid.Column="1">
                     <Grid.ColumnDefinitions>
