@@ -132,7 +132,7 @@ namespace seng403alarmclock
         }
 
         private void AddAlarmButton_Click(object sender, RoutedEventArgs e) {
-            Controls controlWindow = new Controls(Left, Top, ActualHeight);
+            EditAlarmWindow controlWindow = new EditAlarmWindow(Left, Top, ActualHeight, null);
             controlWindow.ShowDialog();
             controlWindow.Close();
         }
