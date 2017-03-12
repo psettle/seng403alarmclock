@@ -390,5 +390,16 @@ namespace seng403alarmclock {
             }
             
         }
+
+        private void button_Click(object sender, RoutedEventArgs e)
+        {
+           
+           
+        }
+
+        private void AddAlarm_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

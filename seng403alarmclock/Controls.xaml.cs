@@ -207,6 +207,10 @@ namespace seng403alarmclock {
 
             int hours, minutes;
 
+            
+            
+            
+       
             try {
                 timeSelector.GetTime(out hours, out minutes);
             } catch (FormatException) {
@@ -275,5 +279,7 @@ namespace seng403alarmclock {
             }
             
         }
+
+        
     }
 }
