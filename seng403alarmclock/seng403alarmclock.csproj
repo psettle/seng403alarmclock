@@ -87,6 +87,9 @@
       <DependentUpon>Controls.xaml</DependentUpon>
     </Compile>
     <Compile Include="Data\DataDriver.cs" />
+    <Compile Include="EditAlarmWindow.xaml.cs">
+      <DependentUpon>EditAlarmWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="GUI\NoMoreAlarmsException.cs" />
     <Compile Include="GUI\TimeSelector.cs" />
     <Compile Include="OptionsWindow.xaml.cs">
@@ -95,6 +98,10 @@
     <Compile Include="Model\Time.cs" />
     <Compile Include="Model\TimeController.cs" />
     <Page Include="Controls.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="EditAlarmWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

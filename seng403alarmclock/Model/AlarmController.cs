@@ -235,6 +235,15 @@ namespace seng403alarmclock.Model
             //save the alarm list to the data driver
             DataDriver.Instance.SetVariable("AlarmList", alarmList);
         }
+
+        public void AlarmEdited(Alarm alarm, int hour, int minute, bool repeat, string audioFile, bool weekly, List<DayOfWeek> days)
+        {
+            //open the new alarm window
+            GuiEventCaller.GetCaller().NotifyAlarmEditRequest(alarm, hour, minute, repeat, audioFile, weekly, days);
+
+
+        }
+
     }
 }
 

@@ -137,5 +137,17 @@ namespace seng403alarmclock.GUI {
                 listener.ManualDateRequested(year, month, day);
             }
         }
+
+        ///<summary>
+        ///Notify all listeners that alarm has been edited
+        /// </summary>
+        /// 
+        public void NotifyAlarmEditRequest(Alarm alarm, int hour, int minute, bool repeat, string audioFile, bool weekly, List<DayOfWeek> days)
+        {
+            foreach (GuiEventListener listener in listeners)
+            {
+                listener.AlarmEdited(alarm, hour, minute, repeat, audioFile, weekly, days);
+            }
+        }
     }
 }

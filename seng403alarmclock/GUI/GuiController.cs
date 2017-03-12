@@ -125,6 +125,13 @@ namespace seng403alarmclock.GUI {
             activeAlarms.Remove(alarm);
         }
 
+        public void EditAlarm(Alarm alarm)
+        {
+            AlarmRow row = this.GetAlarmRow(alarm);
+            //do somethng here
+
+        }
+
         /// <summary>
         /// Sets the list of files that can be used for alarm tones
         /// </summary>
@@ -137,6 +144,7 @@ namespace seng403alarmclock.GUI {
         public void SetAudioFileNames(Dictionary<string, string> names) {
             //deep copy the dictionary object into the controls array
             Controls.audioDictionary = new Dictionary<string, string>(names);
+            EditAlarmWindow.audioDictionary = new Dictionary<string, string>(names);
         }
 
         /// <summary>
@@ -175,5 +183,6 @@ namespace seng403alarmclock.GUI {
             }
            
         }
+
     }
 }
