@@ -154,6 +154,13 @@ namespace seng403alarmclock.GUI
             activeAlarms.Remove(alarm);
         }
 
+        public void RemoveAlarmNow(Alarm alarm)
+        {
+            AlarmRow row = this.GetAlarmRow(alarm);
+            mainWindow.RemoveAlarmRowImmediately(row);
+            activeAlarms.Remove(alarm);
+        }
+
         public void EditAlarm(Alarm alarm, List<Alarm> alarmList)
         {
             AlarmRow row = this.GetAlarmRow(alarm);
@@ -161,7 +168,7 @@ namespace seng403alarmclock.GUI
             row.UpdateAlarm();
             foreach (Alarm a in alarmList)
             {
-                RemoveAlarm(a);
+                RemoveAlarmNow(a);
             }
 
             foreach (Alarm a in alarmList)

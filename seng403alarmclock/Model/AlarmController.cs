@@ -26,15 +26,7 @@ namespace seng403alarmclock.Model
                 return this.snoozeUntilTime;
             }
         }
-<<<<<<< HEAD
-        public int NumOfRingingAlarms {
-            get {
-                return this.numOfRingingAlarms;
-            }
-        }
-        public int NumOfSnoozingAlarms {
-            get {
-=======
+
 
 
 
@@ -57,7 +49,6 @@ namespace seng403alarmclock.Model
         {
             get
             {
->>>>>>> 08603a7571d23d2bf7ac3bafddf42b2e932aa52d
                 return this.NumOfSnoozingAlarms;
             }
         }
@@ -92,17 +83,13 @@ namespace seng403alarmclock.Model
             guiController.RemoveAlarm(alarm);
         }
 
-<<<<<<< HEAD
-        public void AlarmDismissed() {
-            for (int i = alarmList.Count - 1; i >= 0; i--) {
-=======
+
 
         //dismiss refers to turning off a ringing/snoozing alarm
         public void AlarmDismissed()
         {
             for (int i = alarmList.Count - 1; i >= 0; i--)
             {
->>>>>>> 08603a7571d23d2bf7ac3bafddf42b2e932aa52d
                 Alarm a = alarmList[i];
                 if (a.IsSnoozing || a.IsRinging) {
                     if (a.Status == AlarmState.Ringing)

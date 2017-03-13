@@ -250,6 +250,11 @@ namespace seng403alarmclock
             fadeTimer.IsEnabled = true;
         }
 
+        public void RemoveAlarmRowImmediately(AlarmRow row)
+        {
+            row.RemoveFromGUI();
+        }
+
         private void AddAlarmButton_Click(object sender, RoutedEventArgs e)
         {
             EditAlarmWindow controlWindow = new EditAlarmWindow(Left, Top, ActualHeight, null);
