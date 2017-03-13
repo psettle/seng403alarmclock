@@ -23,11 +23,7 @@ namespace seng403alarmclock
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window {
-        DispatcherTimer timer;
-        private double HourDeg = 0;
-        private double MinDeg = 0;
-        public DateTime currentTime;
-
+       
         /// <summary>
         /// Initializes the main controller and assigns it to the GUI controller
         /// </summary>
@@ -41,18 +37,23 @@ namespace seng403alarmclock
             this.AddAlarmButton.Click += AddAlarmButton_Click;
             this.Snooze_Button.Click += Snooze_Button_Click;
             this.Options_Button.Click += Options_Button_Click;
+<<<<<<< HEAD
             this.DismissAll_Button.Click += DismissAll_Button_Click;
 
             timer = new DispatcherTimer();
             timer.Tick += new EventHandler(Timer_Tick);
             timer.Interval = new TimeSpan(0, 0, 0, 0, 100);
             timer.Start();
+=======
+       
+>>>>>>> 7ec33b4cbb998f2751c3307a386a7c688f9e8795
             this.Analog_setHidden();
-            //this.DateDisplay_Analog.Visibility = Visibility.Hidden;
+            this.DateDisplay_Analog.Visibility = Visibility.Hidden;
             App.SetupMainWindow();
             //TEST CODE BELOW THIS LINE      
         }
 
+<<<<<<< HEAD
         #region dismiss
 
         private void DismissAll_Button_Click(object sender, RoutedEventArgs e)
@@ -140,6 +141,9 @@ namespace seng403alarmclock
             RotateTransform minTransform = new RotateTransform(MinDeg, MinuteHand.Width / 2, MinuteHand.Height / 2);
             MinuteHand.RenderTransform = minTransform;
         }
+=======
+       
+>>>>>>> 7ec33b4cbb998f2751c3307a386a7c688f9e8795
 
         private void Options_Button_Click(object sender, RoutedEventArgs e)
         {
@@ -157,7 +161,7 @@ namespace seng403alarmclock
         /// <param name="text">
         /// The text to put onto the GUI
         /// </param>
-        public void SetTimeText(string text) {
+        private void SetTimeText(string text) {
             this.TimeDisplay.Text = text;
         }
 
@@ -167,8 +171,39 @@ namespace seng403alarmclock
         /// <param name="text">
         /// The text to put onto the GUI
         /// </param>
-        public void SetDateText(string text) {
+        private void SetDateText(string text) {
             this.DateDisplay.Text = text;
+            this.DateDisplay_Analog.Text = text;
+        }
+
+        /// <summary>
+        /// Set the time display on the clock
+        /// </summary>
+        /// <param name="time"></param>
+        public void SetTime(DateTime time) {
+            SetAnalogTime(time);
+            SetDateText(time.Date.ToLongDateString());
+            SetTimeText(time.ToLongTimeString());
+        }
+
+        /// <summary>
+        /// Sets the display time on the analog clock
+        /// </summary>
+        /// <param name="time">The current time</param>
+        public void SetAnalogTime(DateTime time) {
+            double HourDeg = 0.5 * ((60 * (time.Hour % 12)) + time.Minute);
+            RotateTransform hourTransform = new RotateTransform(HourDeg, HourHand.Width / 2, HourHand.Height / 2);
+            HourHand.RenderTransform = hourTransform;
+
+            double MinDeg = 6 * time.Minute;
+            RotateTransform minTransform = new RotateTransform(MinDeg, MinuteHand.Width / 2, MinuteHand.Height / 2);
+            MinuteHand.RenderTransform = minTransform;
+
+            if(time.Hour >= 12) {
+                this.AMPM_Analog.Text = "PM";
+            } else {
+                this.AMPM_Analog.Text = "AM";
+            }
         }
 
         /// <summary>
@@ -192,10 +227,49 @@ namespace seng403alarmclock
         }
 
         private void AddAlarmButton_Click(object sender, RoutedEventArgs e) {
-            Controls controlWindow = new Controls(Left, Top, ActualHeight);
+            EditAlarmWindow controlWindow = new EditAlarmWindow(Left, Top, ActualHeight, null);
             controlWindow.ShowDialog();
             controlWindow.Close();
         }
 
+<<<<<<< HEAD
+=======
+        private void Snooze_Button_Click(object sender, RoutedEventArgs e)
+        {
+            GuiEventCaller.GetCaller().NotifySnoozeRequested(new Alarm() );         
+            // I think we should skip snoozing indivitual alarms. Users want X minutes of quiet time imo -Nathan
+        }
+
+        public void Snooze_Button_setVisible()
+        {
+            this.Snooze_Button.Visibility = Visibility.Visible;
+        }
+
+        public void Snooze_Button_setHidden()
+        {
+            this.Snooze_Button.Visibility = Visibility.Hidden;
+        }
+
+        public void Analog_setVisible()
+        {
+            this.HourHand.Visibility = Visibility.Visible;
+            this.MinuteHand.Visibility = Visibility.Visible;
+            this.ClockBack.Visibility = Visibility.Visible;
+            this.DateDisplay_Analog.Visibility = Visibility.Visible;
+            this.AMPM_Analog.Visibility = Visibility.Visible;
+
+        }
+
+        public void Analog_setHidden()
+        {
+            this.HourHand.Visibility = Visibility.Hidden;
+            this.MinuteHand.Visibility = Visibility.Hidden;
+            this.ClockBack.Visibility = Visibility.Hidden;
+            this.DateDisplay_Analog.Visibility = Visibility.Hidden;
+            this.AMPM_Analog.Visibility = Visibility.Hidden;
+        }
+
+        
+>>>>>>> 7ec33b4cbb998f2751c3307a386a7c688f9e8795
     }
 }

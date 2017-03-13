@@ -128,7 +128,11 @@ namespace seng403alarmclock
             this.Saturday.Click += Weekday_Click;
 
             this.timeSelector = new TimeSelector(this);
-            SetUpGUI();
+
+            if(alarm != null) {
+                SetUpGUI();
+            }
+            
             
 
             AddAudioFilesNamesToGUI();
@@ -196,17 +200,20 @@ namespace seng403alarmclock
         {
             foreach (KeyValuePair<string, string> entry in audioDictionary)
             {
+                //if there is no default audio file, set it to the first on in the list
+                if(audioFile == null) {
+                    audioFile = entry.Key;
+                }
+
                 ComboBoxItem item = new ComboBoxItem();
                 item.Content = entry.Value;
                 AudioFileNames.Items.Add(item);
                 //add the lookup entry to the audio combo box table
                 audioComboBoxItems.Add(item, entry.Key);
-                Console.WriteLine(entry.Key + "    " + audioFile);
-                if (entry.Key == audioFile)
+                
+                if (entry.Key == audioFile) {
                     AudioFileNames.SelectedValue = item;
-
-                //set the default to the first item in the list
-
+                }
 
             }
          
@@ -347,7 +354,12 @@ namespace seng403alarmclock
 
 
             //call the modified version...
-            GuiEventCaller.GetCaller().NotifyAlarmEditRequest(alarm,hours, minutes, Repeats.IsChecked.Value, audioFile, Repeats.IsChecked.Value, alarmDays);
+            if(alarm != null) {
+                GuiEventCaller.GetCaller().NotifyAlarmEditRequest(alarm, hours, minutes, Repeats.IsChecked.Value, audioFile, Repeats.IsChecked.Value, alarmDays);
+            } else {
+                GuiEventCaller.GetCaller().NotifyAlarmRequested(hours, minutes, Repeats.IsChecked.Value, audioFile, Repeats.IsChecked.Value, alarmDays);
+            }
+            
             Close();
         }
 
