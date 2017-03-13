@@ -53,17 +53,14 @@ namespace seng403alarmclock.GUI
             mainWindow = window;
         }
 
-<<<<<<< HEAD
-        public void SetupOptionsWindow(OptionsWindow window)
-        {
-=======
+
         public void SetMainWindowtoVisible()
         {
-            mainWindow.ShowDialog();
+            if (mainWindow.Visibility == System.Windows.Visibility.Hidden)
+                mainWindow.ShowDialog();
         }
 
         public void SetupOptionsWindow(OptionsWindow window) {
->>>>>>> 7ec33b4cbb998f2751c3307a386a7c688f9e8795
             window.SetTime(now.Hour, now.Minute);
         }
 
@@ -78,19 +75,11 @@ namespace seng403alarmclock.GUI
         /// <param name="time">
         /// The time to display on the GUI
         /// </param>
-<<<<<<< HEAD
-        public void SetTime(DateTime time)
-        {
-            mainWindow.SetTimeText(time.ToLongTimeString());
-            mainWindow.SetDateText(time.Date.ToLongDateString());
-            mainWindow.currentTime = time;
-            now = time;
-=======
+
         public void SetTime(DateTime time) {
             mainWindow.SetTime(time);
           
             now = time;     
->>>>>>> 7ec33b4cbb998f2751c3307a386a7c688f9e8795
         }
 
         /// <summary>

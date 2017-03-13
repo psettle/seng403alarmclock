@@ -37,23 +37,15 @@ namespace seng403alarmclock
             this.AddAlarmButton.Click += AddAlarmButton_Click;
             this.Snooze_Button.Click += Snooze_Button_Click;
             this.Options_Button.Click += Options_Button_Click;
-<<<<<<< HEAD
             this.DismissAll_Button.Click += DismissAll_Button_Click;
 
-            timer = new DispatcherTimer();
-            timer.Tick += new EventHandler(Timer_Tick);
-            timer.Interval = new TimeSpan(0, 0, 0, 0, 100);
-            timer.Start();
-=======
-       
->>>>>>> 7ec33b4cbb998f2751c3307a386a7c688f9e8795
+            this.AMPM_Analog.Visibility = Visibility.Hidden;
             this.Analog_setHidden();
             this.DateDisplay_Analog.Visibility = Visibility.Hidden;
             App.SetupMainWindow();
             //TEST CODE BELOW THIS LINE      
         }
 
-<<<<<<< HEAD
         #region dismiss
 
         private void DismissAll_Button_Click(object sender, RoutedEventArgs e)
@@ -107,6 +99,7 @@ namespace seng403alarmclock
             this.TimeDisplay.Visibility = Visibility.Visible;
             this.DateDisplay.Visibility = Visibility.Visible;
             this.Analog_setHidden();
+
             //this.DateDisplay_Analog.Visibility = Visibility.Hidden;
 
         }
@@ -116,6 +109,7 @@ namespace seng403alarmclock
             this.HourHand.Visibility = Visibility.Visible;
             this.MinuteHand.Visibility = Visibility.Visible;
             this.ClockBack.Visibility = Visibility.Visible;
+            this.AMPM_Analog.Visibility = Visibility.Visible;
 
         }
 
@@ -124,26 +118,13 @@ namespace seng403alarmclock
             this.HourHand.Visibility = Visibility.Hidden;
             this.MinuteHand.Visibility = Visibility.Hidden;
             this.ClockBack.Visibility = Visibility.Hidden;
+            this.AMPM_Analog.Visibility = Visibility.Hidden;
         }
 
         #endregion
 
-        private void Timer_Tick(object sender, EventArgs e)
-        {
 
-            // needs cleaning 
-           
-            HourDeg = 0.5 * ((60 * (currentTime.Hour % 12)) + currentTime.Minute);
-            RotateTransform hourTransform = new RotateTransform(HourDeg, HourHand.Width / 2, HourHand.Height / 2);
-            HourHand.RenderTransform = hourTransform;
 
-            MinDeg = 6 * currentTime.Minute;
-            RotateTransform minTransform = new RotateTransform(MinDeg, MinuteHand.Width / 2, MinuteHand.Height / 2);
-            MinuteHand.RenderTransform = minTransform;
-        }
-=======
-       
->>>>>>> 7ec33b4cbb998f2751c3307a386a7c688f9e8795
 
         private void Options_Button_Click(object sender, RoutedEventArgs e)
         {
@@ -232,44 +213,5 @@ namespace seng403alarmclock
             controlWindow.Close();
         }
 
-<<<<<<< HEAD
-=======
-        private void Snooze_Button_Click(object sender, RoutedEventArgs e)
-        {
-            GuiEventCaller.GetCaller().NotifySnoozeRequested(new Alarm() );         
-            // I think we should skip snoozing indivitual alarms. Users want X minutes of quiet time imo -Nathan
-        }
-
-        public void Snooze_Button_setVisible()
-        {
-            this.Snooze_Button.Visibility = Visibility.Visible;
-        }
-
-        public void Snooze_Button_setHidden()
-        {
-            this.Snooze_Button.Visibility = Visibility.Hidden;
-        }
-
-        public void Analog_setVisible()
-        {
-            this.HourHand.Visibility = Visibility.Visible;
-            this.MinuteHand.Visibility = Visibility.Visible;
-            this.ClockBack.Visibility = Visibility.Visible;
-            this.DateDisplay_Analog.Visibility = Visibility.Visible;
-            this.AMPM_Analog.Visibility = Visibility.Visible;
-
-        }
-
-        public void Analog_setHidden()
-        {
-            this.HourHand.Visibility = Visibility.Hidden;
-            this.MinuteHand.Visibility = Visibility.Hidden;
-            this.ClockBack.Visibility = Visibility.Hidden;
-            this.DateDisplay_Analog.Visibility = Visibility.Hidden;
-            this.AMPM_Analog.Visibility = Visibility.Hidden;
-        }
-
-        
->>>>>>> 7ec33b4cbb998f2751c3307a386a7c688f9e8795
     }
 }
