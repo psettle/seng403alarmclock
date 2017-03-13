@@ -260,7 +260,7 @@ namespace seng403alarmclock.GUI {
                     GuiEventCaller.GetCaller().NotifyCancel(this.storedAlarm);
                     break;
                 case ModeType.Dismiss:
-                    GuiEventCaller.GetCaller().NotifyDismiss(this.storedAlarm);
+                    GuiEventCaller.GetCaller().NotifyDismiss();
                     break;
                 default:
                     throw new NotImplementedException("Invalid ModeType");

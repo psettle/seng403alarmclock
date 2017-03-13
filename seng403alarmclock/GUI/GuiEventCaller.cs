@@ -70,12 +70,12 @@ namespace seng403alarmclock.GUI {
         /// <param name="alarm">
         /// The alarm that was dismissed
         /// </param>
-        public void NotifyDismiss(Alarm alarm) {
+        public void NotifyDismiss() {
             foreach (GuiEventListener listener in listeners) {
-                listener.AlarmDismissed(alarm);
+                listener.AlarmDismissed();
             }
         }
-
+                
         /// <summary>
         /// Notify all listeners that an alarm was requested
         /// </summary>
@@ -97,9 +97,9 @@ namespace seng403alarmclock.GUI {
         /// Notify all listeners that a snooze was requested
         /// </summary>
         /// <param name="alarm"></param>
-        public void NotifySnoozeRequested(Alarm alarm) {
+        public void NotifySnoozeRequested() {
             foreach (GuiEventListener listener in listeners) {
-                listener.SnoozeRequested(alarm);
+                listener.SnoozeRequested();
             }
         }
 

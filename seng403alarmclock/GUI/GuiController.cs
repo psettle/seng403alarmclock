@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Windows.Threading;
 
-namespace seng403alarmclock.GUI {
+namespace seng403alarmclock.GUI
+{
     /// <summary>
     /// The facade for the GUI, any controls to alter the display on the GUI are called through this class
     /// 
@@ -10,7 +12,8 @@ namespace seng403alarmclock.GUI {
     /// Implements a singleton design pattern, i.e. 
     /// GuiController guiController = GuiController.getGuiController(); to access the functionality
     /// </summary>
-    class GuiController {
+    class GuiController
+    {
         /// <summary>
         /// A reference to the main window of the application
         /// </summary>
@@ -27,7 +30,6 @@ namespace seng403alarmclock.GUI {
         /// The list of currenlty rendered alarm rows
         /// </summary>
         private Dictionary<Alarm, AlarmRow> activeAlarms = new Dictionary<Alarm, AlarmRow>();
-       
 
         /// <summary>
         /// Used to access the singleton object
@@ -35,7 +37,8 @@ namespace seng403alarmclock.GUI {
         /// <returns>
         /// The singleton instance
         /// </returns>
-        public static GuiController GetController() {
+        public static GuiController GetController()
+        {
             return guiController;
         }
 
@@ -45,11 +48,13 @@ namespace seng403alarmclock.GUI {
         /// <param name="mainWindow">
         /// The main window object that launches the program
         /// </param>
-        public static void SetMainWindow(MainWindow window) {
+        public static void SetMainWindow(MainWindow window)
+        {
             mainWindow = window;
         }
 
-        public void SetupOptionsWindow(OptionsWindow window) {
+        public void SetupOptionsWindow(OptionsWindow window)
+        {
             window.SetTime(now.Hour, now.Minute);
         }
 
@@ -64,11 +69,12 @@ namespace seng403alarmclock.GUI {
         /// <param name="time">
         /// The time to display on the GUI
         /// </param>
-        public void SetTime(DateTime time) {
+        public void SetTime(DateTime time)
+        {
             mainWindow.SetTimeText(time.ToLongTimeString());
             mainWindow.SetDateText(time.Date.ToLongDateString());
             mainWindow.currentTime = time;
-            now = time;     
+            now = time;
         }
 
         /// <summary>
@@ -80,11 +86,15 @@ namespace seng403alarmclock.GUI {
         /// <exception cref="ArgumentException">
         /// If the alarm was set without being cleared already
         /// </exception>
-        public void AddAlarm(Alarm alarm) {
+        public void AddAlarm(Alarm alarm)
+        {
             AlarmRow row = new AlarmRow(alarm);
             activeAlarms.Add(alarm, row);
             mainWindow.AddAlarmRow(row);
         }
+
+        #region snooze/dismiss set visible/hidden
+        //if we have time to kill i'd like to remove these calls and implement more locally
 
         public void Snooze_Btn_setVisible()
         {
@@ -96,6 +106,18 @@ namespace seng403alarmclock.GUI {
             mainWindow.Snooze_Button_setHidden();
         }
 
+        public void DismissAll_Btn_setVisible()
+        {
+            mainWindow.DismissAll_Button_setVisible();
+        }
+
+        public void DismissAll_Btn_setHidden()
+        {
+            mainWindow.DismissAll_Button_setHidden();
+        }
+
+        #endregion
+
         /// <summary>
         /// Causes the GUI to recheck an alarm object for a state change and change appropriately
         /// 
@@ -105,7 +127,8 @@ namespace seng403alarmclock.GUI {
         /// <exception cref="AlarmNotSetException">
         /// If the provided alarm was never used to create a row, this exception will be thrown
         /// </exception>
-        public void UpdateAlarm(Alarm alarm) {
+        public void UpdateAlarm(Alarm alarm)
+        {
             AlarmRow row = this.GetAlarmRow(alarm);
             row.Update();
         }
@@ -119,7 +142,8 @@ namespace seng403alarmclock.GUI {
         /// <exception cref="AlarmNotSetException">
         /// If the provided alarm was never used to create a row, this exception will be thrown
         /// </exception>
-        public void RemoveAlarm(Alarm alarm) {
+        public void RemoveAlarm(Alarm alarm)
+        {
             AlarmRow row = this.GetAlarmRow(alarm);
             mainWindow.RemoveAlarmRow(row);
             activeAlarms.Remove(alarm);
@@ -155,7 +179,8 @@ namespace seng403alarmclock.GUI {
         /// "siren.wav" => "Banshee Call",
         /// 
         /// </param>
-        public void SetAudioFileNames(Dictionary<string, string> names) {
+        public void SetAudioFileNames(Dictionary<string, string> names)
+        {
             //deep copy the dictionary object into the controls array
             Controls.audioDictionary = new Dictionary<string, string>(names);
             EditAlarmWindow.audioDictionary = new Dictionary<string, string>(names);
@@ -165,11 +190,10 @@ namespace seng403alarmclock.GUI {
         /// Sets the default value for the snooze display field
         /// </summary>
         /// <param name="minutes">How many minutes the current snooze timer is</param>
-        public void SetSnoozeDisplayTime(int minutes) {
+        public void SetSnoozeDisplayTime(int minutes)
+        {
             OptionsWindow.SetSnoozePeriodMinutes(minutes);
         }
-
-
 
         /// <summary>
         /// Fetches an AlarmRow from activeAlarms
@@ -179,23 +203,31 @@ namespace seng403alarmclock.GUI {
         /// <exception cref="AlarmNotSetException">
         /// If the provided alarm was never used to create a row, this exception will be thrown
         /// </exception>
-        private AlarmRow GetAlarmRow(Alarm alarm) {
+        private AlarmRow GetAlarmRow(Alarm alarm)
+        {
             AlarmRow toReturn = null;
 
-            if (this.activeAlarms.TryGetValue(alarm, out toReturn)) {
+            if (this.activeAlarms.TryGetValue(alarm, out toReturn))
+            {
                 return toReturn;
-            } else {
+            }
+            else
+            {
                 throw new AlarmNotSetException("The requested alarm did not exist");
-            }   
+            }
         }
 
-        public void SetDisplayMode(bool analog) {
-            if(analog) {
+        public void SetDisplayMode(bool analog)
+        {
+            if (analog)
+            {
                 mainWindow.SetAnalog();
-            } else {
+            }
+            else
+            {
                 mainWindow.SetDigital();
             }
-           
+
         }
 
     }

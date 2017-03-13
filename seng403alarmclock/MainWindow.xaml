@@ -66,12 +66,13 @@
             </ScrollViewer>
 
             <Button x:Name="AddAlarmButton" Content="Add Alarm" HorizontalAlignment="Left" Margin="70,0,0,300" VerticalAlignment="Bottom" Width="75"/>
-            <Button x:Name="Snooze_Button" Content="Snooze" HorizontalAlignment="Left" Margin="78,239,0,0" VerticalAlignment="Top" Width="144" Height="48" BorderBrush="#FFDDDDDD"/>
+            <Button x:Name="Snooze_Button" Content="Snooze" HorizontalAlignment="Left" Margin="231,239,0,0" VerticalAlignment="Top" Width="62" Height="48" BorderBrush="#FFDDDDDD"/>
             <Button x:Name="Options_Button" Content="Options" VerticalAlignment="Top" HorizontalAlignment="Left" Width="70"/>
 
             <Image x:Name="MinuteHand" HorizontalAlignment="Left" Height="184" Margin="18,50,0,0" VerticalAlignment="Top" Width="181" Source="clockhand.png"/>
             <Image x:Name="ClockBack" HorizontalAlignment="Left" Height="184" Margin="18,50,0,0" VerticalAlignment="Top" Width="181" Source="ClockBackground.gif"/>
             <Image x:Name="HourHand" HorizontalAlignment="Left" Height="144" Margin="37,69,0,0" VerticalAlignment="Top" Width="141" Source="clockhand.png"/>
+            <Button x:Name="DismissAll_Button" Content="Dismiss" HorizontalAlignment="Left" Margin="18,239,0,0" VerticalAlignment="Top" Width="181" Height="48" BorderBrush="White"/>
 
 
         </Grid>

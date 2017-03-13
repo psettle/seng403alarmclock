@@ -22,7 +22,7 @@ namespace seng403alarmclock.GUI {
         /// <param name="alarm">
         /// The alarm that was initially added to the GUI
         /// </param>
-        void AlarmDismissed(Alarm alarm);
+        void AlarmDismissed();
 
         /// <summary>
         /// Called if the user requests the placement or change of an alarm
@@ -39,7 +39,7 @@ namespace seng403alarmclock.GUI {
         /// Called if the user has hit sleep on an alarm
         /// </summary>
         /// <param name="alarm"></param>
-        void SnoozeRequested(Alarm alarm);
+        void SnoozeRequested();
 
         /// <summary>
         /// Called if the user wants to change the time that a snooze lasts

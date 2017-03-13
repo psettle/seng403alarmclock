@@ -6,7 +6,7 @@ using System.Collections.Generic;
 namespace seng403alarmclock.Model
 {
     class AlarmController : GUI.GuiEventListener, TimeListener
-    { 
+    {
         #region fields and Properties
 
         //locals
@@ -14,7 +14,10 @@ namespace seng403alarmclock.Model
         private AudioController audioController;
         private GuiController guiController;
         private TimeFetcher timeFetcher;
+
         private DateTime snoozeUntilTime;
+        private int numOfRingingAlarms;
+        private int numOfSnoozingAlarms;
 
         //statics
         private static int snoozePeriod_minutes = 1;
@@ -28,6 +31,21 @@ namespace seng403alarmclock.Model
                 return this.snoozeUntilTime;
             }
         }
+        public int NumOfRingingAlarms
+        {
+            get
+            {
+                return this.numOfRingingAlarms;
+            }
+        }
+        public int NumOfSnoozingAlarms
+        {
+            get
+            {
+                return this.NumOfSnoozingAlarms;
+            }
+        }
+
 
         #endregion
 
@@ -55,30 +73,36 @@ namespace seng403alarmclock.Model
             guiController.RemoveAlarm(alarm);
         }
 
-        public void AlarmDismissed(Alarm alarm)
+        public void AlarmDismissed()
         {
-            //the alarm is  no longer ringing
-            alarm.IsRinging = false;
-            try
+            for (int i = alarmList.Count - 1; i >= 0; i--)
             {
-                //try to move the alarm to its next scheduled time
-                //catch the exception if this was the last time, then remove it
-                alarm.CalculateNextAlarmTime();
-                //graphically update the GUI since the alarm state has changed
-                guiController.UpdateAlarm(alarm);
-            }
-            catch (NoMoreAlarmsException)
-            {
-                AlarmCanceled(alarm);//code reuse -N
-            }
+                Alarm a = alarmList[i];
+                if (a.IsSnoozing || a.IsRinging)
+                {
+                    if (a.Status == AlarmState.Ringing)
+                        numOfRingingAlarms--;
+                    else
+                        numOfSnoozingAlarms--;
 
-
-            bool allIsQuiet = true;
-            foreach (Alarm a in alarmList)
-                if (a.IsRinging)
-                    allIsQuiet = false;
-            if (allIsQuiet)
-                guiController.Snooze_Btn_setHidden();
+                    a.Status = AlarmState.Off;
+                    try
+                    {
+                        //try to move the alarm to its next scheduled time
+                        //catch the exception if this was the last time, then remove it
+                        a.CalculateNextAlarmTime();
+                        //graphically update the GUI since the alarm state has changed
+                        guiController.UpdateAlarm(a);
+                    }
+                    catch (NoMoreAlarmsException)
+                    {
+                        AlarmCanceled(a);
+                    }
+                }
+                //guiController.UpdateAlarm(alarmList[i]);
+            }
+            guiController.DismissAll_Btn_setHidden();
+            guiController.Snooze_Btn_setHidden();
         }
 
         #endregion
@@ -109,12 +133,12 @@ namespace seng403alarmclock.Model
         /// <param name="alarm"></param>
         private void TriggerAlarm(Alarm alarm)
         {
-            //int ringtoneIndex = 0;
-            //audioController.beginAlarmNoise(ringtoneIndex);
-            alarm.IsRinging = true;
+            alarm.Status = AlarmState.Ringing;
+            numOfRingingAlarms++;
             guiController.UpdateAlarm(alarm);
-            //guiController.UpdateAlarm(alarm);
+
             guiController.Snooze_Btn_setVisible();
+            guiController.DismissAll_Btn_setVisible();
         }
 
         #endregion
@@ -131,13 +155,6 @@ namespace seng403alarmclock.Model
         #endregion
 
         #region snooze
-        /// <summary>
-        /// wrapper for version not requiring alarm argument
-        /// </summary>
-        public void SnoozeRequested(Alarm a)
-        {
-            this.SnoozeRequested();
-        }
 
         /// <summary>
         /// snooze alarms from being able to ring for snoozePeriod_minutes
@@ -152,8 +169,12 @@ namespace seng403alarmclock.Model
 
                 foreach (Alarm a in alarmList)
                 {
-                    a.IsRinging = false;
-                    audioController.endAllAlarms();
+                    if (a.Status == AlarmState.Ringing)
+                    {
+                        a.Status = AlarmState.Snoozing;
+                        numOfRingingAlarms--;
+                        numOfSnoozingAlarms++;
+                    }
                 }
             }
         }
@@ -200,11 +221,13 @@ namespace seng403alarmclock.Model
 
         #region ManualTimeChange
 
-        public void ManualTimeRequested(int hours, int minutes) {
+        public void ManualTimeRequested(int hours, int minutes)
+        {
             timeFetcher.SetNewTime(hours, minutes);
         }
 
-        public void ManualDateRequested(int year, int month, int day) {
+        public void ManualDateRequested(int year, int month, int day)
+        {
             timeFetcher.SetNewDate(year, month, day);
         }
 
@@ -214,23 +237,30 @@ namespace seng403alarmclock.Model
         /// REQUIRE:
         ///     main Window EXISTS
         /// </summary>
-        public void SetupMainWindow() {
+        public void SetupMainWindow()
+        {
             //attempt to load the alarm list from data and push them onto the GUI
-            try {
+            try
+            {
                 alarmList = (List<Alarm>)DataDriver.Instance.GetVariable("AlarmList");
-                foreach(Alarm alarm in alarmList) {
+                foreach (Alarm alarm in alarmList)
+                {
                     guiController.AddAlarm(alarm);
                 }
-            } catch (IndexOutOfRangeException) {
+            }
+            catch (IndexOutOfRangeException)
+            {
                 //variable didn't exist in the array, the default one is empty and will work
             }
-           
+
         }
 
-        public void Teardown() {
+        public void Teardown()
+        {
             //before we save, lets turn all the alarm ringing off
-            foreach(Alarm alarm in alarmList) {
-                alarm.IsRinging = false;
+            foreach (Alarm alarm in alarmList)
+            {
+                alarm.Status = AlarmState.Off;
             }
             //save the alarm list to the data driver
             DataDriver.Instance.SetVariable("AlarmList", alarmList);

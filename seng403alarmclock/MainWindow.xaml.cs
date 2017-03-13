@@ -36,10 +36,12 @@ namespace seng403alarmclock
             GuiController.SetMainWindow(this);
             //note: this should probably be moved to another class, can't be arsed right now
             this.Snooze_Button_setHidden();
+            this.DismissAll_Button_setHidden();
 
             this.AddAlarmButton.Click += AddAlarmButton_Click;
             this.Snooze_Button.Click += Snooze_Button_Click;
             this.Options_Button.Click += Options_Button_Click;
+            this.DismissAll_Button.Click += DismissAll_Button_Click;
 
             timer = new DispatcherTimer();
             timer.Tick += new EventHandler(Timer_Tick);
@@ -50,6 +52,80 @@ namespace seng403alarmclock
             App.SetupMainWindow();
             //TEST CODE BELOW THIS LINE      
         }
+
+        #region dismiss
+
+        private void DismissAll_Button_Click(object sender, RoutedEventArgs e)
+        {
+            GuiEventCaller.GetCaller().NotifyDismiss();            
+        }
+
+        public void DismissAll_Button_setVisible()
+        {
+            this.DismissAll_Button.Visibility = Visibility.Visible;
+        }
+
+        public void DismissAll_Button_setHidden() {
+            this.DismissAll_Button.Visibility = Visibility.Hidden;
+        }
+
+        #endregion
+
+        #region snooze
+
+        private void Snooze_Button_Click(object sender, RoutedEventArgs e)
+        {
+            GuiEventCaller.GetCaller().NotifySnoozeRequested();
+        }
+
+        public void Snooze_Button_setVisible()
+        {
+            this.Snooze_Button.Visibility = Visibility.Visible;
+        }
+
+        public void Snooze_Button_setHidden()
+        {
+            this.Snooze_Button.Visibility = Visibility.Hidden;
+        }
+
+        #endregion
+
+        #region analog vs digital
+
+        public void SetAnalog()
+        {
+            this.Analog_setVisible();
+            //this.DateDisplay_Analog.Visibility = Visibility.Visible;
+            this.DateDisplay.Visibility = Visibility.Hidden;
+            this.TimeDisplay.Visibility = Visibility.Hidden;
+
+        }
+
+        public void SetDigital()
+        {
+            this.TimeDisplay.Visibility = Visibility.Visible;
+            this.DateDisplay.Visibility = Visibility.Visible;
+            this.Analog_setHidden();
+            //this.DateDisplay_Analog.Visibility = Visibility.Hidden;
+
+        }
+
+        public void Analog_setVisible()
+        {
+            this.HourHand.Visibility = Visibility.Visible;
+            this.MinuteHand.Visibility = Visibility.Visible;
+            this.ClockBack.Visibility = Visibility.Visible;
+
+        }
+
+        public void Analog_setHidden()
+        {
+            this.HourHand.Visibility = Visibility.Hidden;
+            this.MinuteHand.Visibility = Visibility.Hidden;
+            this.ClockBack.Visibility = Visibility.Hidden;
+        }
+
+        #endregion
 
         private void Timer_Tick(object sender, EventArgs e)
         {
@@ -72,25 +148,9 @@ namespace seng403alarmclock
             GuiController.GetController().SetupOptionsWindow(optionsWindow);
             optionsWindow.ShowDialog();
             optionsWindow.Close();
-          
- 
         }
 
-        public void SetAnalog() {
-            this.Analog_setVisible();
-            //this.DateDisplay_Analog.Visibility = Visibility.Visible;
-            this.DateDisplay.Visibility = Visibility.Hidden;
-            this.TimeDisplay.Visibility = Visibility.Hidden;   
-
-        }
-
-        public void SetDigital() {
-            this.TimeDisplay.Visibility = Visibility.Visible;
-            this.DateDisplay.Visibility = Visibility.Visible;
-            this.Analog_setHidden();
-            //this.DateDisplay_Analog.Visibility = Visibility.Hidden;
-
-        }
+        
         /// <summary>
         /// Sets the text for the time display directly
         /// </summary>
@@ -137,37 +197,5 @@ namespace seng403alarmclock
             controlWindow.Close();
         }
 
-        private void Snooze_Button_Click(object sender, RoutedEventArgs e)
-        {
-            GuiEventCaller.GetCaller().NotifySnoozeRequested(new Alarm() );         
-            // I think we should skip snoozing indivitual alarms. Users want X minutes of quiet time imo -Nathan
-        }
-
-        public void Snooze_Button_setVisible()
-        {
-            this.Snooze_Button.Visibility = Visibility.Visible;
-        }
-
-        public void Snooze_Button_setHidden()
-        {
-            this.Snooze_Button.Visibility = Visibility.Hidden;
-        }
-
-        public void Analog_setVisible()
-        {
-            this.HourHand.Visibility = Visibility.Visible;
-            this.MinuteHand.Visibility = Visibility.Visible;
-            this.ClockBack.Visibility = Visibility.Visible;
-
-        }
-
-        public void Analog_setHidden()
-        {
-            this.HourHand.Visibility = Visibility.Hidden;
-            this.MinuteHand.Visibility = Visibility.Hidden;
-            this.ClockBack.Visibility = Visibility.Hidden;
-        }
-
-        
     }
 }
