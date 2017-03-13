@@ -351,8 +351,7 @@ namespace seng403alarmclock
                 MessageBox.Show(this, "No alarm tone was set.");
                 return;
             }
-
-
+            
             //call the modified version...
             if(alarm != null) {
                 GuiEventCaller.GetCaller().NotifyAlarmEditRequest(alarm, hours, minutes, Repeats.IsChecked.Value, audioFile, Repeats.IsChecked.Value, alarmDays);

@@ -15,9 +15,7 @@ namespace seng403alarmclock.Model
         private TimeFetcher timeFetcher;
 
         private DateTime snoozeUntilTime;
-        private int numOfRingingAlarms;
-        private int numOfSnoozingAlarms;
-
+        
         //statics
         private static int snoozePeriod_minutes = 1;
         private static int maxSnoozePeriod_minutes = 40;
@@ -28,6 +26,7 @@ namespace seng403alarmclock.Model
                 return this.snoozeUntilTime;
             }
         }
+<<<<<<< HEAD
         public int NumOfRingingAlarms {
             get {
                 return this.numOfRingingAlarms;
@@ -35,9 +34,38 @@ namespace seng403alarmclock.Model
         }
         public int NumOfSnoozingAlarms {
             get {
+=======
+
+
+
+
+
+
+
+        //might delete these, they'd be for a notification we might not use
+        private int numOfRingingAlarms;
+        public int NumOfRingingAlarms
+        {
+            get
+            {
+                return this.numOfRingingAlarms;
+            }
+        }
+
+        private int numOfSnoozingAlarms;
+        public int NumOfSnoozingAlarms
+        {
+            get
+            {
+>>>>>>> 08603a7571d23d2bf7ac3bafddf42b2e932aa52d
                 return this.NumOfSnoozingAlarms;
             }
         }
+
+
+
+
+
 
 
         #endregion
@@ -64,8 +92,17 @@ namespace seng403alarmclock.Model
             guiController.RemoveAlarm(alarm);
         }
 
+<<<<<<< HEAD
         public void AlarmDismissed() {
             for (int i = alarmList.Count - 1; i >= 0; i--) {
+=======
+
+        //dismiss refers to turning off a ringing/snoozing alarm
+        public void AlarmDismissed()
+        {
+            for (int i = alarmList.Count - 1; i >= 0; i--)
+            {
+>>>>>>> 08603a7571d23d2bf7ac3bafddf42b2e932aa52d
                 Alarm a = alarmList[i];
                 if (a.IsSnoozing || a.IsRinging) {
                     if (a.Status == AlarmState.Ringing)
@@ -86,7 +123,7 @@ namespace seng403alarmclock.Model
                 }
                 //guiController.UpdateAlarm(alarmList[i]);
             }
-            guiController.DismissAll_Btn_setHidden();
+            //guiController.DismissAll_Btn_setHidden();
             guiController.Snooze_Btn_setHidden();
         }
 
