@@ -16,9 +16,7 @@ namespace seng403alarmclock.Model
         private TimeFetcher timeFetcher;
 
         private DateTime snoozeUntilTime;
-        private int numOfRingingAlarms;
-        private int numOfSnoozingAlarms;
-
+        
         //statics
         private static int snoozePeriod_minutes = 1;
         private static int maxSnoozePeriod_minutes = 40;
@@ -31,6 +29,15 @@ namespace seng403alarmclock.Model
                 return this.snoozeUntilTime;
             }
         }
+
+
+
+
+
+
+
+        //might delete these, they'd be for a notification we might not use
+        private int numOfRingingAlarms;
         public int NumOfRingingAlarms
         {
             get
@@ -38,6 +45,8 @@ namespace seng403alarmclock.Model
                 return this.numOfRingingAlarms;
             }
         }
+
+        private int numOfSnoozingAlarms;
         public int NumOfSnoozingAlarms
         {
             get
@@ -45,6 +54,11 @@ namespace seng403alarmclock.Model
                 return this.NumOfSnoozingAlarms;
             }
         }
+
+
+
+
+
 
 
         #endregion
@@ -73,6 +87,8 @@ namespace seng403alarmclock.Model
             guiController.RemoveAlarm(alarm);
         }
 
+
+        //dismiss refers to turning off a ringing/snoozing alarm
         public void AlarmDismissed()
         {
             for (int i = alarmList.Count - 1; i >= 0; i--)
@@ -101,7 +117,7 @@ namespace seng403alarmclock.Model
                 }
                 //guiController.UpdateAlarm(alarmList[i]);
             }
-            guiController.DismissAll_Btn_setHidden();
+            //guiController.DismissAll_Btn_setHidden();
             guiController.Snooze_Btn_setHidden();
         }
 

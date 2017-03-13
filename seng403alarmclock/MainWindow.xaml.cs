@@ -18,39 +18,58 @@ using System.Windows.Threading;
 
 namespace seng403alarmclock
 {
-    
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window {
-       
+    public partial class MainWindow : Window
+    {
+        DispatcherTimer fadeTimer;
+        public static List<AlarmRow> fadeTheseWithTimer;
         /// <summary>
         /// Initializes the main controller and assigns it to the GUI controller
         /// </summary>
-        public MainWindow() {
+        public MainWindow()
+        {
             InitializeComponent();
             GuiController.SetMainWindow(this);
             //note: this should probably be moved to another class, can't be arsed right now
-            this.Snooze_Button_setHidden();
-            this.DismissAll_Button_setHidden();
 
             this.AddAlarmButton.Click += AddAlarmButton_Click;
             this.Snooze_Button.Click += Snooze_Button_Click;
             this.Options_Button.Click += Options_Button_Click;
             this.DismissAll_Button.Click += DismissAll_Button_Click;
 
+            fadeTimer = new DispatcherTimer();
+            fadeTimer.IsEnabled = false;
+            fadeTimer.Tick += FadeTimer_Tick;
+            fadeTimer.Interval = new TimeSpan(0,0,0,0,50);
+
+            fadeTheseWithTimer = new List<AlarmRow>();
+
+            this.Snooze_Button_setHidden();
+            this.DismissAll_Button_setHidden();
+
             this.AMPM_Analog.Visibility = Visibility.Hidden;
             this.Analog_setHidden();
             this.DateDisplay_Analog.Visibility = Visibility.Hidden;
+
             App.SetupMainWindow();
             //TEST CODE BELOW THIS LINE      
+        }
+
+        private void FadeTimer_Tick(object sender, EventArgs e)
+        {
+            FadeAndHide_DismissButton();
+            for (int i = fadeTheseWithTimer.Count - 1; i >= 0; i--)
+                fadeTheseWithTimer[i].FadeAndRemove();
         }
 
         #region dismiss
 
         private void DismissAll_Button_Click(object sender, RoutedEventArgs e)
         {
-            GuiEventCaller.GetCaller().NotifyDismiss();            
+            GuiEventCaller.GetCaller().NotifyDismiss();
+            fadeTimer.IsEnabled = true;
         }
 
         public void DismissAll_Button_setVisible()
@@ -58,8 +77,21 @@ namespace seng403alarmclock
             this.DismissAll_Button.Visibility = Visibility.Visible;
         }
 
-        public void DismissAll_Button_setHidden() {
+        public void DismissAll_Button_setHidden()
+        {
             this.DismissAll_Button.Visibility = Visibility.Hidden;
+        }
+
+        private void FadeAndHide_DismissButton()
+        {
+            if (DismissAll_Button.Opacity > 0.2)
+                DismissAll_Button.Opacity -= 0.1;
+            else
+            {
+                DismissAll_Button_setHidden();
+                if(fadeTheseWithTimer.Count == 0)
+                    fadeTimer.IsEnabled = false;
+            }
         }
 
         #endregion
@@ -123,9 +155,6 @@ namespace seng403alarmclock
 
         #endregion
 
-
-
-
         private void Options_Button_Click(object sender, RoutedEventArgs e)
         {
             OptionsWindow optionsWindow = new OptionsWindow(this.Left, this.Top, this.Height, this.Width, 0.8);
@@ -135,14 +164,15 @@ namespace seng403alarmclock
             optionsWindow.Close();
         }
 
-        
+
         /// <summary>
         /// Sets the text for the time display directly
         /// </summary>
         /// <param name="text">
         /// The text to put onto the GUI
         /// </param>
-        private void SetTimeText(string text) {
+        private void SetTimeText(string text)
+        {
             this.TimeDisplay.Text = text;
         }
 
@@ -152,7 +182,8 @@ namespace seng403alarmclock
         /// <param name="text">
         /// The text to put onto the GUI
         /// </param>
-        private void SetDateText(string text) {
+        private void SetDateText(string text)
+        {
             this.DateDisplay.Text = text;
             this.DateDisplay_Analog.Text = text;
         }
@@ -161,7 +192,8 @@ namespace seng403alarmclock
         /// Set the time display on the clock
         /// </summary>
         /// <param name="time"></param>
-        public void SetTime(DateTime time) {
+        public void SetTime(DateTime time)
+        {
             SetAnalogTime(time);
             SetDateText(time.Date.ToLongDateString());
             SetTimeText(time.ToLongTimeString());
@@ -171,7 +203,8 @@ namespace seng403alarmclock
         /// Sets the display time on the analog clock
         /// </summary>
         /// <param name="time">The current time</param>
-        public void SetAnalogTime(DateTime time) {
+        public void SetAnalogTime(DateTime time)
+        {
             double HourDeg = 0.5 * ((60 * (time.Hour % 12)) + time.Minute);
             RotateTransform hourTransform = new RotateTransform(HourDeg, HourHand.Width / 2, HourHand.Height / 2);
             HourHand.RenderTransform = hourTransform;
@@ -180,9 +213,12 @@ namespace seng403alarmclock
             RotateTransform minTransform = new RotateTransform(MinDeg, MinuteHand.Width / 2, MinuteHand.Height / 2);
             MinuteHand.RenderTransform = minTransform;
 
-            if(time.Hour >= 12) {
+            if (time.Hour >= 12)
+            {
                 this.AMPM_Analog.Text = "PM";
-            } else {
+            }
+            else
+            {
                 this.AMPM_Analog.Text = "AM";
             }
         }
@@ -193,7 +229,8 @@ namespace seng403alarmclock
         /// <param name="row">
         /// The alarm row to add to the GUI
         /// </param>
-        public void AddAlarmRow(AlarmRow row) {
+        public void AddAlarmRow(AlarmRow row)
+        {
             row.AddToGUI(this.AlarmPanel);
         }
 
@@ -203,11 +240,15 @@ namespace seng403alarmclock
         /// <param name="row">
         /// The row to remove from the GUI
         /// </param>
-        public void RemoveAlarmRow(AlarmRow row) {
-            row.RemoveFromGUI();
+        public void RemoveAlarmRow(AlarmRow row)
+        {
+            //row.RemoveFromGUI();
+            fadeTheseWithTimer.Add(row);
+            fadeTimer.IsEnabled = true;
         }
 
-        private void AddAlarmButton_Click(object sender, RoutedEventArgs e) {
+        private void AddAlarmButton_Click(object sender, RoutedEventArgs e)
+        {
             EditAlarmWindow controlWindow = new EditAlarmWindow(Left, Top, ActualHeight, null);
             controlWindow.ShowDialog();
             controlWindow.Close();

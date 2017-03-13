@@ -77,8 +77,7 @@ namespace seng403alarmclock.GUI
         /// </param>
 
         public void SetTime(DateTime time) {
-            mainWindow.SetTime(time);
-          
+            mainWindow.SetTime(time);          
             now = time;     
         }
 
