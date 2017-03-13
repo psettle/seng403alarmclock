@@ -43,8 +43,12 @@ namespace seng403alarmclock
             this.Analog_setHidden();
             this.DateDisplay_Analog.Visibility = Visibility.Hidden;
             App.SetupMainWindow();
+
+            Closed += MainWindow_Closed;
             //TEST CODE BELOW THIS LINE      
         }
+
+        
 
         #region dismiss
 
@@ -211,6 +215,11 @@ namespace seng403alarmclock
             EditAlarmWindow controlWindow = new EditAlarmWindow(Left, Top, ActualHeight, null);
             controlWindow.ShowDialog();
             controlWindow.Close();
+        }
+
+        private void MainWindow_Closed(object sender, EventArgs e) {
+            GuiController.GetController().OnMainWindowShutdown();
+            
         }
 
     }

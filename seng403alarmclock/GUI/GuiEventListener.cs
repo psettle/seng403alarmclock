@@ -67,5 +67,10 @@ namespace seng403alarmclock.GUI {
         ///</summary>
         ///
         void AlarmEdited(Alarm alarm, int hour, int minute, bool repeat, string audioFile, bool weekly, List<DayOfWeek> days);
+
+        /// <summary>
+        /// Called when the main window is closing
+        /// </summary>
+        void MainWindowShutdown();
     }
 }

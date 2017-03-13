@@ -327,7 +327,7 @@ namespace seng403alarmclock.GUI {
         /// Recheck the alarm attributes to change the GUI appropriately
         /// </summary>
         public void Update() {
-            if(this.storedAlarm.IsRinging) {
+            if(this.storedAlarm.IsRinging) {        
                 this.SetDismiss();
             } else {
                 this.SetCancel();
