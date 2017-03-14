@@ -9,11 +9,15 @@ namespace seng403alarmclock.Model {
         /// The offset from the real time that is being used
         /// </summary>
         private static TimeSpan offsetFromRealTime = new TimeSpan(0);
+        private static double offsetHours = 0;
 
-		public DateTime getCurrentTime() {
-			DateTime currentTime = DateTime.Now.Add(offsetFromRealTime);
-			return currentTime;
-		}
+        public DateTime getCurrentTime()
+        {
+            DateTime currentTime = DateTime.Now.Add(offsetFromRealTime);
+            currentTime = currentTime.AddHours(offsetHours);
+            return currentTime;
+        }
+       
 
         /// <summary>
         /// Sets a new date for the fetcher, this will automatically propagate to all instances of TimeFetcher
@@ -51,12 +55,18 @@ namespace seng403alarmclock.Model {
             offsetFromRealTime = newOffset;
         }
 
-	
-	}
+        public void setOffset(double hours)
+        {
+            offsetHours = hours;
+        }
 
 
 
-	public class TimePulseGenerator {
+    }
+
+
+
+    public class TimePulseGenerator {
 		private TimeFetcher time = new TimeFetcher();
 		private DispatcherTimer timer = new DispatcherTimer();
 		private List<TimeListener> Listeners = new List<TimeListener>();

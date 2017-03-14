@@ -94,6 +94,52 @@
                 <Label x:Name="label" Content="Display Mode" HorizontalAlignment="Left" Margin="46,2,0,0" Grid.Row="1" Grid.Column="0" VerticalAlignment="Top" FontSize="36" />
             </Grid>
 
+            <Grid Height="100">
+                <ComboBox x:Name="Timezone" HorizontalAlignment="Left" Margin="395,23,0,0" VerticalAlignment="Top" Width="315" Height="67" FontSize="36" SelectionChanged="Timezone_SelectionChanged">
+                    <ComboBoxItem FontSize="36" Content="UTC -12:00"></ComboBoxItem>
+                    <ComboBoxItem FontSize="36" Content="UTC -11:00"></ComboBoxItem>
+                    <ComboBoxItem FontSize="36" Content="UTC -10:00"></ComboBoxItem>
+                    <ComboBoxItem FontSize="36" Content="UTC -9:30"></ComboBoxItem>
+                    <ComboBoxItem FontSize="36" Content="UTC -9:00"></ComboBoxItem>
+                    <ComboBoxItem FontSize="36" Content="UTC -8:00"></ComboBoxItem>
+                    <ComboBoxItem FontSize="36" Content="UTC -7:00"></ComboBoxItem>
+                    <ComboBoxItem FontSize="36" Content="UTC -6:00"></ComboBoxItem>
+                    <ComboBoxItem FontSize="36" Content="UTC -5:00"></ComboBoxItem>
+                    <ComboBoxItem FontSize="36" Content="UTC -4:00"></ComboBoxItem>
+                    <ComboBoxItem FontSize="36" Content="UTC -3:30"></ComboBoxItem>
+                    <ComboBoxItem FontSize="36" Content="UTC -3:00"></ComboBoxItem>
+                    <ComboBoxItem FontSize="36" Content="UTC -2:00"></ComboBoxItem>
+                    <ComboBoxItem FontSize="36" Content="UTC -1:00"></ComboBoxItem>
+                    <ComboBoxItem FontSize="36" Content="UTC 0:00"></ComboBoxItem>
+                    <ComboBoxItem FontSize="36" Content="UTC +1:00"></ComboBoxItem>
+                    <ComboBoxItem FontSize="36" Content="UTC +2:00"></ComboBoxItem>
+                    <ComboBoxItem FontSize="36" Content="UTC +3:00"></ComboBoxItem>
+                    <ComboBoxItem FontSize="36" Content="UTC +3:30"></ComboBoxItem>
+                    <ComboBoxItem FontSize="36" Content="UTC +4:00"></ComboBoxItem>
+                    <ComboBoxItem FontSize="36" Content="UTC +4:30"></ComboBoxItem>
+                    <ComboBoxItem FontSize="36" Content="UTC +5:00"></ComboBoxItem>
+                    <ComboBoxItem FontSize="36" Content="UTC +5:30"></ComboBoxItem>
+                    <ComboBoxItem FontSize="36" Content="UTC +5:45"></ComboBoxItem>
+                    <ComboBoxItem FontSize="36" Content="UTC +6:00"></ComboBoxItem>
+                    <ComboBoxItem FontSize="36" Content="UTC +6:30"></ComboBoxItem>
+                    <ComboBoxItem FontSize="36" Content="UTC +7:00"></ComboBoxItem>
+                    <ComboBoxItem FontSize="36" Content="UTC +8:00"></ComboBoxItem>
+                    <ComboBoxItem FontSize="36" Content="UTC +8:30"></ComboBoxItem>
+                    <ComboBoxItem FontSize="36" Content="UTC +8:45"></ComboBoxItem>
+                    <ComboBoxItem FontSize="36" Content="UTC +9:00"></ComboBoxItem>
+                    <ComboBoxItem FontSize="36" Content="UTC +9:30"></ComboBoxItem>
+                    <ComboBoxItem FontSize="36" Content="UTC +10:00"></ComboBoxItem>
+                    <ComboBoxItem FontSize="36" Content="UTC +10:30"></ComboBoxItem>
+                    <ComboBoxItem FontSize="36" Content="UTC +11:00"></ComboBoxItem>
+                    <ComboBoxItem FontSize="36" Content="UTC +12:00"></ComboBoxItem>
+                    <ComboBoxItem FontSize="36" Content="UTC +12:45"></ComboBoxItem>
+                    <ComboBoxItem FontSize="36" Content="UTC +13:00"></ComboBoxItem>
+                    <ComboBoxItem FontSize="36" Content="UTC +14:00"></ComboBoxItem>
+
+                </ComboBox>
+                <Label x:Name="label1" Content="Timezone" HorizontalAlignment="Left" Margin="42,16,0,0" VerticalAlignment="Top" Height="74" Width="196" FontSize="36"/>
+            </Grid>
+
         </StackPanel>
     </Viewbox>
 </Window>
