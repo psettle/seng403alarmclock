@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Windows;
 using System.Windows.Threading;
 
 namespace seng403alarmclock.GUI
@@ -53,13 +54,6 @@ namespace seng403alarmclock.GUI
             mainWindow = window;
         }
 
-
-        public void SetMainWindowtoVisible()
-        {
-            if (mainWindow.Visibility == System.Windows.Visibility.Hidden)
-                mainWindow.ShowDialog();
-        }
-
         public void SetupOptionsWindow(OptionsWindow window) {
             window.SetTime(now.Hour, now.Minute);
         }
@@ -77,7 +71,9 @@ namespace seng403alarmclock.GUI
         /// </param>
 
         public void SetTime(DateTime time) {
-            mainWindow.SetTime(time);          
+            if(mainWindow != null) {
+                mainWindow.SetTime(time);
+            }
             now = time;     
         }
 
@@ -133,6 +129,11 @@ namespace seng403alarmclock.GUI
         /// </exception>
         public void UpdateAlarm(Alarm alarm)
         {
+            if(mainWindow == null) {
+                Window window = new MainWindow();
+                window.Show();
+            }
+
             AlarmRow row = this.GetAlarmRow(alarm);
             row.Update();
         }
@@ -153,6 +154,13 @@ namespace seng403alarmclock.GUI
             activeAlarms.Remove(alarm);
         }
 
+        public void RemoveAlarmNow(Alarm alarm)
+        {
+            AlarmRow row = this.GetAlarmRow(alarm);
+            mainWindow.RemoveAlarmRowImmediately(row);
+            activeAlarms.Remove(alarm);
+        }
+
         public void EditAlarm(Alarm alarm, List<Alarm> alarmList)
         {
             AlarmRow row = this.GetAlarmRow(alarm);
@@ -160,18 +168,13 @@ namespace seng403alarmclock.GUI
             row.UpdateAlarm();
             foreach (Alarm a in alarmList)
             {
-                RemoveAlarm(a);
+                RemoveAlarmNow(a);
             }
 
             foreach (Alarm a in alarmList)
             {
                 AddAlarm(a);
             }
-
-            Console.WriteLine("here");
-            //do somethng here
-
-
         }
 
         /// <summary>
@@ -232,6 +235,12 @@ namespace seng403alarmclock.GUI
                 mainWindow.SetDigital();
             }
 
+        }
+
+        public void OnMainWindowShutdown() {
+            this.activeAlarms = new Dictionary<Alarm, AlarmRow>();
+            mainWindow = null;
+            GuiEventCaller.GetCaller().NotifyMainWindowClosing();
         }
 
     }

@@ -149,5 +149,15 @@ namespace seng403alarmclock.GUI {
                 listener.AlarmEdited(alarm, hour, minute, repeat, audioFile, weekly, days);
             }
         }
+
+        ///<summary>
+        ///Notify all listeners that the main window is shutting down
+        /// </summary>
+        /// 
+        public void NotifyMainWindowClosing() {
+            foreach (GuiEventListener listener in listeners) {
+                listener.MainWindowShutdown();
+            }
+        }
     }
 }

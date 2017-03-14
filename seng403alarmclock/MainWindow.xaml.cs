@@ -54,10 +54,13 @@ namespace seng403alarmclock
             this.DateDisplay_Analog.Visibility = Visibility.Hidden;
 
             App.SetupMainWindow();
+
+            Closed += MainWindow_Closed;
             //TEST CODE BELOW THIS LINE      
         }
         
         #region dismiss
+
 
         private void FadeTimer_Tick(object sender, EventArgs e)
         {
@@ -247,11 +250,21 @@ namespace seng403alarmclock
             fadeTimer.IsEnabled = true;
         }
 
+        public void RemoveAlarmRowImmediately(AlarmRow row)
+        {
+            row.RemoveFromGUI();
+        }
+
         private void AddAlarmButton_Click(object sender, RoutedEventArgs e)
         {
             EditAlarmWindow controlWindow = new EditAlarmWindow(Left, Top, ActualHeight, null);
             controlWindow.ShowDialog();
             controlWindow.Close();
+        }
+
+        private void MainWindow_Closed(object sender, EventArgs e) {
+            GuiController.GetController().OnMainWindowShutdown();
+            
         }
 
     }

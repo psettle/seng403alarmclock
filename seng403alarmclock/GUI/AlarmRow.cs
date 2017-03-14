@@ -313,7 +313,7 @@ namespace seng403alarmclock.GUI
 
         public void FadeAndRemove()
         {            
-            if (mainGrid.Opacity > 0.2)
+            if (element.Opacity > 0.2)
             {
                 this.element.Opacity -= 0.1;
             }
@@ -374,14 +374,10 @@ namespace seng403alarmclock.GUI
         /// <summary>
         /// Recheck the alarm attributes to change the GUI appropriately
         /// </summary>
-        public void Update()
-        {
-            if (this.storedAlarm.IsRinging)
-            {
+        public void Update() {
+            if(this.storedAlarm.IsRinging) {        
                 this.SetDismiss();
-            }
-            else
-            {
+            } else {
                 this.SetCancel();
             }
         }
