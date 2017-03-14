@@ -189,8 +189,7 @@ namespace seng403alarmclock.GUI
         /// </param>
         public void SetAudioFileNames(Dictionary<string, string> names)
         {
-            //deep copy the dictionary object into the controls array
-            Controls.audioDictionary = new Dictionary<string, string>(names);
+            //deep copy the dictionary object into the controls array   
             EditAlarmWindow.audioDictionary = new Dictionary<string, string>(names);
         }
 
@@ -238,10 +237,21 @@ namespace seng403alarmclock.GUI
 
         }
 
+        /// <summary>
+        /// Called by the main window when it is shutting down, clears the alarm rows and notifying gui listeners that it has happened
+        /// </summary>
         public void OnMainWindowShutdown() {
             this.activeAlarms = new Dictionary<Alarm, AlarmRow>();
             mainWindow = null;
             GuiEventCaller.GetCaller().NotifyMainWindowClosing();
+        }
+
+        /// <summary>
+        /// Sets the timezone on the options menu (for display only, doesn't affect the system time)
+        /// </summary>
+        /// <param name="offsetFromUTC"></param>
+        public void SetActiveTimeZoneForDisplay(double offsetFromUTC) {
+            OptionsWindow.timezoneOffsetHours = offsetFromUTC;
         }
 
     }

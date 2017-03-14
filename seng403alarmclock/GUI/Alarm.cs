@@ -22,11 +22,6 @@ namespace seng403alarmclock.GUI
         #region Attributes
 
         /// <summary>
-        /// For fetching the time when setting alarm times
-        /// </summary>
-        private static TimeFetcher fetcher = new TimeFetcher();
-
-        /// <summary>
         /// For creating audio instances
         /// </summary>
         private static AudioController audioController = AudioController.GetController();
@@ -206,7 +201,7 @@ namespace seng403alarmclock.GUI
         private void SetAlarmForNextOccurenceOf(int hour, int minute)
         {
             //get the current time
-            DateTime now = fetcher.getCurrentTime();
+            DateTime now = TimeFetcher.getCurrentTime();
             //create an alarm at hour:minute today
             alarmTime = new DateTime(now.Year, now.Month, now.Day, hour, minute, 0, DateTimeKind.Local);
             //if that time has already passed move it up one day

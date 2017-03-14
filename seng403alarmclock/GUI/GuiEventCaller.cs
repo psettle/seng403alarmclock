@@ -159,5 +159,14 @@ namespace seng403alarmclock.GUI {
                 listener.MainWindowShutdown();
             }
         }
+
+        /// <summary>
+        /// Notify all listeners that the timezone offset has changed
+        /// </summary>
+        public void NotifyTimeZoneOffsetChanged(double offset) {
+            foreach(GuiEventListener listener in listeners) {
+                listener.TimeZoneOffsetChanged(offset);
+            }
+        }
     }
 }

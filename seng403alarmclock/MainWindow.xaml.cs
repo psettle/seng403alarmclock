@@ -122,7 +122,7 @@ namespace seng403alarmclock
         public void SetAnalog()
         {
             this.Analog_setVisible();
-            //this.DateDisplay_Analog.Visibility = Visibility.Visible;
+            this.DateDisplay_Analog.Visibility = Visibility.Visible;
             this.DateDisplay.Visibility = Visibility.Hidden;
             this.TimeDisplay.Visibility = Visibility.Hidden;
 
@@ -134,7 +134,7 @@ namespace seng403alarmclock
             this.DateDisplay.Visibility = Visibility.Visible;
             this.Analog_setHidden();
 
-            //this.DateDisplay_Analog.Visibility = Visibility.Hidden;
+            this.DateDisplay_Analog.Visibility = Visibility.Hidden;
 
         }
 

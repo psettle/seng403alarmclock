@@ -34,6 +34,11 @@ namespace seng403alarmclock.GUI
 
         #region TimeSelectorWindowInterfaceMembers
 
+        /// <summary>
+        /// The hours to show as default on the timezone dropdown
+        /// </summary>
+        public static double timezoneOffsetHours { set; get; } = 0;
+
         Button TimeSelectorWindow.AMPM {
             get { return AMPM; }
             set { AMPM = value; }
@@ -102,9 +107,43 @@ namespace seng403alarmclock.GUI
 
             GuiEventCaller.GetCaller().NotifySnoozePeriodChangeRequested(snooze_period_minutes);
 
+            SetDefaultTimeZone();
 
             this.analog.Click += Analog_Click;
             this.digital.Click += Digital_Click;
+        }
+
+        private void SetDefaultTimeZone() {
+            //parse the timezone offset into a +- string for comparison
+
+            int hourOffset = (int)Math.Floor(timezoneOffsetHours);
+            double bonusFraction = Math.Abs(timezoneOffsetHours) - Math.Abs(hourOffset);
+
+            string timeZoneString = Math.Sign(hourOffset) == 1 ? "+" : "-";
+            timeZoneString += Math.Abs(hourOffset) + ":";
+
+
+            if (bonusFraction < 0.1) {
+                timeZoneString += "00";
+            } else if(bonusFraction < 0.3) {
+                timeZoneString += "15";
+            } else if(bonusFraction < 0.6) {
+                timeZoneString += "30";
+            } else if(bonusFraction < 0.9) {
+                timeZoneString += "45";
+            }
+            
+            foreach(ComboBoxItem entry in Timezone.Items) {
+                string entryVal = entry.Content.ToString();
+
+                //parse the entry value to get the time
+
+                string[] splitEntry = entryVal.Split(' ');
+
+                if(splitEntry[1] == timeZoneString) {
+                    Timezone.SelectedItem = entry;
+                }
+            }
         }
 
         private void Digital_Click(object sender, RoutedEventArgs e) {
@@ -176,22 +215,15 @@ namespace seng403alarmclock.GUI
         public void SetTime(int hour, int minute) {
             timeSelector.SetTime(hour, minute);
         }
-
-        TimeFetcher timeFetcher = new Model.TimeFetcher();
-        private void Timezone_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
+  
+        private void Timezone_SelectionChanged(object sender, SelectionChangedEventArgs e) {
             ComboBoxItem timeZone = (ComboBoxItem)Timezone.SelectedItem;
-
-           
-
 
             string utcString = timeZone.Content.ToString();
 
             double offset = TimeZoneInfo.Local.GetUtcOffset(DateTime.Now).TotalHours;
 
             string[] parts = utcString.Split(' ', ':');
-
-
 
             double offsetNum = double.Parse(parts[1]);
 
@@ -232,7 +264,7 @@ namespace seng403alarmclock.GUI
 
             double finalOffset = offsetNum - offset;
 
-            timeFetcher.setOffset(finalOffset);
+            GuiEventCaller.GetCaller().NotifyTimeZoneOffsetChanged(finalOffset);
         }
     }
 }

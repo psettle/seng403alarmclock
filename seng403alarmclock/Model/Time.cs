@@ -11,7 +11,7 @@ namespace seng403alarmclock.Model {
         private static TimeSpan offsetFromRealTime = new TimeSpan(0);
         private static double offsetHours = 0;
 
-        public DateTime getCurrentTime()
+        public static DateTime getCurrentTime()
         {
             DateTime currentTime = DateTime.Now.Add(offsetFromRealTime);
             currentTime = currentTime.AddHours(offsetHours);
@@ -25,8 +25,8 @@ namespace seng403alarmclock.Model {
         /// <param name="year"></param>
         /// <param name="month"></param>
         /// <param name="day"></param>
-        public void SetNewDate(int year, int month, int day) {
-            DateTime systemTime = this.getCurrentTime();
+        public static void SetNewDate(int year, int month, int day) {
+            DateTime systemTime = getCurrentTime();
 
             DateTime realTime = DateTime.Now;
 
@@ -43,8 +43,8 @@ namespace seng403alarmclock.Model {
         /// <param name="year"></param>
         /// <param name="month"></param>
         /// <param name="day"></param>
-        public void SetNewTime(int hour, int minute) {
-            DateTime systemTime = this.getCurrentTime();
+        public static void SetNewTime(int hour, int minute) {
+            DateTime systemTime = getCurrentTime();
 
             DateTime realTime = DateTime.Now;
 
@@ -55,7 +55,7 @@ namespace seng403alarmclock.Model {
             offsetFromRealTime = newOffset;
         }
 
-        public void setOffset(double hours)
+        public static void setOffset(double hours)
         {
             offsetHours = hours;
         }
@@ -67,7 +67,6 @@ namespace seng403alarmclock.Model {
 
 
     public class TimePulseGenerator {
-		private TimeFetcher time = new TimeFetcher();
 		private DispatcherTimer timer = new DispatcherTimer();
 		private List<TimeListener> Listeners = new List<TimeListener>();
 
@@ -84,7 +83,7 @@ namespace seng403alarmclock.Model {
 		}
 
 		private void Timer_Tick(object sender, EventArgs e) {
-			DateTime currentTime = time.getCurrentTime();
+			DateTime currentTime = TimeFetcher.getCurrentTime();
 			foreach(TimeListener listener in Listeners) {
 				listener.TimePulse(currentTime);
 			}

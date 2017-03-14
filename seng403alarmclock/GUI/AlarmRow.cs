@@ -78,7 +78,7 @@ namespace seng403alarmclock.GUI
         /// </summary>
         private void build()
         {
-            int rowCount = 3;
+            int rowCount = 2;
 
             if (storedAlarm.IsWeekly)
             {
@@ -113,11 +113,11 @@ namespace seng403alarmclock.GUI
             if (storedAlarm.IsWeekly)
             {
                 this.CreateWeekRow(2);
-                this.CreateRepeatRow(3);
+                //this.CreateRepeatRow(3);
             }
             else
             {
-                this.CreateRepeatRow(2);
+                //this.CreateRepeatRow(2);
             }
 
         }

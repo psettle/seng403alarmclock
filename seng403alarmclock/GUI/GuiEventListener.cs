@@ -74,5 +74,13 @@ namespace seng403alarmclock.GUI {
         /// Called when the main window is closing
         /// </summary>
         void MainWindowShutdown();
+
+        /// <summary>
+        /// Called when the timezone offset is changed
+        /// </summary>
+        /// <param name="offset">
+        /// The new offset
+        /// </param>
+        void TimeZoneOffsetChanged(double offset);
     }
 }

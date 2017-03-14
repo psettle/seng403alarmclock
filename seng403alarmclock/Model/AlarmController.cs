@@ -13,7 +13,6 @@ namespace seng403alarmclock.Model
         private List<Alarm> alarmList;
         private AudioController audioController;
         private GuiController guiController;
-        private TimeFetcher timeFetcher;
 
         private DateTime snoozeUntilTime;
 
@@ -41,8 +40,7 @@ namespace seng403alarmclock.Model
             this.alarmList = new List<Alarm>();
             this.audioController = AudioController.GetController();
             this.guiController = GuiController.GetController();
-            this.timeFetcher = new TimeFetcher();
-            this.snoozeUntilTime = this.timeFetcher.getCurrentTime();
+            this.snoozeUntilTime = TimeFetcher.getCurrentTime();
         }
 
         #endregion
@@ -141,7 +139,7 @@ namespace seng403alarmclock.Model
         /// </summary>
         public void SnoozeRequested()
         {
-            DateTime now = this.timeFetcher.getCurrentTime();
+            DateTime now = TimeFetcher.getCurrentTime();
             if (CheckIfSnoozeOver(now))
             {
                 updateSnoozeUntilTime(now);
@@ -193,12 +191,12 @@ namespace seng403alarmclock.Model
 
         public void ManualTimeRequested(int hours, int minutes)
         {
-            timeFetcher.SetNewTime(hours, minutes);
+            TimeFetcher.SetNewTime(hours, minutes);
         }
 
         public void ManualDateRequested(int year, int month, int day)
         {
-            timeFetcher.SetNewDate(year, month, day);
+            TimeFetcher.SetNewDate(year, month, day);
         }
 
         #endregion
@@ -253,6 +251,8 @@ namespace seng403alarmclock.Model
         {
             Teardown();
         }
+
+        public void TimeZoneOffsetChanged(double offset) {}
     }
 }
 
