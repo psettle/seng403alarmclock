@@ -64,7 +64,7 @@ namespace seng403alarmclock
 
         private void FadeTimer_Tick(object sender, EventArgs e)
         {
-            FadeAndHide_DismissButton();
+            //FadeAndHide_DismissButton();
             for (int i = fadeTheseWithTimer.Count - 1; i >= 0; i--)
                 fadeTheseWithTimer[i].FadeAndRemove();
         }
@@ -72,10 +72,9 @@ namespace seng403alarmclock
         private void Dismiss_Button_Click(object sender, RoutedEventArgs e)
         {
             GuiEventCaller.GetCaller().NotifyDismiss();
-            fadeTimer.IsEnabled = true;
         }
 
-        public void DismissAll_Button_setVisible()
+        public void Dismiss_Button_setVisible()
         {
             this.Dismiss_Button.Visibility = Visibility.Visible;
         }
@@ -243,12 +242,18 @@ namespace seng403alarmclock
         /// <param name="row">
         /// The row to remove from the GUI
         /// </param>
-        public void RemoveAlarmRow(AlarmRow row)
+        public void RemoveAlarmRow(AlarmRow row, bool fadeBeforeRemoving)
         {
-            //row.RemoveFromGUI();
-            fadeTheseWithTimer.Add(row);
-            fadeTimer.IsEnabled = true;
+            if (fadeBeforeRemoving)
+            {
+                fadeTheseWithTimer.Add(row);
+                fadeTimer.IsEnabled = true;
+            }
+            else
+                row.RemoveFromGUI();
+
         }
+        
 
         public void RemoveAlarmRowImmediately(AlarmRow row)
         {

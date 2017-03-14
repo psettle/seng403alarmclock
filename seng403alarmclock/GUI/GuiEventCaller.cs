@@ -58,11 +58,11 @@ namespace seng403alarmclock.GUI {
         /// <param name="alarm">
         /// The alarm that was canceled
         /// </param>
-        public void NotifyCancel(Alarm alarm) {
+        public void NotifyCancel(Alarm alarm, bool fadeIt) {
             foreach (GuiEventListener listener in listeners) {
-                listener.AlarmCanceled(alarm);
+                listener.AlarmCanceled(alarm, fadeIt);
             }
-        }
+        }     
 
         /// <summary>
         /// Notify all listeners of a dismiss event
@@ -72,7 +72,7 @@ namespace seng403alarmclock.GUI {
         /// </param>
         public void NotifyDismiss() {
             foreach (GuiEventListener listener in listeners) {
-                listener.AlarmDismissed();
+                listener.AlarmDismissed(false);
             }
         }
                 

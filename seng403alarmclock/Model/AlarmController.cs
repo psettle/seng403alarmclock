@@ -5,7 +5,8 @@ using System.Collections.Generic;
 
 namespace seng403alarmclock.Model
 {
-    class AlarmController : GUI.GuiEventListener, TimeListener {
+    class AlarmController : GUI.GuiEventListener, TimeListener
+    {
         #region fields and Properties
 
         //locals
@@ -15,50 +16,19 @@ namespace seng403alarmclock.Model
         private TimeFetcher timeFetcher;
 
         private DateTime snoozeUntilTime;
-        
+
         //statics
         private static int snoozePeriod_minutes = 1;
         private static int maxSnoozePeriod_minutes = 40;
 
         //Properties
-        public DateTime SnoozeUntilTime {
-            get {
+        public DateTime SnoozeUntilTime
+        {
+            get
+            {
                 return this.snoozeUntilTime;
             }
         }
-
-
-
-
-
-
-
-
-        //might delete these, they'd be for a notification we might not use
-        private int numOfRingingAlarms;
-        public int NumOfRingingAlarms
-        {
-            get
-            {
-                return this.numOfRingingAlarms;
-            }
-        }
-
-        private int numOfSnoozingAlarms;
-        public int NumOfSnoozingAlarms
-        {
-            get
-            {
-                return this.NumOfSnoozingAlarms;
-            }
-        }
-
-
-
-
-
-
-
         #endregion
 
         #region constructors
@@ -66,7 +36,8 @@ namespace seng403alarmclock.Model
         /// <summary>
         /// Constructor: initializes snoozeUntilTime to harmless value
         /// </summary>
-        public AlarmController() {
+        public AlarmController()
+        {
             this.alarmList = new List<Alarm>();
             this.audioController = AudioController.GetController();
             this.guiController = GuiController.GetController();
@@ -78,69 +49,72 @@ namespace seng403alarmclock.Model
 
         #region dismiss/cancel alarms
 
-        public void AlarmCanceled(Alarm alarm) {
+        public void AlarmCanceled(Alarm alarm, bool wasPreEmpted)
+        {
             alarmList.Remove(alarm);
-            guiController.RemoveAlarm(alarm);
+            guiController.RemoveAlarm(alarm, wasPreEmpted);
         }
 
-
-
         //dismiss refers to turning off a ringing/snoozing alarm
-        public void AlarmDismissed()
+        public void AlarmDismissed(bool dueToPreEmpt)
         {
             for (int i = alarmList.Count - 1; i >= 0; i--)
             {
                 Alarm a = alarmList[i];
-                if (a.IsSnoozing || a.IsRinging) {
-                    if (a.Status == AlarmState.Ringing)
-                        numOfRingingAlarms--;
-                    else
-                        numOfSnoozingAlarms--;
-
+                if (a.IsRinging || a.IsSnoozing)
+                {
                     a.Status = AlarmState.Off;
-                    try {
+                    try
+                    {
                         //try to move the alarm to its next scheduled time
                         //catch the exception if this was the last time, then remove it
                         a.CalculateNextAlarmTime();
                         //graphically update the GUI since the alarm state has changed
                         guiController.UpdateAlarm(a);
-                    } catch (NoMoreAlarmsException) {
-                        AlarmCanceled(a);
                     }
+                    catch (NoMoreAlarmsException)
+                    {
+                        AlarmCanceled(a, dueToPreEmpt);
+                    }
+                    guiController.Dismiss_Btn_setHidden();
+                    guiController.Snooze_Btn_setHidden();
                 }
-                //guiController.UpdateAlarm(alarmList[i]);
             }
-            //guiController.DismissAll_Btn_setHidden();
-            guiController.Snooze_Btn_setHidden();
+           
         }
 
         #endregion
 
         #region Check / Trigger Alarm
 
-        public void TimePulse(DateTime currentTime) {
+        public void TimePulse(DateTime currentTime)
+        {
             this.CheckAlarms(currentTime);
         }
 
         /// <summary>
         /// cycles through list of alarms to see which is ready to go off, then calls TriggerAlarm on each of them
         /// </summary>
-        private void CheckAlarms(DateTime now) {
+        private void CheckAlarms(DateTime now)
+        {
             if (CheckIfSnoozeOver(now))
-                foreach (Alarm a in alarmList)
-                    if (CheckIfAlarmIsDue(a, now) && (!a.IsRinging)) {
-                        TriggerAlarm(a);
-                    } else
+                for (int i = alarmList.Count - 1; i >= 0; i--)
+                    if (CheckIfAlarmIsDue(alarmList[i], now) && (!alarmList[i].IsRinging))
+                        TriggerAlarm(alarmList[i]);                    
+                    else
                         UpdateGUI_SnoozeRemaining_minutes(now);
+                
         }
 
         /// <summary>
         /// requests that the audio controller begin ringing with the ringtone associated with the alarm
         /// </summary>
         /// <param name="alarm"></param>
-        private void TriggerAlarm(Alarm alarm) {
+        private void TriggerAlarm(Alarm alarm)
+        {
+
+            AlarmDismissed(true); //new alarms preempt old ones
             alarm.Status = AlarmState.Ringing;
-            numOfRingingAlarms++;
             guiController.UpdateAlarm(alarm);
 
             guiController.Snooze_Btn_setVisible();
@@ -151,7 +125,8 @@ namespace seng403alarmclock.Model
 
         #region Alarm Requests
 
-        public void AlarmRequested(int hour, int minute, bool repeat, string audioFile, bool weekly, List<DayOfWeek> days) {
+        public void AlarmRequested(int hour, int minute, bool repeat, string audioFile, bool weekly, List<DayOfWeek> days)
+        {
             Alarm newAlarm = new Alarm(hour, minute, repeat, audioFile, weekly, days);
             GuiController.GetController().AddAlarm(newAlarm);
             alarmList.Add(newAlarm);
@@ -164,26 +139,21 @@ namespace seng403alarmclock.Model
         /// <summary>
         /// snooze alarms from being able to ring for snoozePeriod_minutes
         /// </summary>
-        public void SnoozeRequested() {
+        public void SnoozeRequested()
+        {
             DateTime now = this.timeFetcher.getCurrentTime();
-            if (CheckIfSnoozeOver(now)) {
+            if (CheckIfSnoozeOver(now))
+            {
                 updateSnoozeUntilTime(now);
-                guiController.Snooze_Btn_setHidden();
-
-                foreach (Alarm a in alarmList) {
-                    if (a.Status == AlarmState.Ringing) {
-                        a.Status = AlarmState.Snoozing;
-                        numOfRingingAlarms--;
-                        numOfSnoozingAlarms++;
-                    }
-                }
+                guiController.Snooze_Btn_setHidden();                
             }
         }
 
         /// <summary>
         /// sets snoozePeriod_minutes. if period > maxSnoozePeriod_minutes, sets it to maxSnoozePeriod_minutes instead. 
         /// </summary>
-        public void SnoozePeriodChangeRequested(int minutes) {
+        public void SnoozePeriodChangeRequested(int minutes)
+        {
             if (minutes < maxSnoozePeriod_minutes)
                 AlarmController.snoozePeriod_minutes = minutes;
             else
@@ -195,20 +165,24 @@ namespace seng403alarmclock.Model
         #region helper functions
         //these are mostly to make the above functions more readable
 
-        private bool CheckIfAlarmIsDue(Alarm alarm, DateTime now) {
+        private bool CheckIfAlarmIsDue(Alarm alarm, DateTime now)
+        {
             return (alarm.GetAlarmTime().CompareTo(now) <= 0);
         }
 
-        private void updateSnoozeUntilTime(DateTime now) {
+        private void updateSnoozeUntilTime(DateTime now)
+        {
             //changed this so it doesn't allways go off at an exact minute, its weird if you hit snooze at 11:59:59 and the snooze ends immedietly - Patrick
             this.snoozeUntilTime = now.AddMinutes(AlarmController.snoozePeriod_minutes);
         }
 
-        private bool CheckIfSnoozeOver(DateTime currentTime) {
+        private bool CheckIfSnoozeOver(DateTime currentTime)
+        {
             return (this.snoozeUntilTime.CompareTo(currentTime) <= 0);
         }
 
-        private void UpdateGUI_SnoozeRemaining_minutes(DateTime now) {
+        private void UpdateGUI_SnoozeRemaining_minutes(DateTime now)
+        {
             //This does a different thing than you think it does - Patrick
             //this.guiController.SetSnoozeDisplayTime(this.snoozeUntilTime.Subtract(now).Minutes);
         }
@@ -217,11 +191,13 @@ namespace seng403alarmclock.Model
 
         #region ManualTimeChange
 
-        public void ManualTimeRequested(int hours, int minutes) {
+        public void ManualTimeRequested(int hours, int minutes)
+        {
             timeFetcher.SetNewTime(hours, minutes);
         }
 
-        public void ManualDateRequested(int year, int month, int day) {
+        public void ManualDateRequested(int year, int month, int day)
+        {
             timeFetcher.SetNewDate(year, month, day);
         }
 
@@ -231,22 +207,29 @@ namespace seng403alarmclock.Model
         /// REQUIRE:
         ///     main Window EXISTS
         /// </summary>
-        public void SetupMainWindow() {
+        public void SetupMainWindow()
+        {
             //attempt to load the alarm list from data and push them onto the GUI
-            try {
+            try
+            {
                 alarmList = (List<Alarm>)DataDriver.Instance.GetVariable("AlarmList");
-                foreach (Alarm alarm in alarmList) {
+                foreach (Alarm alarm in alarmList)
+                {
                     guiController.AddAlarm(alarm);
                 }
-            } catch (IndexOutOfRangeException) {
+            }
+            catch (IndexOutOfRangeException)
+            {
                 //variable didn't exist in the array, the default one is empty and will work
             }
 
         }
 
-        public void Teardown() {
+        public void Teardown()
+        {
             //before we save, lets turn all the alarm ringing off
-            foreach (Alarm alarm in alarmList) {
+            foreach (Alarm alarm in alarmList)
+            {
                 alarm.Status = AlarmState.Off;
             }
             //save the alarm list to the data driver
@@ -254,7 +237,8 @@ namespace seng403alarmclock.Model
             DataDriver.Instance.shutdown(); //rewrite the save file, to handle unexpected shutdown
         }
 
-        public void AlarmEdited(Alarm alarm, int hour, int minute, bool repeat, string audioFile, bool weekly, List<DayOfWeek> days) {
+        public void AlarmEdited(Alarm alarm, int hour, int minute, bool repeat, string audioFile, bool weekly, List<DayOfWeek> days)
+        {
             alarm.EditAlarm(hour, minute, repeat, audioFile, weekly, days);
             //reflect the changes in the gui
             GuiController.GetController().EditAlarm(alarm, alarmList);
@@ -265,7 +249,8 @@ namespace seng403alarmclock.Model
         /// <summary>
         /// Called when the main window is shutting down
         /// </summary>
-        public void MainWindowShutdown() {
+        public void MainWindowShutdown()
+        {
             Teardown();
         }
     }

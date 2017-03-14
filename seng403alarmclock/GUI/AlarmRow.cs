@@ -285,7 +285,7 @@ namespace seng403alarmclock.GUI
             switch (this.mode)
             {
                 case ModeType.Cancel:
-                    GuiEventCaller.GetCaller().NotifyCancel(this.storedAlarm);
+                    GuiEventCaller.GetCaller().NotifyCancel(this.storedAlarm, false);
                     break;
                 case ModeType.Dismiss:
                     GuiEventCaller.GetCaller().NotifyDismiss();
@@ -315,7 +315,7 @@ namespace seng403alarmclock.GUI
         {            
             if (element.Opacity > 0.2)
             {
-                this.element.Opacity -= 0.1;
+                this.element.Opacity -= 0.05;
             }
             else
             {

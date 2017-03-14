@@ -108,10 +108,10 @@ namespace seng403alarmclock.GUI
 
         public void DismissAll_Btn_setVisible()
         {
-            mainWindow.DismissAll_Button_setVisible();
+            mainWindow.Dismiss_Button_setVisible();
         }
 
-        public void DismissAll_Btn_setHidden()
+        public void Dismiss_Btn_setHidden()
         {
             mainWindow.Dismiss_Button_setHidden();
         }
@@ -147,12 +147,13 @@ namespace seng403alarmclock.GUI
         /// <exception cref="AlarmNotSetException">
         /// If the provided alarm was never used to create a row, this exception will be thrown
         /// </exception>
-        public void RemoveAlarm(Alarm alarm)
+        public void RemoveAlarm(Alarm alarm, bool wasPreempted)
         {
             AlarmRow row = this.GetAlarmRow(alarm);
-            mainWindow.RemoveAlarmRow(row);
+            mainWindow.RemoveAlarmRow(row, wasPreempted);
             activeAlarms.Remove(alarm);
         }
+        
 
         public void RemoveAlarmNow(Alarm alarm)
         {

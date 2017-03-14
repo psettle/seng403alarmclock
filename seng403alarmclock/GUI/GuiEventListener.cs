@@ -14,7 +14,9 @@ namespace seng403alarmclock.GUI {
         /// <param name="alarm">
         /// The alarm that was initially added to the GUI
         /// </param>
-        void AlarmCanceled(Alarm alarm);
+        void AlarmCanceled(Alarm alarm, bool fadeIt);
+
+        
 
         /// <summary>
         /// Called if the user requests the dismissal of an active alarm
@@ -22,7 +24,7 @@ namespace seng403alarmclock.GUI {
         /// <param name="alarm">
         /// The alarm that was initially added to the GUI
         /// </param>
-        void AlarmDismissed();
+        void AlarmDismissed(bool dueToPreEmpt);
 
         /// <summary>
         /// Called if the user requests the placement or change of an alarm
