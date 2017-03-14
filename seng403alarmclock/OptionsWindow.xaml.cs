@@ -176,5 +176,63 @@ namespace seng403alarmclock.GUI
         public void SetTime(int hour, int minute) {
             timeSelector.SetTime(hour, minute);
         }
+
+        TimeFetcher timeFetcher = new Model.TimeFetcher();
+        private void Timezone_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ComboBoxItem timeZone = (ComboBoxItem)Timezone.SelectedItem;
+
+           
+
+
+            string utcString = timeZone.Content.ToString();
+
+            double offset = TimeZoneInfo.Local.GetUtcOffset(DateTime.Now).TotalHours;
+
+            string[] parts = utcString.Split(' ', ':');
+
+
+
+            double offsetNum = double.Parse(parts[1]);
+
+
+            if ((parts[1] == "0"))
+            {
+                offsetNum = 0;
+            }
+            if ((parts[2] == "15") && (parts[1].Contains("-")))
+            {
+                offsetNum = offsetNum - 0.25;
+            }
+
+            if ((parts[2] == "15") && (parts[1].Contains("+")))
+            {
+                offsetNum = offsetNum + 0.25;
+            }
+
+            else if ((parts[2] == "30") && (parts[1].Contains("-")))
+            {
+                offsetNum = offsetNum - 0.5;
+            }
+
+            else if ((parts[2] == "30") && (parts[1].Contains("+")))
+            {
+                offsetNum = offsetNum + 0.5;
+            }
+
+            else if ((parts[2] == "45") && (parts[1].Contains("-")))
+            {
+                offsetNum = offsetNum - 0.75;
+            }
+
+            else if ((parts[2] == "45") && (parts[1].Contains("+")))
+            {
+                offsetNum = offsetNum + 0.75;
+            }
+
+            double finalOffset = offsetNum - offset;
+
+            timeFetcher.setOffset(finalOffset);
+        }
     }
 }
