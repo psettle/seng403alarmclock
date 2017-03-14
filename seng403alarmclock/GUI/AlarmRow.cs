@@ -78,7 +78,7 @@ namespace seng403alarmclock.GUI
         /// </summary>
         private void build()
         {
-            int rowCount = 2;
+            int rowCount = 3;
 
             if (storedAlarm.IsWeekly)
             {
@@ -102,30 +102,48 @@ namespace seng403alarmclock.GUI
                 mainGrid.RowDefinitions.Add(row);
             }
 
+
+
             //add the rows
-            this.CreateTopRow();
+            this.CreateLabelRow();
+            this.CreateControlRow();
 
             //we need to add the weekly row if the alarm is a weekly one, and a repeat row if the alarm repeats
             //this indexes that these things go at depends on each value
             if (storedAlarm.IsWeekly)
             {
-                this.CreateWeekRow(1);
-                this.CreateRepeatRow(2);
+                this.CreateWeekRow(2);
+                this.CreateRepeatRow(3);
             }
             else
             {
-                this.CreateRepeatRow(1);
+                this.CreateRepeatRow(2);
             }
+
+        }
+
+        /// <summary>
+        /// Creates the row that shows the alarm name
+        /// </summary>
+        private void CreateLabelRow() {
+
+            Grid labelRowGrid = new Grid();
+            Grid.SetRow(labelRowGrid, 0);
+            mainGrid.Children.Add(labelRowGrid);
+
+            TextBlock labelBlock = new TextBlock();
+            labelBlock.Text = this.storedAlarm.alarmName;
+            labelRowGrid.Children.Add(labelBlock);
         }
 
         /// <summary>
         /// Creates the WPF elements for displaying the top row
         /// </summary>
-        private void CreateTopRow()
+        private void CreateControlRow()
         {
             //create the top row grid, set it to row 0 and add it to the main grid
             Grid topRowGrid = new Grid();
-            Grid.SetRow(topRowGrid, 0);
+            Grid.SetRow(topRowGrid, 1);
             mainGrid.Children.Add(topRowGrid);
             //add columns to the base grid
             for (int i = 0; i < 2; i++)

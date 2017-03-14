@@ -46,7 +46,7 @@ namespace seng403alarmclock.GUI
         /// <summary>
         /// A name for this alarm, currently unused
         /// </summary>
-        private string alarmName { get; set; }
+        public string alarmName { get; set; }
 
         private AlarmState status;
 
@@ -139,6 +139,8 @@ namespace seng403alarmclock.GUI
         /// <param name="days">If weekly, indicates which days of the week the alarm goes off on</param>
         public Alarm(int hour, int minute, bool repeat, string audioFile, bool weekly, List<DayOfWeek> days)
         {
+            alarmName = "Wacky Tacky Baffle Doo";
+
             this.hour = hour;
             this.minute = minute;
             this.audioFile = audioFile;
