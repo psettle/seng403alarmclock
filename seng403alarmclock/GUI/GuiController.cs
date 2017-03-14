@@ -117,7 +117,7 @@ namespace seng403alarmclock.GUI
 
         public void DismissAll_Btn_setHidden()
         {
-            mainWindow.DismissAll_Button_setHidden();
+            mainWindow.Dismiss_Button_setHidden();
         }
 
         #endregion

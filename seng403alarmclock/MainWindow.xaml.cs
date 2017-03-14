@@ -37,7 +37,7 @@ namespace seng403alarmclock
             this.AddAlarmButton.Click += AddAlarmButton_Click;
             this.Snooze_Button.Click += Snooze_Button_Click;
             this.Options_Button.Click += Options_Button_Click;
-            this.DismissAll_Button.Click += DismissAll_Button_Click;
+            this.Dismiss_Button.Click += Dismiss_Button_Click;
 
             fadeTimer = new DispatcherTimer();
             fadeTimer.IsEnabled = false;
@@ -47,7 +47,7 @@ namespace seng403alarmclock
             fadeTheseWithTimer = new List<AlarmRow>();
 
             this.Snooze_Button_setHidden();
-            this.DismissAll_Button_setHidden();
+            this.Dismiss_Button_setHidden();
 
             this.AMPM_Analog.Visibility = Visibility.Hidden;
             this.Analog_setHidden();
@@ -56,6 +56,8 @@ namespace seng403alarmclock
             App.SetupMainWindow();
             //TEST CODE BELOW THIS LINE      
         }
+        
+        #region dismiss
 
         private void FadeTimer_Tick(object sender, EventArgs e)
         {
@@ -64,9 +66,7 @@ namespace seng403alarmclock
                 fadeTheseWithTimer[i].FadeAndRemove();
         }
 
-        #region dismiss
-
-        private void DismissAll_Button_Click(object sender, RoutedEventArgs e)
+        private void Dismiss_Button_Click(object sender, RoutedEventArgs e)
         {
             GuiEventCaller.GetCaller().NotifyDismiss();
             fadeTimer.IsEnabled = true;
@@ -74,21 +74,21 @@ namespace seng403alarmclock
 
         public void DismissAll_Button_setVisible()
         {
-            this.DismissAll_Button.Visibility = Visibility.Visible;
+            this.Dismiss_Button.Visibility = Visibility.Visible;
         }
 
-        public void DismissAll_Button_setHidden()
+        public void Dismiss_Button_setHidden()
         {
-            this.DismissAll_Button.Visibility = Visibility.Hidden;
+            this.Dismiss_Button.Visibility = Visibility.Hidden;
         }
 
         private void FadeAndHide_DismissButton()
         {
-            if (DismissAll_Button.Opacity > 0.2)
-                DismissAll_Button.Opacity -= 0.1;
+            if (Dismiss_Button.Opacity > 0.2)
+                Dismiss_Button.Opacity -= 0.1;
             else
             {
-                DismissAll_Button_setHidden();
+                Dismiss_Button_setHidden();
                 if(fadeTheseWithTimer.Count == 0)
                     fadeTimer.IsEnabled = false;
             }
