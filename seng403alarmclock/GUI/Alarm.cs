@@ -123,18 +123,20 @@ namespace seng403alarmclock.GUI
             alarmName = "Created:" + DateTime.Now.ToString();
         }
 
+
         /// <summary>
         /// Creates an alarm at hour:minute with a few options:
         /// </summary>
+        /// 
         /// <param name="hour">The hour of day this alarm goes off at</param>
         /// <param name="minute">The minute of day this alarm goes off at</param>
         /// <param name="repeat">Whether or not this alarm repeats</param>
         /// <param name="audioFile">The name of the audio file to play as the alarm tone</param>
         /// <param name="weekly">Indicates if this alarm runs on a weekly cycle (false is a daily cycle)</param>
         /// <param name="days">If weekly, indicates which days of the week the alarm goes off on</param>
-        public Alarm(int hour, int minute, bool repeat, string audioFile, bool weekly, List<DayOfWeek> days)
+        public Alarm(int hour, int minute, bool repeat, string audioFile, bool weekly, List<DayOfWeek> days, string alarmName)
         {
-            alarmName = "Wacky Tacky Baffle Doo";
+            alarmName = setAlarmName(alarmName);
 
             this.hour = hour;
             this.minute = minute;
@@ -152,6 +154,12 @@ namespace seng403alarmclock.GUI
             {
                 NonWeeklyCtor(hour, minute);
             }
+        }
+
+
+        public string setAlarmName(string name) {
+            alarmName = name;
+            return alarmName;
         }
 
         /// <summary>

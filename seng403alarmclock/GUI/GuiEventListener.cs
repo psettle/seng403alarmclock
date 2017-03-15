@@ -35,7 +35,7 @@ namespace seng403alarmclock.GUI {
         /// <param name="audioFile">The filename for the audio sound to play when the alarm goes off</param>
         /// <param name="weekly">True if the user wants the alarm to use a weekly scheduling period</param>
         /// <param name="days">Which days of the week the alarm should go off on, only used for weekly scheduling</param>
-        void AlarmRequested(int hour, int minute, bool repeat, string audioFile, bool weekly, List<DayOfWeek> days);
+        void AlarmRequested(int hour, int minute, bool repeat, string audioFile, bool weekly, List<DayOfWeek> days, string AlarmName);
 
         /// <summary>
         /// Called if the user has hit sleep on an alarm

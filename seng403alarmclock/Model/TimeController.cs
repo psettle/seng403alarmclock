@@ -42,7 +42,7 @@ namespace seng403alarmclock.Model {
 
         public void AlarmDismissed(bool dueToPreEmpt) {}
 
-        public void AlarmRequested(int hour, int minute, bool repeat, string audioFile, bool weekly, List<DayOfWeek> days) {}
+        public void AlarmRequested(int hour, int minute, bool repeat, string audioFile, bool weekly, List<DayOfWeek> days, string AlarmName) {}
 
         public void SnoozeRequested() {}
 

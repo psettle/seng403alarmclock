@@ -123,9 +123,9 @@ namespace seng403alarmclock.Model
 
         #region Alarm Requests
 
-        public void AlarmRequested(int hour, int minute, bool repeat, string audioFile, bool weekly, List<DayOfWeek> days)
+        public void AlarmRequested(int hour, int minute, bool repeat, string audioFile, bool weekly, List<DayOfWeek> days, string AlarmName)
         {
-            Alarm newAlarm = new Alarm(hour, minute, repeat, audioFile, weekly, days);
+            Alarm newAlarm = new Alarm(hour, minute, repeat, audioFile, weekly, days, AlarmName);
             GuiController.GetController().AddAlarm(newAlarm);
             alarmList.Add(newAlarm);
         }
