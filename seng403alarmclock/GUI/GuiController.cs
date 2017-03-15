@@ -129,12 +129,12 @@ namespace seng403alarmclock.GUI
         /// </exception>
         public void UpdateAlarm(Alarm alarm)
         {
-            if(mainWindow == null) {
+            if(mainWindow == null && alarm.IsRinging) {
                 mainWindow = new MainWindow();
-
-                if(alarm.IsRinging) {
-                    mainWindow.Show();
-                }   
+                mainWindow.Show();       
+            } else if(mainWindow == null) {
+                //no update if the alarm isn't ringing, it isn't pressing
+                return;
             }
 
             AlarmRow row = this.GetAlarmRow(alarm);
@@ -244,9 +244,9 @@ namespace seng403alarmclock.GUI
         /// Called by the main window when it is shutting down, clears the alarm rows and notifying gui listeners that it has happened
         /// </summary>
         public void OnMainWindowShutdown() {
-            this.activeAlarms = new Dictionary<Alarm, AlarmRow>();
-            mainWindow = null;
             GuiEventCaller.GetCaller().NotifyMainWindowClosing();
+            this.activeAlarms = new Dictionary<Alarm, AlarmRow>();
+            mainWindow = null;       
         }
 
         /// <summary>
