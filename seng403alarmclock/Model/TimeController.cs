@@ -56,6 +56,8 @@ namespace seng403alarmclock.Model {
 
         public void MainWindowShutdown() {}
 
+        public void AlarmEdited(Alarm alarm, string name, int hour, int minute, bool repeat, string audioFile, bool weekly, List<DayOfWeek> days){}
+
         #endregion
     }
 }

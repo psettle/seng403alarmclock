@@ -142,11 +142,11 @@ namespace seng403alarmclock.GUI {
         ///Notify all listeners that alarm has been edited
         /// </summary>
         /// 
-        public void NotifyAlarmEditRequest(Alarm alarm, int hour, int minute, bool repeat, string audioFile, bool weekly, List<DayOfWeek> days)
+        public void NotifyAlarmEditRequest(Alarm alarm, string name, int hour, int minute, bool repeat, string audioFile, bool weekly, List<DayOfWeek> days)
         {
             foreach (GuiEventListener listener in listeners)
             {
-                listener.AlarmEdited(alarm, hour, minute, repeat, audioFile, weekly, days);
+                listener.AlarmEdited(alarm, name, hour, minute, repeat, audioFile, weekly, days);
             }
         }
 

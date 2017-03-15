@@ -235,9 +235,9 @@ namespace seng403alarmclock.Model
             DataDriver.Instance.shutdown(); //rewrite the save file, to handle unexpected shutdown
         }
 
-        public void AlarmEdited(Alarm alarm, int hour, int minute, bool repeat, string audioFile, bool weekly, List<DayOfWeek> days)
+        public void AlarmEdited(Alarm alarm, string name, int hour, int minute, bool repeat, string audioFile, bool weekly, List<DayOfWeek> days)
         {
-            alarm.EditAlarm(hour, minute, repeat, audioFile, weekly, days);
+            alarm.EditAlarm(name, hour, minute, repeat, audioFile, weekly, days);
             //reflect the changes in the gui
             GuiController.GetController().EditAlarm(alarm, alarmList);
 

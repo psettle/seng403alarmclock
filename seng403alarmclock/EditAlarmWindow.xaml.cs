@@ -146,7 +146,7 @@ namespace seng403alarmclock
             bool isRepeating = alarm.IsRepeating;
             bool isWeekly = alarm.IsWeekly;
             this.audioFile = alarm.GetAudioFile();
-
+            this.AlarmLabel.Text = alarm.alarmName;
             //set the gui elements
             timeSelector.SetTime(alarm.GetHour(), alarm.GetMinute());
             if (isRepeating)
@@ -356,7 +356,7 @@ namespace seng403alarmclock
             
             //call the modified version...
             if(alarm != null) {
-                GuiEventCaller.GetCaller().NotifyAlarmEditRequest(alarm, hours, minutes, Repeats.IsChecked.Value, audioFile, Repeats.IsChecked.Value, alarmDays);
+                GuiEventCaller.GetCaller().NotifyAlarmEditRequest(alarm, alarmName, hours, minutes, Repeats.IsChecked.Value, audioFile, Repeats.IsChecked.Value, alarmDays);
             } else {
                 GuiEventCaller.GetCaller().NotifyAlarmRequested(hours, minutes, Repeats.IsChecked.Value, audioFile, Repeats.IsChecked.Value, alarmDays, alarmName);
             }

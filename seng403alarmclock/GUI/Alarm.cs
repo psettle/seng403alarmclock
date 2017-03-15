@@ -347,8 +347,9 @@ namespace seng403alarmclock.GUI
         }
         #endregion
 
-        public void EditAlarm(int hour, int minute, bool repeat, string audioFile, bool weekly, List<DayOfWeek> days)
+        public void EditAlarm(string name,int hour, int minute, bool repeat, string audioFile, bool weekly, List<DayOfWeek> days)
         {
+            this.alarmName = name;
             this.hour = hour;
             this.minute = minute;
             this.audioFile = audioFile;
