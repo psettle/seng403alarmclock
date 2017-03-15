@@ -108,8 +108,8 @@ namespace seng403alarmclock
             InitializeComponent();
             this.Left = LeftOffset + borderOffset;
             this.Top = TopOffset + borderOffset;
-            this.Width = mainWindowHeight / 2; //the 2:3 ratio looks nice
-            this.Height = mainWindowHeight / 3;
+            this.Width = mainWindowHeight / 2; //the 1:1 ratio looks nice
+            this.Height = mainWindowHeight / 2;
             this.ResizeMode = ResizeMode.CanMinimize;
 
             this.alarm = alarm;

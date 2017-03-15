@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:seng403alarmclock"
         mc:Ignorable="d"
-         Title="Edit Alarm" Height="355.152" Width="285.55">
+         Title="Edit Alarm" Height="355.152" Width="200.181">
     <Viewbox Margin="0,0,2,0">
         <Grid>
             <Grid.RowDefinitions>

@@ -257,5 +257,23 @@ namespace seng403alarmclock.GUI
             OptionsWindow.timezoneOffsetHours = offsetFromUTC;
         }
 
+        /// <summary>
+        /// Launches the window for creating/editing the alarm
+        /// </summary>
+        /// <param name="alarmToEdit">
+        /// The alarm to edit, null to create a new alarm
+        /// </param>
+        public void LaunchEditWindow(Alarm alarmToEdit) {
+            if(mainWindow.WindowState == WindowState.Maximized) {
+                EditAlarmWindow eaw = new EditAlarmWindow(0, 0, mainWindow.ActualHeight, alarmToEdit);
+                eaw.Show();
+            } else {
+                EditAlarmWindow eaw = new EditAlarmWindow(mainWindow.Left, mainWindow.Top, mainWindow.ActualHeight, alarmToEdit);
+                eaw.Show();
+            }
+            
+            
+        }
+
     }
 }

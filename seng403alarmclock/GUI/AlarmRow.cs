@@ -315,8 +315,7 @@ namespace seng403alarmclock.GUI
 
         private void EditBtnClick(object sender, RoutedEventArgs e)
         {
-            EditAlarmWindow eaw = new EditAlarmWindow(200, 200, 500, this.storedAlarm);
-            eaw.Show();
+            GuiController.GetController().LaunchEditWindow(this.storedAlarm); 
         }
 
         /// <summary>
