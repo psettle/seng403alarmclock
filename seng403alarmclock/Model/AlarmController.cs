@@ -249,7 +249,19 @@ namespace seng403alarmclock.Model
         /// </summary>
         public void MainWindowShutdown()
         {
+            foreach(Alarm alarm in alarmList)
+            {
+                if (alarm.IsRinging)
+                {
+                    AlarmDismissed(false);
+                    break;
+                }
+            }
             Teardown();
+            if(alarmList.Count == 0)
+            {
+                App.Current.Shutdown();
+            }
         }
 
         public void TimeZoneOffsetChanged(double offset) {}
