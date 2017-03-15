@@ -130,8 +130,11 @@ namespace seng403alarmclock.GUI
         public void UpdateAlarm(Alarm alarm)
         {
             if(mainWindow == null) {
-                Window window = new MainWindow();
-                window.Show();
+                mainWindow = new MainWindow();
+
+                if(alarm.IsRinging) {
+                    mainWindow.Show();
+                }   
             }
 
             AlarmRow row = this.GetAlarmRow(alarm);
