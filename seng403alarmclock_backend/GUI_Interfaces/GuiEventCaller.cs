@@ -3,7 +3,7 @@ using seng403alarmclock.Model;
 using System;
 using System.Collections.Generic;
 
-namespace seng403alarmclock.GUI {
+namespace seng403alarmclock.GUI_Interfaces {
     /// <summary>
     /// The unified event caller for the observer design pattern
     /// 

@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace seng403alarmclock.Model {
+namespace seng403alarmclock.Gui_Interfaces {
     /// <summary>
     /// This is the public interface for listening to the gui,
     /// new features may be added later (AlarmRequested will definately change)

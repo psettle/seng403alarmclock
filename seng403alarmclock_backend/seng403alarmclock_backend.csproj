@@ -41,13 +41,15 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Data\DataDriver.cs" />
-    <Compile Include="GUI_Interfaces\GuiControllerI.cs" />
+    <Compile Include="Audio\AudioI.cs" />
+    <Compile Include="Data\AbstractDataDriver.cs" />
+    <Compile Include="GUI_Interfaces\AbstractGuiController.cs" />
+    <Compile Include="GUI_Interfaces\AlarmNotSetException.cs" />
     <Compile Include="Model\Alarm.cs" />
     <Compile Include="Model\AlarmController.cs" />
-    <Compile Include="Model\Audio.cs" />
-    <Compile Include="Model\AudioController.cs" />
-    <Compile Include="Model\GuiEventListener.cs" />
+    <Compile Include="Audio\AbstractAudioController.cs" />
+    <Compile Include="GUI_Interfaces\GuiEventCaller.cs" />
+    <Compile Include="GUI_Interfaces\GuiEventListener.cs" />
     <Compile Include="Model\NoMoreAlarmsException.cs" />
     <Compile Include="Model\Time.cs" />
     <Compile Include="Model\TimeController.cs" />

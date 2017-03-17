@@ -53,7 +53,6 @@ namespace seng403alarmclock.GUI
         /// <param name="time">
         /// The time to display on the GUI
         /// </param>
-
         public override void SetTime(DateTime time) {
             if(mainWindow != null) {
                 mainWindow.SetTime(time);
@@ -80,24 +79,26 @@ namespace seng403alarmclock.GUI
         #region snooze/dismiss set visible/hidden
         //if we have time to kill i'd like to remove these calls and implement more locally
 
-        public override void Snooze_Btn_setVisible()
-        {
-            mainWindow.Snooze_Button_setVisible();
+        /// <summary>
+        /// Controls if the GUI has a snooze option available
+        /// </summary>
+        public override void SetSnoozeAvailable(bool available) {
+            if(available) {
+                mainWindow.Snooze_Button_setVisible();
+            } else {
+                mainWindow.Snooze_Button_setHidden();
+            }
         }
 
-        public override void Snooze_Btn_setHidden()
-        {
-            mainWindow.Snooze_Button_setHidden();
-        }
-
-        public override void DismissAll_Btn_setVisible()
-        {
-            mainWindow.Dismiss_Button_setVisible();
-        }
-
-        public override void Dismiss_Btn_setHidden()
-        {
-            mainWindow.Dismiss_Button_setHidden();
+        /// <summary>
+        /// Controls if the GUI has a dismiss option available
+        /// </summary>
+        public override void SetDismissAvailable(bool available) {
+           if(available) {
+                mainWindow.Dismiss_Button_setVisible();
+            } else {
+                mainWindow.Dismiss_Button_setHidden();
+            }
         }
 
         #endregion
@@ -141,26 +142,30 @@ namespace seng403alarmclock.GUI
             activeAlarms.Remove(alarm);
         }
         
-
-        public void RemoveAlarmNow(Alarm alarm)
-        {
+        /// <summary>
+        /// Immedietly removes the alarm from the GUI (without the fading effect)
+        /// </summary>
+        /// <param name="alarm"></param>
+        private void RemoveAlarmNow(Alarm alarm) {
             AlarmRow row = this.GetAlarmRow(alarm);
             mainWindow.RemoveAlarmRowImmediately(row);
             activeAlarms.Remove(alarm);
         }
 
-        public override void EditAlarm(Alarm alarm, List<Alarm> alarmList)
-        {
+        /// <summary>
+        /// Updates the alarm being displayed
+        /// </summary>
+        /// <param name="alarm">The alarm to update</param>
+        /// <param name="alarmList">The list of all alarms in the system</param>
+        public override void EditAlarm(Alarm alarm, List<Alarm> alarmList) {
             AlarmRow row = this.GetAlarmRow(alarm);
             //AlarmRow nRow = new AlarmRow(alarm);
             row.UpdateAlarm();
-            foreach (Alarm a in alarmList)
-            {
+            foreach (Alarm a in alarmList) {
                 RemoveAlarmNow(a);
             }
 
-            foreach (Alarm a in alarmList)
-            {
+            foreach (Alarm a in alarmList) {
                 AddAlarm(a);
             }
         }

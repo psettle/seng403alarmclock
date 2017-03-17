@@ -1,4 +1,5 @@
-﻿using System;
+﻿using seng403alarmclock_backend.Data;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -11,21 +12,11 @@ namespace seng403alarmclock.Data {
     /// <summary>
     /// Simple data driver for persistent data, can store any serializable object
     /// </summary>
-    public class DataDriver {
+    public class DataDriver : AbstractDataDriver {
         /// <summary>
         /// The name of the save file for data
         /// </summary>
         private static readonly string saveFileName = "seng403SaveFile.bin";
-
-        /// <summary>
-        /// Singleton instance, prevents race conditions
-        /// </summary>
-        private static DataDriver _instance = new DataDriver();
-
-        /// <summary>
-        /// Getter for the instance
-        /// </summary>
-        public static DataDriver Instance { get { return _instance; } }
 
         /// <summary>
         /// The loaded/ ready to save data
@@ -36,14 +27,14 @@ namespace seng403alarmclock.Data {
         /// <summary>
         /// Loads any existing data
         /// </summary>
-        private DataDriver() {
+        public DataDriver() {
             LoadData();
         }
 
         /// <summary>
         /// Saves any existing data
         /// </summary>
-        public void shutdown() {
+        public override void Shutdown() {
             SaveData();
         }
 
@@ -52,7 +43,7 @@ namespace seng403alarmclock.Data {
         /// </summary>
         /// <param name="name"></param>
         /// <param name="value"></param>
-        public void SetVariable(string name, object value) {
+        public override void SetVariable(string name, object value) {
             savedData[name] = value;
         }
 
@@ -64,7 +55,7 @@ namespace seng403alarmclock.Data {
         /// <exception cref="IndexOutOfRangeException">
         /// If the variable doesn't exist in the save file
         /// </exception>
-        public object GetVariable(string name) {
+        public override object GetVariable(string name) {
             object toReturn;
 
             if(savedData.TryGetValue(name, out toReturn)) {

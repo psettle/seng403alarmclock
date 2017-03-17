@@ -13,6 +13,8 @@ using seng403alarmclock.Data;
 using System.Xml.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using seng403alarmclock.GUI_Interfaces;
+using seng403alarmclock_backend.Data;
+using seng403alarmclock.Audio;
 
 namespace seng403alarmclock
 {
@@ -25,38 +27,76 @@ namespace seng403alarmclock
         /// If the last time this program started, this value was true, the program will automatically start when the 
         /// computer is restarted
         /// </summary>
-        private static readonly bool launchOnStartup = true;
+        private static readonly bool launchOnStartup = false;
 
-
+        /// <summary>
+        /// The main controller for the app
+        /// </summary>
         private static AlarmController ac = null;
+
+        /// <summary>
+        /// The time controller for the app
+        /// </summary>
+        private static TimeController tc = null;
+
         /// <summary>
         /// Called when the application starts
         /// </summary>
-        /// <param name="e"></param>
-        protected override void OnStartup (StartupEventArgs e) { 
-            if(launchOnStartup) {
+        protected override void OnStartup (StartupEventArgs e) {
+            base.OnStartup(e);
+            LaunchOnRestart();
+            AssignPlatformControllers();
+            SetAudioFileNames();
+
+            ac = new AlarmController();
+            GuiEventCaller.GetCaller().AddListener(ac);
+            TimePulseGenerator.Instance.registerListener(ac);
+
+            tc = new TimeController();
+            GuiEventCaller.GetCaller().AddListener(tc);
+            TimePulseGenerator.Instance.registerListener(tc);
+        }
+
+        /// <summary>
+        /// Called when the application exits
+        /// </summary>
+        protected override void OnExit(ExitEventArgs e) {
+            base.OnExit(e);
+            //turn off all alarms
+            AbstractAudioController.GetController().endAllAlarms();
+            //teardown the alarm/time controllers
+            ac.Teardown();
+            //finally save any residual state data
+            AbstractDataDriver.Instance.Shutdown();
+        }
+
+        /// <summary>
+        /// Does any system level setup for the new main window
+        /// </summary>
+        public static void SetupMainWindow() {
+            ac.SetupMainWindow();
+        }
+
+        /// <summary>
+        /// Assigns the platform dependent controllers at runtime
+        /// </summary>
+        private void AssignPlatformControllers() {
+            AbstractGuiController.SetController(new GuiController());
+            AbstractDataDriver.Instance = new DataDriver();
+            AbstractAudioController.SetController(new AudioController());
+        }
+
+        /// <summary>
+        /// Creates or deletes the restart shortcut as required
+        /// </summary>
+        private void LaunchOnRestart() {
+            if (launchOnStartup) {
                 CreateStartupShortcut();
             } else {
                 DeleteStartupShortcut();
             }
-            
+            //if starting from shortcut, we need to reset the CWD so we can find resource files
             SetCWD();
-
-            base.OnStartup(e);
-
-            AbstractGuiController.SetController(new GuiController());
-
-
-            ac = new AlarmController();
-            GuiEventCaller.GetCaller().AddListener(ac);
-            TimeController tc = new TimeController();
-            tc.Setup();
-            GuiEventCaller.GetCaller().AddListener(tc);
-            TimePulseGenerator.fetch().add(tc);
-            TimePulseGenerator.fetch().add(ac);
-
-            setAudioFileNames();
-
         }
 
         /// <summary>
@@ -74,7 +114,7 @@ namespace seng403alarmclock
         /// <summary>
         /// Sets the default audio names by crawling the audio resource folder and passing it the names to the GUI
         /// </summary>
-        private void setAudioFileNames() {
+        private void SetAudioFileNames() {
             Dictionary<string, string> table = new Dictionary<string, string>();
 
             DirectoryInfo audioFolder = new DirectoryInfo("../../../seng403alarmclock_backend/AudioFiles");
@@ -82,27 +122,11 @@ namespace seng403alarmclock
             FileInfo[] fileInfos = audioFolder.GetFiles();
 
             foreach(FileInfo fileInfo in fileInfos) {
-                table.Add(fileInfo.Name, Path.GetFileNameWithoutExtension(fileInfo.Name));
+                table.Add(fileInfo.FullName, Path.GetFileNameWithoutExtension(fileInfo.Name));
             }
 
             GuiController.GetController().SetAudioFileNames(table);
 
-        }
-
-        /// <summary>
-        /// Called when the application exits
-        /// </summary>
-        /// <param name="e"></param>
-        protected override void OnExit(ExitEventArgs e) {
-            base.OnExit(e);
-            AudioController.GetController().endAllAlarms();
-
-            ac.Teardown();
-            DataDriver.Instance.shutdown();
-        }
-
-        public static void SetupMainWindow() {
-            ac.SetupMainWindow();
         }
 
         /// <summary>
@@ -125,6 +149,9 @@ namespace seng403alarmclock
             writer.Flush();
         }
 
+        /// <summary>
+        /// Deletes the startup shortcut that may have been created before
+        /// </summary>
         private void DeleteStartupShortcut() {
             File.Delete(Environment.GetFolderPath(Environment.SpecialFolder.Startup) + "\\seng403AlarmClock.url");  
         }

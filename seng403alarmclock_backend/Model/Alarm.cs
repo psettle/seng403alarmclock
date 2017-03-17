@@ -1,4 +1,5 @@
-﻿using System;
+﻿using seng403alarmclock.Audio;
+using System;
 using System.Collections.Generic;
 
 namespace seng403alarmclock.Model
@@ -23,7 +24,7 @@ namespace seng403alarmclock.Model
         /// <summary>
         /// For creating audio instances
         /// </summary>
-        private static AudioController audioController = AudioController.GetController();
+        private static AbstractAudioController audioController = AbstractAudioController.GetController();
 
         /// <summary>
         /// The days this alarm goes off on, 
@@ -104,7 +105,7 @@ namespace seng403alarmclock.Model
         /// <summary>
         /// The audio to play when this alarm goes off
         /// </summary>
-        private Audio audio = null;
+        private AudioI audio = null;
         private string audioFile;
 
         #endregion
@@ -140,7 +141,7 @@ namespace seng403alarmclock.Model
             this.hour = hour;
             this.minute = minute;
             this.audioFile = audioFile;
-            audio = audioController.createAudioObject(audioFile);
+            audio = audioController.getAudio(audioFile);
 
             IsRepeating = repeat;
             IsWeekly = weekly;
@@ -352,7 +353,7 @@ namespace seng403alarmclock.Model
             this.hour = hour;
             this.minute = minute;
             this.audioFile = audioFile;
-            audio = audioController.createAudioObject(audioFile);
+            audio = audioController.getAudio(audioFile);
 
             IsRepeating = repeat;
             IsWeekly = weekly;

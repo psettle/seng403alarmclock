@@ -83,6 +83,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Audio\Audio.cs" />
+    <Compile Include="Audio\AudioController.cs" />
+    <Compile Include="Data\DataDriver.cs" />
     <Compile Include="EditAlarmWindow.xaml.cs">
       <DependentUpon>EditAlarmWindow.xaml</DependentUpon>
     </Compile>
@@ -167,6 +170,7 @@
   <ItemGroup>
     <Resource Include="ClockBackground.gif" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

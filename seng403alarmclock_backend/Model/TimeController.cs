@@ -1,4 +1,5 @@
-﻿using seng403alarmclock.GUI_Interfaces;
+﻿using seng403alarmclock.Gui_Interfaces;
+using seng403alarmclock.GUI_Interfaces;
 using System;
 using System.Collections.Generic;
 
@@ -7,6 +8,14 @@ namespace seng403alarmclock.Model {
     /// Basic controller for passes the time of day to the gui
     /// </summary>
     public class TimeController : TimeListener, GuiEventListener {
+        
+        /// <summary>
+        /// Sets up the time controller for the current timezone
+        /// </summary>
+        public TimeController() {
+            Setup();
+        }
+        
         /// <summary>
         /// Called whenever a time pulse occurs
         /// </summary>
@@ -33,6 +42,10 @@ namespace seng403alarmclock.Model {
             TimeFetcher.setOffset(offset);
         }
 
+        /// <summary>
+        /// Calculates and returns the offset in hours from this machine's timezone
+        /// </summary>
+        /// <returns></returns>
         private double GetLocalTimeZoneOffset() {
             return TimeZoneInfo.Local.GetUtcOffset(DateTime.Now).TotalHours;
         }

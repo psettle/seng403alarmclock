@@ -1,5 +1,7 @@
-﻿using seng403alarmclock.Data;
+﻿using seng403alarmclock.Audio;
+using seng403alarmclock.Gui_Interfaces;
 using seng403alarmclock.GUI_Interfaces;
+using seng403alarmclock_backend.Data;
 using System;
 using System.Collections.Generic;
 
@@ -11,7 +13,7 @@ namespace seng403alarmclock.Model
 
         //locals
         private List<Alarm> alarmList;
-        private AudioController audioController;
+        private AbstractAudioController audioController;
         private AbstractGuiController guiController;
 
         private DateTime snoozeUntilTime;
@@ -38,7 +40,7 @@ namespace seng403alarmclock.Model
         public AlarmController()
         {
             this.alarmList = new List<Alarm>();
-            this.audioController = AudioController.GetController();
+            this.audioController = AbstractAudioController.GetController();
             this.guiController = AbstractGuiController.GetController();
             this.snoozeUntilTime = TimeFetcher.getCurrentTime();
         }
@@ -74,8 +76,8 @@ namespace seng403alarmclock.Model
                     {
                         AlarmCanceled(a, dueToPreEmpt);
                     }
-                    guiController.Dismiss_Btn_setHidden();
-                    guiController.Snooze_Btn_setHidden();
+                    guiController.SetDismissAvailable(false);
+                    guiController.SetSnoozeAvailable(false);  
                 }
             }
            
@@ -115,8 +117,8 @@ namespace seng403alarmclock.Model
             alarm.Status = AlarmState.Ringing;
             guiController.UpdateAlarm(alarm);
 
-            guiController.Snooze_Btn_setVisible();
-            guiController.DismissAll_Btn_setVisible();
+            guiController.SetDismissAvailable(true);
+            guiController.SetSnoozeAvailable(true);
         }
 
         #endregion
@@ -143,7 +145,7 @@ namespace seng403alarmclock.Model
             if (CheckIfSnoozeOver(now))
             {
                 updateSnoozeUntilTime(now);
-                guiController.Snooze_Btn_setHidden();                
+                guiController.SetSnoozeAvailable(false);              
             }
         }
 
@@ -202,22 +204,19 @@ namespace seng403alarmclock.Model
         #endregion
 
         /// <summary>
+        /// Pushes all alarms the the main window, this is used when the main window is reloaded from scratch
+        /// 
         /// REQUIRE:
         ///     main Window EXISTS
         /// </summary>
-        public void SetupMainWindow()
-        {
+        public void SetupMainWindow() {
             //attempt to load the alarm list from data and push them onto the GUI
-            try
-            {
-                alarmList = (List<Alarm>)DataDriver.Instance.GetVariable("AlarmList");
-                foreach (Alarm alarm in alarmList)
-                {
+            try {
+                alarmList = (List<Alarm>)AbstractDataDriver.Instance.GetVariable("AlarmList");
+                foreach (Alarm alarm in alarmList)  {
                     guiController.AddAlarm(alarm);
                 }
-            }
-            catch (IndexOutOfRangeException)
-            {
+            } catch (IndexOutOfRangeException) {
                 //variable didn't exist in the array, the default one is empty and will work
             }
 
@@ -231,8 +230,8 @@ namespace seng403alarmclock.Model
                 alarm.Status = AlarmState.Off;
             }
             //save the alarm list to the data driver
-            DataDriver.Instance.SetVariable("AlarmList", alarmList);
-            DataDriver.Instance.shutdown(); //rewrite the save file, to handle unexpected shutdown
+            AbstractDataDriver.Instance.SetVariable("AlarmList", alarmList);
+            AbstractDataDriver.Instance.Shutdown(); //rewrite the save file, to handle unexpected shutdown
         }
 
         public void AlarmEdited(Alarm alarm, string name, int hour, int minute, bool repeat, string audioFile, bool weekly, List<DayOfWeek> days)
