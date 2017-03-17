@@ -1,18 +1,18 @@
 ﻿using seng403alarmclock.Data;
-using seng403alarmclock.GUI;
+using seng403alarmclock.GUI_Interfaces;
 using System;
 using System.Collections.Generic;
 
 namespace seng403alarmclock.Model
 {
-    class AlarmController : GUI.GuiEventListener, TimeListener
+    public class AlarmController : GuiEventListener, TimeListener
     {
         #region fields and Properties
 
         //locals
         private List<Alarm> alarmList;
         private AudioController audioController;
-        private GuiController guiController;
+        private AbstractGuiController guiController;
 
         private DateTime snoozeUntilTime;
 
@@ -39,7 +39,7 @@ namespace seng403alarmclock.Model
         {
             this.alarmList = new List<Alarm>();
             this.audioController = AudioController.GetController();
-            this.guiController = GuiController.GetController();
+            this.guiController = AbstractGuiController.GetController();
             this.snoozeUntilTime = TimeFetcher.getCurrentTime();
         }
 
@@ -126,7 +126,7 @@ namespace seng403alarmclock.Model
         public void AlarmRequested(int hour, int minute, bool repeat, string audioFile, bool weekly, List<DayOfWeek> days, string AlarmName)
         {
             Alarm newAlarm = new Alarm(hour, minute, repeat, audioFile, weekly, days, AlarmName);
-            GuiController.GetController().AddAlarm(newAlarm);
+            AbstractGuiController.GetController().AddAlarm(newAlarm);
             alarmList.Add(newAlarm);
         }
 
@@ -239,7 +239,7 @@ namespace seng403alarmclock.Model
         {
             alarm.EditAlarm(name, hour, minute, repeat, audioFile, weekly, days);
             //reflect the changes in the gui
-            GuiController.GetController().EditAlarm(alarm, alarmList);
+            AbstractGuiController.GetController().EditAlarm(alarm, alarmList);
 
 
         }
@@ -260,7 +260,7 @@ namespace seng403alarmclock.Model
             Teardown();
             if(alarmList.Count == 0)
             {
-                App.Current.Shutdown();
+                AbstractGuiController.GetController().Shutdown();
             }
         }
 

@@ -1,13 +1,13 @@
-﻿using System;
+﻿using seng403alarmclock.Model;
+using System;
 using System.Collections.Generic;
-using static seng403alarmclock.GUI.GuiEventCaller;
 
-namespace seng403alarmclock.GUI {
+namespace seng403alarmclock.Model {
     /// <summary>
     /// This is the public interface for listening to the gui,
     /// new features may be added later (AlarmRequested will definately change)
     /// </summary>
-    interface GuiEventListener {
+    public interface GuiEventListener {
         /// <summary>
         /// Called if the user requests the cancelation of an alarm
         /// </summary>

@@ -11,7 +11,7 @@ namespace seng403alarmclock.Data {
     /// <summary>
     /// Simple data driver for persistent data, can store any serializable object
     /// </summary>
-    class DataDriver {
+    public class DataDriver {
         /// <summary>
         /// The name of the save file for data
         /// </summary>

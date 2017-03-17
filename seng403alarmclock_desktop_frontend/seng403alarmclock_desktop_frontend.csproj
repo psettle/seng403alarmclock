@@ -83,17 +83,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Data\DataDriver.cs" />
     <Compile Include="EditAlarmWindow.xaml.cs">
       <DependentUpon>EditAlarmWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="GUI\NoMoreAlarmsException.cs" />
     <Compile Include="GUI\TimeSelector.cs" />
     <Compile Include="OptionsWindow.xaml.cs">
       <DependentUpon>OptionsWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Model\Time.cs" />
-    <Compile Include="Model\TimeController.cs" />
     <Page Include="EditAlarmWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -106,10 +102,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Compile Include="GUI\Alarm.cs" />
-    <Compile Include="Model\AlarmController.cs" />
-    <Compile Include="Model\Audio.cs" />
-    <Compile Include="Model\AudioController.cs" />
     <Compile Include="GUI\AlarmNotSetException.cs" />
     <Compile Include="GUI\AlarmRow.cs" />
     <Compile Include="App.xaml.cs">
@@ -118,7 +110,6 @@
     </Compile>
     <Compile Include="GUI\GuiController.cs" />
     <Compile Include="GUI\GuiEventCaller.cs" />
-    <Compile Include="GUI\GuiEventListener.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -165,7 +156,10 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="AudioFiles\" />
+    <ProjectReference Include="..\seng403alarmclock_backend\seng403alarmclock_backend.csproj">
+      <Project>{6276A3B6-753E-4163-91D5-5A427B1EA9B0}</Project>
+      <Name>seng403alarmclock_backend</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="clockhand.png" />

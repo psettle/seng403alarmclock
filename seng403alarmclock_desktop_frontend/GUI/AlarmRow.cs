@@ -1,4 +1,5 @@
-﻿using System;
+﻿using seng403alarmclock.Model;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows;

@@ -1,7 +1,9 @@
-﻿using System;
+﻿using seng403alarmclock.Model;
+using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Threading;
+using seng403alarmclock.GUI_Interfaces;
 
 namespace seng403alarmclock.GUI
 {
@@ -13,8 +15,7 @@ namespace seng403alarmclock.GUI
     /// Implements a singleton design pattern, i.e. 
     /// GuiController guiController = GuiController.getGuiController(); to access the functionality
     /// </summary>
-    class GuiController
-    {
+    class GuiController : AbstractGuiController {
         /// <summary>
         /// A reference to the main window of the application
         /// </summary>
@@ -23,24 +24,12 @@ namespace seng403alarmclock.GUI
         private DateTime now; //the most recent time we have been given
 
         /// <summary>
-        /// The singleton object
-        /// </summary>
-        private static GuiController guiController = new GuiController();
-
-        /// <summary>
         /// The list of currenlty rendered alarm rows
         /// </summary>
         private Dictionary<Alarm, AlarmRow> activeAlarms = new Dictionary<Alarm, AlarmRow>();
 
-        /// <summary>
-        /// Used to access the singleton object
-        /// </summary>
-        /// <returns>
-        /// The singleton instance
-        /// </returns>
-        public static GuiController GetController()
-        {
-            return guiController;
+        new public static GuiController GetController() {
+            return (GuiController)guiController;
         }
 
         /// <summary>
@@ -59,18 +48,13 @@ namespace seng403alarmclock.GUI
         }
 
         /// <summary>
-        /// Private ctor
-        /// </summary>
-        private GuiController() { }
-
-        /// <summary>
         /// Sets the time displayed on the GUI
         /// </summary>
         /// <param name="time">
         /// The time to display on the GUI
         /// </param>
 
-        public void SetTime(DateTime time) {
+        public override void SetTime(DateTime time) {
             if(mainWindow != null) {
                 mainWindow.SetTime(time);
             }
@@ -86,7 +70,7 @@ namespace seng403alarmclock.GUI
         /// <exception cref="ArgumentException">
         /// If the alarm was set without being cleared already
         /// </exception>
-        public void AddAlarm(Alarm alarm)
+        public override void AddAlarm(Alarm alarm)
         {
             AlarmRow row = new AlarmRow(alarm);
             activeAlarms.Add(alarm, row);
@@ -96,22 +80,22 @@ namespace seng403alarmclock.GUI
         #region snooze/dismiss set visible/hidden
         //if we have time to kill i'd like to remove these calls and implement more locally
 
-        public void Snooze_Btn_setVisible()
+        public override void Snooze_Btn_setVisible()
         {
             mainWindow.Snooze_Button_setVisible();
         }
 
-        public void Snooze_Btn_setHidden()
+        public override void Snooze_Btn_setHidden()
         {
             mainWindow.Snooze_Button_setHidden();
         }
 
-        public void DismissAll_Btn_setVisible()
+        public override void DismissAll_Btn_setVisible()
         {
             mainWindow.Dismiss_Button_setVisible();
         }
 
-        public void Dismiss_Btn_setHidden()
+        public override void Dismiss_Btn_setHidden()
         {
             mainWindow.Dismiss_Button_setHidden();
         }
@@ -127,7 +111,7 @@ namespace seng403alarmclock.GUI
         /// <exception cref="AlarmNotSetException">
         /// If the provided alarm was never used to create a row, this exception will be thrown
         /// </exception>
-        public void UpdateAlarm(Alarm alarm)
+        public override void UpdateAlarm(Alarm alarm)
         {
             if(mainWindow == null && alarm.IsRinging) {
                 mainWindow = new MainWindow();
@@ -150,7 +134,7 @@ namespace seng403alarmclock.GUI
         /// <exception cref="AlarmNotSetException">
         /// If the provided alarm was never used to create a row, this exception will be thrown
         /// </exception>
-        public void RemoveAlarm(Alarm alarm, bool wasPreempted)
+        public override void RemoveAlarm(Alarm alarm, bool wasPreempted)
         {
             AlarmRow row = this.GetAlarmRow(alarm);
             mainWindow.RemoveAlarmRow(row, wasPreempted);
@@ -165,7 +149,7 @@ namespace seng403alarmclock.GUI
             activeAlarms.Remove(alarm);
         }
 
-        public void EditAlarm(Alarm alarm, List<Alarm> alarmList)
+        public override void EditAlarm(Alarm alarm, List<Alarm> alarmList)
         {
             AlarmRow row = this.GetAlarmRow(alarm);
             //AlarmRow nRow = new AlarmRow(alarm);
@@ -253,7 +237,7 @@ namespace seng403alarmclock.GUI
         /// Sets the timezone on the options menu (for display only, doesn't affect the system time)
         /// </summary>
         /// <param name="offsetFromUTC"></param>
-        public void SetActiveTimeZoneForDisplay(double offsetFromUTC) {
+        public override void SetActiveTimeZoneForDisplay(double offsetFromUTC) {
             OptionsWindow.timezoneOffsetHours = offsetFromUTC;
         }
 
@@ -275,5 +259,11 @@ namespace seng403alarmclock.GUI
             
         }
 
+        /// <summary>
+        /// Called when the model wants to shut down the program
+        /// </summary>
+        public override void Shutdown() {
+            App.Current.Shutdown();
+        }
     }
 }

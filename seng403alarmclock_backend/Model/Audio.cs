@@ -15,8 +15,7 @@ namespace seng403alarmclock.Model
         {
             player = new SoundPlayer();
          
-            string directory = System.IO.Directory.GetParent(System.IO.Directory.GetParent(Environment.CurrentDirectory).ToString()).ToString();
-            directory = directory + @"\AudioFiles\" + audioID;
+            string directory = "../../../seng403alarmclock_backend/AudioFiles/" + audioID;     
             player.SoundLocation = directory;
           
 

@@ -1,18 +1,18 @@
-﻿using System;
+﻿using seng403alarmclock.GUI_Interfaces;
+using System;
 using System.Collections.Generic;
-using seng403alarmclock.GUI;
 
 namespace seng403alarmclock.Model {
     /// <summary>
     /// Basic controller for passes the time of day to the gui
     /// </summary>
-    class TimeController : TimeListener, GuiEventListener {
+    public class TimeController : TimeListener, GuiEventListener {
         /// <summary>
         /// Called whenever a time pulse occurs
         /// </summary>
         /// <param name="currentTime"></param>
         public void TimePulse(DateTime currentTime) {
-            GuiController.GetController().SetTime(currentTime);
+            AbstractGuiController.GetController().SetTime(currentTime);
         }
 
         /// <summary>
@@ -20,7 +20,7 @@ namespace seng403alarmclock.Model {
         /// </summary>
         public void Setup() {
             double localOffset = GetLocalTimeZoneOffset();
-            GuiController.GetController().SetActiveTimeZoneForDisplay(localOffset);
+            AbstractGuiController.GetController().SetActiveTimeZoneForDisplay(localOffset);
         }
 
         /// <summary>
@@ -29,7 +29,7 @@ namespace seng403alarmclock.Model {
         /// <param name="offset"></param>
         public void TimeZoneOffsetChanged(double offset) {
             double localOffset = GetLocalTimeZoneOffset();
-            GuiController.GetController().SetActiveTimeZoneForDisplay(offset + localOffset);
+            AbstractGuiController.GetController().SetActiveTimeZoneForDisplay(offset + localOffset);
             TimeFetcher.setOffset(offset);
         }
 

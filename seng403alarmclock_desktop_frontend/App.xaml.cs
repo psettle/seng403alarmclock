@@ -12,6 +12,7 @@ using System.IO;
 using seng403alarmclock.Data;
 using System.Xml.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
+using seng403alarmclock.GUI_Interfaces;
 
 namespace seng403alarmclock
 {
@@ -24,10 +25,10 @@ namespace seng403alarmclock
         /// If the last time this program started, this value was true, the program will automatically start when the 
         /// computer is restarted
         /// </summary>
-        private static readonly bool launchOnStartup = false;
+        private static readonly bool launchOnStartup = true;
 
 
-        private static AlarmController ac = new AlarmController();
+        private static AlarmController ac = null;
         /// <summary>
         /// Called when the application starts
         /// </summary>
@@ -42,6 +43,11 @@ namespace seng403alarmclock
             SetCWD();
 
             base.OnStartup(e);
+
+            AbstractGuiController.SetController(new GuiController());
+
+
+            ac = new AlarmController();
             GuiEventCaller.GetCaller().AddListener(ac);
             TimeController tc = new TimeController();
             tc.Setup();
@@ -71,7 +77,7 @@ namespace seng403alarmclock
         private void setAudioFileNames() {
             Dictionary<string, string> table = new Dictionary<string, string>();
 
-            DirectoryInfo audioFolder = new DirectoryInfo("../../AudioFiles");
+            DirectoryInfo audioFolder = new DirectoryInfo("../../../seng403alarmclock_backend/AudioFiles");
 
             FileInfo[] fileInfos = audioFolder.GetFiles();
 

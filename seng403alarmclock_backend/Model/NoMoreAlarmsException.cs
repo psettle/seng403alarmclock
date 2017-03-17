@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace seng403alarmclock.GUI {
+namespace seng403alarmclock.Model {
     [Serializable]
     internal class NoMoreAlarmsException : Exception {
         public NoMoreAlarmsException() {
