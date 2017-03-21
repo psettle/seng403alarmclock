@@ -7,6 +7,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "seng403alarmclock_backend",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "seng403alarmclock_desktop_frontend", "seng403alarmclock_desktop_frontend\seng403alarmclock_desktop_frontend.csproj", "{9A198F5C-20E8-4DAA-A484-C57B106BC49F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "seng403alarmclock_silverlight_frontend", "seng403alarmclock_silverlight_frontend\seng403alarmclock_silverlight_frontend.csproj", "{737BC46D-A1E8-4357-AEB7-9164A07E130A}"
+	ProjectSection(ProjectDependencies) = postProject
+		{6276A3B6-753E-4163-91D5-5A427B1EA9B0} = {6276A3B6-753E-4163-91D5-5A427B1EA9B0}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "seng403alarmclock_silverlight_frontend.Web", "seng403alarmclock_silverlight_frontend.Web\seng403alarmclock_silverlight_frontend.Web.csproj", "{3DAE7A5B-4B7E-4601-B005-5EF63E72E595}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +58,38 @@ Global
 		{9A198F5C-20E8-4DAA-A484-C57B106BC49F}.Release|x64.Build.0 = Release|Any CPU
 		{9A198F5C-20E8-4DAA-A484-C57B106BC49F}.Release|x86.ActiveCfg = Release|Any CPU
 		{9A198F5C-20E8-4DAA-A484-C57B106BC49F}.Release|x86.Build.0 = Release|Any CPU
+		{737BC46D-A1E8-4357-AEB7-9164A07E130A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{737BC46D-A1E8-4357-AEB7-9164A07E130A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{737BC46D-A1E8-4357-AEB7-9164A07E130A}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{737BC46D-A1E8-4357-AEB7-9164A07E130A}.Debug|ARM.Build.0 = Debug|Any CPU
+		{737BC46D-A1E8-4357-AEB7-9164A07E130A}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{737BC46D-A1E8-4357-AEB7-9164A07E130A}.Debug|x64.Build.0 = Debug|Any CPU
+		{737BC46D-A1E8-4357-AEB7-9164A07E130A}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{737BC46D-A1E8-4357-AEB7-9164A07E130A}.Debug|x86.Build.0 = Debug|Any CPU
+		{737BC46D-A1E8-4357-AEB7-9164A07E130A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{737BC46D-A1E8-4357-AEB7-9164A07E130A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{737BC46D-A1E8-4357-AEB7-9164A07E130A}.Release|ARM.ActiveCfg = Release|Any CPU
+		{737BC46D-A1E8-4357-AEB7-9164A07E130A}.Release|ARM.Build.0 = Release|Any CPU
+		{737BC46D-A1E8-4357-AEB7-9164A07E130A}.Release|x64.ActiveCfg = Release|Any CPU
+		{737BC46D-A1E8-4357-AEB7-9164A07E130A}.Release|x64.Build.0 = Release|Any CPU
+		{737BC46D-A1E8-4357-AEB7-9164A07E130A}.Release|x86.ActiveCfg = Release|Any CPU
+		{737BC46D-A1E8-4357-AEB7-9164A07E130A}.Release|x86.Build.0 = Release|Any CPU
+		{3DAE7A5B-4B7E-4601-B005-5EF63E72E595}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3DAE7A5B-4B7E-4601-B005-5EF63E72E595}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3DAE7A5B-4B7E-4601-B005-5EF63E72E595}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{3DAE7A5B-4B7E-4601-B005-5EF63E72E595}.Debug|ARM.Build.0 = Debug|Any CPU
+		{3DAE7A5B-4B7E-4601-B005-5EF63E72E595}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{3DAE7A5B-4B7E-4601-B005-5EF63E72E595}.Debug|x64.Build.0 = Debug|Any CPU
+		{3DAE7A5B-4B7E-4601-B005-5EF63E72E595}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{3DAE7A5B-4B7E-4601-B005-5EF63E72E595}.Debug|x86.Build.0 = Debug|Any CPU
+		{3DAE7A5B-4B7E-4601-B005-5EF63E72E595}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3DAE7A5B-4B7E-4601-B005-5EF63E72E595}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3DAE7A5B-4B7E-4601-B005-5EF63E72E595}.Release|ARM.ActiveCfg = Release|Any CPU
+		{3DAE7A5B-4B7E-4601-B005-5EF63E72E595}.Release|ARM.Build.0 = Release|Any CPU
+		{3DAE7A5B-4B7E-4601-B005-5EF63E72E595}.Release|x64.ActiveCfg = Release|Any CPU
+		{3DAE7A5B-4B7E-4601-B005-5EF63E72E595}.Release|x64.Build.0 = Release|Any CPU
+		{3DAE7A5B-4B7E-4601-B005-5EF63E72E595}.Release|x86.ActiveCfg = Release|Any CPU
+		{3DAE7A5B-4B7E-4601-B005-5EF63E72E595}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

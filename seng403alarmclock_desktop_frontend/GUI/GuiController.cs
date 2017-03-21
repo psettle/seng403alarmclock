@@ -77,7 +77,7 @@ namespace seng403alarmclock.GUI
         }
 
         #region snooze/dismiss set visible/hidden
-        //if we have time to kill i'd like to remove these calls and implement more locally
+        //if we have time to kill i'd- like to remove these calls and implement more locally
 
         /// <summary>
         /// Controls if the GUI has a snooze option available
