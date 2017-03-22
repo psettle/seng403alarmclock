@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace seng403alarmclock_backend.Data {
     /// <summary>
@@ -13,6 +10,11 @@ namespace seng403alarmclock_backend.Data {
         /// Singleton instance, prevents race conditions
         /// </summary>
         private static AbstractDataDriver _instance = null;
+
+        /// <summary>
+        /// The list of types this data driver can serialize
+        /// </summary>
+        protected static List<Type> types = new List<Type>();
 
         /// <summary>
         /// Getter for the instance
@@ -30,6 +32,14 @@ namespace seng403alarmclock_backend.Data {
         /// <param name="name"></param>
         /// <param name="value"></param>
         abstract public void SetVariable(string name, object value);
+
+        /// <summary>
+        /// Adds a type to the list of types that this class can serialize
+        /// </summary>
+        /// <param name="t"></param>
+        public static void addType(Type t) {
+            types.Add(t);
+        }
 
         /// <summary>
         /// gets a variable in persistent data

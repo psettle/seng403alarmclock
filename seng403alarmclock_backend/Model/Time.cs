@@ -1,6 +1,6 @@
+using seng403alarmclock_backend.Timer;
 using System;
 using System.Collections.Generic;
-using System.Windows.Threading;
 
 namespace seng403alarmclock.Model {
     /// <summary>
@@ -77,7 +77,7 @@ namespace seng403alarmclock.Model {
         /// <summary>
         /// Timer for regular pulses
         /// </summary>
-		private DispatcherTimer timer = new DispatcherTimer();
+		//private DispatcherTimer timer = new DispatcherTimer();
 
         /// <summary>
         /// All the registered listeners
@@ -87,12 +87,12 @@ namespace seng403alarmclock.Model {
         /// <summary>
         /// The singleton instance
         /// </summary>
-        private static TimePulseGenerator instance = new TimePulseGenerator();
+        private static TimePulseGenerator instance = null;
 
         /// <summary>
-        /// Gets the singleton instance
+        /// Gets/Sets the singleton instance
         /// </summary>
-		public static TimePulseGenerator Instance { get { return instance; } }
+		public static TimePulseGenerator Instance { get; set; }
 
         /// <summary>
         /// Registers a new time listener
@@ -107,16 +107,16 @@ namespace seng403alarmclock.Model {
         /// <summary>
         /// Launches the pulse generator by starting the pulse timer
         /// </summary>
-		private TimePulseGenerator(){
-			timer.Tick += Timer_Tick;
-			timer.Interval = new TimeSpan(0,0,0,0,100);
-			timer.Start();
+		public TimePulseGenerator(DispatcherTimerI timer){
+            timer.SetCallback(Timer_Tick);
+            timer.PulseLength(100);
+            timer.Start();
 		}
 
         /// <summary>
         /// The pulse event, calls time pulse on each listener
         /// </summary>
-		private void Timer_Tick(object sender, EventArgs e) {
+		private void Timer_Tick() {
             //grab the time from the time fetcher
 			DateTime currentTime = TimeFetcher.getCurrentTime();
             //call time pulse on each listener

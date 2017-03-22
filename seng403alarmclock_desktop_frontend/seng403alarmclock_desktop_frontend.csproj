@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>seng403alarmclock</RootNamespace>
     <AssemblyName>seng403alarmclock</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
@@ -30,6 +30,7 @@
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -65,6 +66,10 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Runtime.Serialization, Version=2.0.5.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETPortable\v4.0\Profile\Profile344\System.Runtime.Serialization.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -86,6 +91,7 @@
     <Compile Include="Audio\Audio.cs" />
     <Compile Include="Audio\AudioController.cs" />
     <Compile Include="Data\DataDriver.cs" />
+    <Compile Include="Timer\SengDispatcherTimer.cs" />
     <Compile Include="EditAlarmWindow.xaml.cs">
       <DependentUpon>EditAlarmWindow.xaml</DependentUpon>
     </Compile>
@@ -112,7 +118,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="GUI\GuiController.cs" />
-    <Compile Include="GUI\GuiEventCaller.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -159,18 +164,17 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\seng403alarmclock_backend\seng403alarmclock_backend.csproj">
-      <Project>{6276A3B6-753E-4163-91D5-5A427B1EA9B0}</Project>
-      <Name>seng403alarmclock_backend</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="clockhand.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="ClockBackground.gif" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\seng403alarmclock_backend\seng403alarmclock_backend.csproj">
+      <Project>{399BF577-925E-418C-B5D5-7E18D52453DC}</Project>
+      <Name>seng403alarmclock_backend</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

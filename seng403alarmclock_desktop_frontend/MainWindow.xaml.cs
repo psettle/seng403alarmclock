@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 
 using seng403alarmclock.GUI;
 using System.Windows.Threading;
+using seng403alarmclock.GUI_Interfaces;
 
 namespace seng403alarmclock
 {

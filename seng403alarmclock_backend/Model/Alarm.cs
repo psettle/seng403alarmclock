@@ -1,6 +1,8 @@
 ﻿using seng403alarmclock.Audio;
+using seng403alarmclock_backend.Data;
 using System;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 
 namespace seng403alarmclock.Model
 {
@@ -14,10 +16,9 @@ namespace seng403alarmclock.Model
     /// 
     /// alarmName is a unique name for the alarm (the time it was created) so that we can id alarms later and remove them
     /// </summary>
-    [Serializable]
+    [DataContract]
     public class Alarm
     {
-
 
         #region Attributes
 
@@ -29,20 +30,27 @@ namespace seng403alarmclock.Model
         /// <summary>
         /// The days this alarm goes off on, 
         /// </summary>
+        [DataMember]
         private List<DayOfWeek> days = null;
 
         /// <summary>
         /// The time that this alarm is supposed to go off
         /// </summary>
+        [DataMember]
         private DateTime alarmTime { get; set; }
+        [DataMember]
         private int hour;
+        [DataMember]
         private int minute;
 
         /// <summary>
         /// A name for this alarm, currently unused
         /// </summary>
+
+        [DataMember]
         public string alarmName { get; set; }
 
+        [DataMember]
         private AlarmState status;
 
         public AlarmState Status
@@ -95,17 +103,21 @@ namespace seng403alarmclock.Model
         /// <summary>
         /// Indicates if the alarm repeats or not
         /// </summary>
+        [DataMember]
         public bool IsRepeating { get; set; }
 
         /// <summary>
         /// Indicates if the alarm is running a weekly cycle, instead of a daily cycle
         /// </summary>
+        [DataMember]
         public bool IsWeekly { get; set; }
 
         /// <summary>
         /// The audio to play when this alarm goes off
         /// </summary>
+        [DataMember]
         private AudioI audio = null;
+        [DataMember]
         private string audioFile;
 
         #endregion
@@ -330,14 +342,11 @@ namespace seng403alarmclock.Model
 
         public int GetHour()
         {
-            Console.WriteLine(hour);
-
             return this.hour;
         }
 
         public int GetMinute()
         {
-            Console.WriteLine(minute);
             return this.minute;
         }
 
@@ -367,5 +376,6 @@ namespace seng403alarmclock.Model
                 NonWeeklyCtor(hour, minute);
             }
         }
+
     }
 }

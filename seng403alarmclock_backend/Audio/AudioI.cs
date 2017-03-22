@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace seng403alarmclock.Audio {
+﻿namespace seng403alarmclock.Audio {
     /// <summary>
     /// Generic interface for a system audio controller
     /// </summary>

@@ -1,17 +1,15 @@
-﻿using seng403alarmclock_backend.Data;
+﻿using seng403alarmclock.Model;
+using seng403alarmclock_backend.Data;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Runtime.Serialization.Formatters.Binary;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Serialization;
+using System.Runtime.Serialization;
 
 namespace seng403alarmclock.Data {
     /// <summary>
     /// Simple data driver for persistent data, can store any serializable object
     /// </summary>
+    
     public class DataDriver : AbstractDataDriver {
         /// <summary>
         /// The name of the save file for data
@@ -69,12 +67,12 @@ namespace seng403alarmclock.Data {
         /// Re loads all the data from the save file
         /// </summary>
         private void LoadData() {
-            BinaryFormatter serializer = new BinaryFormatter();
+            DataContractSerializer serializer = new DataContractSerializer(typeof(Dictionary<string, object>), types);
 
             FileStream reader = null;
             try {
                 reader = new FileStream(saveFileName, FileMode.Open);
-                savedData = (Dictionary<string, object>)serializer.Deserialize(reader);
+                savedData = (Dictionary<string, object>)serializer.ReadObject(reader);
                 //a null reading is the same as a missing read
                 if(savedData == null) {
                     throw new FileNotFoundException();
@@ -82,6 +80,8 @@ namespace seng403alarmclock.Data {
                 reader.Close();
             } catch (FileNotFoundException) {
                 savedData = new Dictionary<string, object>(); //create a new save object if the file is missing
+            } catch (SerializationException) {
+                savedData = new Dictionary<string, object>();
             }
    
         }
@@ -90,11 +90,11 @@ namespace seng403alarmclock.Data {
         /// Re saves the data in this object
         /// </summary>
         private void SaveData() {
-            BinaryFormatter serializer = new BinaryFormatter();
-
-            FileStream writer = new FileStream(saveFileName, FileMode.OpenOrCreate);
-
-            serializer.Serialize(writer, savedData);
+            DataContractSerializer serializer = new DataContractSerializer(typeof(Dictionary<string, object>), types);
+           
+            FileStream writer = new FileStream(saveFileName, FileMode.Create);
+            
+            serializer.WriteObject(writer, savedData);
 
             writer.Close();
         }

@@ -7,7 +7,7 @@
     <ProductVersion>
     </ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{3DAE7A5B-4B7E-4601-B005-5EF63E72E595}</ProjectGuid>
+    <ProjectGuid>{4E9BB88F-796D-45AF-A7E3-163DB67C2272}</ProjectGuid>
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -20,7 +20,7 @@
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
     <UseGlobalApplicationHostFile />
-    <SilverlightApplicationList>{737BC46D-A1E8-4357-AEB7-9164A07E130A}|..\seng403alarmclock_silverlight_frontend\seng403alarmclock_silverlight_frontend.csproj|ClientBin|False</SilverlightApplicationList>
+    <SilverlightApplicationList>{5FAFC9DB-63AD-4C6E-A784-470896BE799F}|..\seng403alarmclock_silverlight_frontend\seng403alarmclock_silverlight_frontend.csproj|ClientBin|False</SilverlightApplicationList>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -90,7 +90,7 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>64363</DevelopmentServerPort>
+          <DevelopmentServerPort>55216</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost:64363/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>

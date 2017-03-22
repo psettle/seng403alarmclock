@@ -1,23 +1,16 @@
 ﻿using seng403alarmclock.GUI;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows;
-using seng403alarmclock;
-using seng403alarmclock.Model;
 using System.IO;
 using seng403alarmclock.Data;
-using System.Xml.Serialization;
-using System.Runtime.Serialization.Formatters.Binary;
-using seng403alarmclock.GUI_Interfaces;
-using seng403alarmclock_backend.Data;
 using seng403alarmclock.Audio;
+using seng403alarmclock.Model;
+using seng403alarmclock_backend.Data;
+using seng403alarmclock.GUI_Interfaces;
+using seng403alarmclock.Timer;
 
-namespace seng403alarmclock
-{
+namespace seng403alarmclock {
     /// <summary>
     /// Interaction logic for App.xaml
     /// </summary>
@@ -47,6 +40,9 @@ namespace seng403alarmclock
             LaunchOnRestart();
             AssignPlatformControllers();
             SetAudioFileNames();
+
+            TimePulseGenerator.Instance = new TimePulseGenerator(new SengDispatcherTimer());
+
 
             ac = new AlarmController();
             GuiEventCaller.GetCaller().AddListener(ac);
@@ -82,7 +78,12 @@ namespace seng403alarmclock
         /// </summary>
         private void AssignPlatformControllers() {
             AbstractGuiController.SetController(new GuiController());
+            AbstractDataDriver.addType(typeof(List<Alarm>));
+            AbstractDataDriver.addType(typeof(Alarm));
+            AbstractDataDriver.addType(typeof(Audio.Audio));
             AbstractDataDriver.Instance = new DataDriver();
+
+
             AbstractAudioController.SetController(new AudioController());
         }
 

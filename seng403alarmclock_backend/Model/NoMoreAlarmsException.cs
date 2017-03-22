@@ -2,7 +2,8 @@
 using System.Runtime.Serialization;
 
 namespace seng403alarmclock.Model {
-    [Serializable]
+    
+    [DataContract]
     internal class NoMoreAlarmsException : Exception {
         public NoMoreAlarmsException() {
         }
@@ -11,9 +12,6 @@ namespace seng403alarmclock.Model {
         }
 
         public NoMoreAlarmsException(string message, Exception innerException) : base(message, innerException) {
-        }
-
-        protected NoMoreAlarmsException(SerializationInfo info, StreamingContext context) : base(info, context) {
         }
     }
 }

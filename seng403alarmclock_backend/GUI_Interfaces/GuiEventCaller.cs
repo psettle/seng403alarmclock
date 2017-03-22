@@ -10,7 +10,7 @@ namespace seng403alarmclock.GUI_Interfaces {
     /// Implemented as a singleton, so to add a listener go:
     /// GuiEventCaller.getCaller().AddListener(new GuiEventListener() {});
     /// </summary>
-    class GuiEventCaller { 
+    public class GuiEventCaller { 
         /// <summary>
         /// The singleton variable
         /// </summary>

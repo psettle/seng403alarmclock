@@ -1,7 +1,7 @@
-﻿using seng403alarmclock.Model;
+﻿using seng403alarmclock.GUI_Interfaces;
+using seng403alarmclock.Model;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;

@@ -7,6 +7,7 @@
     d:DesignHeight="300" d:DesignWidth="400">
 
     <Grid x:Name="LayoutRoot" Background="White">
+        <TextBlock x:Name="time" HorizontalAlignment="Left" Margin="183,131,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top"/>
 
     </Grid>
 </UserControl>

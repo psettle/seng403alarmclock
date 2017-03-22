@@ -1,24 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
+﻿using seng403alarmclock.GUI;
+using seng403alarmclock.GUI_Interfaces;
+using seng403alarmclock.Model;
+using seng403alarmclock.Timer;
+using System;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Shapes;
 
 namespace seng403alarmclock_silverlight_frontend {
     public partial class App : Application {
 
         public App() {
+            AbstractGuiController.SetController(new GuiController());
+            TimePulseGenerator.Instance = new TimePulseGenerator(new SengDispatcherTimer());
+
             this.Startup += this.Application_Startup;
             this.Exit += this.Application_Exit;
             this.UnhandledException += this.Application_UnhandledException;
 
             InitializeComponent();
+
+
+            TimeController tc = new TimeController();
+            GuiEventCaller.GetCaller().AddListener(tc);
+            TimePulseGenerator.Instance.registerListener(tc);
         }
 
         private void Application_Startup(object sender, StartupEventArgs e) {

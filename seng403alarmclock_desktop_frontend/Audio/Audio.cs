@@ -3,18 +3,20 @@ using System.Threading;
 using System.Media;
 using System.IO;
 using System.Reflection;
+using System.Runtime.Serialization;
 
 namespace seng403alarmclock.Audio
 {
     /// <summary>
     /// Audio driver for windows desktop
     /// </summary>
-    [Serializable]
+    [DataContract]
     public class Audio : AudioI
     {
         /// <summary>
         /// The windows desktop sound player
         /// </summary>
+        [DataMember]
         private SoundPlayer player;
 
         /// <summary>

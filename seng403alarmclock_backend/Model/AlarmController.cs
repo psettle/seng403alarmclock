@@ -212,6 +212,11 @@ namespace seng403alarmclock.Model
         public void SetupMainWindow() {
             //attempt to load the alarm list from data and push them onto the GUI
             try {
+                /*int alarmCount = (int)AbstractDataDriver.Instance.GetVariable("AlarmCount");
+                for(int i = 0; i < alarmCount; i++) {
+                    Alarm alarm = (Alarm)AbstractDataDriver.Instance.GetVariable("Alarm" + i);
+                    alarmList.Add(alarm);
+                }*/
                 alarmList = (List<Alarm>)AbstractDataDriver.Instance.GetVariable("AlarmList");
                 foreach (Alarm alarm in alarmList)  {
                     guiController.AddAlarm(alarm);
@@ -229,8 +234,13 @@ namespace seng403alarmclock.Model
             {
                 alarm.Status = AlarmState.Off;
             }
-            //save the alarm list to the data driver
             AbstractDataDriver.Instance.SetVariable("AlarmList", alarmList);
+
+            //save the alarm list to the data driver
+            /*AbstractDataDriver.Instance.SetVariable("AlarmCount", alarmList.Count);
+            for(int i = 0; i < alarmList.Count; i++) {
+                AbstractDataDriver.Instance.SetVariable("Alarm" + i, alarmList[i]);
+            }*/
             AbstractDataDriver.Instance.Shutdown(); //rewrite the save file, to handle unexpected shutdown
         }
 

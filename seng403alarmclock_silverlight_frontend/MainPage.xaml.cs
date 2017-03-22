@@ -1,19 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Windows;
+﻿using seng403alarmclock.GUI;
+using System;
 using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Shapes;
 
 namespace seng403alarmclock_silverlight_frontend {
+    /// <summary>
+    /// This is the main page of the app
+    /// </summary>
     public partial class MainPage : UserControl {
+        /// <summary>
+        /// Initializes the main page
+        /// </summary>
         public MainPage() {
             InitializeComponent();
+            GuiController.GetController().assignMainPage(this);
+
+        }
+
+        /// <summary>
+        /// Sets the time display on the GUI
+        /// </summary>
+        /// <param name="time"></param>
+        public void SetTime(DateTime time) {
+            this.time.Text = time.ToLongTimeString();
         }
     }
 }
