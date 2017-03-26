@@ -29,6 +29,9 @@ namespace seng403alarmclock_silverlight_frontend.GUI {
 
             mainControl.SaveAlarm.Click += SaveAlarm_Click;
             mainControl.CancelAddEdit.Click += CancelAddEdit_Click;
+
+            new DarkButton(mainControl.SaveAlarm);
+            new DarkButton(mainControl.CancelAddEdit);
         }
 
         #region GuiEventHandlers
