@@ -1,11 +1,16 @@
 ﻿using seng403alarmclock.Model;
+using System.Collections.Generic;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Media;
+using System;
+using System.Windows.Controls.Primitives;
 
 namespace seng403alarmclock_silverlight_frontend.GUI {
     /// <summary>
     /// This class contols the add/edit alarm panel
     /// </summary>
-    public class AddEditWindow {
+    public class AddEditWindow : TimeSelectorI {
 
         #region Attributes
         /// <summary>
@@ -32,6 +37,9 @@ namespace seng403alarmclock_silverlight_frontend.GUI {
 
             new DarkButton(mainControl.SaveAlarm);
             new DarkButton(mainControl.CancelAddEdit);
+
+            new TimeSelector(this);
+            
         }
 
         #region GuiEventHandlers
@@ -110,6 +118,60 @@ namespace seng403alarmclock_silverlight_frontend.GUI {
             if(isPanelOpen) {
                 mainControl.AddEditSlideOut.Begin();
             }
+        }
+
+        #endregion
+
+        #region TimeSelectorGetters
+
+        public RepeatButton GetHourUpButton() {
+            return mainControl.HourUp;
+        }
+
+        public RepeatButton GetHourDownButton() {
+            return mainControl.HourDown;
+        }
+
+        public RepeatButton GetMinuteUpButton() {
+            return mainControl.MinuteUp;
+        }
+
+        public RepeatButton GetMinuteDownButton() {
+            return mainControl.MinuteDown;
+        }
+
+        public Button GetAMPMButton() {
+            return mainControl.AMPM;
+        }
+
+        public int GetDefaultHours() {
+            if (alarmBeingEdited != null) {
+                DateTime alarmTime = alarmBeingEdited.GetAlarmTime();
+
+                return alarmTime.Hour;
+
+            } else {
+                return 0;
+            }
+        }
+
+        public int GetDefaultMinutes() {
+            if (alarmBeingEdited != null) {
+                DateTime alarmTime = alarmBeingEdited.GetAlarmTime();
+
+                return alarmTime.Minute;
+
+            } else {
+                return 0;
+            }
+        }
+
+        public TextBox GetHourInput() {
+            return mainControl.HourInput;
+        }
+
+        public TextBox GetMinuteInput() {
+            return mainControl.MinuteInput;
         }
 
         #endregion

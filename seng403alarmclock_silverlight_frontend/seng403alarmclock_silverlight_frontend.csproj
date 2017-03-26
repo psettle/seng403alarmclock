@@ -79,6 +79,8 @@
     <Compile Include="GUI\AddEditWindow.cs" />
     <Compile Include="GUI\DarkButton.cs" />
     <Compile Include="GUI\GuiController.cs" />
+    <Compile Include="GUI\TimeSelector.cs" />
+    <Compile Include="GUI\TimeSelectorI.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>

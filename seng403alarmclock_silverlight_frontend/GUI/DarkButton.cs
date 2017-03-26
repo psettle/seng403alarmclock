@@ -2,6 +2,7 @@
 using System.Net;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Documents;
 using System.Windows.Ink;
 using System.Windows.Input;
@@ -14,28 +15,69 @@ namespace seng403alarmclock_silverlight_frontend.GUI {
     /// Controlled class for the custom dark buttons
     /// </summary>
     public class DarkButton {
+        /// <summary>
+        /// The button being manipulated
+        /// </summary>
+        UIElement internalButton = null;
 
-        Button internalButton = null;
+        private Color IdleBackground = Colors.Black;
+        private Color IdleForeground = Colors.DarkGray;
+        private Color ActiveBackground = Colors.DarkGray;
+        private Color ActiveForeground = Colors.Black;
 
-        public DarkButton(Button targetButton) {
+
+        /// <summary>
+        /// Assigns the click listeners to the target button
+        /// </summary>
+        public DarkButton(UIElement targetButton) {
             internalButton = targetButton;
             internalButton.MouseEnter += InternalButton_MouseEnter;
             internalButton.MouseLeave += InternalButton_MouseLeave;
         }
 
-        private void InternalButton_MouseLeave(object sender, MouseEventArgs e) {
-            SetForegroundAndBackground(Colors.Black, Colors.DarkGray);
+        /// <summary>
+        /// Sets the idle button colours
+        /// </summary>
+        public void SetIdleColors(Color background, Color foreground) {
+            IdleBackground = background;
+            IdleForeground = foreground;
         }
 
+        /// <summary>
+        /// Sets the active button colours
+        /// </summary>
+        public void SetActiveColors(Color background, Color foreground) {
+            ActiveBackground = background;
+            ActiveForeground = foreground;
+        }
+
+        /// <summary>
+        ///  Called when the mouse leaves the button
+        /// </summary>
+        private void InternalButton_MouseLeave(object sender, MouseEventArgs e) {
+            SetForegroundAndBackground(IdleBackground, IdleForeground);
+        }
+
+        /// <summary>
+        ///  Called when the mouse enters the button
+        /// </summary>
         private void InternalButton_MouseEnter(object sender, MouseEventArgs e) {
-            SetForegroundAndBackground(Colors.DarkGray, Colors.White);
+            SetForegroundAndBackground(ActiveBackground, ActiveForeground);
         }
 
         /// <summary>
         /// Sets the foreground and background colors on the button
         /// </summary>
         private void SetForegroundAndBackground(Color background, Color foreground) {
-            object internalContent = internalButton.Content;
+            object internalContent = null;
+            if (internalButton.GetType() == typeof(Button)) {
+                internalContent = ((Button)internalButton).Content;
+            } else if(internalButton.GetType() == typeof(RepeatButton)) {
+                internalContent = ((RepeatButton)internalButton).Content;
+            } else {
+                return; //ui element isn't a button type
+            }
+            
 
             //if the internal content is not a grid, its the wrong type of button, skip it
             if (internalContent.GetType() != typeof(Grid)) {
