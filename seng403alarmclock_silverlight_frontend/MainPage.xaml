@@ -1,8 +1,9 @@
-﻿<UserControl x:Class="seng403alarmclock_silverlight_frontend.MainPage"
+﻿<UserControl
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:sdk="http://schemas.microsoft.com/winfx/2006/xaml/presentation/sdk" x:Class="seng403alarmclock_silverlight_frontend.MainPage"
     mc:Ignorable="d"
     HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
     d:DesignHeight="1050" d:DesignWidth="1920">
@@ -33,37 +34,62 @@
                 />
             </Storyboard>
             <Storyboard x:Name="AddEditSlideOut">
-                    <DoubleAnimation
+                <DoubleAnimation
                     Storyboard.TargetName="AddEditPanel" 
                     Storyboard.TargetProperty="(Canvas.Left)"
                     From="400"
                     To="0"
                     Duration="00:00:00.7"
                 />
-                    <DoubleAnimation
+                <DoubleAnimation
                     Storyboard.TargetName="mainPanel" 
                     Storyboard.TargetProperty="(Canvas.Left)"
                     From="400"
                     To="0"
                     Duration="00:00:00.7"
                 />
-                    <DoubleAnimation
+                <DoubleAnimation
                     Storyboard.TargetName="mainPanel" 
                     Storyboard.TargetProperty="Width" 
                     From="1520"
                     To="1920"
                     Duration="00:00:00.7"
                 />
-                </Storyboard>
+            </Storyboard>
         </Grid.Resources>
         <Canvas>
-            <Grid  x:Name="mainPanel"  Height="1050" Width="1920">
-                <TextBlock x:Name="time" HorizontalAlignment="Left" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" FontSize="200" Canvas.Left="247" Canvas.Top="303" Margin="92,384,0,0"/>
+            <Grid  x:Name="mainPanel"  Height="1050" Width="1920" Background="Black">
+                <TextBlock x:Name="time" HorizontalAlignment="Left" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" FontSize="200" Canvas.Left="247" Canvas.Top="303" Margin="92,384,0,0" Foreground="Gray"/>
                 <Button x:Name="button" Content="Button" HorizontalAlignment="Left" Margin="92,97,0,0" VerticalAlignment="Top" Width="75"/>
             </Grid>
         </Canvas>
         <Canvas>
             <Grid x:Name="AddEditPanel" HorizontalAlignment="Left" Height="1050" Margin="-400,0,0,0" VerticalAlignment="Top" Width="400" Background="DarkGray">
+
+
+                <sdk:Label x:Name="AddEditTitle" HorizontalAlignment="Left" Height="58" Margin="51,30,0,0" VerticalAlignment="Top" Width="293" Content="Add Alarm" FontSize="50"/>
+                <TextBox x:Name="AddEditLabelBox" HorizontalAlignment="Left" Height="39" Margin="152,121,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="20" Width="192"/>
+                <sdk:Label x:Name="label" HorizontalAlignment="Left" Height="39" Margin="51,121,0,0" VerticalAlignment="Top" Width="96" FontSize="30" Content="Name"/>
+
+
+
+                <Button x:Name="SaveAlarm" Height="30" Margin="229,873,0,0" Template="{x:Null}" VerticalAlignment="Top" HorizontalAlignment="Left" Width="147">
+                    <Button.Content>
+                        <Grid>
+                            <Rectangle Fill="Black" RadiusX="5" RadiusY="5"/>
+                            <sdk:Label Content="Save Alarm" FontSize="20" Foreground="DarkGray" HorizontalAlignment="Center"/>
+                        </Grid>
+                    </Button.Content>
+                </Button>
+                <Button x:Name="CancelAddEdit" HorizontalAlignment="Left" Margin="30,871,0,0" Template="{x:Null}" Width="147" Height="32" VerticalAlignment="Top">
+                    <Button.Content>
+                        <Grid>
+                            <Rectangle Fill="Black" RadiusX="5" RadiusY="5"/>
+                            <sdk:Label Content="Cancel" FontSize="20" Foreground="DarkGray" HorizontalAlignment="Center"/>
+                        </Grid>
+                    </Button.Content>
+                </Button>
+
             </Grid>
         </Canvas>
     </Grid>

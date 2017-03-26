@@ -12,6 +12,7 @@ using System.Windows.Shapes;
 using seng403alarmclock.GUI_Interfaces;
 using seng403alarmclock.Model;
 using seng403alarmclock_silverlight_frontend;
+using seng403alarmclock_silverlight_frontend.GUI;
 
 namespace seng403alarmclock.GUI {
     /// <summary>
@@ -24,12 +25,15 @@ namespace seng403alarmclock.GUI {
         /// </summary>
         private MainPage mainPage = null;
 
+        private AddEditWindow addEditWindow = null;
+
         /// <summary>
         /// Assigns the main page to the controller
         /// </summary>
         /// <param name="main"></param>
         public void assignMainPage(MainPage main) {
             mainPage = main;
+            addEditWindow = new AddEditWindow(main);
         }
 
         /// <summary>
@@ -77,7 +81,24 @@ namespace seng403alarmclock.GUI {
         }
 
         public override void UpdateAlarm(Alarm alarm) {
-            
+
+        }
+
+
+        /// <summary>
+        /// Opens the panel in a blank state, ready to input a new alarm
+        /// </summary>
+        public void OpenAddAlarmPanel() {
+            addEditWindow.OpenAddAlarmPanel();
+        }
+        /// <summary>
+        /// Opens the panel preloaded with alarm info, ready to save
+        /// </summary>
+        /// <param name="targetAlarm">
+        /// The alarm to load defaults from and to update when to operation is complete
+        /// </param>
+        public void OpenEditAlarmPanel(Alarm targetAlarm) {
+            addEditWindow.OpenEditAlarmPanel(targetAlarm);
         }
     }
 }
