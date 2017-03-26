@@ -4,10 +4,67 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    d:DesignHeight="300" d:DesignWidth="400">
+    HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+    d:DesignHeight="1050" d:DesignWidth="1920">
 
     <Grid x:Name="LayoutRoot" Background="White">
-        <TextBlock x:Name="time" HorizontalAlignment="Left" Margin="183,131,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top"/>
-
+        <Grid.Resources>
+            <Storyboard x:Name="AddEditSlideIn">
+                <DoubleAnimation
+                    Storyboard.TargetName="AddEditPanel" 
+                    Storyboard.TargetProperty="(Canvas.Left)"
+                    From="0"
+                    To="400"
+                    Duration="00:00:00.7"
+                />
+                <DoubleAnimation
+                    Storyboard.TargetName="mainPanel" 
+                    Storyboard.TargetProperty="(Canvas.Left)"
+                    From="0"
+                    To="400"
+                    Duration="00:00:00.7"
+                />
+                <DoubleAnimation
+                    Storyboard.TargetName="mainPanel" 
+                    Storyboard.TargetProperty="Width" 
+                    From="1920"
+                    To="1520"
+                    Duration="00:00:00.7"
+                />
+            </Storyboard>
+            <Storyboard x:Name="AddEditSlideOut">
+                    <DoubleAnimation
+                    Storyboard.TargetName="AddEditPanel" 
+                    Storyboard.TargetProperty="(Canvas.Left)"
+                    From="400"
+                    To="0"
+                    Duration="00:00:00.7"
+                />
+                    <DoubleAnimation
+                    Storyboard.TargetName="mainPanel" 
+                    Storyboard.TargetProperty="(Canvas.Left)"
+                    From="400"
+                    To="0"
+                    Duration="00:00:00.7"
+                />
+                    <DoubleAnimation
+                    Storyboard.TargetName="mainPanel" 
+                    Storyboard.TargetProperty="Width" 
+                    From="1520"
+                    To="1920"
+                    Duration="00:00:00.7"
+                />
+                </Storyboard>
+        </Grid.Resources>
+        <Canvas>
+            <Grid  x:Name="mainPanel"  Height="1050" Width="1920">
+                <TextBlock x:Name="time" HorizontalAlignment="Left" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" FontSize="200" Canvas.Left="247" Canvas.Top="303" Margin="92,384,0,0"/>
+                <Button x:Name="button" Content="Button" HorizontalAlignment="Left" Margin="92,97,0,0" VerticalAlignment="Top" Width="75"/>
+            </Grid>
+        </Canvas>
+        <Canvas>
+            <Grid x:Name="AddEditPanel" HorizontalAlignment="Left" Height="1050" Margin="-400,0,0,0" VerticalAlignment="Top" Width="400" Background="DarkGray">
+            </Grid>
+        </Canvas>
     </Grid>
 </UserControl>
