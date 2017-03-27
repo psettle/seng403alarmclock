@@ -51,8 +51,7 @@ namespace seng403alarmclock_silverlight_frontend.GUI {
             MinuteInput = hostWindow.GetMinuteInput();
             AMPM = hostWindow.GetAMPMButton();
             AssignButtonControllers();
-            AssignClickListeners();
-            SetDisplayTime(hostWindow.GetDefaultHours(), hostWindow.GetDefaultMinutes());
+            AssignClickListeners(); 
         }
 
         /// <summary>
@@ -136,7 +135,7 @@ namespace seng403alarmclock_silverlight_frontend.GUI {
         /// </summary>
         /// <param name="hour">0-23</param>
         /// <param name="minute">0-59</param>
-        private void SetDisplayTime(int hour, int minute) {
+        public void SetDisplayTime(int hour, int minute) {
              
             if (hour >= 12) {
                 hour -= 12;

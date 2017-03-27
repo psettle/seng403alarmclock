@@ -25,6 +25,8 @@ namespace seng403alarmclock_silverlight_frontend.GUI {
         private Color ActiveBackground = Colors.DarkGray;
         private Color ActiveForeground = Colors.Black;
 
+        private bool isHovered = false;
+
 
         /// <summary>
         /// Assigns the click listeners to the target button
@@ -41,6 +43,7 @@ namespace seng403alarmclock_silverlight_frontend.GUI {
         public void SetIdleColors(Color background, Color foreground) {
             IdleBackground = background;
             IdleForeground = foreground;
+            Render();
         }
 
         /// <summary>
@@ -49,20 +52,34 @@ namespace seng403alarmclock_silverlight_frontend.GUI {
         public void SetActiveColors(Color background, Color foreground) {
             ActiveBackground = background;
             ActiveForeground = foreground;
+            Render();
         }
 
         /// <summary>
         ///  Called when the mouse leaves the button
         /// </summary>
         private void InternalButton_MouseLeave(object sender, MouseEventArgs e) {
-            SetForegroundAndBackground(IdleBackground, IdleForeground);
+            isHovered = false;
+            Render();
         }
 
         /// <summary>
         ///  Called when the mouse enters the button
         /// </summary>
         private void InternalButton_MouseEnter(object sender, MouseEventArgs e) {
-            SetForegroundAndBackground(ActiveBackground, ActiveForeground);
+            isHovered = true;
+            Render();
+        }
+
+        /// <summary>
+        /// Redraws the elements colours
+        /// </summary>
+        private void Render() {
+            if(isHovered) {
+                SetForegroundAndBackground(ActiveBackground, ActiveForeground);
+            } else {
+                SetForegroundAndBackground(IdleBackground, IdleForeground);
+            }
         }
 
         /// <summary>

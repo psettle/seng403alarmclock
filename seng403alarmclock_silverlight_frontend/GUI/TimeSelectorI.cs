@@ -33,16 +33,6 @@ namespace seng403alarmclock_silverlight_frontend.GUI {
         Button GetAMPMButton();
 
         /// <summary>
-        /// Gets the default number of hours to display (0-23)
-        /// </summary>
-        int GetDefaultHours();
-
-        /// <summary>
-        /// Gets the default number of minutes to display (0-59)
-        /// </summary>
-        int GetDefaultMinutes();
-
-        /// <summary>
         /// Gets the textbox for writing hours into
         /// </summary>
         TextBox GetHourInput();

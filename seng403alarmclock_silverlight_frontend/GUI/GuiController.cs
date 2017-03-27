@@ -34,6 +34,13 @@ namespace seng403alarmclock.GUI {
         public void assignMainPage(MainPage main) {
             mainPage = main;
             addEditWindow = new AddEditWindow(main);
+            SetAudioFileNames(new Dictionary<string, string>() { { "test.wav", "Test It!" }, {"select.wav", "Select This" } });
+        }
+
+        public GuiController() : base() {
+            //TODO: Get the audio files!
+            
+
         }
 
         /// <summary>
@@ -45,7 +52,7 @@ namespace seng403alarmclock.GUI {
         }
 
         public override void AddAlarm(Alarm alarm) {
-
+            
         }
 
         public override void EditAlarm(Alarm alarm, List<Alarm> allAlarms) {
@@ -99,6 +106,16 @@ namespace seng403alarmclock.GUI {
         /// </param>
         public void OpenEditAlarmPanel(Alarm targetAlarm) {
             addEditWindow.OpenEditAlarmPanel(targetAlarm);
+        }
+
+        /// <summary>
+        /// Sets the audio files displayed on the dropdown menus
+        /// </summary>
+        /// <param name="audioFiles">
+        /// A table of filename => displayname
+        /// </param>
+        private void SetAudioFileNames(Dictionary<string, string> audioFiles) {
+            addEditWindow.SetAudioFileNames(audioFiles);
         }
     }
 }

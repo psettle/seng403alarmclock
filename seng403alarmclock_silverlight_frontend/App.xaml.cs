@@ -1,16 +1,21 @@
-﻿using seng403alarmclock.GUI;
+﻿using seng403alarmclock.Audio;
+using seng403alarmclock.GUI;
 using seng403alarmclock.GUI_Interfaces;
 using seng403alarmclock.Model;
 using seng403alarmclock.Timer;
+using seng403alarmclock_silverlight_frontend.Audio;
 using System;
 using System.Windows;
 
 namespace seng403alarmclock_silverlight_frontend {
     public partial class App : Application {
-
+        /// <summary>
+        /// Builds controller objects and starts th e app
+        /// </summary>
         public App() {
             AbstractGuiController.SetController(new GuiController());
             TimePulseGenerator.Instance = new TimePulseGenerator(new SengDispatcherTimer());
+            AbstractAudioController.SetController(new AudioController());
 
             this.Startup += this.Application_Startup;
             this.Exit += this.Application_Exit;
@@ -22,6 +27,10 @@ namespace seng403alarmclock_silverlight_frontend {
             TimeController tc = new TimeController();
             GuiEventCaller.GetCaller().AddListener(tc);
             TimePulseGenerator.Instance.registerListener(tc);
+
+            AlarmController ac = new AlarmController();
+            GuiEventCaller.GetCaller().AddListener(ac);
+            TimePulseGenerator.Instance.registerListener(ac);
         }
 
         private void Application_Startup(object sender, StartupEventArgs e) {

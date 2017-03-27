@@ -76,11 +76,15 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Audio\Audio.cs" />
+    <Compile Include="Audio\AudioController.cs" />
     <Compile Include="GUI\AddEditWindow.cs" />
     <Compile Include="GUI\DarkButton.cs" />
+    <Compile Include="GUI\DropdownSelectorController.cs" />
     <Compile Include="GUI\GuiController.cs" />
     <Compile Include="GUI\TimeSelector.cs" />
     <Compile Include="GUI\TimeSelectorI.cs" />
+    <Compile Include="GUI\WeekdaySelector.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
