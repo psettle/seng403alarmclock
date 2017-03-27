@@ -14,46 +14,18 @@
                 <DoubleAnimation
                     Storyboard.TargetName="AddEditPanel" 
                     Storyboard.TargetProperty="(Canvas.Left)"
-                    From="0"
-                    To="400"
-                    Duration="00:00:00.7"
-                />
-                <DoubleAnimation
-                    Storyboard.TargetName="mainPanel" 
-                    Storyboard.TargetProperty="(Canvas.Left)"
-                    From="0"
-                    To="400"
-                    Duration="00:00:00.7"
-                />
-                <DoubleAnimation
-                    Storyboard.TargetName="mainPanel" 
-                    Storyboard.TargetProperty="Width" 
                     From="1920"
                     To="1520"
-                    Duration="00:00:00.7"
+                    Duration="00:00:00.1"
                 />
             </Storyboard>
             <Storyboard x:Name="AddEditSlideOut">
                 <DoubleAnimation
                     Storyboard.TargetName="AddEditPanel" 
                     Storyboard.TargetProperty="(Canvas.Left)"
-                    From="400"
-                    To="0"
-                    Duration="00:00:00.7"
-                />
-                <DoubleAnimation
-                    Storyboard.TargetName="mainPanel" 
-                    Storyboard.TargetProperty="(Canvas.Left)"
-                    From="400"
-                    To="0"
-                    Duration="00:00:00.7"
-                />
-                <DoubleAnimation
-                    Storyboard.TargetName="mainPanel" 
-                    Storyboard.TargetProperty="Width" 
                     From="1520"
                     To="1920"
-                    Duration="00:00:00.7"
+                    Duration="00:00:00.1"
                 />
             </Storyboard>
         </Grid.Resources>
@@ -64,7 +36,7 @@
             </Grid>
         </Canvas>
         <Canvas>
-            <Grid x:Name="AddEditPanel" HorizontalAlignment="Left" Height="1050" Margin="-400,0,0,0" VerticalAlignment="Top" Width="400" Background="DarkGray">
+            <Grid x:Name="AddEditPanel" HorizontalAlignment="Left" Height="1050" VerticalAlignment="Top" Width="400" Background="DarkGray" Canvas.Left="1920">
 
 
                 <sdk:Label x:Name="AddEditTitle" HorizontalAlignment="Left" Height="58" Margin="51,30,0,0" VerticalAlignment="Top" Width="293" Content="Add Alarm" FontSize="50"/>
@@ -189,7 +161,7 @@
                 <Viewbox Margin="78,483,77,525">
                     <ComboBox x:Name="AudioFileComboBox" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120"/>
                 </Viewbox>
-                
+
 
 
                 <Button x:Name="SaveAlarm" Height="30" Margin="228,871,0,0" Template="{x:Null}" VerticalAlignment="Top" HorizontalAlignment="Left" Width="147">
@@ -210,7 +182,7 @@
                         </Grid>
                     </Button.Content>
                 </Button>
-                
+
 
 
 
