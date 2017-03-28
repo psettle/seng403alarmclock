@@ -38,7 +38,10 @@ namespace seng403alarmclock_silverlight_frontend {
         }
 
         /// <summary>
-        /// clicking this opens the options panel
+        /// Clicking this affects the options pane.
+        /// If no pane is visible, it opens the options pane.
+        /// If options is open, it closes the options pane.
+        /// Otherwise, it does nothing.
         /// </summary>
         private void OptionsButton_Click(object sender, RoutedEventArgs e)
         {

@@ -21,13 +21,20 @@ namespace seng403alarmclock.GUI {
     /// the rest are triggered by other gui components
     /// </summary>
     public class GuiController : AbstractGuiController {
+      
+        #region Attributes
         /// <summary>
         /// A reference to this program's main page
         /// </summary>
         private MainPage mainPage = null;
-
         private AddEditWindow addEditWindow = null;
-        private OptionsPanel_Controller optionsPanel = null;
+
+        /// <summary>
+        /// reference to optionsPanelController
+        /// </summary>
+        private OptionsPanel_Controller optionsPanelController = null;
+
+        #endregion
 
         /// <summary>
         /// Assigns the main page to the controller
@@ -36,7 +43,7 @@ namespace seng403alarmclock.GUI {
         public void assignMainPage(MainPage main) {
             mainPage = main;
             addEditWindow = new AddEditWindow(main);
-            optionsPanel = new OptionsPanel_Controller(main);
+            optionsPanelController = new OptionsPanel_Controller(main);
             CrawlAudioFiles();
         }
 
@@ -105,19 +112,19 @@ namespace seng403alarmclock.GUI {
         #region open/close panels
 
         /// <summary>
-        /// Opens the options panel
+        /// Opens the options panel. Only call from MainPage
         /// </summary>
         public void OpenOptionsPanel()
         {
-            optionsPanel.OpenOptionsPanel();
+            optionsPanelController.OpenOptionsPanel();
         }
 
         /// <summary>
-        /// Closes the options panel
+        /// Closes the options panel. Only call from MainPage
         /// </summary>
         public void CloseOptionsPanel()
         {
-            optionsPanel.CloseOptionsPanel();
+            optionsPanelController.CloseOptionsPanel();
         }
 
         /// <summary>
