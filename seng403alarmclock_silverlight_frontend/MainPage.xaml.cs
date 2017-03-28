@@ -91,6 +91,7 @@ namespace seng403alarmclock_silverlight_frontend {
             SetAnalogTime(time);
             this.time.Text = time.ToLongTimeString();
             this.date.Text = time.ToLongDateString();
+            this.date_analog.Text = time.ToLongDateString();
         }
 
         public void SetAnalog()
