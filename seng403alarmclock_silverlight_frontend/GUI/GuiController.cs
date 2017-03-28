@@ -26,6 +26,7 @@ namespace seng403alarmclock.GUI {
         private MainPage mainPage = null;
 
         private AddEditWindow addEditWindow = null;
+        private OptionsPanel_Controller optionsPanel = null;
 
         /// <summary>
         /// Assigns the main page to the controller
@@ -34,6 +35,8 @@ namespace seng403alarmclock.GUI {
         public void assignMainPage(MainPage main) {
             mainPage = main;
             addEditWindow = new AddEditWindow(main);
+            optionsPanel = new OptionsPanel_Controller(main);
+
             SetAudioFileNames(new Dictionary<string, string>() { { "test.wav", "Test It!" }, {"select.wav", "Select This" } });
         }
 
@@ -91,13 +94,31 @@ namespace seng403alarmclock.GUI {
 
         }
 
+        #region open/close panels
+
+        /// <summary>
+        /// Opens the options panel
+        /// </summary>
+        public void OpenOptionsPanel()
+        {
+            optionsPanel.OpenOptionsPanel();
+        }
+
+        /// <summary>
+        /// Closes the options panel
+        /// </summary>
+        public void CloseOptionsPanel()
+        {
+            optionsPanel.CloseOptionsPanel();
+        }
 
         /// <summary>
         /// Opens the panel in a blank state, ready to input a new alarm
         /// </summary>
         public void OpenAddAlarmPanel() {
             addEditWindow.OpenAddAlarmPanel();
-        }
+        }        
+
         /// <summary>
         /// Opens the panel preloaded with alarm info, ready to save
         /// </summary>
@@ -107,6 +128,8 @@ namespace seng403alarmclock.GUI {
         public void OpenEditAlarmPanel(Alarm targetAlarm) {
             addEditWindow.OpenEditAlarmPanel(targetAlarm);
         }
+
+        #endregion
 
         /// <summary>
         /// Sets the audio files displayed on the dropdown menus
