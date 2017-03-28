@@ -10,37 +10,44 @@ using System.Windows.Controls;
 namespace seng403alarmclock_silverlight_frontend.Audio {
     public class Audio : AudioI {
 
-        //private SoundPlayer player;
+        // used to play audio files
         private MediaElement me;
 
-
+        //sets up audio object with audio file
         public void buildForAudioFile(string filename) {
-            //throw new NotImplementedException();
-            end();
 
-            //player = new SoundPlayer();
             me = new MediaElement();
 
             string directory = filename;
 
-            //player.SoundLocation = directory;
+            //ensure nothing is playing before assigning MediaElement to a new audio file
             me.Stop();
+
+            //assign MediaElement to audio file provided by directory
             me.Source = new Uri(directory, UriKind.Relative);
         }
-
+        
+        //ends the currently playing audio file
         public void end() {
-            //throw new NotImplementedException();
             if (me != null)
             {
                 me.Stop();
             }
+            else
+            {
+                throw new NullReferenceException();
+            }
         }
 
+        //starts the currently playing audio file
         public void start() {
-            //throw new NotImplementedException();
             if (me != null)
             {
                 me.Play();
+            }
+            else
+            {
+                throw new NullReferenceException();
             }
         }
     }
