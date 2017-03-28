@@ -1,35 +1,40 @@
-﻿using System;
+﻿
+
 using seng403alarmclock.Audio;
-using System.Threading;
-//using System.Windows.Media;
+using System;
 using System.IO;
-using System.Reflection;
-using System.Runtime.Serialization;
+using System.Net;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace seng403alarmclock_silverlight_frontend.Audio {
     public class Audio : AudioI {
 
-        //private SoundPlayer player;
         private MediaElement me;
 
+        private bool playing = false;
 
-        public void buildForAudioFile(string filename) {
-            //throw new NotImplementedException();
+        public void buildForAudioFile(string filename) {  
             end();
 
-            //player = new SoundPlayer();
             me = new MediaElement();
+            me.AutoPlay = false;
+            WebClient client = new WebClient();
+            client.OpenReadAsync(new Uri(Application.Current.Host.Source, "/" + filename));
+            client.OpenReadCompleted += Client_OpenReadCompleted;
+         
+        }
 
-            string directory = filename;
-
-            //player.SoundLocation = directory;
-            me.Stop();
-            me.Source = new Uri(directory, UriKind.Relative);
+        private void Client_OpenReadCompleted(object sender, OpenReadCompletedEventArgs e) {
+            Stream s = e.Result;
+            me.SetSource(s); 
+            if(playing) {
+                start();
+            }
         }
 
         public void end() {
-            //throw new NotImplementedException();
+            playing = false;
             if (me != null)
             {
                 me.Stop();
@@ -37,7 +42,7 @@ namespace seng403alarmclock_silverlight_frontend.Audio {
         }
 
         public void start() {
-            //throw new NotImplementedException();
+            playing = true;
             if (me != null)
             {
                 me.Play();
