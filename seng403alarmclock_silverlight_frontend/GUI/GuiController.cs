@@ -91,6 +91,18 @@ namespace seng403alarmclock.GUI {
 
         }
 
+        public void SetDisplayMode(bool analog)
+        {
+            if (analog)
+            {
+                mainPage.SetAnalog();
+            }
+            else
+            {
+                mainPage.SetDigital();
+            }
+
+        }
 
         /// <summary>
         /// Opens the panel in a blank state, ready to input a new alarm

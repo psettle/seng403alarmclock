@@ -32,7 +32,13 @@
         <Canvas>
             <Grid  x:Name="mainPanel"  Height="1050" Width="1920" Background="Black">
                 <TextBlock x:Name="time" HorizontalAlignment="Left" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" FontSize="200" Canvas.Left="247" Canvas.Top="303" Margin="92,384,0,0" Foreground="Gray"/>
+                <TextBlock x:Name="date" HorizontalAlignment="Left" TextWrapping="Wrap" Text="date" VerticalAlignment="Top" FontSize="80" Canvas.Left="247" Canvas.Top="303" Margin="110,259,0,0" Foreground="Gray" Height="155" Width="1107"/>
                 <Button x:Name="button" Content="Button" HorizontalAlignment="Left" Margin="92,97,0,0" VerticalAlignment="Top" Width="75"/>
+
+                <Button x:Name="DigitalButton" Content="Digital" HorizontalAlignment="Left" Margin="172,0,0,931" VerticalAlignment="Bottom" Width="75"/>
+                <Button x:Name="AnalogButton" Content="Analog" HorizontalAlignment="Left" Margin="252,0,0,931" VerticalAlignment="Bottom" Width="75"/>
+
+
             </Grid>
         </Canvas>
         <Canvas>
@@ -188,6 +194,11 @@
 
 
             </Grid>
+            <TextBlock x:Name="date_analog" TextWrapping="Wrap" Text="Monday, January 3rd" VerticalAlignment="Center" FontSize="80" TextAlignment="Center" Foreground="DarkGray" Canvas.Left="525" Canvas.Top="457" Width="894" Height="202"/>
+            <Image x:Name="ClockBack" HorizontalAlignment="Left" Height="434" VerticalAlignment="Top" Width="579" Source="bg1.png" Canvas.Left="14" Canvas.Top="299"/>
+            <Image x:Name="HourHand" HorizontalAlignment="Left" Height="197" VerticalAlignment="Top" Width="222" Source="clockhand.png" Canvas.Left="193" Canvas.Top="417"/>
+            <Image x:Name="MinuteHand" HorizontalAlignment="Left" Height="450" VerticalAlignment="Top" Width="444" Source="clockhand.png" Canvas.Left="81" Canvas.Top="291"/>
+            <TextBlock x:Name="AMPM_Analog" HorizontalAlignment="Left" TextWrapping="Wrap" Text="AM" VerticalAlignment="Top" FontSize="18" Foreground="DarkGray" Canvas.Left="266" Canvas.Top="411" />
         </Canvas>
     </Grid>
 </UserControl>
