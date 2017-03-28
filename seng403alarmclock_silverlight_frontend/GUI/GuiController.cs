@@ -13,6 +13,7 @@ using seng403alarmclock.GUI_Interfaces;
 using seng403alarmclock.Model;
 using seng403alarmclock_silverlight_frontend;
 using seng403alarmclock_silverlight_frontend.GUI;
+using System.IO;
 
 namespace seng403alarmclock.GUI {
     /// <summary>
@@ -36,14 +37,21 @@ namespace seng403alarmclock.GUI {
             mainPage = main;
             addEditWindow = new AddEditWindow(main);
             optionsPanel = new OptionsPanel_Controller(main);
-
-            SetAudioFileNames(new Dictionary<string, string>() { { "test.wav", "Test It!" }, {"select.wav", "Select This" } });
+            CrawlAudioFiles();
         }
 
-        public GuiController() : base() {
-            //TODO: Get the audio files!
-            
-
+        /// <summary>
+        /// Crawls through the file system to scan for .wav files
+        /// </summary>
+        private void CrawlAudioFiles() {
+            SetAudioFileNames(new Dictionary<string, string>() {
+                { "TheAssumingSong.mp3", "The Assuming Song" },
+                { "Cat.mp3", "Cat" },
+                { "Chicken.mp3", "Chicken" },
+                { "DangerAlarm.mp3", "Danger Alarm" },
+                { "Dog.mp3", "Dog" },
+               
+            });
         }
 
         /// <summary>

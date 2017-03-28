@@ -5,6 +5,7 @@ using seng403alarmclock.Model;
 using seng403alarmclock.Timer;
 using seng403alarmclock_silverlight_frontend.Audio;
 using System;
+using System.IO;
 using System.Windows;
 
 namespace seng403alarmclock_silverlight_frontend {
