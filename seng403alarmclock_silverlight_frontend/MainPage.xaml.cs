@@ -64,6 +64,7 @@ namespace seng403alarmclock_silverlight_frontend {
                 GuiController.GetController().CloseOptionsPanel();
                 mainPageState = PageState.Normal;
             }
+        }
         private void Button_Click(object sender, System.Windows.RoutedEventArgs e) {
             GuiController.GetController().OpenAddAlarmPanel();
             
