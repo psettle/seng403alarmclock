@@ -13,7 +13,6 @@ using seng403alarmclock.GUI_Interfaces;
 using seng403alarmclock.Model;
 using seng403alarmclock_silverlight_frontend;
 using seng403alarmclock_silverlight_frontend.GUI;
-using System.IO;
 
 namespace seng403alarmclock.GUI {
     /// <summary>
@@ -21,20 +20,12 @@ namespace seng403alarmclock.GUI {
     /// the rest are triggered by other gui components
     /// </summary>
     public class GuiController : AbstractGuiController {
-      
-        #region Attributes
         /// <summary>
         /// A reference to this program's main page
         /// </summary>
         private MainPage mainPage = null;
+
         private AddEditWindow addEditWindow = null;
-
-        /// <summary>
-        /// reference to optionsPanelController
-        /// </summary>
-        private OptionsPanel_Controller optionsPanelController = null;
-
-        #endregion
 
         /// <summary>
         /// Assigns the main page to the controller
@@ -43,22 +34,13 @@ namespace seng403alarmclock.GUI {
         public void assignMainPage(MainPage main) {
             mainPage = main;
             addEditWindow = new AddEditWindow(main);
-            optionsPanelController = new OptionsPanel_Controller(main);
-            CrawlAudioFiles();
+            SetAudioFileNames(new Dictionary<string, string>() { { "test.wav", "Test It!" }, {"select.wav", "Select This" } });
         }
 
-        /// <summary>
-        /// Crawls through the file system to scan for .wav files
-        /// </summary>
-        private void CrawlAudioFiles() {
-            SetAudioFileNames(new Dictionary<string, string>() {
-                { "TheAssumingSong.mp3", "The Assuming Song" },
-                { "Cat.mp3", "Cat" },
-                { "Chicken.mp3", "Chicken" },
-                { "DangerAlarm.mp3", "Danger Alarm" },
-                { "Dog.mp3", "Dog" },
-               
-            });
+        public GuiController() : base() {
+            //TODO: Get the audio files!
+            
+
         }
 
         /// <summary>
@@ -109,43 +91,13 @@ namespace seng403alarmclock.GUI {
 
         }
 
-        #region open/close panels
-
-        /// <summary>
-        /// Opens the options panel. Only call from MainPage
-        /// </summary>
-        public void OpenOptionsPanel()
-        {
-            optionsPanelController.OpenOptionsPanel();
-        }
-
-        public void SetDisplayMode(bool analog)
-        {
-            if (analog)
-            {
-                mainPage.SetAnalog();
-            }
-            else
-            {
-                mainPage.SetDigital();
-            }
-
-        }
-        /// <summary>
-        /// Closes the options panel. Only call from MainPage
-        /// </summary>
-        public void CloseOptionsPanel()
-        {
-            optionsPanelController.CloseOptionsPanel();
-        }
 
         /// <summary>
         /// Opens the panel in a blank state, ready to input a new alarm
         /// </summary>
         public void OpenAddAlarmPanel() {
             addEditWindow.OpenAddAlarmPanel();
-        }        
-
+        }
         /// <summary>
         /// Opens the panel preloaded with alarm info, ready to save
         /// </summary>
@@ -155,8 +107,6 @@ namespace seng403alarmclock.GUI {
         public void OpenEditAlarmPanel(Alarm targetAlarm) {
             addEditWindow.OpenEditAlarmPanel(targetAlarm);
         }
-
-        #endregion
 
         /// <summary>
         /// Sets the audio files displayed on the dropdown menus

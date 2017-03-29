@@ -28,48 +28,30 @@
                     Duration="00:00:00.1"
                 />
             </Storyboard>
-
-            <Storyboard x:Name="OptionsSlideIn">
-                <DoubleAnimation
-                    Storyboard.TargetName="OptionsPanel" 
-                    Storyboard.TargetProperty="(Canvas.Left)"
-                    From="-400"
-                    To="0"
-                    Duration="00:00:00.1"
-                />
-            </Storyboard>
-            <Storyboard x:Name="OptionsSlideOut">
-                <DoubleAnimation
-                    Storyboard.TargetName="OptionsPanel" 
-                    Storyboard.TargetProperty="(Canvas.Left)"
-                    From="0"
-                    To="-400"
-                    Duration="00:00:00.1"
-                />
-            </Storyboard>
         </Grid.Resources>
-        <Canvas x:Name="mainApp">
+        <Canvas>
             <Grid  x:Name="mainPanel"  Height="1050" Width="1920" Background="Black">
-                <TextBlock x:Name="time" HorizontalAlignment="Left" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" FontSize="200" Canvas.Left="247" Canvas.Top="303" Margin="92,384,0,0" Foreground="Gray"/>
-                <TextBlock x:Name="date" HorizontalAlignment="Left" TextWrapping="Wrap" Text="date" VerticalAlignment="Top" FontSize="80" Canvas.Left="247" Canvas.Top="303" Margin="110,259,0,0" Foreground="Gray" Height="155" Width="1107"/>
+                <TextBlock x:Name="time" HorizontalAlignment="Left" TextWrapping="Wrap" Text="00:00:00 PM" VerticalAlignment="Top" FontSize="200" Canvas.Left="247" Canvas.Top="303" Margin="92,384,0,0" Foreground="Gray"/>
                 <Button x:Name="button" Content="Button" HorizontalAlignment="Left" Margin="92,97,0,0" VerticalAlignment="Top" Width="75"/>
+                <ListBox x:Name="listBox" HorizontalAlignment="Left" Height="115" Margin="92,750,0,0" VerticalAlignment="Top" Width="1304">
+                    <StackPanel Orientation="Horizontal" Height="100">
+                        <Button x:Name="button1" Content="Button" Width="200" Height="100"/>
+                        <Button x:Name="button2" Content="Button" Width="200" Height="100"/>
+                        <Button x:Name="button3" Content="Button" Width="200" Height="100"/>
+                        <Button x:Name="button4" Content="Button" Width="200" Height="100"/>
+                        <Button x:Name="button4_Copy" Content="Button" Width="200" Height="100"/>
+                        <Button x:Name="button4_Copy1" Content="Button" Width="200" Height="100"/>
+                        <Button x:Name="button4_Copy2" Content="Button" Width="200" Height="100"/>
+                        <Button x:Name="button4_Copy3" Content="Button" Width="200" Height="100"/>
+                        <Button x:Name="button4_Copy4" Content="Button" Width="200" Height="100"/>
 
-                <Button x:Name="DigitalButton" Content="Digital" HorizontalAlignment="Left" Margin="172,0,0,931" VerticalAlignment="Bottom" Width="75"/>
-                <Button x:Name="AnalogButton" Content="Analog" HorizontalAlignment="Left" Margin="252,0,0,931" VerticalAlignment="Bottom" Width="75"/>
+                    </StackPanel>
+                </ListBox>
 
-
-
-                <Button x:Name="AddEditButton" Content="AddEdit" HorizontalAlignment="Left" Margin="203,179,0,0" VerticalAlignment="Top" Width="75"/>
-                <TextBlock x:Name="date_analog" Margin="51,384,-31,549" TextWrapping="Wrap" Text="Monday, January 3rd" VerticalAlignment="Center" FontSize="80" TextAlignment="Center" Foreground="DarkGray" Grid.Column="0"/>
-
-                <Image x:Name="MinuteHand" HorizontalAlignment="Left" Height="355" Margin="129,268,0,0" VerticalAlignment="Top" Width="357" Source="clockhand.png"/>
-                <Image x:Name="ClockBack" HorizontalAlignment="Left" Height="431" Margin="92,230,0,0" VerticalAlignment="Top" Width="511" Source="bg1.png"/>
-                <Image x:Name="HourHand" HorizontalAlignment="Left" Height="207" Margin="203,343,0,0" VerticalAlignment="Top" Width="216" Source="clockhand.png"/>
-                <TextBlock x:Name="AMPM_Analog" HorizontalAlignment="Left" Margin="263,343,0,0" TextWrapping="Wrap" Text="AM" VerticalAlignment="Top" FontSize="18" Foreground="DarkGray" />
 
             </Grid>
         </Canvas>
-        <Canvas x:Name="slidingPanels">
+        <Canvas>
             <Grid x:Name="AddEditPanel" HorizontalAlignment="Left" Height="1050" VerticalAlignment="Top" Width="400" Background="DarkGray" Canvas.Left="1920">
 
 
@@ -115,13 +97,9 @@
                 <Button x:Name="AMPM" Height="34" Margin="277,226,0,0" Template="{x:Null}" VerticalAlignment="Top" HorizontalAlignment="Left" Width="46">
                     <Button.Content>
                         <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="16*"/>
-                                <RowDefinition/>
-                            </Grid.RowDefinitions>
-                            <Rectangle Fill="DarkGray" RadiusX="5" RadiusY="5" Grid.RowSpan="2"/>
-                            <sdk:Label Content="AM" FontSize="20" Foreground="Black" HorizontalAlignment="Center" Margin="8,0,7,0" Grid.RowSpan="2"/>
-                            <Border BorderBrush="Black" BorderThickness="1" CornerRadius="5" Grid.RowSpan="2"/>
+                            <Rectangle Fill="DarkGray" RadiusX="5" RadiusY="5"/>
+                            <sdk:Label Content="AM" FontSize="20" Foreground="Black" HorizontalAlignment="Center"/>
+                            <Border BorderBrush="Black" BorderThickness="1" CornerRadius="5"/>
                         </Grid>
                     </Button.Content>
                 </Button>
@@ -226,150 +204,7 @@
 
 
             </Grid>
-            <Grid x:Name="OptionsPanel" HorizontalAlignment="Left" Height="1050" VerticalAlignment="Top" Width="400" Background="DarkGray" Canvas.Left="-400">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="101*"/>
-                    <ColumnDefinition Width="99*"/>
-                </Grid.ColumnDefinitions>
-                <StackPanel Orientation="Vertical" Grid.ColumnSpan="2">
-                    <Button x:Name="OptionsButton" HorizontalAlignment="Left" Margin="402,0,-42,0" VerticalAlignment="Top" Width="40" Height="43"/>
-                    <sdk:Label x:Name="OptionsPanel_Title" HorizontalAlignment="Center" Height="58" Margin="10,0,0,0" VerticalAlignment="Top" Width="380" Content="Options" FontSize="50"/>
-                    <Grid x:Name="spacer0" HorizontalAlignment="Left" Height="64" VerticalAlignment="Top" Width="400"/>
-                    <Grid x:Name="CustomDate_UI" HorizontalAlignment="Left" Height="112" VerticalAlignment="Top" Width="390">
-                        <sdk:DatePicker Width="120" Margin="239,40,31,37"/>
-                        <sdk:Label x:Name="CustomDate_Label" HorizontalAlignment="Left" Height="28" Margin="10,42,0,0" VerticalAlignment="Top" Width="145" Content="Custom Date" FontSize="20"/>
-                    </Grid>
-
-
-
-
-
-                    <Grid x:Name="CustomTime_UI" HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="390">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="37*"/>
-                            <RowDefinition Height="63*"/>
-                        </Grid.RowDefinitions>
-                        <!-- The 4 repeat buttons, 2 text boxes, button and textblock below are all controlled by TimeSelector -->
-                        <sdk:Label x:Name="ct_label" HorizontalAlignment="Left" Height="28" Margin="10,5,0,0" VerticalAlignment="Top" Width="145" Content="Custom Time" FontSize="20" Grid.Row="1"/>
-                        <!-- The 4 repeat buttons, 2 text boxes, button and textblock below are all controlled by TimeSelector -->
-                        <RepeatButton x:Name="ct_HourUp" HorizontalAlignment="Left" VerticalAlignment="Top" Height="28" Width="52" Margin="162,10,0,0" Template="{x:Null}" Grid.RowSpan="2">
-                            <Grid>
-                                <Rectangle Fill="DarkGray" RadiusX="5" RadiusY="5" Margin="-2,0,2,0"/>
-                                <sdk:Label FontFamily="Segoe UI Symbol" Content="&#xE010;" FontSize="50" Foreground="Black" HorizontalAlignment="Center" Margin="0,-28,2,0"/>
-                            </Grid>
-                        </RepeatButton>
-                        <TextBox x:Name="ct_HourInput" BorderBrush="Black" FontSize="20" HorizontalAlignment="Left" Height="34" Margin="162,1,0,0" TextWrapping="Wrap" Text="HH" VerticalAlignment="Top" Width="52" Background="DarkGray" TextAlignment="Center" Grid.Row="1"/>
-                        <RepeatButton x:Name="ct_HourDown" HorizontalAlignment="Left" VerticalAlignment="Top" Height="68" Width="52"  Margin="162,35,0,-40" Template="{x:Null}" Grid.Row="1">
-                            <Grid>
-                                <Rectangle Fill="DarkGray" RadiusX="5" RadiusY="5"/>
-                                <sdk:Label FontFamily="Segoe UI Symbol" Content="&#xE011;" FontSize="50" Foreground="Black" HorizontalAlignment="Center" Margin="0,-25,2,25"/>
-                            </Grid>
-                        </RepeatButton>
-                        <TextBlock x:Name="ct_colon" HorizontalAlignment="Left" Margin="227,1,0,0" TextWrapping="Wrap" Text=":" VerticalAlignment="Top" FontSize="30" Grid.Row="1"/>
-                        <RepeatButton x:Name="ct_MinuteUp" HorizontalAlignment="Left" VerticalAlignment="Top" Height="68" Width="52" Margin="259,-30,0,0" Template="{x:Null}" Grid.RowSpan="2">
-                            <Grid>
-                                <Rectangle Fill="DarkGray" RadiusX="5" RadiusY="5"/>
-                                <sdk:Label FontFamily="Segoe UI Symbol" Content="&#xE010;" FontSize="50" Foreground="Black" HorizontalAlignment="Center"/>
-                            </Grid>
-                        </RepeatButton>
-                        <TextBox x:Name="ct_MinuteInput" BorderBrush="Black" FontSize="20" HorizontalAlignment="Left" Height="34" Margin="259,1,0,0" TextWrapping="Wrap" Text="MM" VerticalAlignment="Top" Width="52" Background="DarkGray" TextAlignment="Center" Grid.Row="1"/>
-                        <RepeatButton x:Name="ct_MinuteDown" HorizontalAlignment="Left" VerticalAlignment="Top" Height="68" Width="52" Margin="259,13,0,-18" Template="{x:Null}" Grid.Row="1">
-                            <Grid>
-                                <Rectangle Fill="DarkGray" RadiusX="5" RadiusY="5" Margin="0,22,0,-22"/>
-                                <sdk:Label FontFamily="Segoe UI Symbol" Content="&#xE011;" FontSize="50" Foreground="Black" HorizontalAlignment="Center" Margin="0,0,2,0"/>
-                            </Grid>
-                        </RepeatButton>
-                        <Button x:Name="ct_AMPM" Height="34" Margin="334,36,0,0" Template="{x:Null}" VerticalAlignment="Top" HorizontalAlignment="Left" Width="46" Grid.RowSpan="2">
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="16*"/>
-                                    <RowDefinition/>
-                                </Grid.RowDefinitions>
-                                <Rectangle Fill="DarkGray" RadiusX="5" RadiusY="5" Grid.RowSpan="2"/>
-                                <sdk:Label Content="AM" FontSize="20" Foreground="Black" HorizontalAlignment="Center" Margin="8,0,7,0" Grid.RowSpan="2"/>
-                                <Border BorderBrush="Black" BorderThickness="1" CornerRadius="5" Grid.RowSpan="2" RenderTransformOrigin="-0.196,0.603"/>
-                            </Grid>
-                        </Button>
-                    </Grid>
-                    <Grid x:Name="spacer1" HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="390"/>
-                    <Grid x:Name="SnoozeDuration_UI" HorizontalAlignment="Left" Height="100" Margin="10,0,0,0" VerticalAlignment="Top" Width="390">
-                        <!-- The 4 repeat buttons, 2 text boxes, button and textblock below are all controlled by TimeSelector -->
-                        <sdk:Label x:Name="sDuration_label" HorizontalAlignment="Left" Height="28" Margin="10,42,0,0" VerticalAlignment="Top" Width="184" Content="Snooze Duration" FontSize="20"/>
-                        <!-- The 4 repeat buttons, 2 text boxes, button and textblock below are all controlled by TimeSelector -->
-                        <RepeatButton x:Name="sDuration_HourUp" HorizontalAlignment="Left" VerticalAlignment="Top" Height="28" Width="52" Margin="256,8,0,0" Template="{x:Null}">
-                            <Grid>
-                                <Rectangle Fill="DarkGray" RadiusX="5" RadiusY="5" Margin="-2,0,2,0"/>
-                                <sdk:Label FontFamily="Segoe UI Symbol" Content="&#xE010;" FontSize="50" Foreground="Black" HorizontalAlignment="Center" Margin="0,-28,2,0"/>
-                            </Grid>
-                        </RepeatButton>
-                        <TextBox x:Name="sDuration_HourInput" BorderBrush="Black" FontSize="20" HorizontalAlignment="Left" Height="34" Margin="256,36,0,0" TextWrapping="Wrap" Text="HH" VerticalAlignment="Top" Width="52" Background="DarkGray" TextAlignment="Center"/>
-                        <RepeatButton x:Name="sDuration_HourDown" HorizontalAlignment="Left" VerticalAlignment="Top" Height="68" Width="52"  Margin="256,70,0,-38" Template="{x:Null}">
-                            <Grid>
-                                <Rectangle Fill="DarkGray" RadiusX="5" RadiusY="5"/>
-                                <sdk:Label FontFamily="Segoe UI Symbol" Content="&#xE011;" FontSize="50" Foreground="Black" HorizontalAlignment="Center" Margin="0,-25,2,25"/>
-                            </Grid>
-                        </RepeatButton>
-                    </Grid>
-                    <Grid x:Name="spacer2" HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="100"/>
-                    <Grid x:Name="DisplayMode_UI" HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="400">
-                        <sdk:Label x:Name="DisplayMode_Label" HorizontalAlignment="Left" Height="28" Margin="10,42,-55,0" VerticalAlignment="Top" Width="145" Content="Display Mode" FontSize="20"/>
-                        <Button x:Name="UseDigital_Button" HorizontalAlignment="Left" Margin="185,33,-174,0" VerticalAlignment="Top" Width="89" Content="Digital" Height="53"/>
-                        <Button x:Name="UseAnalog_Button" Margin="302,33,10,0" VerticalAlignment="Top" Content="Analog" Height="53"/>
-                    </Grid>
-                    <Grid x:Name="spacer3" HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="395"/>
-                    <Grid x:Name="TimeZone_UI" HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="400">
-                        <sdk:Label x:Name="TimeZone_Label" HorizontalAlignment="Left" Height="28" Margin="10,42,-55,0" VerticalAlignment="Top" Width="145" Content="Timezone" FontSize="20"/>
-                        <ComboBox x:Name="comboBox" HorizontalAlignment="Left" Margin="212,56,0,0" VerticalAlignment="Top" Width="120">
-                            <ComboBoxItem FontSize="36" Content="UTC -12:00" Width="296"/>
-                            <ComboBoxItem FontSize="36" Content="UTC -11:00" Width="296"/>
-                            <ComboBoxItem FontSize="36" Content="UTC -10:00" Width="296"/>
-                            <ComboBoxItem FontSize="36" Content="UTC -9:30" Width="296"/>
-                            <ComboBoxItem FontSize="36" Content="UTC -9:00" Width="296"/>
-                            <ComboBoxItem FontSize="36" Content="UTC -8:00" Width="296"/>
-                            <ComboBoxItem FontSize="36" Content="UTC -7:00" Width="296"/>
-                            <ComboBoxItem FontSize="36" Content="UTC -6:00" Width="296"/>
-                            <ComboBoxItem FontSize="36" Content="UTC -5:00" Width="296"/>
-                            <ComboBoxItem FontSize="36" Content="UTC -4:00" Width="296"/>
-                            <ComboBoxItem FontSize="36" Content="UTC -3:30" Width="296"/>
-                            <ComboBoxItem FontSize="36" Content="UTC -3:00" Width="296"/>
-                            <ComboBoxItem FontSize="36" Content="UTC -2:00" Width="296"/>
-                            <ComboBoxItem FontSize="36" Content="UTC -1:00" Width="296"/>
-                            <ComboBoxItem FontSize="36" Content="UTC 0:00" Width="296"/>
-                            <ComboBoxItem FontSize="36" Content="UTC +1:00" Width="296"/>
-                            <ComboBoxItem FontSize="36" Content="UTC +2:00" Width="296"/>
-                            <ComboBoxItem FontSize="36" Content="UTC +3:00" Width="296"/>
-                            <ComboBoxItem FontSize="36" Content="UTC +3:30" Width="296"/>
-                            <ComboBoxItem FontSize="36" Content="UTC +4:00" Width="296"/>
-                            <ComboBoxItem FontSize="36" Content="UTC +4:30" Width="296"/>
-                            <ComboBoxItem FontSize="36" Content="UTC +5:00" Width="296"/>
-                            <ComboBoxItem FontSize="36" Content="UTC +5:30" Width="296"/>
-                            <ComboBoxItem FontSize="36" Content="UTC +5:45" Width="296"/>
-                            <ComboBoxItem FontSize="36" Content="UTC +6:00" Width="296"/>
-                            <ComboBoxItem FontSize="36" Content="UTC +6:30" Width="296"/>
-                            <ComboBoxItem FontSize="36" Content="UTC +7:00" Width="296"/>
-                            <ComboBoxItem FontSize="36" Content="UTC +8:00" Width="296"/>
-                            <ComboBoxItem FontSize="36" Content="UTC +8:30" Width="296"/>
-                            <ComboBoxItem FontSize="36" Content="UTC +8:45" Width="296"/>
-                            <ComboBoxItem FontSize="36" Content="UTC +9:00" Width="296"/>
-                            <ComboBoxItem FontSize="36" Content="UTC +9:30" Width="296"/>
-                            <ComboBoxItem FontSize="36" Content="UTC +10:00" Width="296"/>
-                            <ComboBoxItem FontSize="36" Content="UTC +10:30" Width="296"/>
-                            <ComboBoxItem FontSize="36" Content="UTC +11:00" Width="296"/>
-                            <ComboBoxItem FontSize="36" Content="UTC +12:00" Width="296"/>
-                            <ComboBoxItem FontSize="36" Content="UTC +12:45" Width="296"/>
-                            <ComboBoxItem FontSize="36" Content="UTC +13:00" Width="296"/>
-                            <ComboBoxItem FontSize="36" Content="UTC +14:00" Width="296"/>
-                        </ComboBox>
-                    </Grid>
-                </StackPanel>
-
-                <!-- The 4 repeat buttons, 2 text boxes, button and textblock below are all controlled by TimeSelector -->
-
-
-
-
-
-            </Grid>
         </Canvas>
+        <ScrollBar x:Name="scrollBar1" HorizontalAlignment="Left" Margin="-422,637,0,0" VerticalAlignment="Top"/>
     </Grid>
 </UserControl>
