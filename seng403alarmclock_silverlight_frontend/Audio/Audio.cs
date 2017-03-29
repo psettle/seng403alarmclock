@@ -31,10 +31,16 @@ namespace seng403alarmclock_silverlight_frontend.Audio {
             me = new MediaElement();
             me.AutoPlay = false;
 
-            //start opening a stream to the audio file
-            WebClient client = new WebClient();
-            client.OpenReadAsync(new Uri(Application.Current.Host.Source, "/" + filename));
-            client.OpenReadCompleted += Client_OpenReadCompleted;
+            try {
+                //start opening a stream to the audio file
+                WebClient client = new WebClient();
+                client.OpenReadAsync(new Uri(Application.Current.Host.Source, "/" + filename));
+                client.OpenReadCompleted += Client_OpenReadCompleted;
+            } catch (Exception) {
+                //probably running on the wrong platform
+            }
+
+           
 
         }
 
@@ -42,8 +48,13 @@ namespace seng403alarmclock_silverlight_frontend.Audio {
         /// Connects the filestream with the media player after the connection is established
         /// </summary>
         private void Client_OpenReadCompleted(object sender, OpenReadCompletedEventArgs e) {
-            Stream s = e.Result;
-            me.SetSource(s);
+            try {
+                Stream s = e.Result;
+                me.SetSource(s);
+            } catch (Exception) {
+                //propably running on the wrong platform
+            }
+           
             if (playing) {
                 start();
             }
