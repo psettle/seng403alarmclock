@@ -41,5 +41,10 @@ namespace seng403alarmclock_silverlight_frontend.GUI {
         /// Gets the textbox for writing minutes into
         /// </summary>
         TextBox GetMinuteInput();
+
+        /// <summary>
+        /// Called when the time is changed
+        /// </summary>
+        void OnTimeUpdated(int hour, int minute);
     }
 }

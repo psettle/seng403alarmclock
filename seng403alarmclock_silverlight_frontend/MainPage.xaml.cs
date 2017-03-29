@@ -86,7 +86,6 @@ namespace seng403alarmclock_silverlight_frontend {
             if (mainPageState == PageState.Normal)
             {
 				mainPageState = PageState.OptionsOpen;
-                PopulateCustomTimeUI();
 				GuiController.GetController().OpenOptionsPanel();
 				
             }
@@ -109,16 +108,6 @@ namespace seng403alarmclock_silverlight_frontend {
 
         #region analog / digital
 
-        private void Digital_Click(object sender, System.Windows.RoutedEventArgs e)
-        {
-            GuiController.GetController().SetDisplayMode(false);
-        }
-
-        private void Analog_Click(object sender, System.Windows.RoutedEventArgs e)
-        {
-            GuiController.GetController().SetDisplayMode(true);
-        }
-
         public void SetAnalog()
         {
             this.Analog_setVisible();
@@ -132,7 +121,7 @@ namespace seng403alarmclock_silverlight_frontend {
         }
 
 
-        public void SetAnalogTime(DateTime time)
+        private void SetAnalogTime(DateTime time)
         {
             double HourDeg = 0.5 * ((60 * (time.Hour % 12)) + time.Minute);
             RotateTransform hourTransform = new RotateTransform();
@@ -154,7 +143,7 @@ namespace seng403alarmclock_silverlight_frontend {
 
         }
 
-        public void Analog_setVisible() {
+        private void Analog_setVisible() {
             this.date_analog.Visibility = System.Windows.Visibility.Visible;
             this.HourHand.Visibility = System.Windows.Visibility.Visible;
             this.MinuteHand.Visibility = System.Windows.Visibility.Visible;
@@ -163,7 +152,7 @@ namespace seng403alarmclock_silverlight_frontend {
 
         }
 
-        public void Analog_setHidden() {
+        private void Analog_setHidden() {
             this.HourHand.Visibility = System.Windows.Visibility.Collapsed;
             this.MinuteHand.Visibility = System.Windows.Visibility.Collapsed;
             this.ClockBack.Visibility = System.Windows.Visibility.Collapsed;
@@ -171,12 +160,12 @@ namespace seng403alarmclock_silverlight_frontend {
         }
 
 
-        public void Digital_setHidden() {
+        private void Digital_setHidden() {
             this.date.Visibility = System.Windows.Visibility.Collapsed;
             this.time.Visibility = System.Windows.Visibility.Collapsed;
         }
 
-        public void Digital_setVisible() {
+        private void Digital_setVisible() {
             this.time.Visibility = System.Windows.Visibility.Visible;
             this.date.Visibility = System.Windows.Visibility.Visible;
             this.date_analog.Visibility = System.Windows.Visibility.Collapsed;

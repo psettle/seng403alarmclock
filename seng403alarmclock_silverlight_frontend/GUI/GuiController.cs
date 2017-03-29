@@ -40,11 +40,11 @@ namespace seng403alarmclock.GUI {
 		/// <summary>
         /// the most recent time retrieved
         /// </summary>
-		private DateTime now = null;		
+		private DateTime now;		
 		/// <summary>
         /// possibly not used 
         /// </summary>
-		public DateTime Now{ Get{ return this.now; } }
+		public DateTime Now{ get { return this.now; } }
 
         /// <summary>
         /// Assigns the main page to the controller
@@ -54,7 +54,6 @@ namespace seng403alarmclock.GUI {
             mainPage = main;
             addEditWindow = new AddEditWindow(main);
             optionsPanelController = new OptionsPanel_Controller(main);
-			this.now = 
             CrawlAudioFiles();
         }
 
@@ -93,6 +92,7 @@ namespace seng403alarmclock.GUI {
         /// Opens the options panel
         /// </summary>
         public void OpenOptionsPanel() {
+            PopulateCustomTimeUI();
             optionsPanelController.OpenOptionsPanel();
         }
 		
@@ -111,15 +111,15 @@ namespace seng403alarmclock.GUI {
 		/// <summary>
 		/// populates the options panel controller element that controls custom time
 		/// </summary>
-		public void PopulateCustomTimeUI(){			
-			SetCustomTime_displayedInOptions(now.Hour, now.Minute);
+		public void PopulateCustomTimeUI(){
+            optionsPanelController.SetCustomTime_displayedInOptions(now.Hour, now.Minute);
 		}
 		
 		/// <summary>
 		/// sets the timezone offset variable in optionsPanelController
 		/// </summary>
         public override void SetActiveTimeZoneForDisplay(double localOffset) {
-            optionsPanelController.timezoneOffsetHours = localOffset;
+            OptionsPanel_Controller.timezoneOffsetHours = localOffset;
         }
 		
 		#endregion

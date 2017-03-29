@@ -266,6 +266,10 @@ namespace seng403alarmclock_silverlight_frontend.GUI {
             return mainControl.MinuteInput;
         }
 
+        public void OnTimeUpdated(int hour, int minute) {
+            
+        }
+
         #endregion
     }
 }
