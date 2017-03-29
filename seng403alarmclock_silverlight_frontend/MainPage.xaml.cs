@@ -2,6 +2,7 @@
 using System;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace seng403alarmclock_silverlight_frontend {
     /// <summary>
@@ -33,10 +34,9 @@ namespace seng403alarmclock_silverlight_frontend {
 
             mainPageState = PageState.Normal;
 
-            AddEditButton.Click += AddEditButton_Click;
+            addAlarmButton.Click += AddEditButton_Click;
 
-            DigitalButton.Click += Digital_Click;
-            AnalogButton.Click += Analog_Click;
+            Options_Button.Click += OptionsButton_Click;
 
             this.AMPM_Analog.Visibility = System.Windows.Visibility.Collapsed;
             this.Analog_setHidden();
@@ -119,12 +119,34 @@ namespace seng403alarmclock_silverlight_frontend {
 
         }
 
-        public void Digital_setVisible()
-        {
+        public void Analog_setVisible() {
+            this.date_analog.Visibility = System.Windows.Visibility.Visible;
+            this.HourHand.Visibility = System.Windows.Visibility.Visible;
+            this.MinuteHand.Visibility = System.Windows.Visibility.Visible;
+            this.ClockBack.Visibility = System.Windows.Visibility.Visible;
+            this.AMPM_Analog.Visibility = System.Windows.Visibility.Visible;
+
+        }
+
+        public void Analog_setHidden() {
+            this.HourHand.Visibility = System.Windows.Visibility.Collapsed;
+            this.MinuteHand.Visibility = System.Windows.Visibility.Collapsed;
+            this.ClockBack.Visibility = System.Windows.Visibility.Collapsed;
+            this.AMPM_Analog.Visibility = System.Windows.Visibility.Collapsed;
+        }
+
+
+        public void Digital_setHidden() {
+            this.date.Visibility = System.Windows.Visibility.Collapsed;
+            this.time.Visibility = System.Windows.Visibility.Collapsed;
+        }
+
+        public void Digital_setVisible() {
             this.time.Visibility = System.Windows.Visibility.Visible;
             this.date.Visibility = System.Windows.Visibility.Visible;
             this.date_analog.Visibility = System.Windows.Visibility.Collapsed;
         }
+
 
         #endregion
 
@@ -139,9 +161,5 @@ namespace seng403alarmclock_silverlight_frontend {
             this.date_analog.Text = time.ToLongDateString();
         }
 
-        private void sDuration_dec_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
     }
 }

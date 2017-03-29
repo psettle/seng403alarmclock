@@ -52,17 +52,15 @@
         <Canvas>
             <Grid  x:Name="mainPanel"  Height="1050" Width="1920" Background="Black">
 
-                <TextBlock x:Name="time" HorizontalAlignment="Left" TextWrapping="Wrap" Text="00:00:00 PM" VerticalAlignment="Top" FontSize="200" Canvas.Left="247" Canvas.Top="303" Margin="92,384,0,0" Foreground="Gray"/>
+                <TextBlock x:Name="time" HorizontalAlignment="Left" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" FontSize="200" Canvas.Left="247" Canvas.Top="303" Margin="92,384,0,0" Foreground="Gray"/>
+                <TextBlock x:Name="date" HorizontalAlignment="Left" TextWrapping="Wrap" Text="date" VerticalAlignment="Top" FontSize="80" Canvas.Left="247" Canvas.Top="303" Margin="110,259,0,0" Foreground="Gray" Height="155" Width="1107"/>
                 <Button x:Name="addAlarmButton" Content="&#xE109;" HorizontalAlignment="Left" Margin="1296,860,0,0" VerticalAlignment="Top" Width="100" Height="100" Background="{x:Null}" BorderBrush="{x:Null}" FontFamily="Segoe UI Symbol" FontSize="64" Foreground="Green"/>
                 <ListBox x:Name="listBox" HorizontalAlignment="Left"  Margin="92,750,0,0" VerticalAlignment="Top" Width="1304" Background="Black" BorderBrush="Black">
                     <StackPanel x:Name="alarmPanel" Orientation="Horizontal" Height="100">
-                       
+
                     </StackPanel>
                 </ListBox>
 
-                <Button x:Name="DigitalButton" Content="Digital" HorizontalAlignment="Left" Margin="172,0,0,931" VerticalAlignment="Bottom" Width="75"/>
-                <Button x:Name="AnalogButton" Content="Analog" HorizontalAlignment="Left" Margin="252,0,0,931" VerticalAlignment="Bottom" Width="75"/>
-                
                 <TextBlock x:Name="date_analog" Margin="51,384,-31,549" TextWrapping="Wrap" Text="Monday, January 3rd" VerticalAlignment="Center" FontSize="80" TextAlignment="Center" Foreground="DarkGray" Grid.Column="0"/>
 
                 <Image x:Name="MinuteHand" HorizontalAlignment="Left" Height="355" Margin="129,268,0,0" VerticalAlignment="Top" Width="357" Source="clockhand.png"/>

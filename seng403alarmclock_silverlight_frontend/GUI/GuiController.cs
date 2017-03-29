@@ -44,7 +44,7 @@ namespace seng403alarmclock.GUI {
         public void assignMainPage(MainPage main) {
             mainPage = main;
             addEditWindow = new AddEditWindow(main);
-            optionsPanelController = new OptionsPanel_Controller();
+            optionsPanelController = new OptionsPanel_Controller(main);
             CrawlAudioFiles();
         }
 
@@ -160,6 +160,15 @@ namespace seng403alarmclock.GUI {
         public void CloseOptionsPanel()
         {
             optionsPanelController.CloseOptionsPanel();
+        }
+
+        public void SetDisplayMode(bool analog) {
+            if (analog) {
+                mainPage.SetAnalog();
+            } else {
+                mainPage.SetDigital();
+            }
+
         }
 
         /// <summary>
