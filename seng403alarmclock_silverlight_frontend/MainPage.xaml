@@ -32,7 +32,7 @@
         <Canvas>
             <Grid  x:Name="mainPanel"  Height="1050" Width="1920" Background="Black">
                 <TextBlock x:Name="time" HorizontalAlignment="Left" TextWrapping="Wrap" Text="00:00:00 PM" VerticalAlignment="Top" FontSize="200" Canvas.Left="247" Canvas.Top="303" Margin="92,384,0,0" Foreground="Gray"/>
-                <Button x:Name="button" Content="Button" HorizontalAlignment="Left" Margin="92,97,0,0" VerticalAlignment="Top" Width="75"/>
+                <Button x:Name="addAlarmButton" Content="&#xE109;" HorizontalAlignment="Left" Margin="1296,860,0,0" VerticalAlignment="Top" Width="100" Height="100" Background="{x:Null}" BorderBrush="{x:Null}" FontFamily="Segoe UI Symbol" FontSize="64" Foreground="Green"/>
                 <ListBox x:Name="listBox" HorizontalAlignment="Left"  Margin="92,750,0,0" VerticalAlignment="Top" Width="1304" Background="Black" BorderBrush="Black">
                     <StackPanel x:Name="alarmPanel" Orientation="Horizontal" Height="100">
                        
