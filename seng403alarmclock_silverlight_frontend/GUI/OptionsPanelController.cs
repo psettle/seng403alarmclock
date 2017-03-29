@@ -48,7 +48,9 @@ namespace seng403alarmclock_silverlight_frontend.GUI
             this.isPanelOpen = false;
 
             weekdayControl.SetVisibleState(Visibility.Collapsed);
-        }        
+        }
+
+        #region public Panel controls
 
         /// <summary>
         /// closes options panel 
@@ -63,19 +65,6 @@ namespace seng403alarmclock_silverlight_frontend.GUI
         public void OpenOptionsPanel() {
             SetPanelState(true);
         }
-
-        #region TimeSelector Getters
-
-        public RepeatButton GetHourUpButton()   {   return mainControl.HourUp; }
-        public RepeatButton GetHourDownButton() {   return mainControl.HourDown; }
-
-        public RepeatButton GetMinuteUpButton() {   return mainControl.MinuteUp; }
-        public RepeatButton GetMinuteDownButton(){  return mainControl.MinuteDown; }
-
-        public Button GetAMPMButton()           {   return mainControl.AMPM; }
-
-        public TextBox GetHourInput()           {   return mainControl.HourInput; }
-        public TextBox GetMinuteInput()         {   return mainControl.MinuteInput; }
 
         #endregion
 
@@ -117,6 +106,22 @@ namespace seng403alarmclock_silverlight_frontend.GUI
 
         #endregion
 
+        #region TimeSelector Getters NOT READY FOR SERVICE DO NOT USE
+
+        // DO NOT USE IN CURRENT VERSION
+
+        public RepeatButton GetHourUpButton()   {   return mainControl.HourUp; }
+        public RepeatButton GetHourDownButton() {   return mainControl.HourDown; }
+
+        public RepeatButton GetMinuteUpButton() {   return mainControl.MinuteUp; }
+        public RepeatButton GetMinuteDownButton(){  return mainControl.MinuteDown; }
+
+        public Button GetAMPMButton()           {   return mainControl.AMPM; }
+
+        public TextBox GetHourInput()           {   return mainControl.HourInput; }
+        public TextBox GetMinuteInput()         {   return mainControl.MinuteInput; }
+
+        #endregion
 
     }
 }

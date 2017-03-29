@@ -83,7 +83,7 @@
     <Compile Include="GUI\DarkButton.cs" />
     <Compile Include="GUI\DropdownSelectorController.cs" />
     <Compile Include="GUI\GuiController.cs" />
-    <Compile Include="GUI\OptionsPanel.cs" />
+    <Compile Include="GUI\OptionsPanelController.cs" />
     <Compile Include="GUI\TimeSelector.cs" />
     <Compile Include="GUI\TimeSelectorI.cs" />
     <Compile Include="GUI\WeekdaySelector.cs" />

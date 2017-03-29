@@ -9,37 +9,42 @@ namespace seng403alarmclock_silverlight_frontend {
     /// This is the main page of the app
     /// </summary>
     public partial class MainPage : UserControl {
+        
+        #region Attributes and state enum
+        
         /// <summary>
         /// there are 3 legal states for mainPage
         /// </summary>
         enum PageState { Normal, OptionsOpen, AddEditOpen };
+        
         /// <summary>
         /// tracks which state mainPage is in
         /// </summary>
         private PageState mainPageState;
+
+        #endregion
 
         /// <summary>
         /// Initializes the main page
         /// </summary>
         public MainPage() {
             InitializeComponent();
-            GuiController.GetController().assignMainPage(this);            
+            GuiController.GetController().assignMainPage(this);
+            mainPageState = PageState.Normal;
 
             AddEditButton.Click += AddEditButton_Click;
             OptionsButton.Click += OptionsButton_Click;
-        }
-
-        
+        }        
 
         #region buttons handling        
-        
+
         private void AddEditButton_Click(object sender, System.Windows.RoutedEventArgs e) {
             GuiController.GetController().OpenAddAlarmPanel();            
         }
 
         /// <summary>
         /// Clicking this affects the options pane.
-        /// If no pane is visible, it opens the options pane.
+        /// If no side-pane is open, it opens the options pane.
         /// If options is open, it closes the options pane.
         /// Otherwise, it does nothing.
         /// </summary>
