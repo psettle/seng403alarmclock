@@ -68,6 +68,25 @@
                 <TextBlock x:Name="AMPM_Analog" HorizontalAlignment="Left" Margin="263,343,0,0" TextWrapping="Wrap" Text="AM" VerticalAlignment="Top" FontSize="18" Foreground="DarkGray" />
                 <Image x:Name="ClockBack" HorizontalAlignment="Left" Height="431" Margin="92,230,0,0" VerticalAlignment="Top" Width="511" Source="bg1.png"/>
 
+
+                <Button x:Name="Dismiss" Height="76" Margin="670,885,0,0" Template="{x:Null}" VerticalAlignment="Top" HorizontalAlignment="Left" Width="171">
+                    <Button.Content>
+                        <Grid>
+                            <Rectangle Fill="Black" RadiusX="5" RadiusY="5"/>
+                            <sdk:Label Content="Dismiss" FontSize="35" Foreground="DarkGray" HorizontalAlignment="Center"/>
+                            <Border BorderBrush="DarkGray" BorderThickness="1" CornerRadius="5"/>
+                        </Grid>
+                    </Button.Content>
+                </Button>
+                <Button x:Name="Snooze" Height="76" Margin="976,884,0,0" Template="{x:Null}" VerticalAlignment="Top" HorizontalAlignment="Left" Width="171">
+                    <Button.Content>
+                        <Grid>
+                            <Rectangle Fill="Black" RadiusX="5" RadiusY="5"/>
+                            <sdk:Label Content="Snooze" FontSize="35" Foreground="DarkGray" HorizontalAlignment="Center"/>
+                            <Border BorderBrush="DarkGray" BorderThickness="1" CornerRadius="5"/>
+                        </Grid>
+                    </Button.Content>
+                </Button>
             </Grid>
         </Canvas>
         <Canvas x:Name="AddEdit">
@@ -222,7 +241,13 @@
         </Canvas>
         <Canvas x:Name="Options" HorizontalAlignment="Left" VerticalAlignment="Top" Height="1050" Width="1920">
             <StackPanel x:Name="Options_Panel" HorizontalAlignment="Left" Height="1050" VerticalAlignment="Top" Width="400" Background="DarkGray" Canvas.Left="-400">
-                <Button x:Name="Options_Button" HorizontalAlignment="Left" Margin="402,0,-42,0" VerticalAlignment="Top" Width="40" Height="43"/>
+                <Button x:Name="Options_Button" HorizontalAlignment="Left" Margin="402,0,-42,0" VerticalAlignment="Top" Width="40" Height="43">
+                    <Button.Template>
+                        <ControlTemplate>
+                            <Image Source="list.png"/>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
                 <sdk:Label x:Name="Options_Title" HorizontalAlignment="Center" Height="58" Margin="15,0,5,0" VerticalAlignment="Top" Width="380" Content="Options" FontSize="50"/>
                 <Grid x:Name="padding" HorizontalAlignment="Left" Height="100" Margin="10,0,0,0" VerticalAlignment="Top" Width="390">
                     <Grid.ColumnDefinitions>

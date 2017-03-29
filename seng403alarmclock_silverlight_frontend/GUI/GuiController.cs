@@ -116,11 +116,21 @@ namespace seng403alarmclock.GUI {
         }
 
         public override void SetDismissAvailable(bool available) {
+            if(available) {
+                mainPage.Dismiss.Visibility = Visibility.Visible;
+            } else {
+                mainPage.Dismiss.Visibility = Visibility.Collapsed;
+            }
             
+           
         }
 
         public override void SetSnoozeAvailable(bool available) {
-            
+            if (available) {
+                mainPage.Snooze.Visibility = Visibility.Visible;
+            } else {
+                mainPage.Snooze.Visibility = Visibility.Collapsed;
+            }
         }
 
         /// <summary>

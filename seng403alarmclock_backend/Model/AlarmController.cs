@@ -173,7 +173,8 @@ namespace seng403alarmclock.Model
         private void updateSnoozeUntilTime(DateTime now)
         {
             //changed this so it doesn't allways go off at an exact minute, its weird if you hit snooze at 11:59:59 and the snooze ends immedietly - Patrick
-            this.snoozeUntilTime = now.AddMinutes(AlarmController.snoozePeriod_minutes);
+            this.snoozeUntilTime = now.AddMinutes(snoozePeriod_minutes);
+            AbstractAudioController.GetController().endAllAlarms();
         }
 
         private bool CheckIfSnoozeOver(DateTime currentTime)

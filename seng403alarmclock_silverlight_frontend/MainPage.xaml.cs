@@ -1,4 +1,6 @@
 ﻿using seng403alarmclock.GUI;
+using seng403alarmclock.GUI_Interfaces;
+using seng403alarmclock_silverlight_frontend.GUI;
 using System;
 using System.Windows;
 using System.Windows.Controls;
@@ -40,8 +42,32 @@ namespace seng403alarmclock_silverlight_frontend {
 
             this.AMPM_Analog.Visibility = System.Windows.Visibility.Collapsed;
             this.Analog_setHidden();
-            this.date_analog.Visibility = System.Windows.Visibility.Collapsed;            
-        }      
+            this.date_analog.Visibility = System.Windows.Visibility.Collapsed;
+            
+
+            new DarkButton(Snooze);
+            new DarkButton(Dismiss);
+
+            Snooze.Click += Snooze_Click;
+            Dismiss.Click += Dismiss_Click;
+
+            GuiController.GetController().SetDismissAvailable(false);
+            GuiController.GetController().SetSnoozeAvailable(false);
+        }
+
+        /// <summary>
+        /// Called when the snooze button is clicked
+        /// </summary>
+        private void Snooze_Click(object sender, RoutedEventArgs e) {
+            GuiEventCaller.GetCaller().NotifySnoozeRequested();
+        }
+
+        /// <summary>
+        /// Called when the dismiss button is clicked
+        /// </summary>
+        private void Dismiss_Click(object sender, RoutedEventArgs e) {
+            GuiEventCaller.GetCaller().NotifyDismiss();
+        }
 
         #region panel open/close         
 
