@@ -30,6 +30,9 @@ namespace seng403alarmclock.GUI {
         /// </summary>
         private Dictionary<Alarm, AlarmRow> activeAlarms = new Dictionary<Alarm, AlarmRow>();
 
+        /// <summary>
+        /// A reference to the add/edit sub window
+        /// </summary>
         private AddEditWindow addEditWindow = null;
 
         /// <summary>
@@ -39,13 +42,21 @@ namespace seng403alarmclock.GUI {
         public void assignMainPage(MainPage main) {
             mainPage = main;
             addEditWindow = new AddEditWindow(main);
-            SetAudioFileNames(new Dictionary<string, string>() { { "test.wav", "Test It!" }, {"select.wav", "Select This" } });
+            CrawlAudioFiles();
         }
 
-        public GuiController() : base() {
-            //TODO: Get the audio files!
-            
+        /// <summary>
+        /// Crawls through the file system to scan for .wav files
+        /// </summary>
+        private void CrawlAudioFiles() {
+            SetAudioFileNames(new Dictionary<string, string>() {
+                { "TheAssumingSong.mp3", "The Assuming Song" },
+                { "Cat.mp3", "Cat" },
+                { "Chicken.mp3", "Chicken" },
+                { "DangerAlarm.mp3", "Danger Alarm" },
+                { "Dog.mp3", "Dog" },
 
+            });
         }
 
         /// <summary>
@@ -121,8 +132,13 @@ namespace seng403alarmclock.GUI {
             
         }
 
+        /// <summary>
+        /// Updates the text on the alarm, setting it into dismiss mode
+        /// </summary>
+        /// <param name="alarm"></param>
         public override void UpdateAlarm(Alarm alarm) {
-
+            AlarmRow row = this.GetAlarmRow(alarm);
+            row.Update();
         }
 
 
