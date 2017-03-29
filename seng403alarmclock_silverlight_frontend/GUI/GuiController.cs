@@ -62,8 +62,19 @@ namespace seng403alarmclock.GUI {
             mainPage.AddAlarmRow(row);
         }
 
-        public override void EditAlarm(Alarm alarm, List<Alarm> allAlarms) {
-           
+        public override void EditAlarm(Alarm alarm, List<Alarm> alarmList) {
+            AlarmRow row = this.GetAlarmRow(alarm);
+            //AlarmRow nRow = new AlarmRow(alarm);
+            row.UpdateAlarm();
+            foreach (Alarm a in alarmList)
+            {
+                this.RemoveAlarm(a, false);
+            }
+
+            foreach (Alarm a in alarmList)
+            {
+                AddAlarm(a);
+            }
         }
 
         public override void RemoveAlarm(Alarm alarm, bool wasPreempted) {
@@ -82,7 +93,7 @@ namespace seng403alarmclock.GUI {
             }
             else
             {
-                throw new Exception("The requested alarm did not exist");
+                throw new AlarmNotSetException("The requested alarm did not exist");
             }
         }
 
