@@ -31,6 +31,8 @@ namespace seng403alarmclock_silverlight_frontend {
         /// <param name="time"></param>
         public void SetTime(DateTime time) {
             this.time.Text = time.ToLongTimeString();
+
+            this.date_analog.Text = time.ToLongDateString();
         }
     }
 }
