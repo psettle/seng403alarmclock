@@ -1,6 +1,4 @@
-﻿
-
-using seng403alarmclock.Audio;
+﻿using seng403alarmclock.Audio;
 using System;
 using System.IO;
 using System.Net;
@@ -37,7 +35,7 @@ namespace seng403alarmclock_silverlight_frontend.Audio {
             WebClient client = new WebClient();
             client.OpenReadAsync(new Uri(Application.Current.Host.Source, "/" + filename));
             client.OpenReadCompleted += Client_OpenReadCompleted;
-         
+
         }
 
         /// <summary>
@@ -45,8 +43,8 @@ namespace seng403alarmclock_silverlight_frontend.Audio {
         /// </summary>
         private void Client_OpenReadCompleted(object sender, OpenReadCompletedEventArgs e) {
             Stream s = e.Result;
-            me.SetSource(s); 
-            if(playing) {
+            me.SetSource(s);
+            if (playing) {
                 start();
             }
         }
@@ -56,8 +54,7 @@ namespace seng403alarmclock_silverlight_frontend.Audio {
         /// </summary>
         public void end() {
             playing = false;
-            if (me != null)
-            {
+            if (me != null) {
                 me.Stop();
             }
         }
@@ -70,8 +67,7 @@ namespace seng403alarmclock_silverlight_frontend.Audio {
         /// </summary>
         public void start() {
             playing = true;
-            if (me != null)
-            {
+            if (me != null) {
                 me.Play();
             }
         }

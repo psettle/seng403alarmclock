@@ -13,7 +13,6 @@ using seng403alarmclock.GUI_Interfaces;
 using seng403alarmclock.Model;
 using seng403alarmclock_silverlight_frontend;
 using seng403alarmclock_silverlight_frontend.GUI;
-using System.IO;
 
 namespace seng403alarmclock.GUI {
     /// <summary>
@@ -21,20 +20,22 @@ namespace seng403alarmclock.GUI {
     /// the rest are triggered by other gui components
     /// </summary>
     public class GuiController : AbstractGuiController {
-      
-        #region Attributes
         /// <summary>
         /// A reference to this program's main page
         /// </summary>
         private MainPage mainPage = null;
-        private AddEditWindow addEditWindow = null;
 
         /// <summary>
-        /// reference to optionsPanelController
+        /// The list of currenlty rendered alarm rows
         /// </summary>
-        private OptionsPanel_Controller optionsPanelController = null;
+        private Dictionary<Alarm, AlarmRow> activeAlarms = new Dictionary<Alarm, AlarmRow>();
 
-        #endregion
+        /// <summary>
+        /// A reference to the add/edit sub window
+        /// </summary>
+        private AddEditWindow addEditWindow = null;
+
+        private OptionsPanel_Controller optionsPanelController = null;
 
         /// <summary>
         /// Assigns the main page to the controller
@@ -43,7 +44,7 @@ namespace seng403alarmclock.GUI {
         public void assignMainPage(MainPage main) {
             mainPage = main;
             addEditWindow = new AddEditWindow(main);
-            optionsPanelController = new OptionsPanel_Controller(main);
+            optionsPanelController = new OptionsPanel_Controller();
             CrawlAudioFiles();
         }
 
@@ -57,7 +58,7 @@ namespace seng403alarmclock.GUI {
                 { "Chicken.mp3", "Chicken" },
                 { "DangerAlarm.mp3", "Danger Alarm" },
                 { "Dog.mp3", "Dog" },
-               
+
             });
         }
 
@@ -70,15 +71,44 @@ namespace seng403alarmclock.GUI {
         }
 
         public override void AddAlarm(Alarm alarm) {
-            
+            AlarmRow row = new AlarmRow(alarm);
+            activeAlarms.Add(alarm, row);
+            mainPage.AddAlarmRow(row);
         }
 
-        public override void EditAlarm(Alarm alarm, List<Alarm> allAlarms) {
-           
+        public override void EditAlarm(Alarm alarm, List<Alarm> alarmList) {
+            AlarmRow row = this.GetAlarmRow(alarm);
+            //AlarmRow nRow = new AlarmRow(alarm);
+            row.UpdateAlarm();
+            foreach (Alarm a in alarmList)
+            {
+                this.RemoveAlarm(a, false);
+            }
+
+            foreach (Alarm a in alarmList)
+            {
+                AddAlarm(a);
+            }
         }
 
         public override void RemoveAlarm(Alarm alarm, bool wasPreempted) {
-            
+            AlarmRow row = this.GetAlarmRow(alarm);
+            mainPage.RemoveAlarmRow(row, wasPreempted);
+            activeAlarms.Remove(alarm);
+        }
+
+        private AlarmRow GetAlarmRow(Alarm alarm)
+        {
+            AlarmRow toReturn = null;
+
+            if (this.activeAlarms.TryGetValue(alarm, out toReturn))
+            {
+                return toReturn;
+            }
+            else
+            {
+                throw new AlarmNotSetException("The requested alarm did not exist");
+            }
         }
 
         public override void SetActiveTimeZoneForDisplay(double localOffset) {
@@ -105,46 +135,32 @@ namespace seng403alarmclock.GUI {
             
         }
 
+        /// <summary>
+        /// Updates the text on the alarm, setting it into dismiss mode
+        /// </summary>
+        /// <param name="alarm"></param>
         public override void UpdateAlarm(Alarm alarm) {
-
+            AlarmRow row = this.GetAlarmRow(alarm);
+            row.Update();
         }
 
-        #region open/close panels
-
-        /// <summary>
-        /// Opens the options panel. Only call from MainPage
-        /// </summary>
-        public void OpenOptionsPanel()
-        {
-            optionsPanelController.OpenOptionsPanel();
-        }
-
-        public void SetDisplayMode(bool analog)
-        {
-            if (analog)
-            {
-                mainPage.SetAnalog();
-            }
-            else
-            {
-                mainPage.SetDigital();
-            }
-
-        }
-        /// <summary>
-        /// Closes the options panel. Only call from MainPage
-        /// </summary>
-        public void CloseOptionsPanel()
-        {
-            optionsPanelController.CloseOptionsPanel();
-        }
 
         /// <summary>
         /// Opens the panel in a blank state, ready to input a new alarm
         /// </summary>
         public void OpenAddAlarmPanel() {
             addEditWindow.OpenAddAlarmPanel();
-        }        
+        }
+
+
+        public void OpenOptionsPanel() {
+            optionsPanelController.OpenOptionsPanel();
+        }
+
+        public void CloseOptionsPanel()
+        {
+            optionsPanelController.CloseOptionsPanel();
+        }
 
         /// <summary>
         /// Opens the panel preloaded with alarm info, ready to save
@@ -155,8 +171,6 @@ namespace seng403alarmclock.GUI {
         public void OpenEditAlarmPanel(Alarm targetAlarm) {
             addEditWindow.OpenEditAlarmPanel(targetAlarm);
         }
-
-        #endregion
 
         /// <summary>
         /// Sets the audio files displayed on the dropdown menus

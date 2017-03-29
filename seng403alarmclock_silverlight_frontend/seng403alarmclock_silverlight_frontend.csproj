@@ -80,6 +80,8 @@
     <Compile Include="Audio\Audio.cs" />
     <Compile Include="Audio\AudioController.cs" />
     <Compile Include="GUI\AddEditWindow.cs" />
+    <Compile Include="GUI\AlarmNotSetException.cs" />
+    <Compile Include="GUI\AlarmRow.cs" />
     <Compile Include="GUI\DarkButton.cs" />
     <Compile Include="GUI\DropdownSelectorController.cs" />
     <Compile Include="GUI\GuiController.cs" />
@@ -104,7 +106,6 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <None Include="ClassDiagram1.cd" />
     <None Include="Properties\AppManifest.xml" />
   </ItemGroup>
   <ItemGroup>
@@ -114,18 +115,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="AudioFiles\TheAssumingSong.mp3">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="ClockBackground.gif" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="bg1.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="clockhand.png" />
+    <Folder Include="AudioFiles\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Silverlight\$(SilverlightVersion)\Microsoft.Silverlight.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

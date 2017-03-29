@@ -2,7 +2,6 @@
 using System;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media;
 
 namespace seng403alarmclock_silverlight_frontend {
     /// <summary>
@@ -24,16 +23,17 @@ namespace seng403alarmclock_silverlight_frontend {
 
         #endregion
 
+      
         /// <summary>
         /// Initializes the main page
         /// </summary>
         public MainPage() {
             InitializeComponent();
             GuiController.GetController().assignMainPage(this);
+
             mainPageState = PageState.Normal;
 
             AddEditButton.Click += AddEditButton_Click;
-            Options_Button.Click += OptionsButton_Click;
 
             DigitalButton.Click += Digital_Click;
             AnalogButton.Click += Analog_Click;
@@ -66,7 +66,7 @@ namespace seng403alarmclock_silverlight_frontend {
         }
 
         private void AddEditButton_Click(object sender, System.Windows.RoutedEventArgs e)
-        {
+        {            
             GuiController.GetController().OpenAddAlarmPanel();
         }
 
@@ -105,47 +105,18 @@ namespace seng403alarmclock_silverlight_frontend {
             hourTransform.CenterX = (HourHand.Width / 2);
             hourTransform.CenterY = (HourHand.Height / 2);
             HourHand.RenderTransform = hourTransform;
-
-            double MinDeg = 6 * time.Minute;
-            RotateTransform minTransform = new RotateTransform();
-            minTransform.Angle = MinDeg;
-            minTransform.CenterX = (MinuteHand.Width / 2);
-            minTransform.CenterY = (MinuteHand.Height / 2);
-            MinuteHand.RenderTransform = minTransform;
-
-            if (time.Hour >= 12)
-            {
-                this.AMPM_Analog.Text = "PM";
-            }
-            else
-            {
-                this.AMPM_Analog.Text = "AM";
-            }
+            this.date_analog.Text = time.ToLongDateString();
         }
 
-        public void Analog_setVisible()
+        public void AddAlarmRow(AlarmRow row)
         {
-            this.date_analog.Visibility = System.Windows.Visibility.Visible;
-            this.HourHand.Visibility = System.Windows.Visibility.Visible;
-            this.MinuteHand.Visibility = System.Windows.Visibility.Visible;
-            this.ClockBack.Visibility = System.Windows.Visibility.Visible;
-            this.AMPM_Analog.Visibility = System.Windows.Visibility.Visible;
-
+            row.AddToGUI(this.alarmPanel);
         }
 
-        public void Analog_setHidden()
+        internal void RemoveAlarmRow(AlarmRow row, bool wasPreempted)
         {
-            this.HourHand.Visibility = System.Windows.Visibility.Collapsed;
-            this.MinuteHand.Visibility = System.Windows.Visibility.Collapsed;
-            this.ClockBack.Visibility = System.Windows.Visibility.Collapsed;
-            this.AMPM_Analog.Visibility = System.Windows.Visibility.Collapsed;
-        }
+            row.RemoveFromGUI();
 
-
-        public void Digital_setHidden()
-        {
-            this.date.Visibility = System.Windows.Visibility.Collapsed;
-            this.time.Visibility = System.Windows.Visibility.Collapsed;
         }
 
         public void Digital_setVisible()

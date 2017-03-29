@@ -47,11 +47,13 @@
                     Duration="00:00:00.1"
                 />
             </Storyboard>
+
         </Grid.Resources>
-        <Canvas x:Name="mainApp">
+        <Canvas>
             <Grid  x:Name="mainPanel"  Height="1050" Width="1920" Background="Black">
                 <TextBlock x:Name="time" HorizontalAlignment="Left" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" FontSize="200" Canvas.Left="247" Canvas.Top="303" Margin="92,384,0,0" Foreground="Gray"/>
                 <TextBlock x:Name="date" HorizontalAlignment="Left" TextWrapping="Wrap" Text="date" VerticalAlignment="Top" FontSize="80" Canvas.Left="247" Canvas.Top="303" Margin="110,259,0,0" Foreground="Gray" Height="155" Width="1107"/>
+
 
                 <Button x:Name="AddEditButton" Content="AddEdit" HorizontalAlignment="Left" Margin="203,179,0,0" VerticalAlignment="Top" Width="75"/>
                 <TextBlock x:Name="date_analog" Margin="51,384,-31,549" TextWrapping="Wrap" Text="Monday, January 3rd" VerticalAlignment="Center" FontSize="80" TextAlignment="Center" Foreground="DarkGray" Grid.Column="0"/>
@@ -64,6 +66,7 @@
             </Grid>
         </Canvas>
         <Canvas x:Name="AddEdit">
+
             <Grid x:Name="AddEditPanel" HorizontalAlignment="Left" Height="1050" VerticalAlignment="Top" Width="400" Background="DarkGray" Canvas.Left="1920">
 
 
@@ -109,13 +112,9 @@
                 <Button x:Name="AMPM" Height="34" Margin="277,226,0,0" Template="{x:Null}" VerticalAlignment="Top" HorizontalAlignment="Left" Width="46">
                     <Button.Content>
                         <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="16*"/>
-                                <RowDefinition/>
-                            </Grid.RowDefinitions>
-                            <Rectangle Fill="DarkGray" RadiusX="5" RadiusY="5" Grid.RowSpan="2"/>
-                            <sdk:Label Content="AM" FontSize="20" Foreground="Black" HorizontalAlignment="Center" Margin="8,0,7,0" Grid.RowSpan="2"/>
-                            <Border BorderBrush="Black" BorderThickness="1" CornerRadius="5" Grid.RowSpan="2"/>
+                            <Rectangle Fill="DarkGray" RadiusX="5" RadiusY="5"/>
+                            <sdk:Label Content="AM" FontSize="20" Foreground="Black" HorizontalAlignment="Center"/>
+                            <Border BorderBrush="Black" BorderThickness="1" CornerRadius="5"/>
                         </Grid>
                     </Button.Content>
                 </Button>
@@ -337,5 +336,6 @@
                 </Grid>
             </StackPanel>
         </Canvas>
+
     </Grid>
 </UserControl>
