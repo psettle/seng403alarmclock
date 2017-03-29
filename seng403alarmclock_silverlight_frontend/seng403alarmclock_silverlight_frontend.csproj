@@ -104,6 +104,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <None Include="ClassDiagram1.cd" />
     <None Include="Properties\AppManifest.xml" />
   </ItemGroup>
   <ItemGroup>
@@ -116,6 +117,15 @@
     <None Include="AudioFiles\TheAssumingSong.mp3">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ClockBackground.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="bg1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="clockhand.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Silverlight\$(SilverlightVersion)\Microsoft.Silverlight.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

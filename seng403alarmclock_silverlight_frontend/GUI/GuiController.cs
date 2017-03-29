@@ -119,6 +119,18 @@ namespace seng403alarmclock.GUI {
             optionsPanelController.OpenOptionsPanel();
         }
 
+        public void SetDisplayMode(bool analog)
+        {
+            if (analog)
+            {
+                mainPage.SetAnalog();
+            }
+            else
+            {
+                mainPage.SetDigital();
+            }
+
+        }
         /// <summary>
         /// Closes the options panel. Only call from MainPage
         /// </summary>
