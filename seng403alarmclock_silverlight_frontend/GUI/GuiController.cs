@@ -25,6 +25,11 @@ namespace seng403alarmclock.GUI {
         /// </summary>
         private MainPage mainPage = null;
 
+        /// <summary>
+        /// The list of currenlty rendered alarm rows
+        /// </summary>
+        private Dictionary<Alarm, AlarmRow> activeAlarms = new Dictionary<Alarm, AlarmRow>();
+
         private AddEditWindow addEditWindow = null;
 
         /// <summary>
@@ -52,7 +57,9 @@ namespace seng403alarmclock.GUI {
         }
 
         public override void AddAlarm(Alarm alarm) {
-            
+            AlarmRow row = new AlarmRow(alarm);
+            activeAlarms.Add(alarm, row);
+            mainPage.AddAlarmRow(row);
         }
 
         public override void EditAlarm(Alarm alarm, List<Alarm> allAlarms) {
@@ -60,7 +67,23 @@ namespace seng403alarmclock.GUI {
         }
 
         public override void RemoveAlarm(Alarm alarm, bool wasPreempted) {
-            
+            AlarmRow row = this.GetAlarmRow(alarm);
+            mainPage.RemoveAlarmRow(row, wasPreempted);
+            activeAlarms.Remove(alarm);
+        }
+
+        private AlarmRow GetAlarmRow(Alarm alarm)
+        {
+            AlarmRow toReturn = null;
+
+            if (this.activeAlarms.TryGetValue(alarm, out toReturn))
+            {
+                return toReturn;
+            }
+            else
+            {
+                throw new Exception("The requested alarm did not exist");
+            }
         }
 
         public override void SetActiveTimeZoneForDisplay(double localOffset) {

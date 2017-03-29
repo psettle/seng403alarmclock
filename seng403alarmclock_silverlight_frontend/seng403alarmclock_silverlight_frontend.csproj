@@ -79,6 +79,7 @@
     <Compile Include="Audio\Audio.cs" />
     <Compile Include="Audio\AudioController.cs" />
     <Compile Include="GUI\AddEditWindow.cs" />
+    <Compile Include="GUI\AlarmRow.cs" />
     <Compile Include="GUI\DarkButton.cs" />
     <Compile Include="GUI\DropdownSelectorController.cs" />
     <Compile Include="GUI\GuiController.cs" />

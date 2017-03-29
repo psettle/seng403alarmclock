@@ -34,5 +34,16 @@ namespace seng403alarmclock_silverlight_frontend {
 
             this.date_analog.Text = time.ToLongDateString();
         }
+
+        public void AddAlarmRow(AlarmRow row)
+        {
+            row.AddToGUI(this.alarmPanel);
+        }
+
+        internal void RemoveAlarmRow(AlarmRow row, bool wasPreempted)
+        {
+            row.RemoveFromGUI();
+
+        }
     }
 }
