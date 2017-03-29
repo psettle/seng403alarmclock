@@ -152,6 +152,10 @@ namespace seng403alarmclock_silverlight_frontend.GUI {
             HourInput.Text = hour.ToString();
             MinuteInput.Text = minute.ToString();
 
+            if(MinuteInput.Text.Length < 2) {
+                MinuteInput.Text = "0" + MinuteInput.Text;
+            }
+
             ValidateDisplayTime();      
         }
 

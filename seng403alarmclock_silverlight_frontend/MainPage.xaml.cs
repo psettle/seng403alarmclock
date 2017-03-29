@@ -14,8 +14,7 @@ namespace seng403alarmclock_silverlight_frontend {
         public MainPage() {
             InitializeComponent();
             GuiController.GetController().assignMainPage(this);
-            addAlarmButton.Click += Button_Click;
-            
+            addAlarmButton.Click += Button_Click;  
         }
 
         private void Button_Click(object sender, System.Windows.RoutedEventArgs e) {

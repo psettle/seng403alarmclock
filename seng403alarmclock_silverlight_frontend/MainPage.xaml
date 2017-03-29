@@ -44,7 +44,7 @@
 
 
 
-                <Button x:Name="AddEditButton" Content="AddEdit" HorizontalAlignment="Left" Margin="203,179,0,0" VerticalAlignment="Top" Width="75"/>
+                
                 <TextBlock x:Name="date_analog" Margin="51,384,-31,549" TextWrapping="Wrap" Text="Monday, January 3rd" VerticalAlignment="Center" FontSize="80" TextAlignment="Center" Foreground="DarkGray" Grid.Column="0"/>
 
                 <Image x:Name="MinuteHand" HorizontalAlignment="Left" Height="355" Margin="129,268,0,0" VerticalAlignment="Top" Width="357" Source="clockhand.png"/>
