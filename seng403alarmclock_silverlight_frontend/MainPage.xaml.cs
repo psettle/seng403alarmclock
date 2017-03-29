@@ -33,24 +33,17 @@ namespace seng403alarmclock_silverlight_frontend {
             mainPageState = PageState.Normal;
 
             AddEditButton.Click += AddEditButton_Click;
-            OptionsButton.Click += OptionsButton_Click;
+            Options_Button.Click += OptionsButton_Click;
 
-            GuiController.GetController().assignMainPage(this);
-            button.Click += Button_Click;
             DigitalButton.Click += Digital_Click;
             AnalogButton.Click += Analog_Click;
 
             this.AMPM_Analog.Visibility = System.Windows.Visibility.Collapsed;
             this.Analog_setHidden();
-            this.date_analog.Visibility = System.Windows.Visibility.Collapsed;
-
+            this.date_analog.Visibility = System.Windows.Visibility.Collapsed;            
         }      
 
-        #region buttons handling        
-
-        private void AddEditButton_Click(object sender, System.Windows.RoutedEventArgs e) {
-            GuiController.GetController().OpenAddAlarmPanel();            
-        }
+        #region panel open/close         
 
         /// <summary>
         /// Clicking this affects the options pane.
@@ -71,10 +64,15 @@ namespace seng403alarmclock_silverlight_frontend {
                 mainPageState = PageState.Normal;
             }
         }
-        private void Button_Click(object sender, System.Windows.RoutedEventArgs e) {
+
+        private void AddEditButton_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
             GuiController.GetController().OpenAddAlarmPanel();
-            
         }
+
+        #endregion
+
+        #region analog / digital
 
         private void Digital_Click(object sender, System.Windows.RoutedEventArgs e)
         {
@@ -86,32 +84,16 @@ namespace seng403alarmclock_silverlight_frontend {
             GuiController.GetController().SetDisplayMode(true);
         }
 
-        #endregion
-
-
-        /// <summary>
-        /// Sets the time display on the GUI
-        /// </summary>
-        /// <param name="time"></param>
-        public void SetTime(DateTime time) {
-            SetAnalogTime(time);
-            this.time.Text = time.ToLongTimeString();
-            this.date.Text = time.ToLongDateString();
-            this.date_analog.Text = time.ToLongDateString();
-        }
-
         public void SetAnalog()
         {
             this.Analog_setVisible();
             this.Digital_setHidden();
-
         }
 
         public void SetDigital()
         {
             this.Analog_setHidden();
             this.Digital_setVisible();
-          
         }
 
 
@@ -173,6 +155,22 @@ namespace seng403alarmclock_silverlight_frontend {
             this.date_analog.Visibility = System.Windows.Visibility.Collapsed;
         }
 
-    }
+        #endregion
 
+        /// <summary>
+        /// Sets the time display on the GUI
+        /// </summary>
+        /// <param name="time"></param>
+        public void SetTime(DateTime time) {
+            SetAnalogTime(time);
+            this.time.Text = time.ToLongTimeString();
+            this.date.Text = time.ToLongDateString();
+            this.date_analog.Text = time.ToLongDateString();
+        }
+
+        private void sDuration_dec_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+    }
 }
