@@ -36,6 +36,15 @@ namespace seng403alarmclock.GUI {
         private AddEditWindow addEditWindow = null;
 
         private OptionsPanel_Controller optionsPanelController = null;
+		
+		/// <summary>
+        /// the most recent time retrieved
+        /// </summary>
+		private DateTime now = null;		
+		/// <summary>
+        /// possibly not used 
+        /// </summary>
+		public DateTime Now{ Get{ return this.now; } }
 
         /// <summary>
         /// Assigns the main page to the controller
@@ -45,6 +54,7 @@ namespace seng403alarmclock.GUI {
             mainPage = main;
             addEditWindow = new AddEditWindow(main);
             optionsPanelController = new OptionsPanel_Controller(main);
+			this.now = 
             CrawlAudioFiles();
         }
 
@@ -68,8 +78,54 @@ namespace seng403alarmclock.GUI {
         /// <returns></returns>
         public static new GuiController GetController() {
             return (GuiController)guiController;
+        }		
+		
+		#region open/close panels
+
+        /// <summary>
+        /// Opens the panel in a blank state, ready to input a new alarm
+        /// </summary>
+        public void OpenAddAlarmPanel() {
+            addEditWindow.OpenAddAlarmPanel();
         }
 
+		/// <summary>
+        /// Opens the options panel
+        /// </summary>
+        public void OpenOptionsPanel() {
+            optionsPanelController.OpenOptionsPanel();
+        }
+		
+		/// <summary>
+        /// Closes the options panel
+        /// </summary>
+        public void CloseOptionsPanel()
+        {
+            optionsPanelController.CloseOptionsPanel();
+        }
+		
+		#endregion
+		
+		#region Custom Time & Timezone functionality
+		
+		/// <summary>
+		/// populates the options panel controller element that controls custom time
+		/// </summary>
+		public void PopulateCustomTimeUI(){			
+			SetCustomTime_displayedInOptions(now.Hour, now.Minute);
+		}
+		
+		/// <summary>
+		/// sets the timezone offset variable in optionsPanelController
+		/// </summary>
+        public override void SetActiveTimeZoneForDisplay(double localOffset) {
+            optionsPanelController.timezoneOffsetHours = localOffset;
+        }
+		
+		#endregion
+
+		#region Add, Edit, Remove Alarms
+		
         public override void AddAlarm(Alarm alarm) {
             AlarmRow row = new AlarmRow(alarm);
             activeAlarms.Add(alarm, row);
@@ -110,20 +166,18 @@ namespace seng403alarmclock.GUI {
                 throw new AlarmNotSetException("The requested alarm did not exist");
             }
         }
+		
+		#endregion
 
-        public override void SetActiveTimeZoneForDisplay(double localOffset) {
-           
-        }
-
+		#region Snooze & Dismiss
+		
         public override void SetDismissAvailable(bool available) {
             if(available) {
                 mainPage.Dismiss.Visibility = Visibility.Visible;
             } else {
                 mainPage.Dismiss.Visibility = Visibility.Collapsed;
             }
-            
-           
-        }
+		}
 
         public override void SetSnoozeAvailable(bool available) {
             if (available) {
@@ -133,14 +187,17 @@ namespace seng403alarmclock.GUI {
             }
         }
 
+		#endregion
+		
         /// <summary>
         /// Sets the time that is displayed on the GUI
         /// </summary>
         /// <param name="time"></param>
         public override void SetTime(DateTime time) {
-            mainPage.SetTime(time);
+   			now = time;
+			mainPage.SetTime(time);
         }
-
+		
         public override void Shutdown() {
             
         }
@@ -153,25 +210,10 @@ namespace seng403alarmclock.GUI {
             AlarmRow row = this.GetAlarmRow(alarm);
             row.Update();
         }
-
-
-        /// <summary>
-        /// Opens the panel in a blank state, ready to input a new alarm
+		
+		/// <summary>
+        /// sets the GUI display mode to analog if true, and digital if false
         /// </summary>
-        public void OpenAddAlarmPanel() {
-            addEditWindow.OpenAddAlarmPanel();
-        }
-
-
-        public void OpenOptionsPanel() {
-            optionsPanelController.OpenOptionsPanel();
-        }
-
-        public void CloseOptionsPanel()
-        {
-            optionsPanelController.CloseOptionsPanel();
-        }
-
         public void SetDisplayMode(bool analog) {
             if (analog) {
                 mainPage.SetAnalog();

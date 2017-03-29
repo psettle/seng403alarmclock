@@ -35,6 +35,11 @@ namespace seng403alarmclock_silverlight_frontend.GUI {
         /// The current state of the AMPM button, true for PM
         /// </summary>
         private bool pm = false;
+		
+		/// <summary>
+        /// determines whether to call updateCustomTime on cilcks
+        /// </summary>
+		private bool isForCustomTime
 
         #endregion
 
@@ -44,8 +49,9 @@ namespace seng403alarmclock_silverlight_frontend.GUI {
         /// Sets up the timeselector for action
         /// </summary>
         /// <param name="hostWindow"></param>
-        public TimeSelector(TimeSelectorI hostWindow) {
+        public TimeSelector(TimeSelectorI hostWindow, bool usedForCustomTime) {
             this.hostWindow = hostWindow;
+			this.isForCustomTime = usedForCustomTime;
 
             HourInput = hostWindow.GetHourInput();
             MinuteInput = hostWindow.GetMinuteInput();
@@ -289,38 +295,57 @@ namespace seng403alarmclock_silverlight_frontend.GUI {
 
         private void AMPM_Click(object sender, RoutedEventArgs e) {
             FlipAMPM();
+			if (isForCustomTime)
+				hostWindow.UpdateCustomTime();
         }
 
         private void MinuteInput_GotFocus(object sender, RoutedEventArgs e) {
             MinuteInput.Text = "";
+			if (isForCustomTime)
+				hostWindow.UpdateCustomTime();
         }
 
         private void HourInput_GotFocus(object sender, RoutedEventArgs e) {
             HourInput.Text = "";
-        }
+			if (isForCustomTime)
+				hostWindow.UpdateCustomTime();       
+	   }
+		
 
         private void MinuteInput_LostFocus(object sender, RoutedEventArgs e) {
             RenderDisplayTime();
+			if (isForCustomTime)
+				hostWindow.UpdateCustomTime();
         }
 
         private void HourInput_LostFocus(object sender, RoutedEventArgs e) {
             RenderDisplayTime();
+			if (isForCustomTime)
+				hostWindow.UpdateCustomTime();
         }
 
         private void HourDown_Click(object sender, RoutedEventArgs e) {
             AddToDisplayTime(-60);
+			if (isForCustomTime)
+				hostWindow.UpdateCustomTime();
         }
 
         private void HourUp_Click(object sender, RoutedEventArgs e) {
             AddToDisplayTime(60);
+			if (isForCustomTime)
+				hostWindow.UpdateCustomTime();
         }
 
         private void MinuteDown_Click(object sender, RoutedEventArgs e) {
             AddToDisplayTime(-1);
+			if (isForCustomTime)
+				hostWindow.UpdateCustomTime();
         }
 
         private void MinuteUp_Click(object sender, RoutedEventArgs e) {
             AddToDisplayTime(1);
+			if (isForCustomTime)
+				hostWindow.UpdateCustomTime();
         }
 
         #endregion

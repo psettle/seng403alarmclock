@@ -55,6 +55,8 @@ namespace seng403alarmclock_silverlight_frontend {
             GuiController.GetController().SetSnoozeAvailable(false);
         }
 
+		#region snooze / dismiss
+		
         /// <summary>
         /// Called when the snooze button is clicked
         /// </summary>
@@ -69,6 +71,8 @@ namespace seng403alarmclock_silverlight_frontend {
             GuiEventCaller.GetCaller().NotifyDismiss();
         }
 
+		#endregion
+		
         #region panel open/close         
 
         /// <summary>
@@ -81,8 +85,10 @@ namespace seng403alarmclock_silverlight_frontend {
         {
             if (mainPageState == PageState.Normal)
             {
-                GuiController.GetController().OpenOptionsPanel();
-                mainPageState = PageState.OptionsOpen;
+				mainPageState = PageState.OptionsOpen;
+                PopulateCustomTimeUI();
+				GuiController.GetController().OpenOptionsPanel();
+				
             }
             else if (mainPageState == PageState.OptionsOpen)
             {
@@ -91,6 +97,9 @@ namespace seng403alarmclock_silverlight_frontend {
             }
         }
 
+		/// <summary>
+        /// opens the AddEdit Panel
+        /// </summary>
         private void AddEditButton_Click(object sender, System.Windows.RoutedEventArgs e)
         {            
             GuiController.GetController().OpenAddAlarmPanel();

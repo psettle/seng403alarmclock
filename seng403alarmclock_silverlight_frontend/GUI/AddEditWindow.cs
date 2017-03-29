@@ -53,7 +53,7 @@ namespace seng403alarmclock_silverlight_frontend.GUI {
             mainControl.SaveAlarm.Click += SaveAlarm_Click;
             mainControl.CancelAddEdit.Click += CancelAddEdit_Click;
 
-            timeController = new TimeSelector(this);
+            timeController = new TimeSelector(this, false);
 
             weekdayControl = new WeekdaySelector(mainControl);
 

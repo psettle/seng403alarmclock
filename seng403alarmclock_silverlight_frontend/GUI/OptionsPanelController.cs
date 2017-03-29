@@ -16,7 +16,7 @@ namespace seng403alarmclock_silverlight_frontend.GUI
     /// <summary>
     /// This class controls the sliding options panel
     /// </summary>
-    public class OptionsPanel_Controller
+    public class OptionsPanel_Controller : TimeSelectorI
     {
         #region Attributes
         /// <summary>
@@ -43,6 +43,17 @@ namespace seng403alarmclock_silverlight_frontend.GUI
         /// tracks snooze duration. The alarm controller is informed if it changes
         /// </summary>
         private static int snooze_duration_minutes = 1;
+		
+		/// <summary>
+        /// helps make the timezone selector gud. Not sure how yet...
+        /// </summary>
+		private DropdownSelectorController dropdownSelectorController = null;
+		
+		/// <summary>
+        /// represents current timezone offset
+        /// </summary>
+		public static double timezoneOffsetHours { set; get; } = 0;
+
 
         #endregion
 
@@ -54,13 +65,21 @@ namespace seng403alarmclock_silverlight_frontend.GUI
             snooze_duration_minutes = 1;
             SetSnoozePeriodMinutes(snooze_duration_minutes);
             this.mainControl.sDuration_Label.Content = snooze_duration_minutes.ToString();
+			this.timeController = new TimeSelector(this);
+			this.dropdownSelectorController = new DropdownSelectorController(mainControl.timezoneComboBox);
+			
+			InitDefaultTimeZone();
 
             mainControl.sDuration_dec.Click += SDuration_MinuteDown_Click;
             mainControl.sDuration_inc.Click += SDuration_MinuteUp_Click;
             mainControl.cdDatePicker.SelectedDateChanged += CdDatePicker_SelectedDateChanged;
             weekdayControl.SetVisibleState(Visibility.Collapsed);          
         }
-
+		
+		#region Custom Date 
+		
+		//note: currently not working in silverlight, nor in desktop
+		
         /// <summary>
         /// modifies internal date representation according to selection.
         /// 99% copied from seng403alarmclock_desktop_frontend.OptionsWindow.xaml.cs
@@ -95,7 +114,131 @@ namespace seng403alarmclock_silverlight_frontend.GUI
             GuiEventCaller.GetCaller().NotifyManualDateRequested(year, month, day);
         }
 
+		#endregion
+		
+		#region custom Time
+		
+		/// <summary>
+        /// Parses and sends the current time on the display to the listeners
+        /// </summary>
+        public void UpdateCustomTime() {
+            int hours, minutes;
+
+            try {
+                GetDisplayTime(out hours, out minutes);
+            } catch (FormatException) {
+                return;
+            }
+			GuiEventCaller.GetCaller().NotifyManualTimeRequested(hours, minutes);
+        }
+		
+		/// <summary>
+        /// when options panel is opened, it calles GUIController, who sets this in order to populate the custom time UI with the current time.
+        /// </summary>
+		public SetCustomTime_displayedInOptions(int hour, int minute){
+			timeController.SetDisplayTime(hour, minute);			
+		}
+				
+		#endregion
+		
+		#region Timezones
+
+		/// <summary>
+		/// When the timezone combobox is changed, this is called to update the timezone via changing the offset.
+		/// 99% copied from desktop version
+		/// </summary>
+		private void Timezone_SelectionChanged(object sender, SelectionChangedEventArgs e) {
+            ComboBoxItem timeZone = (ComboBoxItem)timezoneComboBox.SelectedItem;
+
+            string utcString = timeZone.Content.ToString();
+
+            double offset = TimeZoneInfo.Local.GetUtcOffset(DateTime.Now).TotalHours;
+
+            string[] parts = utcString.Split(' ', ':');
+
+            double offsetNum = double.Parse(parts[1]);
+
+            if ((parts[1] == "0"))
+            {
+                offsetNum = 0;
+            }
+            if ((parts[2] == "15") && (parts[1].Contains("-")))
+            {
+                offsetNum = offsetNum - 0.25;
+            }
+
+            if ((parts[2] == "15") && (parts[1].Contains("+")))
+            {
+                offsetNum = offsetNum + 0.25;
+            }
+
+            else if ((parts[2] == "30") && (parts[1].Contains("-")))
+            {
+                offsetNum = offsetNum - 0.5;
+            }
+
+            else if ((parts[2] == "30") && (parts[1].Contains("+")))
+            {
+                offsetNum = offsetNum + 0.5;
+            }
+
+            else if ((parts[2] == "45") && (parts[1].Contains("-")))
+            {
+                offsetNum = offsetNum - 0.75;
+            }
+
+            else if ((parts[2] == "45") && (parts[1].Contains("+")))
+            {
+                offsetNum = offsetNum + 0.75;
+            }
+
+            double finalOffset = offsetNum - offset;
+
+            GuiEventCaller.GetCaller().NotifyTimeZoneOffsetChanged(finalOffset);
+        }  
+
+		/// <summary>
+		/// Initializes the timezone to default value
+		/// 99% copied from desktop version
+		/// </summary>
+		private void InitDefaultTimeZone() {
+			
+            //parse the timezone offset into a +- string for comparison
+            int hourOffset = (int)Math.Floor(timezoneOffsetHours);
+            double bonusFraction = Math.Abs(timezoneOffsetHours) - Math.Abs(hourOffset);
+
+            string timeZoneString = Math.Sign(hourOffset) == 1 ? "+" : "-";
+            timeZoneString += Math.Abs(hourOffset) + ":";
+
+            if (bonusFraction < 0.1) {
+                timeZoneString += "00";
+            } else if(bonusFraction < 0.3) {
+                timeZoneString += "15";
+            } else if(bonusFraction < 0.6) {
+                timeZoneString += "30";
+            } else if(bonusFraction < 0.9) {
+                timeZoneString += "45";
+            }
+            
+            foreach(ComboBoxItem entry in timezoneComboBox.Items) {
+                string entryVal = entry.Content.ToString();
+
+                //parse the entry value to get the time
+
+                string[] splitEntry = entryVal.Split(' ');
+
+                if(splitEntry[1] == timeZoneString) {
+                    Timezone.SelectedItem = entry;
+                }
+            }
+        }
+
+		#endregion
+		
         #region Snooze Duration
+		/// <summary>
+		/// increases snooze duration by one minute
+		/// </summary>
         private void SDuration_MinuteUp_Click(object sender, RoutedEventArgs e)
         {
             if (snooze_duration_minutes < 59)
@@ -103,7 +246,10 @@ namespace seng403alarmclock_silverlight_frontend.GUI
             this.mainControl.sDuration_Label.Content = snooze_duration_minutes.ToString();
             GuiEventCaller.GetCaller().NotifySnoozePeriodChangeRequested(snooze_duration_minutes);
         }
-
+		
+		/// <summary>
+		/// decreases snooze duration by 1 minute
+		/// </summary>
         private void SDuration_MinuteDown_Click(object sender, RoutedEventArgs e)
         {
             if (snooze_duration_minutes > 0 )
@@ -111,7 +257,10 @@ namespace seng403alarmclock_silverlight_frontend.GUI
             this.mainControl.sDuration_Label.Content = snooze_duration_minutes.ToString();
             GuiEventCaller.GetCaller().NotifySnoozePeriodChangeRequested(snooze_duration_minutes);
         }
-
+		
+		/// <summary>
+		/// sets snooze duration in GUI and internally both
+		/// </summary>
         public static void SetSnoozePeriodMinutes(int minutes)
         {
             snooze_duration_minutes = minutes;
@@ -175,5 +324,101 @@ namespace seng403alarmclock_silverlight_frontend.GUI
         }
 
         #endregion        
+		
+		#regions TimeSelectorI Interface
+		
+		/// <summary>
+        /// Gets an hour up button
+        /// </summary>
+        RepeatButton GetHourUpButton(){
+			return mainControl.ctHourUp;
+		}
+
+        /// <summary>
+        /// Gets an hour down button
+        /// </summary>
+        RepeatButton GetHourDownButton(){
+			return mainControl.ctHourDown;
+		}
+
+        /// <summary>
+        /// Gets a minute up button
+        /// </summary>
+        RepeatButton GetMinuteUpButton(){
+			return mainControl.ctMinuteUp;
+		}
+
+        /// <summary>
+        /// Gets a minute down button
+        /// </summary>
+        RepeatButton GetMinuteDownButton(){
+			return mainControl.ctMinuteDown;
+		}
+
+        /// <summary>
+        /// Gets a AMPM button
+        /// </summary>
+        Button GetAMPMButton(){
+			return mainControl.ctAMPM;
+		}
+
+        /// <summary>
+        /// Gets the textbox for writing hours into
+        /// </summary>
+        TextBox GetHourInput(){
+			return mainControl.ctHourInput;
+		}
+
+        /// <summary>
+        /// Gets the textbox for writing minutes into
+        /// </summary>
+        TextBox GetMinuteInput(){
+			return mainControl.ctMinuteInput;
+		}
+		
+		#endregionregion
+				
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

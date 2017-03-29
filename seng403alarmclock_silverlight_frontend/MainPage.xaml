@@ -317,7 +317,7 @@
                 </Grid>
                 <Grid x:Name="TimeZone_UI" HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="400">
                     <sdk:Label x:Name="TimeZone_Label" HorizontalAlignment="Left" Height="28" Margin="10,42,-55,0" VerticalAlignment="Top" Width="145" Content="Timezone" FontSize="20"/>
-                    <ComboBox x:Name="comboBox" HorizontalAlignment="Left" Margin="200,46,0,0" VerticalAlignment="Top" Width="145" Height="24">
+                    <ComboBox x:Name="timezoneComboBox" HorizontalAlignment="Left" Margin="200,46,0,0" VerticalAlignment="Top" Width="145" Height="24">
                         <ComboBoxItem FontSize="36" Content="UTC -12:00" Width="296"/>
                         <ComboBoxItem FontSize="36" Content="UTC -11:00" Width="296"/>
                         <ComboBoxItem FontSize="36" Content="UTC -10:00" Width="296"/>
