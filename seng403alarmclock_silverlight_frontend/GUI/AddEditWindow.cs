@@ -216,10 +216,15 @@ namespace seng403alarmclock_silverlight_frontend.GUI {
         /// </param>
         private void SetPanelState(bool isOpen) {
             if(isOpen) {
+                mainControl.Options_Button.Visibility = Visibility.Collapsed;
+                mainControl.AlarmList_Button.Visibility = Visibility.Collapsed;
                 OpenPanel();
             } else {
+                mainControl.Options_Button.Visibility = Visibility.Visible;
+                mainControl.AlarmList_Button.Visibility = Visibility.Visible;
                 ClosePanel();
-            }
+            }            
+            
 
             isPanelOpen = isOpen;
         }

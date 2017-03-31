@@ -84,19 +84,13 @@ namespace seng403alarmclock_silverlight_frontend {
         {
             if (panelState == PanelState.Normal)
             {
-                addAlarmButton.Visibility = Visibility.Collapsed;
-                AlarmList_Button.Visibility = Visibility.Collapsed;
-
                 panelState = PanelState.OptionsOpen;
 				        GuiController.GetController().OpenOptionsPanel();				
             }
             else if (panelState == PanelState.OptionsOpen)
             {
                 GuiController.GetController().CloseOptionsPanel();
-                panelState = PanelState.Normal;
-
-                addAlarmButton.Visibility = Visibility.Visible;
-                AlarmList_Button.Visibility = Visibility.Visible;
+                panelState = PanelState.Normal;               
             }
         }
 
@@ -106,9 +100,7 @@ namespace seng403alarmclock_silverlight_frontend {
         private void AddEditButton_Click(object sender, System.Windows.RoutedEventArgs e)
         {
             if (panelState == PanelState.Normal)
-            {
-                Options_Button.Visibility = Visibility.Collapsed;
-                AlarmList_Button.Visibility = Visibility.Collapsed;
+            {                
                 panelState = PanelState.AddEditOpen;
                 GuiController.GetController().OpenAddAlarmPanel();
             }
@@ -116,8 +108,7 @@ namespace seng403alarmclock_silverlight_frontend {
             {
                 GuiController.GetController().CloseAddEditPanel();
                 panelState = PanelState.Normal;
-                Options_Button.Visibility = Visibility.Visible;
-                AlarmList_Button.Visibility = Visibility.Visible;
+                
             }
 
         }
@@ -131,18 +122,13 @@ namespace seng403alarmclock_silverlight_frontend {
         {
             if (panelState == PanelState.Normal)
             {
-                Options_Button.Visibility = Visibility.Collapsed;
-                addAlarmButton.Visibility = Visibility.Collapsed;
-
                 panelState = PanelState.AlarmListOpen;
                 GuiController.GetController().OpenAlarmListPanel();
             }
             else if (panelState == PanelState.AlarmListOpen)
             {
                 GuiController.GetController().CloseAlarmListPanel();
-                panelState = PanelState.Normal;
-                Options_Button.Visibility = Visibility.Visible;
-                addAlarmButton.Visibility = Visibility.Visible;
+                panelState = PanelState.Normal;                
             }        
         }
 
