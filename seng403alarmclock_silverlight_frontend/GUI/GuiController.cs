@@ -20,6 +20,8 @@ namespace seng403alarmclock.GUI {
     /// the rest are triggered by other gui components
     /// </summary>
     public class GuiController : AbstractGuiController {
+        #region attributes
+
         /// <summary>
         /// A reference to this program's main page
         /// </summary>
@@ -35,16 +37,26 @@ namespace seng403alarmclock.GUI {
         /// </summary>
         private AddEditWindow addEditWindow = null;
 
+        /// <summary>
+        /// reference to the controller of the optionsPanel
+        /// </summary>
         private OptionsPanel_Controller optionsPanelController = null;
+
+        /// <summary>
+        /// reference to controller of the alarmlist panel
+        /// </summary>
+        private AlarmListPanel_Controller alarmListPanelController = null;
 		
-		/// <summary>
+		    /// <summary>
         /// the most recent time retrieved
         /// </summary>
 		private DateTime now;		
-		/// <summary>
+		    /// <summary>
         /// possibly not used 
         /// </summary>
 		public DateTime Now{ get { return this.now; } }
+
+        #endregion
 
         /// <summary>
         /// Assigns the main page to the controller
@@ -52,8 +64,11 @@ namespace seng403alarmclock.GUI {
         /// <param name="main"></param>
         public void assignMainPage(MainPage main) {
             mainPage = main;
+
             addEditWindow = new AddEditWindow(main);
             optionsPanelController = new OptionsPanel_Controller(main);
+            alarmListPanelController = new AlarmListPanel_Controller(main);
+
             CrawlAudioFiles();
         }
 
@@ -77,9 +92,9 @@ namespace seng403alarmclock.GUI {
         /// <returns></returns>
         public static new GuiController GetController() {
             return (GuiController)guiController;
-        }		
+        }
 		
-		#region open/close panels
+		    #region open/close panels
 
         /// <summary>
         /// Opens the panel in a blank state, ready to input a new alarm
@@ -88,7 +103,15 @@ namespace seng403alarmclock.GUI {
             addEditWindow.OpenAddAlarmPanel();
         }
 
-		/// <summary>
+        /// <summary>
+        /// closes the panel, the equivalent of clicking the cancel button
+        /// </summary>
+        public void CloseAddEditPanel()
+        {
+            addEditWindow.CloseAddAlarmPanel();
+        }
+
+        /// <summary>
         /// Opens the options panel
         /// </summary>
         public void OpenOptionsPanel() {
@@ -96,35 +119,53 @@ namespace seng403alarmclock.GUI {
             optionsPanelController.OpenOptionsPanel();
         }
 		
-		/// <summary>
+		    /// <summary>
         /// Closes the options panel
         /// </summary>
         public void CloseOptionsPanel()
         {
             optionsPanelController.CloseOptionsPanel();
         }
-		
-		#endregion
-		
-		#region Custom Time & Timezone functionality
-		
-		/// <summary>
-		/// populates the options panel controller element that controls custom time
-		/// </summary>
-		public void PopulateCustomTimeUI(){
-            optionsPanelController.SetCustomTime_displayedInOptions(now.Hour, now.Minute);
-		}
-		
-		/// <summary>
-		/// sets the timezone offset variable in optionsPanelController
-		/// </summary>
-        public override void SetActiveTimeZoneForDisplay(double localOffset) {
-            OptionsPanel_Controller.timezoneOffsetHours = localOffset;
-        }
-		
-		#endregion
 
-		#region Add, Edit, Remove Alarms
+        
+
+        /// <summary>
+        /// opens the alarmlist panel
+        /// </summary>
+        public void OpenAlarmListPanel()
+        {
+            alarmListPanelController.Open();
+        }
+
+        /// <summary>
+        /// closes the alarmlist panel
+        /// </summary>
+        public void CloseAlarmListPanel()
+        {
+            alarmListPanelController.Close();
+        }
+
+        #endregion
+
+        #region Custom Time & Timezone functionality
+
+            /// <summary>
+            /// populates the options panel controller element that controls custom time
+            /// </summary>
+            public void PopulateCustomTimeUI(){
+                optionsPanelController.SetCustomTime_displayedInOptions(now.Hour, now.Minute);
+		    }
+		
+		    /// <summary>
+		    /// sets the timezone offset variable in optionsPanelController
+		    /// </summary>
+            public override void SetActiveTimeZoneForDisplay(double localOffset) {
+                OptionsPanel_Controller.timezoneOffsetHours = localOffset;
+            }
+		
+		    #endregion
+
+		    #region Add, Edit, Remove Alarms
 		
         public override void AddAlarm(Alarm alarm) {
             AlarmRow row = new AlarmRow(alarm);
@@ -169,7 +210,7 @@ namespace seng403alarmclock.GUI {
 		
 		#endregion
 
-		#region Snooze & Dismiss
+		    #region Snooze & Dismiss
 		
         public override void SetDismissAvailable(bool available) {
             if(available) {
@@ -194,8 +235,8 @@ namespace seng403alarmclock.GUI {
         /// </summary>
         /// <param name="time"></param>
         public override void SetTime(DateTime time) {
-   			now = time;
-			mainPage.SetTime(time);
+   			    now = time;
+			      mainPage.SetTime(time);
         }
 		
         public override void Shutdown() {
@@ -211,16 +252,17 @@ namespace seng403alarmclock.GUI {
             row.Update();
         }
 		
-		/// <summary>
+		    /// <summary>
         /// sets the GUI display mode to analog if true, and digital if false
         /// </summary>
         public void SetDisplayMode(bool analog) {
             if (analog) {
                 mainPage.SetAnalog();
-            } else {
+            }
+            else
+            {
                 mainPage.SetDigital();
             }
-
         }
 
         /// <summary>

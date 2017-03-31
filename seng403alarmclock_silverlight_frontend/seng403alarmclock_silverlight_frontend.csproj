@@ -85,7 +85,8 @@
     <Compile Include="GUI\DarkButton.cs" />
     <Compile Include="GUI\DropdownSelectorController.cs" />
     <Compile Include="GUI\GuiController.cs" />
-    <Compile Include="GUI\OptionsPanelController.cs" />
+    <Compile Include="GUI\AlarmListPanel_Controller.cs" />
+    <Compile Include="GUI\OptionsPanel_Controller.cs" />
     <Compile Include="GUI\TimeSelector.cs" />
     <Compile Include="GUI\TimeSelectorI.cs" />
     <Compile Include="GUI\WeekdaySelector.cs" />
@@ -121,8 +122,12 @@
     <Resource Include="bg1.png" />
     <Resource Include="ClockBackground.gif" />
     <Resource Include="clockhand.png" />
-    <Resource Include="list.png" />
-    <Resource Include="testBurger.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icon_Options.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icon_AlarmList.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Silverlight\$(SilverlightVersion)\Microsoft.Silverlight.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

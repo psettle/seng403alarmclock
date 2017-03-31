@@ -64,7 +64,7 @@ namespace seng403alarmclock_silverlight_frontend.GUI
             this.weekdayControl = new WeekdaySelector(mainControl);
             this.isPanelOpen = false;
             snooze_duration_minutes = 1;
-            SetSnoozePeriodMinutes(snooze_duration_minutes);
+            GuiEventCaller.GetCaller().NotifySnoozePeriodChangeRequested(snooze_duration_minutes);
             this.mainControl.sDuration_Label.Content = snooze_duration_minutes.ToString();
 			this.timeController = new TimeSelector(this, true);
 			this.dropdownSelectorController = new DropdownSelectorController(mainControl.timezoneComboBox);
@@ -255,15 +255,6 @@ namespace seng403alarmclock_silverlight_frontend.GUI
             if (snooze_duration_minutes > 0 )
                 snooze_duration_minutes--;
             this.mainControl.sDuration_Label.Content = snooze_duration_minutes.ToString();
-            GuiEventCaller.GetCaller().NotifySnoozePeriodChangeRequested(snooze_duration_minutes);
-        }
-		
-		/// <summary>
-		/// sets snooze duration in GUI and internally both
-		/// </summary>
-        public static void SetSnoozePeriodMinutes(int minutes)
-        {
-            snooze_duration_minutes = minutes;
             GuiEventCaller.GetCaller().NotifySnoozePeriodChangeRequested(snooze_duration_minutes);
         }
 

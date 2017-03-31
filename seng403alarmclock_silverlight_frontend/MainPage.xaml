@@ -33,8 +33,8 @@
                 <DoubleAnimation
                     Storyboard.TargetName="Options_Panel"
                     Storyboard.TargetProperty="(Canvas.Left)"
-                    From="-400"
-                    To="0"
+                    From="1920"
+                    To="1520"
                     Duration="00:00:00.1"
                 />
             </Storyboard>
@@ -42,23 +42,41 @@
                 <DoubleAnimation
                     Storyboard.TargetName="Options_Panel" 
                     Storyboard.TargetProperty="(Canvas.Left)"
-                    From="0"
-                    To="-400"
+                    From="1520"
+                    To="1920"
                     Duration="00:00:00.1"
                 />
             </Storyboard>
 
+            <Storyboard x:Name="AlarmListSlideIn">
+                <DoubleAnimation
+                    Storyboard.TargetName="AlarmListGrid"
+                    Storyboard.TargetProperty="(Canvas.Left)"
+                    From="1920"
+                    To="1520"
+                    Duration="00:00:00.1"
+                />
+            </Storyboard>
+            <Storyboard x:Name="AlarmListSlideOut">
+                <DoubleAnimation
+                    Storyboard.TargetName="AlarmListGrid" 
+                    Storyboard.TargetProperty="(Canvas.Left)"
+                    From="1520"
+                    To="1920"
+                    Duration="00:00:00.1"
+                />
+            </Storyboard>
+
+
         </Grid.Resources>
-        <Canvas>
+
+        <Canvas x:Name="mainWindow">
             <Grid  x:Name="mainPanel"  Height="1050" Width="1920" Background="Black">
 
                 <TextBlock x:Name="time" HorizontalAlignment="Left" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" FontSize="200" Canvas.Left="247" Canvas.Top="303" Margin="92,384,0,0" Foreground="Gray"/>
                 <TextBlock x:Name="date" HorizontalAlignment="Left" TextWrapping="Wrap" Text="date" VerticalAlignment="Top" FontSize="80" Canvas.Left="247" Canvas.Top="303" Margin="110,259,0,0" Foreground="Gray" Height="155" Width="1107"/>
-                <Button x:Name="addAlarmButton" Content="&#xE109;" HorizontalAlignment="Left" Margin="1296,860,0,0" VerticalAlignment="Top" Width="100" Height="100" Background="{x:Null}" BorderBrush="{x:Null}" FontFamily="Segoe UI Symbol" FontSize="64" Foreground="Green"/>
                 <ListBox x:Name="listBox" HorizontalAlignment="Left"  Margin="92,750,0,0" VerticalAlignment="Top" Width="1304" Background="Black" BorderBrush="Black">
-                    <StackPanel x:Name="alarmPanel" Orientation="Horizontal" Height="100">
-
-                    </StackPanel>
+                    <StackPanel x:Name="alarmPanel" Orientation="Horizontal" Height="100"/>
                 </ListBox>
 
                 <TextBlock x:Name="date_analog" Margin="51,384,-31,549" TextWrapping="Wrap" Text="Monday, January 3rd" VerticalAlignment="Center" FontSize="80" TextAlignment="Center" Foreground="DarkGray" Grid.Column="0"/>
@@ -70,181 +88,27 @@
 
 
                 <Button x:Name="Dismiss" Height="76" Margin="670,885,0,0" Template="{x:Null}" VerticalAlignment="Top" HorizontalAlignment="Left" Width="171">
-                    <Button.Content>
-                        <Grid>
-                            <Rectangle Fill="Black" RadiusX="5" RadiusY="5"/>
-                            <sdk:Label Content="Dismiss" FontSize="35" Foreground="DarkGray" HorizontalAlignment="Center"/>
-                            <Border BorderBrush="DarkGray" BorderThickness="1" CornerRadius="5"/>
-                        </Grid>
-                    </Button.Content>
+                    <Grid>
+                        <Rectangle Fill="Black" RadiusX="5" RadiusY="5"/>
+                        <sdk:Label Content="Dismiss" FontSize="35" Foreground="DarkGray" HorizontalAlignment="Center"/>
+                        <Border BorderBrush="DarkGray" BorderThickness="1" CornerRadius="5"/>
+                    </Grid>
                 </Button>
                 <Button x:Name="Snooze" Height="76" Margin="976,884,0,0" Template="{x:Null}" VerticalAlignment="Top" HorizontalAlignment="Left" Width="171">
-                    <Button.Content>
-                        <Grid>
-                            <Rectangle Fill="Black" RadiusX="5" RadiusY="5"/>
-                            <sdk:Label Content="Snooze" FontSize="35" Foreground="DarkGray" HorizontalAlignment="Center"/>
-                            <Border BorderBrush="DarkGray" BorderThickness="1" CornerRadius="5"/>
-                        </Grid>
-                    </Button.Content>
-                </Button>
-            </Grid>
-        </Canvas>
-        <Canvas x:Name="AddEdit">
-
-            <Grid x:Name="AddEditPanel" HorizontalAlignment="Left" Height="1050" VerticalAlignment="Top" Width="400" Background="DarkGray" Canvas.Left="1920">
-
-
-                <sdk:Label x:Name="AddEditTitle" HorizontalAlignment="Left" Height="58" Margin="51,30,0,0" VerticalAlignment="Top" Width="293" Content="Add Alarm" FontSize="50"/>
-                <TextBox x:Name="AddEditLabelBox" HorizontalAlignment="Left" Height="39" Margin="152,121,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="20" Width="192"/>
-                <sdk:Label HorizontalAlignment="Left" Height="39" Margin="51,121,0,0" VerticalAlignment="Top" Width="96" FontSize="30" Content="Name"/>
-
-                <!-- The 4 repeat buttons, 2 text boxes, button and textblock below are all controlled by TimeSelector -->
-                <RepeatButton x:Name="HourUp" HorizontalAlignment="Left" VerticalAlignment="Top" Height="68" Width="52" Margin="90,165,0,0" Template="{x:Null}">
-                    <RepeatButton.Content>
-                        <Grid>
-                            <Rectangle Fill="DarkGray" RadiusX="5" RadiusY="5"/>
-                            <sdk:Label FontFamily="Segoe UI Symbol" Content="&#xE010;" FontSize="50" Foreground="Black" HorizontalAlignment="Center"/>
-                        </Grid>
-                    </RepeatButton.Content>
-                </RepeatButton>
-                <RepeatButton x:Name="MinuteUp" HorizontalAlignment="Left" VerticalAlignment="Top" Height="68" Width="52" Margin="184,165,0,0" Template="{x:Null}">
-                    <RepeatButton.Content>
-                        <Grid>
-                            <Rectangle Fill="DarkGray" RadiusX="5" RadiusY="5"/>
-                            <sdk:Label FontFamily="Segoe UI Symbol" Content="&#xE010;" FontSize="50" Foreground="Black" HorizontalAlignment="Center"/>
-                        </Grid>
-                    </RepeatButton.Content>
-                </RepeatButton>
-                <RepeatButton x:Name="HourDown" HorizontalAlignment="Left" VerticalAlignment="Top" Height="68" Width="52"  Margin="90,238,0,0" Template="{x:Null}">
-                    <RepeatButton.Content>
-                        <Grid>
-                            <Rectangle Fill="DarkGray" RadiusX="5" RadiusY="5"/>
-                            <sdk:Label FontFamily="Segoe UI Symbol" Content="&#xE011;" FontSize="50" Foreground="Black" HorizontalAlignment="Center"/>
-                        </Grid>
-                    </RepeatButton.Content>
-                </RepeatButton>
-                <RepeatButton x:Name="MinuteDown" HorizontalAlignment="Left" VerticalAlignment="Top" Height="68" Width="52" Margin="184,238,0,0" Template="{x:Null}">
-                    <RepeatButton.Content>
-                        <Grid>
-                            <Rectangle Fill="DarkGray" RadiusX="5" RadiusY="5"/>
-                            <sdk:Label FontFamily="Segoe UI Symbol" Content="&#xE011;" FontSize="50" Foreground="Black" HorizontalAlignment="Center"/>
-                        </Grid>
-                    </RepeatButton.Content>
-                </RepeatButton>
-                <TextBox x:Name="HourInput" BorderBrush="Black" FontSize="20" HorizontalAlignment="Left" Height="34" Margin="90,226,0,0" TextWrapping="Wrap" Text="HH" VerticalAlignment="Top" Width="52" Background="DarkGray" TextAlignment="Center"/>
-                <TextBox x:Name="MinuteInput" BorderBrush="Black" FontSize="20" HorizontalAlignment="Left" Height="34" Margin="184,226,0,0" TextWrapping="Wrap" Text="MM" VerticalAlignment="Top" Width="52" Background="DarkGray" TextAlignment="Center"/>
-                <Button x:Name="AMPM" Height="34" Margin="277,226,0,0" Template="{x:Null}" VerticalAlignment="Top" HorizontalAlignment="Left" Width="46">
-                    <Button.Content>
-                        <Grid>
-                            <Rectangle Fill="DarkGray" RadiusX="5" RadiusY="5"/>
-                            <sdk:Label Content="AM" FontSize="20" Foreground="Black" HorizontalAlignment="Center"/>
-                            <Border BorderBrush="Black" BorderThickness="1" CornerRadius="5"/>
-                        </Grid>
-                    </Button.Content>
-                </Button>
-                <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="156,220,0,0" TextWrapping="Wrap" Text=":" VerticalAlignment="Top" FontSize="30"/>
-                <!--(End TimeSelector Elements)-->
-                <Viewbox Margin="51,325,17,659">
-                    <CheckBox x:Name="RepeatCheckbox" Content="Repeat" HorizontalAlignment="Left" VerticalAlignment="Top" Height="19" Width="91" />
-                </Viewbox>
-
-
-                <Button x:Name="Sunday" Height="35" Margin="78,410,0,0" Template="{x:Null}" VerticalAlignment="Top" HorizontalAlignment="Left" Width="35">
-                    <Button.Content>
-                        <Grid>
-                            <Rectangle Fill="DarkGray"/>
-                            <sdk:Label Content="U" FontSize="20" Foreground="Black" HorizontalAlignment="Center"/>
-                            <Border BorderBrush="Black" BorderThickness="1"/>
-                        </Grid>
-                    </Button.Content>
-                </Button>
-                <Button x:Name="Monday" Height="35" Margin="113,410,0,0" Template="{x:Null}" VerticalAlignment="Top" HorizontalAlignment="Left" Width="35">
-                    <Button.Content>
-                        <Grid>
-                            <Rectangle Fill="DarkGray"/>
-                            <sdk:Label Content="M" FontSize="20" Foreground="Black" HorizontalAlignment="Center"/>
-                            <Border BorderBrush="Black" BorderThickness="1"/>
-                        </Grid>
-                    </Button.Content>
-                </Button>
-                <Button x:Name="Tuesday" Height="35" Margin="148,410,0,0" Template="{x:Null}" VerticalAlignment="Top" HorizontalAlignment="Left" Width="35">
-                    <Button.Content>
-                        <Grid>
-                            <Rectangle Fill="DarkGray"/>
-                            <sdk:Label Content="T" FontSize="20" Foreground="Black" HorizontalAlignment="Center"/>
-                            <Border BorderBrush="Black" BorderThickness="1"/>
-                        </Grid>
-                    </Button.Content>
-                </Button>
-                <Button x:Name="Wednesday" Height="35" Margin="182.5,410,0,0" Template="{x:Null}" VerticalAlignment="Top" HorizontalAlignment="Left" Width="35">
-                    <Button.Content>
-                        <Grid>
-                            <Rectangle Fill="DarkGray"/>
-                            <sdk:Label Content="W" FontSize="20" Foreground="Black" HorizontalAlignment="Center"/>
-                            <Border BorderBrush="Black" BorderThickness="1"/>
-                        </Grid>
-                    </Button.Content>
-                </Button>
-                <Button x:Name="Thursday" Height="35" Margin="218,410,0,0" Template="{x:Null}" VerticalAlignment="Top" HorizontalAlignment="Left" Width="35">
-                    <Button.Content>
-                        <Grid>
-                            <Rectangle Fill="DarkGray"/>
-                            <sdk:Label Content="R" FontSize="20" Foreground="Black" HorizontalAlignment="Center"/>
-                            <Border BorderBrush="Black" BorderThickness="1"/>
-                        </Grid>
-                    </Button.Content>
-                </Button>
-                <Button x:Name="Friday" Height="35" Margin="253,410,0,0" Template="{x:Null}" VerticalAlignment="Top" HorizontalAlignment="Left" Width="35">
-                    <Button.Content>
-                        <Grid>
-                            <Rectangle Fill="DarkGray"/>
-                            <sdk:Label Content="F" FontSize="20" Foreground="Black" HorizontalAlignment="Center"/>
-                            <Border BorderBrush="Black" BorderThickness="1"/>
-                        </Grid>
-                    </Button.Content>
-                </Button>
-                <Button x:Name="Saturday" Height="35" Margin="288,410,0,0" Template="{x:Null}" VerticalAlignment="Top" HorizontalAlignment="Left" Width="35">
-                    <Button.Content>
-                        <Grid>
-                            <Rectangle Fill="DarkGray"/>
-                            <sdk:Label Content="S" FontSize="20" Foreground="Black" HorizontalAlignment="Center"/>
-                            <Border BorderBrush="Black" BorderThickness="1"/>
-                        </Grid>
-                    </Button.Content>
-                </Button>
-
-                <Viewbox Margin="78,483,77,525">
-                    <ComboBox x:Name="AudioFileComboBox" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120"/>
-                </Viewbox>
-
-
-
-                <Button x:Name="SaveAlarm" Height="30" Margin="228,871,0,0" Template="{x:Null}" VerticalAlignment="Top" HorizontalAlignment="Left" Width="147">
-                    <Button.Content>
-                        <Grid>
-                            <Rectangle Fill="Black" RadiusX="5" RadiusY="5"/>
-                            <sdk:Label Content="Save Alarm" FontSize="20" Foreground="DarkGray" HorizontalAlignment="Center"/>
-                            <Border BorderBrush="Black" BorderThickness="1" CornerRadius="5"/>
-                        </Grid>
-                    </Button.Content>
-                </Button>
-                <Button x:Name="CancelAddEdit"  HorizontalAlignment="Left" Margin="30,871,0,0" Template="{x:Null}" Width="147" Height="30" VerticalAlignment="Top">
-                    <Button.Content>
-                        <Grid>
-                            <Rectangle Fill="Black" RadiusX="5" RadiusY="5"/>
-                            <sdk:Label Content="Cancel" FontSize="20" Foreground="DarkGray" HorizontalAlignment="Center"/>
-                            <Border BorderBrush="Black" BorderThickness="1" CornerRadius="5"/>
-                        </Grid>
-                    </Button.Content>
+                    <Grid>
+                        <Rectangle Fill="Black" RadiusX="5" RadiusY="5"/>
+                        <sdk:Label Content="Snooze" FontSize="35" Foreground="DarkGray" HorizontalAlignment="Center"/>
+                        <Border BorderBrush="DarkGray" BorderThickness="1" CornerRadius="5"/>
+                    </Grid>
                 </Button>
             </Grid>
         </Canvas>
         <Canvas x:Name="Options" HorizontalAlignment="Left" VerticalAlignment="Top" Height="1050" Width="1920">
-            <StackPanel x:Name="Options_Panel" HorizontalAlignment="Left" Height="1050" VerticalAlignment="Top" Width="400" Background="DarkGray" Canvas.Left="-400">
-                <Button x:Name="Options_Button" HorizontalAlignment="Left" Margin="402,0,-42,0" VerticalAlignment="Top" Width="40" Height="43">
+            <StackPanel x:Name="Options_Panel" HorizontalAlignment="Left" Height="1050" VerticalAlignment="Top" Width="400" Background="DarkGray" Canvas.Left="1920">
+                <Button x:Name="Options_Button" HorizontalAlignment="Left" Margin="-45,0,-42,0" VerticalAlignment="Top" Width="40" Height="43">
                     <Button.Template>
                         <ControlTemplate>
-                            <Image Source="list.png"/>
+                            <Image Source="Icon_Options.png"/>
                         </ControlTemplate>
                     </Button.Template>
                 </Button>
@@ -265,24 +129,20 @@
                     </Grid.ColumnDefinitions>
 
                     <RepeatButton  x:Name="sDuration_inc" HorizontalAlignment="Left" VerticalAlignment="Top" Height="41" Width="48" Margin="204,28,0,0" Grid.Column="1" Grid.ColumnSpan="2" Template="{x:Null}">
-                        <RepeatButton.Content>
-                            <Grid>
-                                <Rectangle Fill="Black" RadiusX="5" RadiusY="5"/>
-                                <sdk:Label  FontFamily="Segoe UI Symbol" Content="&#xE013;" FontSize="20"  Foreground="DarkGray" HorizontalAlignment="Center"/>
-                                <Border BorderBrush="Black" BorderThickness="1" CornerRadius="5"/>
-                            </Grid>
-                        </RepeatButton.Content>
+                        <Grid>
+                            <Rectangle Fill="Black" RadiusX="5" RadiusY="5"/>
+                            <sdk:Label  FontFamily="Segoe UI Symbol" Content="&#xE013;" FontSize="20"  Foreground="DarkGray" HorizontalAlignment="Center"/>
+                            <Border BorderBrush="Black" BorderThickness="1" CornerRadius="5"/>
+                        </Grid>
                     </RepeatButton>
 
 
                     <RepeatButton  x:Name="sDuration_dec" HorizontalAlignment="Left" VerticalAlignment="Top" Height="41" Width="47" Margin="101,28,0,0" Grid.Column="1" Template="{x:Null}">
-                        <RepeatButton.Content>
-                            <Grid>
-                                <Rectangle Fill="Black" RadiusX="5" RadiusY="5"/>
-                                <sdk:Label  FontFamily="Segoe UI Symbol" Content="&#xE012;" FontSize="20"  Foreground="DarkGray" HorizontalAlignment="Center"/>
-                                <Border BorderBrush="Black" BorderThickness="1" CornerRadius="5"/>
-                            </Grid>
-                        </RepeatButton.Content>
+                        <Grid>
+                            <Rectangle Fill="Black" RadiusX="5" RadiusY="5"/>
+                            <sdk:Label  FontFamily="Segoe UI Symbol" Content="&#xE012;" FontSize="20"  Foreground="DarkGray" HorizontalAlignment="Center"/>
+                            <Border BorderBrush="Black" BorderThickness="1" CornerRadius="5"/>
+                        </Grid>
                     </RepeatButton>
 
                     <sdk:Label x:Name="sDuration_Label" HorizontalAlignment="Left" Height="28" Margin="168,33,0,0" VerticalAlignment="Top" Width="31" Content="1" FontSize="20" Grid.Column="1" BorderThickness="1"/>
@@ -379,28 +239,164 @@
                     </ComboBox>
                 </Grid>
                 <Grid x:Name="DisplayMode_UI" Height="100">
-                    
+
                     <Button  x:Name="DigitalButton" HorizontalAlignment="Left" Margin="165,0,0,30" VerticalAlignment="Bottom" Width="106" Height="38" Template="{x:Null}">
-                        <Button.Content>
-                            <Grid>
-                                <Rectangle Fill="Black" RadiusX="5" RadiusY="5"/>
-                                <sdk:Label  FontFamily="Segoe UI Symbol" Content="Digital" FontSize="20"  Foreground="DarkGray" HorizontalAlignment="Center"/>
-                                <Border BorderBrush="Black" BorderThickness="1" CornerRadius="5"/>
-                            </Grid>
-                        </Button.Content>
+                        <Grid>
+                            <Rectangle Fill="Black" RadiusX="5" RadiusY="5"/>
+                            <sdk:Label  FontFamily="Segoe UI Symbol" Content="Digital" FontSize="20"  Foreground="DarkGray" HorizontalAlignment="Center"/>
+                            <Border BorderBrush="Black" BorderThickness="1" CornerRadius="5"/>
+                        </Grid>
                     </Button>
                     <Button  x:Name="AnalogButton" HorizontalAlignment="Left" Margin="284,0,0,30" VerticalAlignment="Bottom" Width="106" Height="38" Template="{x:Null}">
-                        <Button.Content>
-                            <Grid>
-                                <Rectangle Fill="Black" RadiusX="5" RadiusY="5"/>
-                                <sdk:Label  FontFamily="Segoe UI Symbol" Content="Analog" FontSize="20"  Foreground="DarkGray" HorizontalAlignment="Center"/>
-                                <Border BorderBrush="Black" BorderThickness="1" CornerRadius="5"/>
-                            </Grid>
-                        </Button.Content>
+                        <Grid>
+                            <Rectangle Fill="Black" RadiusX="5" RadiusY="5"/>
+                            <sdk:Label  FontFamily="Segoe UI Symbol" Content="Analog" FontSize="20"  Foreground="DarkGray" HorizontalAlignment="Center"/>
+                            <Border BorderBrush="Black" BorderThickness="1" CornerRadius="5"/>
+                        </Grid>
                     </Button>
                     <sdk:Label x:Name="DisplayMode_title" HorizontalAlignment="Center" Height="35" Margin="0,35,250,0" VerticalAlignment="Top" Width="150" Content="Display Mode" FontSize="20"/>
                 </Grid>
             </StackPanel>
+        </Canvas>
+        <Canvas x:Name="AddEdit">
+
+            <Grid x:Name="AddEditPanel" HorizontalAlignment="Left" Height="1050" VerticalAlignment="Top" Width="400" Background="DarkGray" Canvas.Left="1920">
+
+
+                <Button x:Name="addAlarmButton" Content="&#xE109;" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Height="100" Background="{x:Null}" BorderBrush="{x:Null}" FontFamily="Segoe UI Symbol" FontSize="64" Foreground="Green" Margin="-104,45,0,0"/>
+
+
+                <sdk:Label x:Name="AddEditTitle" HorizontalAlignment="Left" Height="58" Margin="51,30,0,0" VerticalAlignment="Top" Width="293" Content="Add Alarm" FontSize="50"/>
+                <TextBox x:Name="AddEditLabelBox" HorizontalAlignment="Left" Height="39" Margin="152,121,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="20" Width="192"/>
+                <sdk:Label HorizontalAlignment="Left" Height="39" Margin="51,121,0,0" VerticalAlignment="Top" Width="96" FontSize="30" Content="Name"/>
+
+                <!-- The 4 repeat buttons, 2 text boxes, button and textblock below are all controlled by TimeSelector -->
+                <RepeatButton x:Name="HourUp" HorizontalAlignment="Left" VerticalAlignment="Top" Height="68" Width="52" Margin="90,165,0,0" Template="{x:Null}">
+                    <Grid>
+                        <Rectangle Fill="DarkGray" RadiusX="5" RadiusY="5"/>
+                        <sdk:Label FontFamily="Segoe UI Symbol" Content="&#xE010;" FontSize="50" Foreground="Black" HorizontalAlignment="Center"/>
+                    </Grid>
+                </RepeatButton>
+                <RepeatButton x:Name="MinuteUp" HorizontalAlignment="Left" VerticalAlignment="Top" Height="68" Width="52" Margin="184,165,0,0" Template="{x:Null}">
+                    <Grid>
+                        <Rectangle Fill="DarkGray" RadiusX="5" RadiusY="5"/>
+                        <sdk:Label FontFamily="Segoe UI Symbol" Content="&#xE010;" FontSize="50" Foreground="Black" HorizontalAlignment="Center"/>
+                    </Grid>
+                </RepeatButton>
+                <RepeatButton x:Name="HourDown" HorizontalAlignment="Left" VerticalAlignment="Top" Height="68" Width="52"  Margin="90,238,0,0" Template="{x:Null}">
+                    <Grid>
+                        <Rectangle Fill="DarkGray" RadiusX="5" RadiusY="5"/>
+                        <sdk:Label FontFamily="Segoe UI Symbol" Content="&#xE011;" FontSize="50" Foreground="Black" HorizontalAlignment="Center"/>
+                    </Grid>
+                </RepeatButton>
+                <RepeatButton x:Name="MinuteDown" HorizontalAlignment="Left" VerticalAlignment="Top" Height="68" Width="52" Margin="184,238,0,0" Template="{x:Null}">
+                    <Grid>
+                        <Rectangle Fill="DarkGray" RadiusX="5" RadiusY="5"/>
+                        <sdk:Label FontFamily="Segoe UI Symbol" Content="&#xE011;" FontSize="50" Foreground="Black" HorizontalAlignment="Center"/>
+                    </Grid>
+                </RepeatButton>
+                <TextBox x:Name="HourInput" BorderBrush="Black" FontSize="20" HorizontalAlignment="Left" Height="34" Margin="90,226,0,0" TextWrapping="Wrap" Text="HH" VerticalAlignment="Top" Width="52" Background="DarkGray" TextAlignment="Center"/>
+                <TextBox x:Name="MinuteInput" BorderBrush="Black" FontSize="20" HorizontalAlignment="Left" Height="34" Margin="184,226,0,0" TextWrapping="Wrap" Text="MM" VerticalAlignment="Top" Width="52" Background="DarkGray" TextAlignment="Center"/>
+                <Button x:Name="AMPM" Height="34" Margin="277,226,0,0" Template="{x:Null}" VerticalAlignment="Top" HorizontalAlignment="Left" Width="46">
+                    <Grid>
+                        <Rectangle Fill="DarkGray" RadiusX="5" RadiusY="5"/>
+                        <sdk:Label Content="AM" FontSize="20" Foreground="Black" HorizontalAlignment="Center"/>
+                        <Border BorderBrush="Black" BorderThickness="1" CornerRadius="5"/>
+                    </Grid>
+                </Button>
+                <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="156,220,0,0" TextWrapping="Wrap" Text=":" VerticalAlignment="Top" FontSize="30"/>
+                <!--(End TimeSelector Elements)-->
+                <Viewbox Margin="51,325,17,659">
+                    <CheckBox x:Name="RepeatCheckbox" Content="Repeat" HorizontalAlignment="Left" VerticalAlignment="Top" Height="19" Width="91" />
+                </Viewbox>
+
+
+                <Button x:Name="Sunday" Height="35" Margin="78,410,0,0" Template="{x:Null}" VerticalAlignment="Top" HorizontalAlignment="Left" Width="35">
+                    <Grid>
+                        <Rectangle Fill="DarkGray"/>
+                        <sdk:Label Content="U" FontSize="20" Foreground="Black" HorizontalAlignment="Center"/>
+                        <Border BorderBrush="Black" BorderThickness="1"/>
+                    </Grid>
+                </Button>
+                <Button x:Name="Monday" Height="35" Margin="113,410,0,0" Template="{x:Null}" VerticalAlignment="Top" HorizontalAlignment="Left" Width="35">
+                    <Grid>
+                        <Rectangle Fill="DarkGray"/>
+                        <sdk:Label Content="M" FontSize="20" Foreground="Black" HorizontalAlignment="Center"/>
+                        <Border BorderBrush="Black" BorderThickness="1"/>
+                    </Grid>
+                </Button>
+                <Button x:Name="Tuesday" Height="35" Margin="148,410,0,0" Template="{x:Null}" VerticalAlignment="Top" HorizontalAlignment="Left" Width="35">
+                    <Grid>
+                        <Rectangle Fill="DarkGray"/>
+                        <sdk:Label Content="T" FontSize="20" Foreground="Black" HorizontalAlignment="Center"/>
+                        <Border BorderBrush="Black" BorderThickness="1"/>
+                    </Grid>
+                </Button>
+                <Button x:Name="Wednesday" Height="35" Margin="182.5,410,0,0" Template="{x:Null}" VerticalAlignment="Top" HorizontalAlignment="Left" Width="35">
+                    <Grid>
+                        <Rectangle Fill="DarkGray"/>
+                        <sdk:Label Content="W" FontSize="20" Foreground="Black" HorizontalAlignment="Center"/>
+                        <Border BorderBrush="Black" BorderThickness="1"/>
+                    </Grid>
+                </Button>
+                <Button x:Name="Thursday" Height="35" Margin="218,410,0,0" Template="{x:Null}" VerticalAlignment="Top" HorizontalAlignment="Left" Width="35">
+                    <Grid>
+                        <Rectangle Fill="DarkGray"/>
+                        <sdk:Label Content="R" FontSize="20" Foreground="Black" HorizontalAlignment="Center"/>
+                        <Border BorderBrush="Black" BorderThickness="1"/>
+                    </Grid>
+                </Button>
+                <Button x:Name="Friday" Height="35" Margin="253,410,0,0" Template="{x:Null}" VerticalAlignment="Top" HorizontalAlignment="Left" Width="35">
+                    <Grid>
+                        <Rectangle Fill="DarkGray"/>
+                        <sdk:Label Content="F" FontSize="20" Foreground="Black" HorizontalAlignment="Center"/>
+                        <Border BorderBrush="Black" BorderThickness="1"/>
+                    </Grid>
+                </Button>
+                <Button x:Name="Saturday" Height="35" Margin="288,410,0,0" Template="{x:Null}" VerticalAlignment="Top" HorizontalAlignment="Left" Width="35">
+                    <Grid>
+                        <Rectangle Fill="DarkGray"/>
+                        <sdk:Label Content="S" FontSize="20" Foreground="Black" HorizontalAlignment="Center"/>
+                        <Border BorderBrush="Black" BorderThickness="1"/>
+                    </Grid>
+                </Button>
+
+                <Viewbox Margin="78,483,77,525">
+                    <ComboBox x:Name="AudioFileComboBox" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120"/>
+                </Viewbox>
+
+
+
+                <Button x:Name="SaveAlarm" Height="30" Margin="228,871,0,0" Template="{x:Null}" VerticalAlignment="Top" HorizontalAlignment="Left" Width="147">
+                    <Grid>
+                        <Rectangle Fill="Black" RadiusX="5" RadiusY="5"/>
+                        <sdk:Label Content="Save Alarm" FontSize="20" Foreground="DarkGray" HorizontalAlignment="Center"/>
+                        <Border BorderBrush="Black" BorderThickness="1" CornerRadius="5"/>
+                    </Grid>
+                </Button>
+                <Button x:Name="CancelAddEdit"  HorizontalAlignment="Left" Margin="30,871,0,0" Template="{x:Null}" Width="147" Height="30" VerticalAlignment="Top">
+                    <Grid>
+                        <Rectangle Fill="Black" RadiusX="5" RadiusY="5"/>
+                        <sdk:Label Content="Cancel" FontSize="20" Foreground="DarkGray" HorizontalAlignment="Center"/>
+                        <Border BorderBrush="Black" BorderThickness="1" CornerRadius="5"/>
+                    </Grid>
+                </Button>
+            </Grid>
+        </Canvas>
+        <Canvas x:Name="AlarmList" HorizontalAlignment="Left" VerticalAlignment="Top" Height="1050" Width="1920">
+            <Grid x:Name="AlarmListGrid" HorizontalAlignment="Left" Height="1050" VerticalAlignment="Top" Width="400" Background="DarkGray" Canvas.Left="1920">
+                <Button x:Name="AlarmList_Button" Margin="-48,148,408,0" VerticalAlignment="Top" Height="43" RenderTransformOrigin="-0.1,5.093">
+                    <Button.Template>
+                        <ControlTemplate>
+                            <Image Source="Icon_AlarmList.png"/>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+                <sdk:Label x:Name="AlarmListPanel_Title" HorizontalAlignment="Center" Height="64" Margin="15,43,5,0" VerticalAlignment="Top" Width="380" Content="alarm list" FontSize="50"/>
+            </Grid>
+        </Canvas>
+        <Canvas x:Name="coverup" HorizontalAlignment="Left" VerticalAlignment="Top" Height="1050" Width="1920">
+            <StackPanel x:Name="Options_Panel1" HorizontalAlignment="Left" Height="1050" VerticalAlignment="Top" Width="400" Background="White" Canvas.Left="1920"/>
         </Canvas>
 
     </Grid>

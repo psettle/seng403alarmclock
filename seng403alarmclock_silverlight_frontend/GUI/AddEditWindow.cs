@@ -45,6 +45,7 @@ namespace seng403alarmclock_silverlight_frontend.GUI {
         /// A lookup table of filename => displayname
         /// </summary>
         private Dictionary<string, string> audioFiles = new Dictionary<string, string>();
+
         #endregion
 
         public AddEditWindow(MainPage mainControl) {
@@ -56,7 +57,6 @@ namespace seng403alarmclock_silverlight_frontend.GUI {
             timeController = new TimeSelector(this, false);
 
             weekdayControl = new WeekdaySelector(mainControl);
-
            
             weekdayControl.SetVisibleState(Visibility.Collapsed);
 
@@ -89,6 +89,14 @@ namespace seng403alarmclock_silverlight_frontend.GUI {
             alarmBeingEdited = null;
             EmptyAlarmFields();
             SetPanelState(true);
+        }
+
+        /// <summary>
+        /// closes the alarm panel, an equivalent of clicking the cancel button
+        /// </summary>
+        public void CloseAddAlarmPanel()
+        {
+            SetPanelState(false);
         }
 
         /// <summary>
@@ -138,7 +146,7 @@ namespace seng403alarmclock_silverlight_frontend.GUI {
         /// </summary>
         private void CancelAddEdit_Click(object sender, RoutedEventArgs e) {
             //just close the panel
-            SetPanelState(false);
+            CloseAddAlarmPanel();
         }
 
         /// <summary>
