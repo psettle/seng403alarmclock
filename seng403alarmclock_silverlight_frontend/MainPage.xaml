@@ -70,15 +70,16 @@
 
         </Grid.Resources>
 
+        <Canvas x:Name="coverup" HorizontalAlignment="Left" VerticalAlignment="Top" Height="1050" Width="1920">
+            <StackPanel x:Name="Options_Panel1" HorizontalAlignment="Left" Height="1050" VerticalAlignment="Top" Width="400" Background="White" Canvas.Left="1920"/>
+        </Canvas>
+
         <Canvas x:Name="mainWindow">
             <Grid  x:Name="mainPanel"  Height="1050" Width="1920" Background="Black">
 
                 <TextBlock x:Name="time" HorizontalAlignment="Left" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" FontSize="200" Canvas.Left="247" Canvas.Top="303" Margin="92,384,0,0" Foreground="Gray"/>
                 <TextBlock x:Name="date" HorizontalAlignment="Left" TextWrapping="Wrap" Text="date" VerticalAlignment="Top" FontSize="80" Canvas.Left="247" Canvas.Top="303" Margin="110,259,0,0" Foreground="Gray" Height="155" Width="1107"/>
-                <ListBox x:Name="listBox" HorizontalAlignment="Left"  Margin="92,750,0,0" VerticalAlignment="Top" Width="1304" Background="Black" BorderBrush="Black">
-                    <StackPanel x:Name="alarmPanel" Orientation="Horizontal" Height="100"/>
-                </ListBox>
-
+                
                 <TextBlock x:Name="date_analog" Margin="51,384,-31,549" TextWrapping="Wrap" Text="Monday, January 3rd" VerticalAlignment="Center" FontSize="80" TextAlignment="Center" Foreground="DarkGray" Grid.Column="0"/>
 
                 <Image x:Name="MinuteHand" HorizontalAlignment="Left" Height="355" Margin="129,268,0,0" VerticalAlignment="Top" Width="357" Source="clockhand.png"/>
@@ -263,7 +264,16 @@
             <Grid x:Name="AddEditPanel" HorizontalAlignment="Left" Height="1050" VerticalAlignment="Top" Width="400" Background="DarkGray" Canvas.Left="1920">
 
 
-                <Button x:Name="addAlarmButton" Content="&#xE109;" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Height="100" Background="{x:Null}" BorderBrush="{x:Null}" FontFamily="Segoe UI Symbol" FontSize="64" Foreground="Green" Margin="-104,45,0,0"/>
+                <Button x:Name="addAlarmButton" HorizontalAlignment="Left" VerticalAlignment="Top" Width="47" Height="50" Template="{x:Null}"  Margin="-50,41,0,0">
+                    <Button.Content>
+                        <Grid>
+
+                            <sdk:Label Content="&#xE109;" FontFamily="Segoe UI Symbol" FontSize="40" Foreground="White" />
+                        </Grid>
+
+                    </Button.Content>
+
+                </Button>
 
 
                 <sdk:Label x:Name="AddEditTitle" HorizontalAlignment="Left" Height="58" Margin="51,30,0,0" VerticalAlignment="Top" Width="293" Content="Add Alarm" FontSize="50"/>
@@ -385,18 +395,55 @@
         </Canvas>
         <Canvas x:Name="AlarmList" HorizontalAlignment="Left" VerticalAlignment="Top" Height="1050" Width="1920">
             <Grid x:Name="AlarmListGrid" HorizontalAlignment="Left" Height="1050" VerticalAlignment="Top" Width="400" Background="DarkGray" Canvas.Left="1920">
-                <Button x:Name="AlarmList_Button" Margin="-48,148,408,0" VerticalAlignment="Top" Height="43" RenderTransformOrigin="-0.1,5.093">
+                <Button x:Name="AlarmList_Button" Margin="-45,92,405,0" VerticalAlignment="Top" Height="43" RenderTransformOrigin="-0.1,5.093">
                     <Button.Template>
                         <ControlTemplate>
                             <Image Source="Icon_AlarmList.png"/>
                         </ControlTemplate>
                     </Button.Template>
                 </Button>
-                <sdk:Label x:Name="AlarmListPanel_Title" HorizontalAlignment="Center" Height="64" Margin="15,43,5,0" VerticalAlignment="Top" Width="380" Content="alarm list" FontSize="50"/>
+                <sdk:Label x:Name="AlarmListPanel_Title" HorizontalAlignment="Center" Height="64" Margin="15,43,5,0" VerticalAlignment="Top" Width="380" Content="Alarm List" FontSize="50"/>
+                <Button x:Name="AlarmListTickUp" Margin="99,126,99,0" VerticalAlignment="Top" Height="42" Template="{x:Null}">
+                    <Button.Content>
+                        <Polygon Points="0,40 100,0 200, 40 100,30" Stroke="Black" Fill="Black" />
+                    </Button.Content>
+                </Button>
+
+                <Grid x:Name="AlarmPanelContainer" Margin="60,187,60,152">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                    </Grid.RowDefinitions>
+                    <Grid x:Name="AlarmSlot1" Grid.Row="0" Margin="10,10,10,10">
+                        
+                    </Grid>
+
+                    <Grid x:Name="AlarmSlot2" Grid.Row="1" Margin="10,10,10,10">
+                        
+                    </Grid>
+
+                    <Grid x:Name="AlarmSlot3" Grid.Row="2" Margin="10,10,10,10">
+                        
+                    </Grid>
+
+                </Grid>
+
+                <Button x:Name="AlarmListTickDown" Margin="99,929,99,0" VerticalAlignment="Top" Height="42" Template="{x:Null}">
+                    <Button.Content>
+                        <Polygon Points="0,0 100,40 200,0 100,10" Stroke="Black" Fill="Black">
+                            <Polygon.RenderTransform>
+                                <TransformGroup>
+                                    <ScaleTransform ScaleX="1" ScaleY="1"/>
+                                </TransformGroup>
+                            </Polygon.RenderTransform>
+                        </Polygon>
+                    </Button.Content>
+                </Button>
+
+
+
             </Grid>
-        </Canvas>
-        <Canvas x:Name="coverup" HorizontalAlignment="Left" VerticalAlignment="Top" Height="1050" Width="1920">
-            <StackPanel x:Name="Options_Panel1" HorizontalAlignment="Left" Height="1050" VerticalAlignment="Top" Width="400" Background="White" Canvas.Left="1920"/>
         </Canvas>
 
     </Grid>

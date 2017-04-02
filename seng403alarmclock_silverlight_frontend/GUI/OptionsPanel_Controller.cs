@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
+using static seng403alarmclock_silverlight_frontend.MainPage;
 
 namespace seng403alarmclock_silverlight_frontend.GUI
 {
@@ -269,11 +270,29 @@ namespace seng403alarmclock_silverlight_frontend.GUI
             SetPanelState(false);
         }
 
+        
+
         /// <summary>
         /// opens option panel
         /// </summary>
         public void OpenOptionsPanel() {
             SetPanelState(true);
+        }
+
+        /// <summary>
+        /// Hides the panel if it is closed (effectively only hiding the button
+        /// </summary>
+        public void HideIfClosed() {
+            if (mainControl.panelState != PanelState.OptionsOpen) {
+                mainControl.Options_Panel.Visibility = Visibility.Collapsed;
+            }
+        }
+
+        /// <summary>
+        /// Ensures the panel is visible
+        /// </summary>
+        public void Show() {
+            mainControl.Options_Panel.Visibility = Visibility.Visible;
         }
 
         #endregion
@@ -308,8 +327,21 @@ namespace seng403alarmclock_silverlight_frontend.GUI
         /// </summary>
         private void OpenPanel()
         {
-            if (!isPanelOpen)
+            
+            if (mainControl.panelState != PanelState.OptionsOpen) {
+                if(mainControl.panelState != PanelState.Normal) {
+                    GuiController.GetController().CloseAllPanels();
+                }
+                
                 mainControl.OptionsSlideIn.Begin();
+                mainControl.panelState = PanelState.OptionsOpen;
+
+                GuiController.GetController().HideClosedPanels();
+            }
+
+           
+            
+
         }
 
         /// <summary>
@@ -317,8 +349,13 @@ namespace seng403alarmclock_silverlight_frontend.GUI
         /// </summary>
         private void ClosePanel()
         {
-            if (isPanelOpen)
+            if (mainControl.panelState == PanelState.OptionsOpen) {
                 mainControl.OptionsSlideOut.Begin();
+                mainControl.panelState = PanelState.Normal;
+
+                GuiController.GetController().ShowAllPanels();
+            }
+               
         }
 
         #endregion        

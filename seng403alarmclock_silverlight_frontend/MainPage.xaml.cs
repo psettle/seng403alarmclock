@@ -17,12 +17,12 @@ namespace seng403alarmclock_silverlight_frontend {
         /// <summary>
         /// there are 4 legal states for mainPage
         /// </summary>
-        enum PanelState { Normal, OptionsOpen, AddEditOpen, AlarmListOpen };
+        public enum PanelState { Normal, OptionsOpen, AddEditOpen, AlarmListOpen };
         
         /// <summary>
         /// tracks which state mainPage is in
         /// </summary>
-        private PanelState panelState;
+        public PanelState panelState;
 
         #endregion
 
@@ -84,13 +84,11 @@ namespace seng403alarmclock_silverlight_frontend {
         {
             if (panelState == PanelState.Normal)
             {
-                panelState = PanelState.OptionsOpen;
-				        GuiController.GetController().OpenOptionsPanel();				
+                GuiController.GetController().OpenOptionsPanel();				
             }
             else if (panelState == PanelState.OptionsOpen)
             {
-                GuiController.GetController().CloseOptionsPanel();
-                panelState = PanelState.Normal;               
+                GuiController.GetController().CloseOptionsPanel();             
             }
         }
 
@@ -101,14 +99,11 @@ namespace seng403alarmclock_silverlight_frontend {
         {
             if (panelState == PanelState.Normal)
             {                
-                panelState = PanelState.AddEditOpen;
                 GuiController.GetController().OpenAddAlarmPanel();
             }
             else if (panelState == PanelState.AddEditOpen)
             {
-                GuiController.GetController().CloseAddEditPanel();
-                panelState = PanelState.Normal;
-                
+                GuiController.GetController().CloseAddEditPanel();     
             }
 
         }
@@ -122,13 +117,11 @@ namespace seng403alarmclock_silverlight_frontend {
         {
             if (panelState == PanelState.Normal)
             {
-                panelState = PanelState.AlarmListOpen;
                 GuiController.GetController().OpenAlarmListPanel();
             }
             else if (panelState == PanelState.AlarmListOpen)
             {
-                GuiController.GetController().CloseAlarmListPanel();
-                panelState = PanelState.Normal;                
+                GuiController.GetController().CloseAlarmListPanel();         
             }        
         }
 
@@ -158,17 +151,6 @@ namespace seng403alarmclock_silverlight_frontend {
             hourTransform.CenterY = (HourHand.Height / 2);
             HourHand.RenderTransform = hourTransform;
             this.date_analog.Text = time.ToLongDateString();
-        }
-
-        public void AddAlarmRow(AlarmRow row)
-        {
-            row.AddToGUI(this.alarmPanel);
-        }
-
-        internal void RemoveAlarmRow(AlarmRow row, bool wasPreempted)
-        {
-            row.RemoveFromGUI();
-
         }
 
         private void Analog_setVisible() {

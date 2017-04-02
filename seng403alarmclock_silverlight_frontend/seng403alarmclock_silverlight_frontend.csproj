@@ -80,6 +80,9 @@
     <Compile Include="Audio\Audio.cs" />
     <Compile Include="Audio\AudioController.cs" />
     <Compile Include="GUI\AddEditWindow.cs" />
+    <Compile Include="GUI\AlarmDisplay.xaml.cs">
+      <DependentUpon>AlarmDisplay.xaml</DependentUpon>
+    </Compile>
     <Compile Include="GUI\AlarmNotSetException.cs" />
     <Compile Include="GUI\AlarmRow.cs" />
     <Compile Include="GUI\DarkButton.cs" />
@@ -87,6 +90,7 @@
     <Compile Include="GUI\GuiController.cs" />
     <Compile Include="GUI\AlarmListPanel_Controller.cs" />
     <Compile Include="GUI\OptionsPanel_Controller.cs" />
+    <Compile Include="GUI\Polygonbutton.cs" />
     <Compile Include="GUI\TimeSelector.cs" />
     <Compile Include="GUI\TimeSelectorI.cs" />
     <Compile Include="GUI\WeekdaySelector.cs" />
@@ -101,6 +105,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
+    <Page Include="GUI\AlarmDisplay.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

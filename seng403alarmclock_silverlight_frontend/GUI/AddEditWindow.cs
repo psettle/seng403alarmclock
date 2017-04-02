@@ -6,6 +6,8 @@ using System.Windows.Media;
 using System;
 using System.Windows.Controls.Primitives;
 using seng403alarmclock.GUI_Interfaces;
+using static seng403alarmclock_silverlight_frontend.MainPage;
+using seng403alarmclock.GUI;
 
 namespace seng403alarmclock_silverlight_frontend.GUI {
     /// <summary>
@@ -109,6 +111,22 @@ namespace seng403alarmclock_silverlight_frontend.GUI {
             alarmBeingEdited = alarmToEdit;
             PopulateEditAlarmFields();
             SetPanelState(true);
+        }
+
+        /// <summary>
+        /// Hides the panel if it is closed (effectively only hiding the button
+        /// </summary>
+        public void HideIfClosed() {
+            if (mainControl.panelState != PanelState.AddEditOpen) {
+                mainControl.AddEditPanel.Visibility = Visibility.Collapsed;
+            }
+        }
+
+        /// <summary>
+        /// Ensures the panel is visible
+        /// </summary>
+        public void Show() {
+            mainControl.AddEditPanel.Visibility = Visibility.Visible;
         }
 
         #endregion
@@ -233,17 +251,27 @@ namespace seng403alarmclock_silverlight_frontend.GUI {
         /// Opens the Add/Edit Panel
         /// </summary>
         private void OpenPanel() {
-            if (!isPanelOpen) {
+            if (mainControl.panelState != PanelState.AddEditOpen) {
+                if (mainControl.panelState != PanelState.Normal) {
+                    GuiController.GetController().CloseAllPanels();
+                }
+
                 mainControl.AddEditSlideIn.Begin();
+                mainControl.panelState = PanelState.AddEditOpen;
+
+                GuiController.GetController().HideClosedPanels();
             }
+
         }
 
         /// <summary>
         /// Closes the Add/Edit panel
         /// </summary>
         private void ClosePanel() {
-            if(isPanelOpen) {
+            if(mainControl.panelState == PanelState.AddEditOpen) {
                 mainControl.AddEditSlideOut.Begin();
+                mainControl.panelState = PanelState.Normal;
+                GuiController.GetController().ShowAllPanels();
             }
         }
 

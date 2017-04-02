@@ -28,11 +28,6 @@ namespace seng403alarmclock.GUI {
         private MainPage mainPage = null;
 
         /// <summary>
-        /// The list of currenlty rendered alarm rows
-        /// </summary>
-        private Dictionary<Alarm, AlarmRow> activeAlarms = new Dictionary<Alarm, AlarmRow>();
-
-        /// <summary>
         /// A reference to the add/edit sub window
         /// </summary>
         private AddEditWindow addEditWindow = null;
@@ -134,7 +129,7 @@ namespace seng403alarmclock.GUI {
         /// </summary>
         public void OpenAlarmListPanel()
         {
-            alarmListPanelController.Open();
+            alarmListPanelController.OpenAlarmListPanel();
         }
 
         /// <summary>
@@ -142,7 +137,7 @@ namespace seng403alarmclock.GUI {
         /// </summary>
         public void CloseAlarmListPanel()
         {
-            alarmListPanelController.Close();
+            alarmListPanelController.CloseAlarmListPanel();
         }
 
         #endregion
@@ -167,46 +162,27 @@ namespace seng403alarmclock.GUI {
 
 		    #region Add, Edit, Remove Alarms
 		
+        /// <summary>
+        /// Adds an alarm display to the gui
+        /// </summary>
         public override void AddAlarm(Alarm alarm) {
-            AlarmRow row = new AlarmRow(alarm);
-            activeAlarms.Add(alarm, row);
-            mainPage.AddAlarmRow(row);
+            alarmListPanelController.AddAlarm(alarm);
         }
 
+        /// <summary>
+        /// Updates an alarm display on the gui
+        /// </summary>
         public override void EditAlarm(Alarm alarm, List<Alarm> alarmList) {
-            AlarmRow row = this.GetAlarmRow(alarm);
-            //AlarmRow nRow = new AlarmRow(alarm);
-            row.UpdateAlarm();
-            foreach (Alarm a in alarmList)
-            {
-                this.RemoveAlarm(a, false);
-            }
-
-            foreach (Alarm a in alarmList)
-            {
-                AddAlarm(a);
-            }
+            UpdateAlarm(alarm);
         }
 
+        /// <summary>
+        /// Removes an existing alarm from the gui
+        /// </summary>
         public override void RemoveAlarm(Alarm alarm, bool wasPreempted) {
-            AlarmRow row = this.GetAlarmRow(alarm);
-            mainPage.RemoveAlarmRow(row, wasPreempted);
-            activeAlarms.Remove(alarm);
+            alarmListPanelController.RemoveAlarm(alarm);
         }
 
-        private AlarmRow GetAlarmRow(Alarm alarm)
-        {
-            AlarmRow toReturn = null;
-
-            if (this.activeAlarms.TryGetValue(alarm, out toReturn))
-            {
-                return toReturn;
-            }
-            else
-            {
-                throw new AlarmNotSetException("The requested alarm did not exist");
-            }
-        }
 		
 		#endregion
 
@@ -248,8 +224,7 @@ namespace seng403alarmclock.GUI {
         /// </summary>
         /// <param name="alarm"></param>
         public override void UpdateAlarm(Alarm alarm) {
-            AlarmRow row = this.GetAlarmRow(alarm);
-            row.Update();
+            alarmListPanelController.UpdateAlarm(alarm);
         }
 		
 		    /// <summary>
@@ -283,6 +258,33 @@ namespace seng403alarmclock.GUI {
         /// </param>
         private void SetAudioFileNames(Dictionary<string, string> audioFiles) {
             addEditWindow.SetAudioFileNames(audioFiles);
+        }
+
+        /// <summary>
+        /// Closes all currently open panels
+        /// </summary>
+        public void CloseAllPanels() {
+            addEditWindow.CloseAddAlarmPanel();
+            optionsPanelController.CloseOptionsPanel();
+            alarmListPanelController.CloseAlarmListPanel();
+        }
+
+        /// <summary>
+        /// Hides all panels that are not currently open (removes the opens buttons to prevent visual bugs)
+        /// </summary>
+        public void HideClosedPanels() {
+            addEditWindow.HideIfClosed();
+            optionsPanelController.HideIfClosed();
+            alarmListPanelController.HideIfClosed();
+        }
+
+        /// <summary>
+        /// Sets all panels to visible
+        /// </summary>
+        public void ShowAllPanels() {
+            addEditWindow.Show();
+            optionsPanelController.Show();
+            alarmListPanelController.Show();
         }
     }
 }
