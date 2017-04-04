@@ -72,6 +72,7 @@
             <Button x:Name="Options_Button" Content="Options" HorizontalAlignment="Left" Width="70" VerticalAlignment="Bottom" Margin="0,0,0,300"/>
 
             <Image x:Name="MinuteHand" HorizontalAlignment="Left" Height="184" Margin="68,70,0,0" VerticalAlignment="Top" Width="181" Source="clockhand.png"/>
+            <Image x:Name="SecondHand" HorizontalAlignment="Left" Height="184" Margin="68,70,0,0" VerticalAlignment="Top" Width="181" Source="clockhand.png"/>
             <Image x:Name="ClockBack" HorizontalAlignment="Left" Height="184" Margin="68,70,0,0" VerticalAlignment="Top" Width="181" Source="ClockBackground.gif"/>
             <Image x:Name="HourHand" HorizontalAlignment="Left" Height="144" Margin="88,89,0,0" VerticalAlignment="Top" Width="141" Source="clockhand.png"/>
             <TextBlock x:Name="AMPM_Analog" HorizontalAlignment="Left" Margin="144,186,0,0" TextWrapping="Wrap" Text="AM" VerticalAlignment="Top" FontSize="18" Foreground="DarkGray" IsEnabled="False"/>
