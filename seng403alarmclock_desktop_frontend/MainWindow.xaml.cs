@@ -143,6 +143,7 @@ namespace seng403alarmclock
         {
             this.HourHand.Visibility = Visibility.Visible;
             this.MinuteHand.Visibility = Visibility.Visible;
+            this.SecondHand.Visibility = Visibility.Visible;
             this.ClockBack.Visibility = Visibility.Visible;
             this.AMPM_Analog.Visibility = Visibility.Visible;
 
@@ -152,6 +153,7 @@ namespace seng403alarmclock
         {
             this.HourHand.Visibility = Visibility.Hidden;
             this.MinuteHand.Visibility = Visibility.Hidden;
+            this.SecondHand.Visibility = Visibility.Hidden;
             this.ClockBack.Visibility = Visibility.Hidden;
             this.AMPM_Analog.Visibility = Visibility.Hidden;
         }
@@ -215,6 +217,13 @@ namespace seng403alarmclock
             double MinDeg = 6 * time.Minute;
             RotateTransform minTransform = new RotateTransform(MinDeg, MinuteHand.Width / 2, MinuteHand.Height / 2);
             MinuteHand.RenderTransform = minTransform;
+
+            double SecDeg = 6 * time.Second;
+            RotateTransform secTransform = new RotateTransform(SecDeg, SecondHand.Width / 2, SecondHand.Height / 2);
+            SecondHand.RenderTransform = secTransform;
+
+
+
 
             if (time.Hour >= 12)
             {
