@@ -11,7 +11,7 @@ namespace seng403alarmclock.GUI
     /// <summary>
     /// A representation of an alarm for the GUI
     /// </summary>
-    public class AlarmRow
+    public class AlarmRow : IComparable
     {
         /// <summary>
         /// The height of a row for the alarm
@@ -408,6 +408,28 @@ namespace seng403alarmclock.GUI
             //RemoveFromGUI();
             //AddToGUI();
             alarmText.Text = storedAlarm.GetAlarmTime().ToShortTimeString();
+        }
+        /// <summary>
+        /// Compares two alarm times to prepare for sorting
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public int CompareTo(object obj)
+        {
+
+            Alarm compareAlarm = obj as Alarm;
+            if (obj == null)
+            {
+                return 1;
+            }
+
+            if (compareAlarm.GetAlarmTime() != null)
+            {
+                return this.CompareTo(storedAlarm.GetAlarmTime());
+            }
+
+
+            throw new NotImplementedException();
         }
     }
 }

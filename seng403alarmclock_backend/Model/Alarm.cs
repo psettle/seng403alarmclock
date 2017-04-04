@@ -148,24 +148,30 @@ namespace seng403alarmclock.Model
         /// <param name="days">If weekly, indicates which days of the week the alarm goes off on</param>
         public Alarm(int hour, int minute, bool repeat, string audioFile, bool weekly, List<DayOfWeek> days, string alarmName)
         {
-            alarmName = setAlarmName(alarmName);
-
-            this.hour = hour;
-            this.minute = minute;
-            this.audioFile = audioFile;
-            audio = audioController.getAudio(audioFile);
-
-            IsRepeating = repeat;
-            IsWeekly = weekly;
-
-            if (weekly)
+            try
             {
-                WeeklyCtor(hour, minute, days);
+
+                alarmName = setAlarmName(alarmName);
+
+                this.hour = hour;
+                this.minute = minute;
+                this.audioFile = audioFile;
+                audio = audioController.getAudio(audioFile);
+
+                IsRepeating = repeat;
+                IsWeekly = weekly;
+
+                if (weekly)
+                {
+                    WeeklyCtor(hour, minute, days);
+                }
+                else
+                {
+                    NonWeeklyCtor(hour, minute);
+                }
             }
-            else
-            {
-                NonWeeklyCtor(hour, minute);
-            }
+            catch (NullReferenceException e) { }
+            
         }
 
 
@@ -358,23 +364,29 @@ namespace seng403alarmclock.Model
 
         public void EditAlarm(string name,int hour, int minute, bool repeat, string audioFile, bool weekly, List<DayOfWeek> days)
         {
-            this.alarmName = name;
-            this.hour = hour;
-            this.minute = minute;
-            this.audioFile = audioFile;
-            audio = audioController.getAudio(audioFile);
-
-            IsRepeating = repeat;
-            IsWeekly = weekly;
-
-            if (weekly)
+            try
             {
-                WeeklyCtor(hour, minute, days);
+
+                this.alarmName = name;
+                this.hour = hour;
+                this.minute = minute;
+                this.audioFile = audioFile;
+                audio = audioController.getAudio(audioFile);
+
+                IsRepeating = repeat;
+                IsWeekly = weekly;
+
+                if (weekly)
+                {
+                    WeeklyCtor(hour, minute, days);
+                }
+                else
+                {
+                    NonWeeklyCtor(hour, minute);
+                }
             }
-            else
-            {
-                NonWeeklyCtor(hour, minute);
-            }
+            catch (NullReferenceException e) { }
+           
         }
 
     }

@@ -11,7 +11,7 @@ namespace seng403alarmclock.GUI
     /// <summary>
     /// A representation of an alarm for the GUI
     /// </summary>
-    public class AlarmRow
+    public class AlarmRow 
     {
         /// <summary>
         /// The height of a row for the alarm
@@ -415,6 +415,9 @@ namespace seng403alarmclock.GUI
             //AddToGUI();
             alarmText.Text = storedAlarm.GetAlarmTime().ToShortTimeString();
         }
+
+        
+        
     }
 }
 

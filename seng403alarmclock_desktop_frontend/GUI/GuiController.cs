@@ -69,13 +69,29 @@ namespace seng403alarmclock.GUI
         /// <exception cref="ArgumentException">
         /// If the alarm was set without being cleared already
         /// </exception>
+        
         public override void AddAlarm(Alarm alarm)
         {
             AlarmRow row = new AlarmRow(alarm);
             activeAlarms.Add(alarm, row);
             mainWindow.AddAlarmRow(row);
+            AlarmSort();
+            
         }
+        
+        /// <summary>
+        ///Sorts the alarm panel so that the earliest alarm is on top
+        /// </summary>
+        public void AlarmSort() {
+            List<Alarm> alarmList = new List<Alarm>();
+            foreach (var item in activeAlarms.Keys)
+            {
+                alarmList.Add(item);
+            }
 
+            alarmList.Sort();
+        }
+    
         #region snooze/dismiss set visible/hidden
         //if we have time to kill i'd- like to remove these calls and implement more locally
 
