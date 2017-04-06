@@ -37,7 +37,26 @@ namespace seng403alarmclock_silverlight_frontend.GUI {
 
         private void button1_Click(object sender, RoutedEventArgs e)
         {
+        }
 
+        private void Cancel_MouseEnter(object sender, MouseEventArgs e)
+        {
+            btn_cancelFill.Fill = new SolidColorBrush(Color.FromArgb(255, 17, 17, 17));
+        }
+
+        private void Cancel_MouseLeave(object sender, MouseEventArgs e)
+        {
+            btn_cancelFill.Fill = new SolidColorBrush(Color.FromArgb(255, 56, 56, 56));
+        }
+
+        private void Edit_MouseEnter(object sender, MouseEventArgs e)
+        {
+            btn_editFill.Fill = new SolidColorBrush(Color.FromArgb(255, 17,17,17));
+        }
+
+        private void Edit_MouseLeave(object sender, MouseEventArgs e)
+        {
+            btn_editFill.Fill = new SolidColorBrush(Color.FromArgb(255, 56, 56, 56));
         }
     }
 }
