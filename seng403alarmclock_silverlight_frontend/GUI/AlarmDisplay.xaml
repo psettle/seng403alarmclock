@@ -1,20 +1,31 @@
-﻿<UserControl x:Class="seng403alarmclock_silverlight_frontend.GUI.AlarmDisplay"
+﻿<UserControl
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:sdk="http://schemas.microsoft.com/winfx/2006/xaml/presentation/sdk" x:Class="seng403alarmclock_silverlight_frontend.GUI.AlarmDisplay"
     mc:Ignorable="d"
-    HorizontalAlignment="Stretch" VerticalAlignment="Stretch" d:DesignWidth="300" d:DesignHeight="300">
-    
+    HorizontalAlignment="Stretch" VerticalAlignment="Stretch" d:DesignWidth="300" d:DesignHeight="250">
+
     <Grid x:Name="LayoutRoot" Background="White">
         <Viewbox>
-            <Grid Width="300" Height="300">
-                <Button x:Name="button" Content="id" Width="30" Height="60" Margin="155,129,115,111">
-                    
-                </Button>
+            <Grid Width="300" Height="250" Background="#FFB29595">
+                <Grid.Effect>
+                    <DropShadowEffect Opacity="0.35"/>
+                </Grid.Effect>
+                <!-- <Grid.Projection>
+                    <PlaneProjection RotationX="4"/>
+                </Grid.Projection>
+                -->
+                <sdk:Label x:Name="lbl_alarmName" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="46" Margin="10,10,0,0" VerticalAlignment="Top" Width="215" Content="Alarm Name" HorizontalContentAlignment="Center" FontSize="37.333" FontFamily="Segoe UI Light"/>
+                <sdk:Label x:Name="lbl_alarmTime" HorizontalAlignment="Stretch" VerticalContentAlignment="Top" HorizontalContentAlignment="Center" Margin="10,56,10,0" Content="10:00 PM" VerticalAlignment="Top" Height="74" FontSize="64" FontFamily="Segoe UI Semibold"/>
+                <sdk:Label x:Name="lbl_repeats" HorizontalAlignment="Left" Height="33" Margin="18,130,0,0" VerticalAlignment="Top" Width="87" Content="Repeats:" FontSize="21.333" FontFamily="Segoe UI Semibold"/>
+                <TextBlock x:Name="tb_repeatDays" HorizontalAlignment="Stretch" Margin="36,158,36,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="28" Width="228" FontSize="18.667" FontFamily="Segoe UI Light" Text="Sun, Mon, Tue, Wed, Thur, Fri"/>
+                <Button x:Name="btn_edit" Content="&#xE104;" HorizontalAlignment="Left" Margin="244,10,0,0" VerticalAlignment="Top" Width="46" Height="46" FontFamily="Segoe UI Symbol" FontSize="32" Background="{x:Null}" BorderBrush="Black" Click="button1_Click"/>
+                <Button x:Name="cancel_btn" Content="&#xE107;" HorizontalAlignment="Center" Margin="74,191,75,0" VerticalAlignment="Top" Width="151" Height="49" FontFamily="Segoe UI Symbol" FontSize="32" Background="{x:Null}" BorderBrush="Black"/>
             </Grid>
         </Viewbox>
-        
+
 
     </Grid>
 </UserControl>

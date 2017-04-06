@@ -34,5 +34,10 @@ namespace seng403alarmclock_silverlight_frontend.GUI {
         public void UpdateAlarm() {
             
         }
+
+        private void button1_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
