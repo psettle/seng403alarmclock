@@ -74,7 +74,7 @@ namespace seng403alarmclock_silverlight_frontend.GUI {
                     ret += day.ToString().Substring(0, 3) + ", ";
                 }
 
-                ret = ret.Substring(0, ret.Length - 2) + "  " + days.Count;
+                ret = ret.Substring(0, ret.Length - 2);
             }
 
             return ret;
