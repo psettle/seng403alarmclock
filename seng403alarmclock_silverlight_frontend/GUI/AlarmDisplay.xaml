@@ -19,14 +19,14 @@
                 <sdk:Label x:Name="lbl_alarmTime" HorizontalAlignment="Stretch" VerticalContentAlignment="Top" HorizontalContentAlignment="Center" Margin="10,56,10,0" Content="10:00 PM" VerticalAlignment="Top" Height="74" FontSize="64" FontFamily="Segoe UI Semibold" Foreground="White"/>
                 <sdk:Label x:Name="lbl_repeats" HorizontalAlignment="Left" Height="33" Margin="18,130,0,0" VerticalAlignment="Top" Width="87" Content="Repeats:" FontSize="21.333" FontFamily="Segoe UI Semibold" Foreground="#FFFFFCFC"/>
                 <TextBlock x:Name="tb_repeatDays" HorizontalAlignment="Stretch" Margin="36,158,36,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="28" Width="228" FontSize="18.667" FontFamily="Segoe UI Light" Text="Sun, Mon, Tue, Wed, Thur, Fri" Foreground="#FFFFFCFC"/>
-                <Button x:Name="btn_edit" Template="{x:Null}"  HorizontalAlignment="Left" Margin="244,10,0,0" VerticalAlignment="Top" Width="46" Height="46" FontFamily="Segoe UI Symbol" FontSize="32" Click="button1_Click">
+                <Button x:Name="btn_edit" Template="{x:Null}"  HorizontalAlignment="Left" Margin="244,10,0,0" VerticalAlignment="Top" Width="46" Height="46" FontFamily="Segoe UI Symbol" FontSize="32" Click="btn_edit_Click">
                     <Grid MouseEnter="Edit_MouseEnter" MouseLeave="Edit_MouseLeave">
                         <Rectangle x:Name="btn_editFill" Fill="#FF383838" RadiusX="5" RadiusY="5"/>
                         <sdk:Label Content="&#xE104;" FontSize="35" Foreground="#fff" HorizontalAlignment="Center"/>
                         <Border BorderBrush="#fff" BorderThickness="1" CornerRadius="5"/>
                     </Grid>
                 </Button>
-                <Button x:Name="btn_cancel" Template="{x:Null}"  HorizontalAlignment="Center" Margin="74,191,75,0" VerticalAlignment="Top" Width="151" Height="49" FontFamily="Segoe UI Symbol" FontSize="32" Background="{x:Null}" BorderBrush="Black">
+                <Button x:Name="btn_cancel" Template="{x:Null}"  HorizontalAlignment="Center" Margin="74,191,75,0" VerticalAlignment="Top" Width="151" Height="49" FontFamily="Segoe UI Symbol" FontSize="32" Background="{x:Null}" BorderBrush="Black" Click="btn_cancel_Click">
                     <Grid MouseEnter="Cancel_MouseEnter" MouseLeave="Cancel_MouseLeave">
                         <Rectangle x:Name="btn_cancelFill" Fill="#FF383838" RadiusX="5" RadiusY="5"/>
                         <sdk:Label Content="&#xE107;" FontSize="35" Foreground="#fff" HorizontalAlignment="Center"/>
