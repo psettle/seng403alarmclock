@@ -84,7 +84,7 @@ namespace seng403alarmclock_silverlight_frontend.GUI {
         /// Redraws the UserControl base on  the new state of the alarm object
         /// </summary>
         public void UpdateAlarm() {
-            
+            populateFields();
         }
 
 
