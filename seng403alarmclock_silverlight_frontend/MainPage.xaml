@@ -77,12 +77,13 @@
         <Canvas x:Name="mainWindow">
             <Grid  x:Name="mainPanel"  Height="1050" Width="1920" Background="Black">
 
+                <Image x:Name="SecondHand" HorizontalAlignment="Left" Height="355" Margin="257,268,0,0" VerticalAlignment="Top" Width="100" Source="clockhand.png" Stretch="Fill"/>
+
                 <TextBlock x:Name="time" HorizontalAlignment="Left" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" FontSize="200" Canvas.Left="247" Canvas.Top="303" Margin="92,384,0,0" Foreground="Gray"/>
                 <TextBlock x:Name="date" HorizontalAlignment="Left" TextWrapping="Wrap" Text="date" VerticalAlignment="Top" FontSize="80" Canvas.Left="247" Canvas.Top="303" Margin="110,259,0,0" Foreground="Gray" Height="155" Width="1107"/>
-                
+
                 <TextBlock x:Name="date_analog" Margin="51,384,-31,549" TextWrapping="Wrap" Text="Monday, January 3rd" VerticalAlignment="Center" FontSize="80" TextAlignment="Center" Foreground="DarkGray" Grid.Column="0"/>
 
-				<Image x:Name="SecondHand" HorizontalAlignment="Left" Height="355" Margin="256,268,0,0" VerticalAlignment="Top" Width="100" Source="clockhand.png" Stretch="Fill"/>
                 <Image x:Name="MinuteHand" HorizontalAlignment="Left" Height="355" Margin="129,268,0,0" VerticalAlignment="Top" Width="357" Source="clockhand.png"/>
                 <Image x:Name="HourHand" HorizontalAlignment="Left" Height="200" Margin="207,346,0,0" VerticalAlignment="Top" Width="201" Source="clockhand.png"/>
                 <TextBlock x:Name="AMPM_Analog" HorizontalAlignment="Left" Margin="263,343,0,0" TextWrapping="Wrap" Text="AM" VerticalAlignment="Top" FontSize="18" Foreground="DarkGray" />
