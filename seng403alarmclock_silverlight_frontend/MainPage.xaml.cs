@@ -151,6 +151,20 @@ namespace seng403alarmclock_silverlight_frontend {
             hourTransform.CenterY = (HourHand.Height / 2);
             HourHand.RenderTransform = hourTransform;
             this.date_analog.Text = time.ToLongDateString();
+
+            double MinDeg = 6 * time.Minute;
+            RotateTransform MinTransform = new RotateTransform();
+            MinTransform.Angle = MinDeg;
+            MinTransform.CenterX = (MinuteHand.Width / 2);
+            MinTransform.CenterY = (MinuteHand.Height / 2);
+            MinuteHand.RenderTransform = MinTransform;
+
+            double SecDeg = 6 * time.Second;
+            RotateTransform SecTransform = new RotateTransform();
+            SecTransform.Angle = SecDeg;
+            SecTransform.CenterX = (SecondHand.Width / 2);
+            SecTransform.CenterY = (SecondHand.Height / 2);
+            SecondHand.RenderTransform = SecTransform;
         }
 
         private void Analog_setVisible() {
@@ -159,7 +173,7 @@ namespace seng403alarmclock_silverlight_frontend {
             this.MinuteHand.Visibility = System.Windows.Visibility.Visible;
             this.ClockBack.Visibility = System.Windows.Visibility.Visible;
             this.AMPM_Analog.Visibility = System.Windows.Visibility.Visible;
-
+            this.SecondHand.Visibility = System.Windows.Visibility.Visible;
         }
 
         private void Analog_setHidden() {
@@ -167,6 +181,7 @@ namespace seng403alarmclock_silverlight_frontend {
             this.MinuteHand.Visibility = System.Windows.Visibility.Collapsed;
             this.ClockBack.Visibility = System.Windows.Visibility.Collapsed;
             this.AMPM_Analog.Visibility = System.Windows.Visibility.Collapsed;
+            this.SecondHand.Visibility = System.Windows.Visibility.Collapsed;
         }
 
 
