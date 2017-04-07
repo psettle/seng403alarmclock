@@ -1,4 +1,4 @@
-using seng403alarmclock.GUI;
+﻿using seng403alarmclock.GUI;
 using seng403alarmclock.GUI_Interfaces;
 using seng403alarmclock_silverlight_frontend.GUI;
 using System;
@@ -150,21 +150,6 @@ namespace seng403alarmclock_silverlight_frontend {
             hourTransform.CenterX = (HourHand.Width / 2);
             hourTransform.CenterY = (HourHand.Height / 2);
             HourHand.RenderTransform = hourTransform;
-
-            double MinDeg = 6 * time.Minute;
-            RotateTransform MinTransform = new RotateTransform();
-            MinTransform.Angle = MinDeg;
-            MinTransform.CenterX = (MinuteHand.Width / 2);
-            MinTransform.CenterY = (MinuteHand.Height / 2);
-            MinuteHand.RenderTransform = MinTransform;
-
-            double SecDeg = 6 * time.Second;
-            RotateTransform SecTransform = new RotateTransform();
-            SecTransform.Angle = SecDeg;
-            SecTransform.CenterX = (SecondHand.Width / 2);
-            SecTransform.CenterY = (SecondHand.Height / 2);
-            SecondHand.RenderTransform = SecTransform;
-
             this.date_analog.Text = time.ToLongDateString();
         }
 
@@ -172,7 +157,6 @@ namespace seng403alarmclock_silverlight_frontend {
             this.date_analog.Visibility = System.Windows.Visibility.Visible;
             this.HourHand.Visibility = System.Windows.Visibility.Visible;
             this.MinuteHand.Visibility = System.Windows.Visibility.Visible;
-            this.SecondHand.Visibility = System.Windows.Visibility.Visible;
             this.ClockBack.Visibility = System.Windows.Visibility.Visible;
             this.AMPM_Analog.Visibility = System.Windows.Visibility.Visible;
 
@@ -181,7 +165,6 @@ namespace seng403alarmclock_silverlight_frontend {
         private void Analog_setHidden() {
             this.HourHand.Visibility = System.Windows.Visibility.Collapsed;
             this.MinuteHand.Visibility = System.Windows.Visibility.Collapsed;
-            this.SecondHand.Visibility = System.Windows.Visibility.Collapsed;
             this.ClockBack.Visibility = System.Windows.Visibility.Collapsed;
             this.AMPM_Analog.Visibility = System.Windows.Visibility.Collapsed;
         }
