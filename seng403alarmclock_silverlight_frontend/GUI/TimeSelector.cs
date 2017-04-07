@@ -88,8 +88,8 @@ namespace seng403alarmclock_silverlight_frontend.GUI {
                 hostWindow.GetMinuteUpButton()
             }) {
                 DarkButton tempButton = new DarkButton(button);
-                tempButton.SetIdleColors(Colors.DarkGray, Colors.Black);
-                tempButton.SetActiveColors(Colors.Black, Colors.DarkGray);
+                tempButton.SetIdleColors(Color.FromArgb(0xFF, 0x24, 0x24, 0x24), Colors.White);
+                tempButton.SetActiveColors(Colors.Black, Colors.White);
             }
         }
 

@@ -77,6 +77,7 @@ namespace seng403alarmclock {
         /// Assigns the platform dependent controllers at runtime
         /// </summary>
         private void AssignPlatformControllers() {
+            AbstractAudioController.SetController(new AudioController());
             AbstractGuiController.SetController(new GuiController());
             AbstractDataDriver.addType(typeof(List<Alarm>));
             AbstractDataDriver.addType(typeof(Alarm));
@@ -84,7 +85,7 @@ namespace seng403alarmclock {
             AbstractDataDriver.Instance = new DataDriver();
 
 
-            AbstractAudioController.SetController(new AudioController());
+            
         }
 
         /// <summary>

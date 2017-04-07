@@ -172,7 +172,7 @@ namespace seng403alarmclock.GUI {
         /// <summary>
         /// Updates an alarm display on the gui
         /// </summary>
-        public override void EditAlarm(Alarm alarm, List<Alarm> alarmList) {
+        public override void EditAlarm(Alarm alarm) {
             UpdateAlarm(alarm);
         }
 
