@@ -77,8 +77,7 @@ namespace seng403alarmclock.GUI_Interfaces {
         /// Updates the alarm being displayed
         /// </summary>
         /// <param name="alarm">The alarm to update</param>
-        /// <param name="alarmList">The list of all alarms in the system</param>
-        abstract public void EditAlarm(Alarm alarm, List<Alarm> allAlarms);
+        abstract public void EditAlarm(Alarm alarm);
 
         /// <summary>
         /// Controls if the GUI has a snooze option available

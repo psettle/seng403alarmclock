@@ -350,8 +350,10 @@ namespace seng403alarmclock.GUI
         /// </summary>
         public void RemoveFromGUI()
         {
-            parent.Children.Remove(element);
-            this.parent = null;
+            if(parent != null) {
+                parent.Children.Remove(element);
+                this.parent = null;
+            }
         }
 
         /// <summary>
@@ -404,10 +406,10 @@ namespace seng403alarmclock.GUI
 
         public void UpdateAlarm()
         {
-            // this.build();
+            this.build();
             //RemoveFromGUI();
             //AddToGUI();
-            alarmText.Text = storedAlarm.GetAlarmTime().ToShortTimeString();
+            //alarmText.Text = storedAlarm.GetAlarmTime().ToShortTimeString();
         }
         /// <summary>
         /// Compares two alarm times to prepare for sorting
@@ -417,19 +419,13 @@ namespace seng403alarmclock.GUI
         public int CompareTo(object obj)
         {
 
-            Alarm compareAlarm = obj as Alarm;
-            if (obj == null)
+            AlarmRow compareAlarmRow = obj as AlarmRow;
+            if (compareAlarmRow == null)
             {
                 return 1;
             }
 
-            if (compareAlarm.GetAlarmTime() != null)
-            {
-                return this.CompareTo(storedAlarm.GetAlarmTime());
-            }
-
-
-            throw new NotImplementedException();
+            return this.getAlarm().GetAlarmTime().CompareTo(compareAlarmRow.getAlarm().GetAlarmTime());
         }
     }
 }

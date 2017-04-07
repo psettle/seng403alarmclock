@@ -84,7 +84,7 @@
 
                 <Image x:Name="MinuteHand" HorizontalAlignment="Left" Height="355" Margin="129,268,0,0" VerticalAlignment="Top" Width="357" Source="clockhand.png"/>
                 <Image x:Name="HourHand" HorizontalAlignment="Left" Height="200" Margin="207,346,0,0" VerticalAlignment="Top" Width="201" Source="clockhand.png"/>
-                <TextBlock x:Name="AMPM_Analog" HorizontalAlignment="Left" Margin="263,343,0,0" TextWrapping="Wrap" Text="AM" VerticalAlignment="Top" FontSize="18" Foreground="#242424" />
+                <TextBlock x:Name="AMPM_Analog" HorizontalAlignment="Left" Margin="263,343,0,0" TextWrapping="Wrap" Text="AM" VerticalAlignment="Top" FontSize="18" Foreground="White" />
                 <Image x:Name="ClockBack" HorizontalAlignment="Left" Height="431" Margin="92,230,0,0" VerticalAlignment="Top" Width="511" Source="bg1.png"/>
 
 

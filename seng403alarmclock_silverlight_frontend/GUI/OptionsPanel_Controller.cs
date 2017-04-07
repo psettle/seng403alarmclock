@@ -68,6 +68,7 @@ namespace seng403alarmclock_silverlight_frontend.GUI
             GuiEventCaller.GetCaller().NotifySnoozePeriodChangeRequested(snooze_duration_minutes);
             this.mainControl.sDuration_Label.Content = snooze_duration_minutes.ToString();
 			this.timeController = new TimeSelector(this, true);
+
 			this.dropdownSelectorController = new DropdownSelectorController(mainControl.timezoneComboBox);
 			
 			InitDefaultTimeZone();

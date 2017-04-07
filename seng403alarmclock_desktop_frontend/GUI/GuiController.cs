@@ -74,22 +74,39 @@ namespace seng403alarmclock.GUI
         {
             AlarmRow row = new AlarmRow(alarm);
             activeAlarms.Add(alarm, row);
-            mainWindow.AddAlarmRow(row);
-            AlarmSort();
+            RenderAlarms();
             
         }
         
         /// <summary>
         ///Sorts the alarm panel so that the earliest alarm is on top
         /// </summary>
-        public void AlarmSort() {
-            List<Alarm> alarmList = new List<Alarm>();
-            foreach (var item in activeAlarms.Keys)
+        public List<AlarmRow> AlarmSort() {
+            List<AlarmRow> alarmList = new List<AlarmRow>();
+            foreach (AlarmRow item in activeAlarms.Values)
             {
                 alarmList.Add(item);
             }
 
             alarmList.Sort();
+
+            return alarmList;
+        }
+
+        /// <summary>
+        /// Rerenders all alarm rows
+        /// </summary>
+        private void RenderAlarms() {
+            List<AlarmRow> toDisplay = AlarmSort();
+
+            foreach(AlarmRow row in toDisplay) {
+                row.RemoveFromGUI();
+            }
+
+            foreach (AlarmRow row in toDisplay) {
+                row.UpdateAlarm();
+                mainWindow.AddAlarmRow(row);
+            }
         }
     
         #region snooze/dismiss set visible/hidden
@@ -140,6 +157,7 @@ namespace seng403alarmclock.GUI
 
             AlarmRow row = this.GetAlarmRow(alarm);
             row.Update();
+            RenderAlarms();
         }
 
         /// <summary>
@@ -156,6 +174,7 @@ namespace seng403alarmclock.GUI
             AlarmRow row = this.GetAlarmRow(alarm);
             mainWindow.RemoveAlarmRow(row, wasPreempted);
             activeAlarms.Remove(alarm);
+            RenderAlarms();
         }
         
         /// <summary>
@@ -166,6 +185,7 @@ namespace seng403alarmclock.GUI
             AlarmRow row = this.GetAlarmRow(alarm);
             mainWindow.RemoveAlarmRowImmediately(row);
             activeAlarms.Remove(alarm);
+            RenderAlarms();
         }
 
         /// <summary>
@@ -173,17 +193,8 @@ namespace seng403alarmclock.GUI
         /// </summary>
         /// <param name="alarm">The alarm to update</param>
         /// <param name="alarmList">The list of all alarms in the system</param>
-        public override void EditAlarm(Alarm alarm, List<Alarm> alarmList) {
-            AlarmRow row = this.GetAlarmRow(alarm);
-            //AlarmRow nRow = new AlarmRow(alarm);
-            row.UpdateAlarm();
-            foreach (Alarm a in alarmList) {
-                RemoveAlarmNow(a);
-            }
-
-            foreach (Alarm a in alarmList) {
-                AddAlarm(a);
-            }
+        public override void EditAlarm(Alarm alarm) {
+            RenderAlarms();
         }
 
         /// <summary>

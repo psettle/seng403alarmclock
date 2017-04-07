@@ -35,6 +35,7 @@ namespace seng403alarmclock_silverlight_frontend.GUI {
             internalButton = targetButton;
             internalButton.MouseEnter += InternalButton_MouseEnter;
             internalButton.MouseLeave += InternalButton_MouseLeave;
+            Render();
         }
 
         /// <summary>
