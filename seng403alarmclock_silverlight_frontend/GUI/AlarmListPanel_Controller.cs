@@ -126,6 +126,9 @@ namespace seng403alarmclock_silverlight_frontend.GUI
 
             //tell it to update
             display.UpdateAlarm();
+
+            //redraw
+            RenderCurrentDisplays();
         }
 
         #endregion
@@ -237,6 +240,9 @@ namespace seng403alarmclock_silverlight_frontend.GUI
         /// Re draws the alarm list, putting the correct displays in the available slots
         /// </summary>
         private void RenderCurrentDisplays() {
+            //sort the alarms to render
+            alarmDisplayIndexed.Sort();
+
             //iterate over all slots and empty them
             for (int i = 1; i <= slotCount; i++) {
                 Grid targetSlot = GetDisplaySlot(i);

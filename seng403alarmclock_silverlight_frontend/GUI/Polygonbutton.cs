@@ -15,8 +15,14 @@ namespace seng403alarmclock_silverlight_frontend.GUI {
     /// </summary>
     public class PolygonButton {
 
+        /// <summary>
+        /// The scale transform applied to the button
+        /// </summary>
         private ScaleTransform scale = new ScaleTransform();
 
+        /// <summary>
+        /// the translation applied to the button
+        /// </summary>
         private TranslateTransform translate = new TranslateTransform();
 
         /// <summary>

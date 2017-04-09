@@ -99,9 +99,6 @@ namespace seng403alarmclock.GUI_Interfaces {
         /// Called when the model wants to shut down the program
         /// </summary>
         abstract public void Shutdown();
-
-       
-       
         
     }
 }

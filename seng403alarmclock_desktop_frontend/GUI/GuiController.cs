@@ -229,31 +229,25 @@ namespace seng403alarmclock.GUI
         /// <exception cref="AlarmNotSetException">
         /// If the provided alarm was never used to create a row, this exception will be thrown
         /// </exception>
-        private AlarmRow GetAlarmRow(Alarm alarm)
-        {
+        private AlarmRow GetAlarmRow(Alarm alarm) {
             AlarmRow toReturn = null;
 
-            if (this.activeAlarms.TryGetValue(alarm, out toReturn))
-            {
+            if (this.activeAlarms.TryGetValue(alarm, out toReturn)) {
                 return toReturn;
-            }
-            else
-            {
+            } else {
                 throw new AlarmNotSetException("The requested alarm did not exist");
             }
         }
 
-        public void SetDisplayMode(bool analog)
-        {
-            if (analog)
-            {
+        /// <summary>
+        /// Sets if the analog or digital clock is shown
+        /// </summary>
+        public void SetDisplayMode(bool analog) {
+            if (analog) {
                 mainWindow.SetAnalog();
-            }
-            else
-            {
+            } else {
                 mainWindow.SetDigital();
             }
-
         }
 
         /// <summary>

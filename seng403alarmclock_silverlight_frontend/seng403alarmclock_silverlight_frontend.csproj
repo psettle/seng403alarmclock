@@ -84,7 +84,6 @@
       <DependentUpon>AlarmDisplay.xaml</DependentUpon>
     </Compile>
     <Compile Include="GUI\AlarmNotSetException.cs" />
-    <Compile Include="GUI\AlarmRow.cs" />
     <Compile Include="GUI\DarkButton.cs" />
     <Compile Include="GUI\DropdownSelectorController.cs" />
     <Compile Include="GUI\GuiController.cs" />

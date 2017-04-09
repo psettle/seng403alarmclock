@@ -90,7 +90,6 @@ namespace seng403alarmclock.Model
         public bool IsRinging
         {
             get { return (status == AlarmState.Ringing); }
-            
         }
 
         public bool IsSnoozing

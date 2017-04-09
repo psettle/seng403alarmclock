@@ -4,11 +4,6 @@ using System.Net;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
-using System.Windows.Ink;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Shapes;
 using seng403alarmclock.GUI_Interfaces;
 using seng403alarmclock.Model;
 using seng403alarmclock_silverlight_frontend;
@@ -101,8 +96,7 @@ namespace seng403alarmclock.GUI {
         /// <summary>
         /// closes the panel, the equivalent of clicking the cancel button
         /// </summary>
-        public void CloseAddEditPanel()
-        {
+        public void CloseAddEditPanel() {
             addEditWindow.CloseAddAlarmPanel();
         }
 
@@ -117,26 +111,21 @@ namespace seng403alarmclock.GUI {
 		    /// <summary>
         /// Closes the options panel
         /// </summary>
-        public void CloseOptionsPanel()
-        {
+        public void CloseOptionsPanel()  {
             optionsPanelController.CloseOptionsPanel();
         }
-
-        
 
         /// <summary>
         /// opens the alarmlist panel
         /// </summary>
-        public void OpenAlarmListPanel()
-        {
+        public void OpenAlarmListPanel() {
             alarmListPanelController.OpenAlarmListPanel();
         }
 
         /// <summary>
         /// closes the alarmlist panel
         /// </summary>
-        public void CloseAlarmListPanel()
-        {
+        public void CloseAlarmListPanel() {
             alarmListPanelController.CloseAlarmListPanel();
         }
 
@@ -144,21 +133,21 @@ namespace seng403alarmclock.GUI {
 
         #region Custom Time & Timezone functionality
 
-            /// <summary>
-            /// populates the options panel controller element that controls custom time
-            /// </summary>
-            public void PopulateCustomTimeUI(){
-                optionsPanelController.SetCustomTime_displayedInOptions(now.Hour, now.Minute);
-		    }
+        /// <summary>
+        /// populates the options panel controller element that controls custom time
+        /// </summary>
+        public void PopulateCustomTimeUI(){
+            optionsPanelController.SetCustomTime_displayedInOptions(now.Hour, now.Minute);
+		}
 		
-		    /// <summary>
-		    /// sets the timezone offset variable in optionsPanelController
-		    /// </summary>
-            public override void SetActiveTimeZoneForDisplay(double localOffset) {
-                OptionsPanel_Controller.timezoneOffsetHours = localOffset;
-            }
+		/// <summary>
+		/// sets the timezone offset variable in optionsPanelController
+		/// </summary>
+        public override void SetActiveTimeZoneForDisplay(double localOffset) {
+            OptionsPanel_Controller.timezoneOffsetHours = localOffset;
+        }
 		
-		    #endregion
+		#endregion
 
 		    #region Add, Edit, Remove Alarms
 		
@@ -186,8 +175,11 @@ namespace seng403alarmclock.GUI {
 		
 		#endregion
 
-		    #region Snooze & Dismiss
+		#region Snooze & Dismiss
 		
+        /// <summary>
+        /// Sets the visibility of the dismiss button
+        /// </summary>
         public override void SetDismissAvailable(bool available) {
             if(available) {
                 mainPage.Dismiss.Visibility = Visibility.Visible;
@@ -196,6 +188,9 @@ namespace seng403alarmclock.GUI {
             }
 		}
 
+        /// <summary>
+        /// Sets the visibility of the snooze button
+        /// </summary>
         public override void SetSnoozeAvailable(bool available) {
             if (available) {
                 mainPage.Snooze.Visibility = Visibility.Visible;
@@ -211,12 +206,15 @@ namespace seng403alarmclock.GUI {
         /// </summary>
         /// <param name="time"></param>
         public override void SetTime(DateTime time) {
-   			    now = time;
-			      mainPage.SetTime(time);
+            now = time;
+	        mainPage.SetTime(time);
         }
 		
+        /// <summary>
+        /// Does all required shutdown functions
+        /// </summary>
         public override void Shutdown() {
-            
+            //the shutdown policy for the silverlight version is 'crash or quit, we don't care'
         }
 
         /// <summary>
@@ -227,15 +225,13 @@ namespace seng403alarmclock.GUI {
             alarmListPanelController.UpdateAlarm(alarm);
         }
 		
-		    /// <summary>
+		/// <summary>
         /// sets the GUI display mode to analog if true, and digital if false
         /// </summary>
         public void SetDisplayMode(bool analog) {
             if (analog) {
                 mainPage.SetAnalog();
-            }
-            else
-            {
+            } else {
                 mainPage.SetDigital();
             }
         }

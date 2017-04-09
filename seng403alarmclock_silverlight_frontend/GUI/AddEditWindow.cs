@@ -155,8 +155,7 @@ namespace seng403alarmclock_silverlight_frontend.GUI {
                 GuiEventCaller.GetCaller().NotifyAlarmEditRequest(alarmBeingEdited, name, hour, minute, repeat, audioFile, repeat, days);
             }
 
-            //close the panel
-            SetPanelState(false);
+            GuiController.GetController().OpenAlarmListPanel();
         }
 
         /// <summary>

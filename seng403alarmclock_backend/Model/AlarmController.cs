@@ -95,15 +95,18 @@ namespace seng403alarmclock.Model
         /// <summary>
         /// cycles through list of alarms to see which is ready to go off, then calls TriggerAlarm on each of them
         /// </summary>
-        private void CheckAlarms(DateTime now)
-        {
-            if (CheckIfSnoozeOver(now))
-                for (int i = alarmList.Count - 1; i >= 0; i--)
-                    if (CheckIfAlarmIsDue(alarmList[i], now) && (!alarmList[i].IsRinging))
-                        TriggerAlarm(alarmList[i]);                    
-                    else
-                        UpdateGUI_SnoozeRemaining_minutes(now);
-                
+        private void CheckAlarms(DateTime now) {
+            //if the snooze isn't over, don't trigger alarms
+            if (!CheckIfSnoozeOver(now)) {
+                return;
+            }
+
+            for (int i = alarmList.Count - 1; i >= 0; i--) {
+                if (CheckIfAlarmIsDue(alarmList[i], now) && (!alarmList[i].IsRinging)) {
+                    TriggerAlarm(alarmList[i]);
+                }   
+            }   
+               
         }
 
         /// <summary>
@@ -139,13 +142,22 @@ namespace seng403alarmclock.Model
         /// <summary>
         /// snooze alarms from being able to ring for snoozePeriod_minutes
         /// </summary>
-        public void SnoozeRequested()
-        {
+        public void SnoozeRequested() {
             DateTime now = TimeFetcher.getCurrentTime();
-            if (CheckIfSnoozeOver(now))
-            {
-                updateSnoozeUntilTime(now);
-                guiController.SetSnoozeAvailable(false);              
+            if (!CheckIfSnoozeOver(now)) {
+                //dont start a new snooze if things are still snoozing
+                return;
+            }
+
+
+            updateSnoozeUntilTime(now);
+            guiController.SetSnoozeAvailable(false);
+            guiController.SetDismissAvailable(false);
+            //iterate over each alarm and if it is ringing, tell it to snooze
+            foreach (Alarm alarm in alarmList) {
+                if(alarm.IsRinging) {
+                    alarm.Status = AlarmState.Off;
+                }
             }
         }
 
@@ -165,27 +177,27 @@ namespace seng403alarmclock.Model
         #region helper functions
         //these are mostly to make the above functions more readable
 
-        private bool CheckIfAlarmIsDue(Alarm alarm, DateTime now)
-        {
+        /// <summary>
+        /// Returns true if alarm should be going off right now
+        /// </summary>
+        private bool CheckIfAlarmIsDue(Alarm alarm, DateTime now) {
             return (alarm.GetAlarmTime().CompareTo(now) <= 0);
         }
 
-        private void updateSnoozeUntilTime(DateTime now)
-        {
+        /// <summary>
+        /// Sets the snooze until time for this controller
+        /// to snoozePeriod_minutes after now
+        private void updateSnoozeUntilTime(DateTime now) {
             //changed this so it doesn't allways go off at an exact minute, its weird if you hit snooze at 11:59:59 and the snooze ends immedietly - Patrick
             this.snoozeUntilTime = now.AddMinutes(snoozePeriod_minutes);
-            AbstractAudioController.GetController().endAllAlarms();
+            
         }
 
-        private bool CheckIfSnoozeOver(DateTime currentTime)
-        {
+        /// <summary>
+        /// Returns true when the snooze is over
+        /// </summary>
+        private bool CheckIfSnoozeOver(DateTime currentTime) {
             return (this.snoozeUntilTime.CompareTo(currentTime) <= 0);
-        }
-
-        private void UpdateGUI_SnoozeRemaining_minutes(DateTime now)
-        {
-            //This does a different thing than you think it does - Patrick
-            //this.guiController.SetSnoozeDisplayTime(this.snoozeUntilTime.Subtract(now).Minutes);
         }
 
         #endregion
@@ -213,11 +225,6 @@ namespace seng403alarmclock.Model
         public void SetupMainWindow() {
             //attempt to load the alarm list from data and push them onto the GUI
             try {
-                /*int alarmCount = (int)AbstractDataDriver.Instance.GetVariable("AlarmCount");
-                for(int i = 0; i < alarmCount; i++) {
-                    Alarm alarm = (Alarm)AbstractDataDriver.Instance.GetVariable("Alarm" + i);
-                    alarmList.Add(alarm);
-                }*/
                 alarmList = (List<Alarm>)AbstractDataDriver.Instance.GetVariable("AlarmList");
                 foreach (Alarm alarm in alarmList)  {
                     guiController.AddAlarm(alarm);
@@ -237,11 +244,6 @@ namespace seng403alarmclock.Model
             }
             AbstractDataDriver.Instance.SetVariable("AlarmList", alarmList);
 
-            //save the alarm list to the data driver
-            /*AbstractDataDriver.Instance.SetVariable("AlarmCount", alarmList.Count);
-            for(int i = 0; i < alarmList.Count; i++) {
-                AbstractDataDriver.Instance.SetVariable("Alarm" + i, alarmList[i]);
-            }*/
             AbstractDataDriver.Instance.Shutdown(); //rewrite the save file, to handle unexpected shutdown
         }
 

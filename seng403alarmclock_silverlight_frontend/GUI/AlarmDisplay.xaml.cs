@@ -14,7 +14,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 
 namespace seng403alarmclock_silverlight_frontend.GUI {
-    public partial class AlarmDisplay : UserControl {
+    public partial class AlarmDisplay : UserControl, IComparable {
 
         /// <summary>
         /// The alarm to display
@@ -116,6 +116,19 @@ namespace seng403alarmclock_silverlight_frontend.GUI {
         private void btn_edit_Click(object sender, RoutedEventArgs e)
         {
             GuiController.GetController().OpenEditAlarmPanel(this.alarm);
+        }
+
+        /// <summary>
+        /// Compares this alarm display using the target time of the contained alarm
+        /// </summary>
+        public int CompareTo(object obj) {
+            if(obj.GetType() != typeof(AlarmDisplay)) {
+                return 0;
+            }
+
+            AlarmDisplay toCompareWith = (AlarmDisplay)obj;
+
+            return alarm.GetAlarmTime().CompareTo(toCompareWith.alarm.GetAlarmTime());
         }
     }
 }
