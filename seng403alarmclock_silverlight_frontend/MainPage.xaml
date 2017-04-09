@@ -90,14 +90,14 @@
                 <Image x:Name="ClockBack" HorizontalAlignment="Left" Height="431" Margin="92,230,0,0" VerticalAlignment="Top" Width="511" Source="bg1.png"/>
 
 
-                <Button x:Name="Dismiss" Height="76" Margin="670,885,0,0" Template="{x:Null}" VerticalAlignment="Top" HorizontalAlignment="Left" Width="171">
+                <Button x:Name="Dismiss" Height="76" Margin="682,680,0,0" Template="{x:Null}" VerticalAlignment="Top" HorizontalAlignment="Left" Width="171">
                     <Grid>
                         <Rectangle Fill="Black" RadiusX="5" RadiusY="5"/>
                         <sdk:Label Content="Dismiss" FontSize="35" Foreground="#242424" HorizontalAlignment="Center"/>
                         <Border BorderBrush="#242424" BorderThickness="1" CornerRadius="5"/>
                     </Grid>
                 </Button>
-                <Button x:Name="Snooze" Height="76" Margin="976,884,0,0" Template="{x:Null}" VerticalAlignment="Top" HorizontalAlignment="Left" Width="171">
+                <Button x:Name="Snooze" Height="76" Margin="975,680,0,0" Template="{x:Null}" VerticalAlignment="Top" HorizontalAlignment="Left" Width="171">
                     <Grid>
                         <Rectangle Fill="Black" RadiusX="5" RadiusY="5"/>
                         <sdk:Label Content="Snooze" FontSize="35" Foreground="#242424" HorizontalAlignment="Center"/>
