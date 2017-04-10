@@ -117,14 +117,18 @@ namespace seng403alarmclock_silverlight_frontend.GUI {
             }
 
         }
-
+        /// <summary>
+        /// Play the ringing animation
+        /// </summary>
         public void StartRinging()
         {
             ringing = true;
            
             CellBackgroundChangeStory.Begin();
         }
-
+        /// <summary>
+        /// stop the ringing animation
+        /// </summary>
         public void StopRinging()
         {
             ringing = false;
