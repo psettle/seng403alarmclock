@@ -158,7 +158,12 @@ namespace seng403alarmclock_silverlight_frontend.GUI {
 
         private void btn_cancel_Click(object sender, RoutedEventArgs e)
         {
-            GuiEventCaller.GetCaller().NotifyCancel(this.alarm, false);
+            if(alarm.IsRinging) {
+                GuiEventCaller.GetCaller().NotifyDismiss();
+            } else {
+                GuiEventCaller.GetCaller().NotifyCancel(this.alarm, false);
+            }
+            
         }
 
         private void btn_edit_Click(object sender, RoutedEventArgs e)
