@@ -153,10 +153,12 @@ namespace seng403alarmclock.Model
             updateSnoozeUntilTime(now);
             guiController.SetSnoozeAvailable(false);
             guiController.SetDismissAvailable(false);
+            
             //iterate over each alarm and if it is ringing, tell it to snooze
             foreach (Alarm alarm in alarmList) {
                 if(alarm.IsRinging) {
                     alarm.Status = AlarmState.Off;
+                    guiController.UpdateAlarm(alarm);
                 }
             }
         }

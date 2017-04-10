@@ -12,6 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace seng403alarmclock_silverlight_frontend.GUI {
     public partial class AlarmDisplay : UserControl, IComparable {
@@ -20,7 +21,14 @@ namespace seng403alarmclock_silverlight_frontend.GUI {
         /// The alarm to display
         /// </summary>
         private Alarm alarm = null;
-
+        /// <summary>
+        /// some storyboard
+        /// </summary>
+        private Storyboard CellBackgroundChangeStory = new Storyboard();
+        /// <summary>
+        /// boolean to keep track of the alarm state
+        /// </summary>
+        private bool ringing = false;
         /// <summary>
         /// Creates a new alarm display object for displaying alarm
         /// </summary>
@@ -28,25 +36,36 @@ namespace seng403alarmclock_silverlight_frontend.GUI {
         public AlarmDisplay(Alarm alarm) {
             InitializeComponent();
             this.alarm = alarm;
-            populateFields();
+            PopulateFields();
+            ColorAnimation animation;
+            animation = new ColorAnimation();
+            animation.To = Colors.Red;
+            animation.From = Colors.DarkGray;
+            animation.Duration = new Duration(TimeSpan.FromSeconds(0.5));
+            //animation.AutoReverse = true;
+            animation.RepeatBehavior = RepeatBehavior.Forever;
+            PropertyPath colorTargetPath = new PropertyPath("(colouredGrid.Background).(SolidColorBrush.Color)");
+            Storyboard.SetTarget(animation, colouredGrid);
+            Storyboard.SetTargetProperty(animation, colorTargetPath);
+            CellBackgroundChangeStory.Children.Add(animation);
 
         }
         /// <summary>
         ///  Throws everything in the proper fields
         /// </summary>
-        private void populateFields()
+        private void PopulateFields()
         {
             
             this.lbl_alarmName.Content = alarm.alarmName;
             this.lbl_alarmTime.Content = alarm.GetAlarmTime().ToShortTimeString();
-            this.tb_repeatDays.Text = createDayOfWeekString();
+            this.tb_repeatDays.Text = CreateDayOfWeekString();
         }
 
         /// <summary>
         /// Makes a string to represent what days of the week the alarm repeats
         /// </summary>
         /// <returns> The string</returns>
-        private string createDayOfWeekString()
+        private string CreateDayOfWeekString()
         {
             List<DayOfWeek> days = alarm.GetWeekdays();
             bool[] dayBool = new bool[10];
@@ -84,7 +103,32 @@ namespace seng403alarmclock_silverlight_frontend.GUI {
         /// Redraws the UserControl base on  the new state of the alarm object
         /// </summary>
         public void UpdateAlarm() {
-            populateFields();
+            if (alarm.IsRinging)
+                StartRinging();
+            else if (alarm.IsSnoozing)
+            {
+                StopRinging();
+            }
+            else {
+                if (ringing == true)
+                    StopRinging();
+                PopulateFields();
+
+            }
+
+        }
+
+        public void StartRinging()
+        {
+            ringing = true;
+           
+            CellBackgroundChangeStory.Begin();
+        }
+
+        public void StopRinging()
+        {
+            ringing = false;
+            CellBackgroundChangeStory.Stop();
         }
 
 
@@ -117,6 +161,8 @@ namespace seng403alarmclock_silverlight_frontend.GUI {
         {
             GuiController.GetController().OpenEditAlarmPanel(this.alarm);
         }
+
+
 
         /// <summary>
         /// Compares this alarm display using the target time of the contained alarm

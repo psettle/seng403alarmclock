@@ -9,7 +9,7 @@
 
     <Grid x:Name="LayoutRoot" Background="White">
         <Viewbox>
-            <Grid Width="300" Height="250" Background="#FF191717" >
+            <Grid x:Name="colouredGrid" Width="300" Height="250" Background="#FF191717" >
                 <Grid.Effect>
                     <DropShadowEffect Opacity="0.35"/>
                 </Grid.Effect>
