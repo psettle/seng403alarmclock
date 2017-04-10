@@ -62,7 +62,6 @@ namespace seng403alarmclock_silverlight_frontend.GUI
         public OptionsPanel_Controller(MainPage mainControl)
         {
             this.mainControl = mainControl;
-            this.weekdayControl = new WeekdaySelector(mainControl);
             this.isPanelOpen = false;
             snooze_duration_minutes = 1;
             GuiEventCaller.GetCaller().NotifySnoozePeriodChangeRequested(snooze_duration_minutes);
@@ -76,7 +75,6 @@ namespace seng403alarmclock_silverlight_frontend.GUI
             mainControl.sDuration_dec.Click += SDuration_MinuteDown_Click;
             mainControl.sDuration_inc.Click += SDuration_MinuteUp_Click;
             mainControl.cdDatePicker.SelectedDateChanged += CdDatePicker_SelectedDateChanged;
-            weekdayControl.SetVisibleState(Visibility.Collapsed);
 
             mainControl.timezoneComboBox.SelectionChanged += Timezone_SelectionChanged;
 
