@@ -123,7 +123,7 @@ namespace seng403alarmclock_silverlight_frontend.GUI {
         public void StartRinging()
         {
             ringing = true;
-           
+            GuiController.GetController().OpenAlarmListPanel();
             CellBackgroundChangeStory.Begin();
         }
         /// <summary>
