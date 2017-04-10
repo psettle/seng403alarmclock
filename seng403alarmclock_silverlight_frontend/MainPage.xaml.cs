@@ -165,6 +165,8 @@ namespace seng403alarmclock_silverlight_frontend {
             SecTransform.CenterX = (SecondHand.Width / 2);
             SecTransform.CenterY = (SecondHand.Height / 2);
             SecondHand.RenderTransform = SecTransform;
+
+            this.AMPM_Analog.Text = time.Hour >= 12 ? "PM" : "AM";
         }
 
         private void Analog_setVisible() {
