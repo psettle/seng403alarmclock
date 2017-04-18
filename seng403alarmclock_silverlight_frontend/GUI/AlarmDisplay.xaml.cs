@@ -29,6 +29,8 @@ namespace seng403alarmclock_silverlight_frontend.GUI {
         /// boolean to keep track of the alarm state
         /// </summary>
         private bool ringing = false;
+
+        private object garbageIcon = null;
         /// <summary>
         /// Creates a new alarm display object for displaying alarm
         /// </summary>
@@ -48,6 +50,8 @@ namespace seng403alarmclock_silverlight_frontend.GUI {
             Storyboard.SetTarget(animation, colouredGrid);
             Storyboard.SetTargetProperty(animation, colorTargetPath);
             CellBackgroundChangeStory.Children.Add(animation);
+
+            garbageIcon = CancelText.Content;
 
         }
         /// <summary>
@@ -103,28 +107,28 @@ namespace seng403alarmclock_silverlight_frontend.GUI {
         /// Redraws the UserControl base on  the new state of the alarm object
         /// </summary>
         public void UpdateAlarm() {
-            if (alarm.IsRinging)
+            if (alarm.IsRinging) {
                 StartRinging();
-            else if (alarm.IsSnoozing)
-            {
+            } else if (alarm.IsSnoozing) {
                 StopRinging();
-            }
-            else {
-                if (ringing == true)
+            } else {
+                if (ringing == true) {
                     StopRinging();
+                }
+                   
                 PopulateFields();
-
             }
 
         }
         /// <summary>
         /// Play the ringing animation
         /// </summary>
-        public void StartRinging()
-        {
+        public void StartRinging() {
             ringing = true;
             GuiController.GetController().OpenAlarmListPanel();
             CellBackgroundChangeStory.Begin();
+            
+            CancelText.Content = "Dismiss";
         }
         /// <summary>
         /// stop the ringing animation
@@ -133,6 +137,8 @@ namespace seng403alarmclock_silverlight_frontend.GUI {
         {
             ringing = false;
             CellBackgroundChangeStory.Stop();
+
+            CancelText.Content = garbageIcon;
         }
 
 

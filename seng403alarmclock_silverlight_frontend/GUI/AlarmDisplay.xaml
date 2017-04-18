@@ -29,7 +29,7 @@
                 <Button x:Name="btn_cancel" Template="{x:Null}"  HorizontalAlignment="Center" Margin="74,191,75,0" VerticalAlignment="Top" Width="151" Height="49" FontFamily="Segoe UI Symbol" FontSize="32" Background="{x:Null}" BorderBrush="Black" Click="btn_cancel_Click">
                     <Grid MouseEnter="Cancel_MouseEnter" MouseLeave="Cancel_MouseLeave">
                         <Rectangle x:Name="btn_cancelFill" Fill="#FF383838" RadiusX="5" RadiusY="5"/>
-                        <sdk:Label Content="&#xE107;" FontSize="35" Foreground="#fff" HorizontalAlignment="Center"/>
+                        <sdk:Label x:Name="CancelText" Content="&#xE107;" FontSize="35" Foreground="#fff" HorizontalAlignment="Center"/>
                         <Border BorderBrush="#fff" BorderThickness="1" CornerRadius="5"/>
                     </Grid>
                 </Button>
