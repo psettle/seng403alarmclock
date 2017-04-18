@@ -26,7 +26,7 @@ namespace seng403alarmclock.GUI
         private static double borderOffset_width;
         private static double borderOffset_height;
 
-        private static int snooze_period_minutes = 1;
+        private static int snooze_period_minutes = 5;
 
         /// <summary>
         /// The class that controls the time selecting widget on this window

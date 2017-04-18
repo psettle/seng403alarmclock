@@ -24,9 +24,19 @@ namespace seng403alarmclock_silverlight_frontend {
         /// </summary>
         public PanelState panelState;
 
+        /// <summary>
+        /// The snooze button on the page
+        /// </summary>
+        public DarkButton SnoozeButton { get; private set; }
+
+        /// <summary>
+        /// The dismiss button on the page
+        /// </summary>
+        public DarkButton DismissButton { get; private set; }
+
         #endregion
 
-      
+
         /// <summary>
         /// Initializes the main page
         /// </summary>
@@ -44,14 +54,14 @@ namespace seng403alarmclock_silverlight_frontend {
             this.Analog_setHidden();
             this.date_analog.Visibility = System.Windows.Visibility.Collapsed;            
 
-            DarkButton snoozeButton = new DarkButton(Snooze);
-            DarkButton dismissButton = new DarkButton(Dismiss);
+            SnoozeButton = new DarkButton(Snooze);
+            DismissButton = new DarkButton(Dismiss);
 
-            snoozeButton.SetActiveColors(Colors.Gray, Colors.Black);
-            snoozeButton.SetIdleColors(Colors.Gray, Colors.White);
+            SnoozeButton.SetActiveColors(Colors.Gray, Colors.Black);
+            SnoozeButton.SetIdleColors(Colors.Gray, Colors.White);
 
-            dismissButton.SetActiveColors(Colors.Gray, Colors.Black);
-            dismissButton.SetIdleColors(Colors.Gray, Colors.White);
+            DismissButton.SetActiveColors(Colors.Gray, Colors.Black);
+            DismissButton.SetIdleColors(Colors.Gray, Colors.White);
 
             Snooze.Click += Snooze_Click;
             Dismiss.Click += Dismiss_Click;

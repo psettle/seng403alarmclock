@@ -182,9 +182,9 @@ namespace seng403alarmclock.GUI {
         /// </summary>
         public override void SetDismissAvailable(bool available) {
             if(available) {
-                mainPage.Dismiss.Visibility = Visibility.Visible;
+                mainPage.DismissButton.SetVisibility(Visibility.Visible);
             } else {
-                mainPage.Dismiss.Visibility = Visibility.Collapsed;
+                mainPage.DismissButton.SetVisibility(Visibility.Collapsed);
             }
 		}
 
@@ -193,9 +193,9 @@ namespace seng403alarmclock.GUI {
         /// </summary>
         public override void SetSnoozeAvailable(bool available) {
             if (available) {
-                mainPage.Snooze.Visibility = Visibility.Visible;
+                mainPage.SnoozeButton.SetVisibility(Visibility.Visible);
             } else {
-                mainPage.Snooze.Visibility = Visibility.Collapsed;
+                mainPage.SnoozeButton.SetVisibility(Visibility.Collapsed);
             }
         }
 

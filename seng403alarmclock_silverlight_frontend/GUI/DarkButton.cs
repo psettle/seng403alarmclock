@@ -38,6 +38,12 @@ namespace seng403alarmclock_silverlight_frontend.GUI {
             Render();
         }
 
+        public void SetVisibility(Visibility visibility) {
+            isHovered = false;
+            internalButton.Visibility = visibility;
+            Render();
+        }
+
         /// <summary>
         /// Sets the idle button colours
         /// </summary>

@@ -19,7 +19,7 @@ namespace seng403alarmclock.Model
         private DateTime snoozeUntilTime;
 
         //statics
-        private static int snoozePeriod_minutes = 1;
+        private static int snoozePeriod_minutes = 5;
         private static int maxSnoozePeriod_minutes = 40;
 
         //Properties

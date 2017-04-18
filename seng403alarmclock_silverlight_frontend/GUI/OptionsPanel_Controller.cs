@@ -63,7 +63,7 @@ namespace seng403alarmclock_silverlight_frontend.GUI
         {
             this.mainControl = mainControl;
             this.isPanelOpen = false;
-            snooze_duration_minutes = 1;
+            snooze_duration_minutes = 5;
             GuiEventCaller.GetCaller().NotifySnoozePeriodChangeRequested(snooze_duration_minutes);
             this.mainControl.sDuration_Label.Content = snooze_duration_minutes.ToString();
 			this.timeController = new TimeSelector(this, true);
